@@ -76,6 +76,7 @@ button {
   --color_80: #546580;
   --color_55: #2b2e55;
   --clr_70:#FE6470;
+  --clr_49: #3A3A49;
 }
 
 .css-1ltuaou-control {
@@ -281,6 +282,10 @@ a {
 
 .text_clr_70{
   color: var(--clr_70);
+}
+
+.text_clr_49{
+  color: var(--clr_49);
 }
 
 .bg_color_fb {
@@ -1188,7 +1193,6 @@ a {
     width: 18px;
   }
 }
-
 
 @media (max-width: 768px) {
   .all_mb {

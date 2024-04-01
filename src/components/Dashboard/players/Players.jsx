@@ -18,6 +18,7 @@ import {
 } from "../../../features/observation/observationApi";
 import Swal from "sweetalert2";
 import { getCountryFlag } from "../../../utils/getFlag";
+import Pagination from "../../Pagination/Pagination";
 
 const Players = () => {
   const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
@@ -26,10 +27,10 @@ const Players = () => {
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
       : user?.subscriptionName === "Silver"
-        ? ["Silver", "Bronze"]
-        : user?.subscriptionName === "Bronze"
-          ? ["Bronze"]
-          : [];
+      ? ["Silver", "Bronze"]
+      : user?.subscriptionName === "Bronze"
+      ? ["Bronze"]
+      : [];
 
   const handleFilter = (value) => {
     if (
@@ -64,11 +65,11 @@ const Players = () => {
       .filter(handleFilter) || [];
 
   return (
-    <div style={{ paddingTop: "40px" }}>
-      <div className="players" >
+    <>
+      <div className="players">
         <h2>Players</h2>
 
-        <Table responsive className="players_desk content" >
+        <Table responsive className="players_desk content">
           <thead className="text-start">
             <tr>
               <th className="fs_14 text_color_36 fw-normal">
@@ -76,12 +77,12 @@ const Players = () => {
                   <p>Name</p>
                 </div>
               </th>
-              <th className="text-start" >Nation</th>
-              <th className="text-start" >Date of Birth</th>
-              <th className="text-start" >Position</th>
-              <th className="text-start" >Club</th>
-              <th className="text-start" >Status</th>
-              <th className="text-start" >Action</th>
+              <th className="text-start">Nation</th>
+              <th className="text-start">Date of Birth</th>
+              <th className="text-start">Position</th>
+              <th className="text-start">Club</th>
+              <th className="text-start">Status</th>
+              <th className="text-start">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -92,20 +93,20 @@ const Players = () => {
             ) : (
               <tr className="mx-auto">No Players Found</tr>
             )}
-
           </tbody>
         </Table>
+
         <MobilePlayers />
         <MobileButtons />
       </div>
-    </div>
+      <Pagination />
+    </>
   );
 };
 
 export default Players;
 
 const SinglePlayer = ({ player }) => {
-
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
@@ -130,7 +131,6 @@ const SinglePlayer = ({ player }) => {
       target_id: id,
       target_type: "Player",
     };
-
 
     try {
       const response = await toggleObservation(data);
@@ -171,10 +171,10 @@ const SinglePlayer = ({ player }) => {
       user?.subscriptionName === "Gold"
         ? ["Gold", "Silver", "Bronze"]
         : user?.subscriptionName === "Silver"
-          ? ["Silver", "Bronze"]
-          : user?.subscriptionName === "Bronze"
-            ? ["Bronze"]
-            : [];
+        ? ["Silver", "Bronze"]
+        : user?.subscriptionName === "Bronze"
+        ? ["Bronze"]
+        : [];
 
     if (allowedPlans.includes(player?.subscriptionName)) {
       navigate(`/dashboard/viewDetails/${player?._id}`);
@@ -201,7 +201,7 @@ const SinglePlayer = ({ player }) => {
                     //         ? import.meta.env.VITE_LOCAL_API_URL
                     //         : import.meta.env.VITE_LIVE_API_URL
                     //     }/api/v1/uploads/${player?.image}`
-                    //   : 
+                    //   :
                     playerImgOne
                   }
                   alt="player-img"
@@ -268,14 +268,11 @@ const SinglePlayer = ({ player }) => {
                 player?.subscriptionName === "Silver"
                   ? "#AEAEAE"
                   : player?.subscriptionName === "Bronze"
-                    ? "#CD7F32"
-
-                    : player?.subscriptionName === "Gold"
-                      ? "#FFC21B" :
-                      "inherit",
-
-            }}
-          >
+                  ? "#CD7F32"
+                  : player?.subscriptionName === "Gold"
+                  ? "#FFC21B"
+                  : "inherit",
+            }}>
             {player?.subscriptionName ? player?.subscriptionName : "N/A"}
           </p>
         </td>
@@ -286,18 +283,24 @@ const SinglePlayer = ({ player }) => {
               className="bg-none me-3"
               onClick={(e) => handleBookmark(e, player?._id)}
               style={{ width: "20px" }}
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
               {isBookmarked ? (
-                <img style={{ width: "12px", height: "17px" }} src={bookmark2} alt="" />
+                <img
+                  style={{ width: "12px", height: "17px" }}
+                  src={bookmark2}
+                  alt=""
+                />
               ) : (
-                <img style={{ width: "12px", height: "17px" }} src={bookmark1} alt="" />
+                <img
+                  style={{ width: "12px", height: "17px" }}
+                  src={bookmark1}
+                  alt=""
+                />
               )}
             </button>
             <span
               onClick={(e) => handleMessageRoute(e, player?.referral)}
-              className="text_color_55 fw-normal fs_14"
-            >
+              className="text_color_55 fw-normal fs_14">
               <img src={messageIcon} alt="message-icon" className="ms-2" />
             </span>
           </div>

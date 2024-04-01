@@ -20,34 +20,71 @@ const OverviewTransferMarket = () => {
   return (
     <>
       <div className="over_tm_wrapper">
+        <p className="transfer_title text-end">Monday, February 26, 2024</p>
         <p className="transfer_title">Transfer Market</p>
         <div className="buttons_design">
-          <button>
-            <img src={addpicon} alt="addpicon" />
-            <span>Add Player</span>
-          </button>
+          {user?.isSubsCribed ? (
+            <>
+              <button>
+                <img src={addpicon} alt="addpicon" />
+                <span>Add Player</span>
+              </button>
 
-          <button>
-            <img src={addpicon} alt="addpicon" />
-            <span>Add Coach</span>
-          </button>
+              <button>
+                <img src={addpicon} alt="addpicon" />
+                <span>Add Coach</span>
+              </button>
 
-          <button>
-            <img src={add2icon} alt="addpicon" />
-            <span>Add Job Offer</span>
-          </button>
+              <button>
+                <img src={add2icon} alt="addpicon" />
+                <span>Add Job Offer</span>
+              </button>
 
-          <button>
-            <img src={add2icon} alt="addpicon" />
-            <span>Add Announcement</span>
-          </button>
+              <button>
+                <img src={add2icon} alt="addpicon" />
+                <span>Add Announcement</span>
+              </button>
 
-          <button
-            className="modal_link"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop">
-            <img src={add3icon} alt="addpicon" /> <span>Buy Subscription</span>{" "}
-          </button>
+              <button
+                className="modal_link"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                <img src={add3icon} alt="addpicon" />{" "}
+                <span>Upgrade Subscription</span>{" "}
+              </button>
+            </>
+          ) : (
+            <>
+              <button>
+                <img src={addpicon} alt="addpicon" />
+                <span>Add Player</span>
+              </button>
+
+              <button>
+                <img src={addpicon} alt="addpicon" />
+                <span>Add Coach</span>
+              </button>
+
+              <button>
+                <img src={add2icon} alt="addpicon" />
+                <span>Add Job Offer</span>
+              </button>
+
+              <button>
+                <img src={add2icon} alt="addpicon" />
+                <span>Add Announcement</span>
+              </button>
+
+              <button
+                className="modal_link"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+                <img src={add3icon} alt="addpicon" />
+                <span>Buy Subscription</span>
+              </button>
+            </>
+          )}
 
           {/* {user.role == "Coach" && <button className="modal_link"
                 data-bs-toggle="modal"
@@ -58,7 +95,12 @@ const OverviewTransferMarket = () => {
         <BuySubscriptionModal user={user} />
         {/* buy subscription coatch */}
 
-        {user?.role === "Manager" && <PlayerOverview user={user} />}
+        {user?.role === "Manager" ? (
+          <PlayerOverview user={user} />
+        ) : (
+          <PlayerOverview />
+        )}
+
         <div className="container">
           <div className="row mt-4 ps-0">
             <div className="col-lg-4 ps-0 pe-lg-3 pe-0">

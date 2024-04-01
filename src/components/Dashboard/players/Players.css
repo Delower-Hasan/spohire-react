@@ -62,7 +62,6 @@
 .players {
     border-radius: 20px;
     background: var(--White, #FFF);
-    margin: 0 40px !important;
 }
 
 .players h2 {

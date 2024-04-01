@@ -121,7 +121,7 @@
 
 .news_pagination .pagination .page-item.active .page-link {
     border-radius: 50%;
-    background-color: #4C4E52 !important;
+    background-color: #05CD99 !important;
 }
 
 .pagination .page-item .page-link {
@@ -268,5 +268,3 @@
 .react-multiple-carousel__arrow{
     background:none !important;
 }
-
-

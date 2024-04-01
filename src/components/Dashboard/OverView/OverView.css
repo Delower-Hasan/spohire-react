@@ -69,7 +69,6 @@
 .overview_wrapper h1 {
     color: var(--dark-1-dark, #202020);
     font-feature-settings: 'clig' off, 'liga' off;
-
     font-size: 39px;
     font-style: normal;
     font-weight: 700;
@@ -77,13 +76,23 @@
     margin-bottom: 21px;
 }
 
-.overview_wrapper {
+/* .overview_wrapper {
     padding: 41px 46px !important;
-    /* padding-top: 20px; */
     font-family: 'SF Pro Display', sans-serif;
     height: 82vh;
     margin-top: 80px;
-    overflow-x: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+} */
+
+.dashbord_content {
+    padding: 41px 46px !important;
+    /* padding-top: 20px; */
+    font-family: 'SF Pro Display', sans-serif;
+    height: 90vh;
+    margin-top: 80px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .date p {

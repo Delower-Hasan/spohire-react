@@ -31,9 +31,9 @@ const PlayerOverview = ({ user }) => {
     <>
       <div className="overview player_overview">
         <div className="d-flex justify-content-between mt-lg-0 mt-4 mb-lg-0 mb-3">
-          {(user?.role === "Manager" || user?.role === "Coach") && (
+          {/* {(user?.role === "Manager" || user?.role === "Coach") && ( */}
             <h4 className="players_title"> Players</h4>
-          )}
+          {/* )} */}
           {user?.role === "Player" && <h4> Coachs</h4>}
           {data && data?.length > 0 && (
             <Link

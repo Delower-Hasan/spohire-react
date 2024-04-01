@@ -1,22 +1,23 @@
 /* eslint-disable react/prop-types */
-import { Table } from "react-bootstrap";
-import playerImgOne from "../../../assets/playerImg.svg";
-import messageIcon from "../../../assets/messageIcon.svg";
-import MobilePlayers from "../players/MobilePlayers";
-import MobileButtons from "../players/MobileButtons";
-import { Link, useNavigate } from "react-router-dom";
-import b1 from "../../../assets/bookmark.png";
-import bookmarkfill from "../../../assets/bookmark-fill.png";
 import { useState } from "react";
-import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
+import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import bookmarkfill from "../../../assets/bookmark-fill.png";
+import b1 from "../../../assets/bookmark.png";
+import messageIcon from "../../../assets/messageIcon.svg";
+import playerImgOne from "../../../assets/playerImg.svg";
+import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
 import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
-import Swal from "sweetalert2";
-import { getCountryFlag } from "../../../utils/getFlag";
 import { convertAge } from "../../../utils/TimeConverter";
+import { getCountryFlag } from "../../../utils/getFlag";
+import Pagination from "../../Pagination/Pagination";
+import MobileButtons from "../players/MobileButtons";
+import MobilePlayers from "../players/MobilePlayers";
 const Coaches = () => {
   const { data: coachs, isLoading } = useGetFilteredUsersQuery("role=Coach");
 
@@ -99,6 +100,8 @@ const Coaches = () => {
         <MobilePlayers></MobilePlayers>
         <MobileButtons />
       </div>
+
+      <Pagination/>
     </>
   );
 };

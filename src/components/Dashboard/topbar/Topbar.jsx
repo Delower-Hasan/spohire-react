@@ -1,27 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import addIcon from "../../../assets/add-icon.svg";
+import { useLocation, useNavigate } from "react-router-dom";
+import arrowDown from "../../../assets/arrow_down.svg";
+import AvatarImg from "../../../assets/avatar.svg";
 import logo from "../../../assets/dashbord-logo.png";
-import filterIcon from "../../../assets/filter-icon.svg";
+import messageIcon from "../../../assets/message-icon2.svg";
+import notificationIcon from "../../../assets/notification_icon.svg";
+import silverIcon from "../../../assets/silver_icon.svg";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
-import CoachFilterModal from "./CoachFilterModal";
-import FilteAnnouncementModal from "./FilteAnnouncementModal";
-import FilterModal from "./FilterModal";
-import PlayerFilterModal from "./PlayerFilterModal";
+import addIcon from "../../../assets/addIcon.svg";
+import filterIcon from "../../../assets/filterIcon.svg";
 import "./Topbar.css";
 
 const Topbar = () => {
+  const [filterAnnouncement, setFilterAnnouncement] = useState(false);
+  const [filter, setFilter] = useState(false);
+  const [playerFilter, setPlayerFilter] = useState(false);
+  const [coachFilter, setCoachFilter] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
+
   console.log("user", user);
 
   let location = useLocation();
-  const navigate = useNavigate();
 
   // announcement state
   const myDivRef1 = useRef(null);
-  const [filterAnnouncement, setFilterAnnouncement] = useState(false);
 
   const handleFilterAnnouncementModal = () => {
     setFilterAnnouncement(!filterAnnouncement);
@@ -35,21 +41,19 @@ const Topbar = () => {
   // joboffer modal--------------
   const myDivRef = useRef(null);
 
-  const [filter, setFilter] = useState(false);
-
   const handleFilterModal = () => {
+    console.log("Filter");
     setFilter(!filter);
   };
 
-  const handleButtonClick = (event) => {
-    event.stopPropagation();
-    handleFilterModal();
-  };
+  // const handleButtonClick = (event) => {
+  //   event.stopPropagation();
+  //   handleFilterModal();
+  // };
   // joboffer modal-------------
 
   // player modal ----
   const playerRef = useRef(null);
-  const [playerFilter, setPlayerFilter] = useState(false);
 
   const handlePlayerFilterModal = (event) => {
     event.stopPropagation();
@@ -60,7 +64,7 @@ const Topbar = () => {
 
   // coach modal ----
   const coachRef = useRef(null);
-  const [coachFilter, setCoachFilter] = useState(false);
+
   const handleCoachFilterModal = (event) => {
     event.stopPropagation();
     setCoachFilter(!coachFilter);
@@ -91,7 +95,6 @@ const Topbar = () => {
   }, []);
 
   // add job offer modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddJobOfferClick = () => {
     setIsModalOpen(true);
@@ -103,7 +106,6 @@ const Topbar = () => {
   };
 
   // announcement modal start
-  const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
 
   const handleAddAnnouncementClick = () => {
     // navigate("/dashboard/createAnnouncements");
@@ -112,6 +114,13 @@ const Topbar = () => {
   const closeAnnouncementModal = () => {
     setAnnouncementIsModalOpen(false);
   };
+
+  const expirationDate = new Date(user?.expirationDate);
+  const formattedExpirationDate = expirationDate.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <>
@@ -122,7 +131,7 @@ const Topbar = () => {
             : "position-fixed"
         } dashbord_topbar`}>
         <div className="topbar_desk">
-          <div className=" dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
+          <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
               {(location.pathname == "/dashboard/viewProfile") |
               (location.pathname === "/dashboard/viewDetails") |
@@ -135,10 +144,10 @@ const Topbar = () => {
               ) : (
                 // <button className="back_btn fs_10">Back</button>
                 <>
-                  <h2 className="text_color_36 fs-4 fw-medium text-capitalize">
+                  <h2 className="text_color_36 fs-4 fw-medium text-capitalize pb-1">
                     {location.pathname === "/dashboard" && user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name}`
-                      : "Hello Jhon Doe"}
+                      : ""}
                     {location.pathname === "/dashboard/jobOffers" &&
                       "job offer"}
                     {location.pathname === "/dashboard/basicinfo" &&
@@ -165,35 +174,103 @@ const Topbar = () => {
                       "Coaches List"}
                   </h2>
                   {user?.isSubsCribed ? (
-                    ""
+                    <>
+                      {user?.subscriptionName === "Silver" && (
+                        <div className="d-flex align-items-center gap-2">
+                          <p
+                            className="font-bold d-inline-flex gap-2"
+                            style={{
+                              fontSize: "10px",
+                              color: "#8A8988",
+                              border: "1px solid #8A8988",
+                              padding: "5px 10px",
+                              borderRadius: "28px",
+                            }}>
+                            <img src={silverIcon} alt="silver-icon" />
+                            Silver
+                          </p>
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              fontWeight: "500",
+                              color: "#949494",
+                            }}>
+                            Until {formattedExpirationDate}
+                          </span>
+                        </div>
+                      )}
+
+                      {user?.subscriptionName === "Gold" && (
+                        <div className="d-flex align-items-center gap-2">
+                          <p
+                            className="font-bold d-inline-flex gap-2"
+                            style={{
+                              fontSize: "10px",
+                              color: "#EBB111",
+                              border: "1px solid #FFD029",
+                              padding: "5px 10px",
+                              borderRadius: "28px",
+                            }}>
+                            <img src={silverIcon} alt="silver-icon" />
+                            Silver
+                          </p>
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              fontWeight: "500",
+                              color: "#EBB111",
+                            }}>
+                            Until {formattedExpirationDate}
+                          </span>
+                        </div>
+                      )}
+
+                      {user?.subscriptionName === "Bronze" && (
+                        <div className="d-flex align-items-center gap-2">
+                          <p
+                            className="font-bold d-inline-flex gap-2"
+                            style={{
+                              fontSize: "10px",
+                              color: "#CD7F32",
+                              border: "1px solid #CD7F32",
+                              padding: "5px 10px",
+                              borderRadius: "28px",
+                            }}>
+                            <img src={silverIcon} alt="silver-icon" />
+                            Silver
+                          </p>
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              fontWeight: "500",
+                              color: "#CD7F32",
+                            }}>
+                            Until {formattedExpirationDate}
+                          </span>
+                        </div>
+                      )}
+                    </>
                   ) : (
                     <p className="text_clr_70 fw-medium">No subscription</p>
                   )}
                 </>
               )}
             </div>
-            <div>
+
+            {/* <div>
               {location.pathname === "/dashboard" ? (
-                // user?.role === "Manager" ? (
                 <div className="d-flex gap-5">
                   {user?.role !== "Other" && (
                     <div
                       className="d-flex gap-2 align-items-center"
                       style={{
                         border: "2px dashed #d1d8e4",
-                        // border: `${
-                        //   user?.role === "Player" && user?.isCreatedProfile
-                        //     ? ""
-                        //     : "2px dashed #d1d8e4"
-                        // }`,
+
                         padding: "3px 15px",
                         borderRadius: "8px",
                       }}>
-                      {/* {user?.role === "Player" && user?.isCreatedProfile ? (
-                        <></>
-                      ) : ( */}
                       <p className="fs-5 me-3">Transfer Market</p>
-                      {/* )} */}
+
                       {user?.role === "Player" && (
                         <button
                           className="px-3 py-2 rounded text-white bg_color_fb"
@@ -218,6 +295,7 @@ const Topbar = () => {
                           {user?.addedProfile ? "Added" : "Add Coach"}
                         </button>
                       )}
+
                       {user?.role === "Manager" && (
                         <>
                           <button
@@ -248,10 +326,7 @@ const Topbar = () => {
                     </button>
                   </div>
                 </div>
-              ) : // ) : (
-              //   ""
-              // )
-              location.pathname.includes("/dashboard/jobApplicants") ? (
+              ) : location.pathname.includes("/dashboard/jobApplicants") ? (
                 ""
               ) : (
                 <div className="dashbord_topbar_button d-flex gap-4">
@@ -293,7 +368,6 @@ const Topbar = () => {
                       location.pathname === "/dashboard/jobOffers"
                         ? "/dashboard/jobOffers"
                         : (location.pathname === "/dashboard/coachesProfile") |
-                            // (location.pathname == "/dashboard/viewProfile") |
                             (location.pathname ==
                               "/dashboard/editCoacheProfile") |
                             (location.pathname ==
@@ -329,7 +403,6 @@ const Topbar = () => {
                         ? "d-none"
                         : "add_btn d-flex gap-2 text-decoration-none bg_color_fb"
                     } `}
-                    //  onclick
                     onClick={() =>
                       location.pathname === "/dashboard/jobOffers"
                         ? handleAddJobOfferClick()
@@ -376,7 +449,7 @@ const Topbar = () => {
                   </Link>
                 </div>
               )}
-              {/* filter modal */}
+
               {filter && <FilterModal myDivRef={myDivRef} />}
               {filterAnnouncement && (
                 <FilteAnnouncementModal myDivRef1={myDivRef1} />
@@ -384,10 +457,99 @@ const Topbar = () => {
               {playerFilter && <PlayerFilterModal playerRef={playerRef} />}
               {coachFilter && <CoachFilterModal playerRef={coachRef} />}
 
-              {/* filter modal */}
-            </div>
+
+            </div> */}
+
+            {location.pathname === "/dashboard" ? (
+              <div className="right_searchItem d-flex justify-content-between align-items-center gap-4">
+                <div className="search_item">
+                  <input id="search_input" type="text" placeholder="Search" />
+                </div>
+
+                <button className="message_icon bg-none">
+                  <img src={messageIcon} alt="message-icon" />
+                </button>
+
+                <button className="notification_icon bg-none">
+                  <img src={notificationIcon} alt="notification-icon" />
+                </button>
+
+                <div className="userprofile d-flex gap-3 align-items-center">
+                  <div className="userImg">
+                    <img src={AvatarImg} alt="" />
+                  </div>
+
+                  <div className="user_info">
+                    <button className="user_name bg-none d-flex align-items-center gap-2 ">
+                      <h2 className="">
+                        {user?.isSubsCribed
+                          ? `${user?.first_name} ${user?.last_name}`
+                          : "Jhon Doe"}
+                      </h2>
+                      <img src={arrowDown} alt="arrow-down" />
+                    </button>
+
+                    <div className="user_designation">
+                      <p>
+                        {user?.isSubsCribed
+                          ? `${user?.role}`
+                          : "Basketball / Manager"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : location.pathname === "/dashboard/players" ? (
+              <div className="d-flex justify-content-between align-items-center gap-4">
+                <div className="search_item">
+                  <input id="search_input" type="text" placeholder="Search" />
+                </div>
+
+                <button className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div className="add_icon">
+                    <img src={addIcon} alt="add-icon" />
+                  </div>
+                  Add Player
+                </button>
+
+                <button
+                  onClick={handleFilterModal}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div
+                    className="add_icon"
+                    style={{ backgroundColor: "#05cd9914" }}>
+                    <img src={filterIcon} alt="add-icon" />
+                  </div>
+                  Filters
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
+
+        {filter && (
+          <div className="filter_wrapper ">
+            <div className="postion_wrapper pb-4">
+              <h2>Position</h2>
+              <div className="position_btn_wrapper">
+                <button>All</button>
+                <button>Goalkeeper</button>
+                <button>Defender</button>
+                <button>Midfielder</button>
+                <button>Forward</button>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Status</h2>
+              <div className="position_btn_wrapper status">
+                <button>Bronze</button>
+                <button>Silver</button>
+                <button>Gold</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* mobile */}
         <div className="topbar_mobile">
