@@ -178,14 +178,14 @@
 
 /* payment process start */
 .payment_process_wrapper {
-    padding: 31px;
-    border-radius: 7px;
+    /* padding: 31px; */
+    /* border-radius: 7px; */
     background: #fff;
-    box-shadow: -10px 10px 50px -2px rgba(123, 123, 123, 0.15);
-    max-width: 750px;
-    width: 100%;
+    /* box-shadow: -10px 10px 50px -2px rgba(123, 123, 123, 0.15); */
+    /* max-width: 750px; */
+    /* width: 100%; */
     /* height: 507px; */
-    margin: auto;
+    /* margin: auto; */
 }
 
 .payment_title {
@@ -226,7 +226,7 @@
 .pay_nowbtn_two {
     display: inline-flex;
     max-width: 568px;
-    width: 100%;
+    /* width: 100%; */
     border-radius: 5px;
     background: #0177FB;
     padding: 12px 24px;
@@ -250,7 +250,7 @@
     border: 1px solid #e3e6eb;
     border-radius: 7px;
     display: flex;
-    gap: 13px;
+    gap: 10px;
     align-items: center;
     justify-content: center;
     color: #9ca3a9;
@@ -259,6 +259,10 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+.bg_clr_ff {
+    background-color: #0095FF
 }
 
 .card_wrapper {
@@ -665,7 +669,7 @@
 
 .pricing_buttons .inactive {
     color: var(--Black, #1E2128);
-    font-family: "SF Pro Display",sans-serif;
+    font-family: "SF Pro Display", sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -679,7 +683,7 @@
 
 .pricing_buttons .active {
     color: var(--Black, #FFF);
-    font-family: "SF Pro Display",sans-serif;
+    font-family: "SF Pro Display", sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -762,16 +766,15 @@
     color: #C5CDE7;
 }
 
-
-.price_of_announcement{
+.price_of_announcement {
     color: var(--Black-2, #4C4E52);
-text-align: center;
-font-feature-settings: 'clig' off, 'liga' off;
-font-family: "SF Pro Display";
-font-size: 40px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-text-transform: uppercase;
-margin-bottom: 50px;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "SF Pro Display";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 50px;
 }

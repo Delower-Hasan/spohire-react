@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Pagination from "../../components/Pagination/Pagination";
 import "./JobOffer.css";
 import JobOfferHeader from "./JobOfferHeader";
 import MatchesJob from "./MatchesJob";
@@ -18,6 +19,9 @@ const JobOffer = () => {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
+
+
+
     </>
   );
 };

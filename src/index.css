@@ -75,8 +75,14 @@ button {
   --color_fb: #0177fb;
   --color_80: #546580;
   --color_55: #2b2e55;
-  --clr_70:#FE6470;
+  --clr_70: #FE6470;
   --clr_49: #3A3A49;
+  --clr_99: #05CD99;
+  --clr_ff: #0095FF;
+}
+
+.bg_clr_ff{
+  background-color: var(--clr_ff);
 }
 
 .css-1ltuaou-control {
@@ -140,7 +146,7 @@ button {
   margin-bottom: 55px;
 }
 
-.fw-medium{
+.fw-medium {
   font-weight: 500;
 }
 
@@ -280,12 +286,24 @@ a {
   color: var(--color_55);
 }
 
-.text_clr_70{
+.text_clr_70 {
   color: var(--clr_70);
 }
 
-.text_clr_49{
+.text_clr_49 {
   color: var(--clr_49);
+}
+
+.text_clr_99 {
+  color: var(--clr_99);
+}
+
+.bg_clr_99 {
+  background-color: var(--clr_99) !important;
+}
+
+.text_clr_99 {
+  color: var(--clr_99) !important;
 }
 
 .bg_color_fb {
@@ -431,11 +449,12 @@ a {
 /*style from ashiq*/
 
 .subscription_wrapper .subs_item {
-  max-width: 370px;
+  max-width: 146px;
   width: 100%;
-  padding: 24px 0;
+  padding: 20px 0;
   border-radius: 11px;
   background: #F6F8FF;
+  box-shadow: 2px 2px 10px 0px rgba(170, 170, 170, 0.25);
 }
 
 

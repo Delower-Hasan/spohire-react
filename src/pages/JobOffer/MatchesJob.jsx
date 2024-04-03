@@ -246,8 +246,7 @@ const SingleJobs = ({ handleDetails }) => {
         <div>
           <div
             className="d-flex align-items-center"
-            style={{ gap: "20px", marginBottom: "20px " }}
-          >
+            style={{ gap: "20px", marginBottom: "20px " }}>
             <div className="announcement_pic">
               <img
                 src={tennis}
@@ -300,8 +299,7 @@ const SingleJobs = ({ handleDetails }) => {
             overflow: "hidden",
             WebkitLineClamp: 3,
             textOverflow: "ellipsis",
-          }}
-        >
+          }}>
           Learn various UI UX Design materials including UX Research, UI Design,
           UX Writing, and Product Design for 4.5 months with professionals
           product designer practitioners.

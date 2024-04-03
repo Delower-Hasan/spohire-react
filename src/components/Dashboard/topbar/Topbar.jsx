@@ -523,6 +523,50 @@ const Topbar = () => {
                   Filters
                 </button>
               </div>
+            ) : location.pathname === "/dashboard/jobOffers" ? (
+              <div className="d-flex justify-content-between align-items-center gap-4">
+                <button
+                  onClick={handleAddJobOfferClick}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div className="add_icon">
+                    <img src={addIcon} alt="add-icon" />
+                  </div>
+                  Add Job Offer
+                </button>
+
+                <button
+                  onClick={handleFilterModal}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div
+                    className="add_icon"
+                    style={{ backgroundColor: "#05cd9914" }}>
+                    <img src={filterIcon} alt="add-icon" />
+                  </div>
+                  Filters
+                </button>
+              </div>
+            ) : location.pathname === "/dashboard/announcements" ? (
+              <div className="d-flex justify-content-between align-items-center gap-4">
+                <button
+                  onClick={handleButtonClick1}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div className="add_icon">
+                    <img src={addIcon} alt="add-icon" />
+                  </div>
+                  Create Announcement
+                </button>
+
+                <button
+                  onClick={handleFilterModal}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div
+                    className="add_icon"
+                    style={{ backgroundColor: "#05cd9914" }}>
+                    <img src={filterIcon} alt="add-icon" />
+                  </div>
+                  Filters
+                </button>
+              </div>
             ) : null}
           </div>
         </div>
@@ -546,6 +590,70 @@ const Topbar = () => {
                 <button>Bronze</button>
                 <button>Silver</button>
                 <button>Gold</button>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Location</h2>
+              <div className="position_btn_wrapper location">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Select</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Nationality</h2>
+              <div className="position_btn_wrapper location">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Select</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Gender</h2>
+              <div className="position_btn_wrapper location">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Select</option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Age</h2>
+              <div className="position_btn_wrapper age d-flex">
+                <input type="number" placeholder="Min" />
+                <input type="number" placeholder="Max" />
+                <button>Apply</button>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Height</h2>
+              <div className="position_btn_wrapper age d-flex">
+                <input type="number" placeholder="Min" />
+                <input type="number" placeholder="Max" />
+                <button>Apply</button>
+              </div>
+            </div>
+
+            <div className="postion_wrapper pb-4">
+              <h2>Dominant hand </h2>
+              <div className="position_btn_wrapper location">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Select</option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                </select>
               </div>
             </div>
           </div>

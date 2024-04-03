@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 import CustomSelect from "./CustomSelect";
 import DatePosted from "./DatePosted";
 const jobTypeOptions = [
-  { value: 'Full-time', label: 'Full-time' },
-  { value: 'Part-time', label: 'Part-time' },
-  { value: 'Other', label: 'Other' }
+  { value: "Full-time", label: "Full-time" },
+  { value: "Part-time", label: "Part-time" },
+  { value: "Other", label: "Other" },
 ];
 
 const JobOfferHeader = ({
@@ -122,26 +122,46 @@ const JobOfferHeader = ({
   };
   return (
     <>
-
       <div className="container job_header_wrapper">
         <div className="search_input">
           <div className="position-relative">
             <div className="search_icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0  0 14 15" fill="none">
-                <circle cx="6.36364" cy="6.36364" r="5.66364" stroke="#2B3674" strokeWidth="1.4" />
-                <line x1="13.0101" y1="14" x2="10.1818" y2="11.1718" stroke="#2B3674" strokeWidth="1.4" strokeLinecap="round" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="15"
+                viewBox="0  0 14 15"
+                fill="none">
+                <circle
+                  cx="6.36364"
+                  cy="6.36364"
+                  r="5.66364"
+                  stroke="#2B3674"
+                  strokeWidth="1.4"
+                />
+                <line
+                  x1="13.0101"
+                  y1="14"
+                  x2="10.1818"
+                  y2="11.1718"
+                  stroke="#2B3674"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
-            <input type="text" placeholder="Keywords e.g ( job Title, description)" />
+            <input
+              type="text"
+              placeholder="Keywords e.g ( job Title, description)"
+            />
           </div>
-
-
         </div>
         {/* filters */}
         <div className="row">
           <div className="col">
             <label htmlFor="">Category</label>
-            <select className="form-select"
+            <select
+              className="form-select"
               aria-label="Default select example"
               style={{
                 // height: "50px",
@@ -150,8 +170,7 @@ const JobOfferHeader = ({
                 // width: "268px",
               }}
               name="country"
-              onChange={handleChangeJobType}
-            >
+              onChange={handleChangeJobType}>
               <option value="All" className="">
                 Select here
               </option>
@@ -164,14 +183,14 @@ const JobOfferHeader = ({
           </div>
           <div className="col">
             <label htmlFor="">Location</label>
-            <select className="form-select"
+            <select
+              className="form-select"
               aria-label="Default select example"
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
               name="country"
-              onChange={handleChangeJobType}
-            >
+              onChange={handleChangeJobType}>
               <option value="All" className="">
                 Select here
               </option>
@@ -184,14 +203,14 @@ const JobOfferHeader = ({
           </div>
           <div className="col">
             <label htmlFor="">Remote</label>
-            <select className="form-select"
+            <select
+              className="form-select"
               aria-label="Default select example"
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
               name="country"
-              onChange={handleChangeJobType}
-            >
+              onChange={handleChangeJobType}>
               <option value="All" className="">
                 Select here
               </option>
@@ -209,9 +228,7 @@ const JobOfferHeader = ({
             <DatePosted />
           </div>
         </div>
-
       </div>
-
     </>
   );
 };

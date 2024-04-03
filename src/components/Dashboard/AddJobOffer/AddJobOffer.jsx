@@ -153,8 +153,7 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
         centered
         show={isModalOpen}
         onHide={onHide}
-        className="modal_width1"
-      >
+        className="modal_width1">
         {/*closeButton*/}
         <Modal.Header className="p-0">
           <Modal.Title className="text-center"></Modal.Title>
@@ -163,14 +162,13 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
+              style={{ marginBottom: "40px" }}>
               <div
-                // onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0"
-              >
+                onSubmit={handleSubmit}
+                className="w-100 player_job_form_wrapper mt-0">
                 {nextOption === "AddJobOfferModal" && (
                   <AddJobOfferModal
+                    handleNextOption={handleNextOption}
                     fileInputRef={fileInputRef}
                     handleFileChange={handleFileChange}
                     image={image}
@@ -203,15 +201,26 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
                 {/*</button> */}
 
                 {nextOption === "AddJobOfferModal" ? (
-                  <button
-                    onClick={handleNextOption}
-                    className="submit_now_btn w-100 m-0"
-                    // onClick={onHide}
-                    type="button"
-                    // disabled={loading || isLoading}
-                  >
-                    Next
-                  </button>
+                  <div className="d-flex gap-3 justify-content-center">
+                    <button
+                      className="submit_now_btn cancel m-0"
+                      onClick={onHide}
+                      type="button"
+                      // disabled={loading || isLoading}
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      onClick={handleNextOption}
+                      className="submit_now_btn m-0"
+                      // onClick={onHide}
+                      type="button"
+                      // disabled={loading || isLoading}
+                    >
+                      Next
+                    </button>
+                  </div>
                 ) : (
                   ""
                 )}

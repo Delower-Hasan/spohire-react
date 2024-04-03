@@ -179,14 +179,11 @@
 }
 
 .modal-body p {
-    color: #4C4E52;
+    color: #83898C;
     font-family: ' SF Pro Display-Regular' sans-serif;
     text-align: center;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 50px;
-    letter-spacing: 0.64px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .modal-body {

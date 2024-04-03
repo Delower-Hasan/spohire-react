@@ -1,5 +1,6 @@
-import AnnouncementHeader from "./AnnouncementHeader";
+import Pagination from "../../components/Pagination/Pagination";
 import "./Announcement.css";
+import AnnouncementHeader from "./AnnouncementHeader";
 import AnnouncementList from "./AnnouncementList";
 const Announcements = () => {
   return (

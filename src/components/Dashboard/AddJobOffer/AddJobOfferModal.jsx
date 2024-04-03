@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import region from "../../../assets/aregion.png";
 import brows from "../../../assets/brows1.png";
 import salary from "../../../assets/asalary.png";
@@ -14,24 +14,32 @@ const AddJobOfferModal = ({
   WorkplaceOptions,
   categoryOptions,
 }) => {
+  const [step, setStep] = useState(1);
+
   return (
     <>
-      <div className="text-center modal_title">Add Job offer</div>
+      <div className="text-start modal_title">Add Job offer</div>
+      <div className="step_number d-flex justify-content-end">
+        <p>
+          <span style={{ color: "#0095FF" }}>Step 1</span> of 2
+        </p>
+      </div>
+      <div className={"stepBorder"}></div>
       <div className="row">
         <div className="col-lg-6">
           <div
-            className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            className="position-relative text-start"
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Job Title
+              {" "}
+              Job Title{" "}
             </label>
-            <div className="form_icons" style={{ top: "36px" }}>
+            {/* <div className="form_icons" style={{ top: "36px" }}>
               <img className="mt-0" src={region} alt="title" />
-            </div>
+            </div> */}
             <input
               type="text"
-              className="form-control ps-5"
+              className="form-control"
               id="exampleFormControlInput1"
               placeholder="Enter Job Title"
               name="job_title"
@@ -40,9 +48,8 @@ const AddJobOfferModal = ({
             />
           </div>
           <div
-            className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            className="position-relative text-start"
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Company Logo
             </label>
@@ -74,8 +81,7 @@ const AddJobOfferModal = ({
               <div className="col-lg-6 job_location_select">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Country
                 </label>
 
@@ -90,8 +96,7 @@ const AddJobOfferModal = ({
                   }}
                   name="country"
                   value={selectedCountry}
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select country
                   </option>
@@ -105,23 +110,18 @@ const AddJobOfferModal = ({
               <div className="col-lg-6">
                 <div
                   className="position-relative text-start "
-                  style={{ marginBottom: "32px" }}
-                >
+                  style={{ marginBottom: "32px" }}>
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     City
                   </label>
 
-                  <div className="form_icons" style={{ top: "36px" }}>
-                    <img className="mt-0" src={region} alt="title" />
-                  </div>
                   <input
                     type="text"
-                    className="form-control ps-5"
+                    className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="Your city"
+                    placeholder="Type Here"
                     name="job_location"
                     required
                     onChange={handleInputChange}
@@ -133,8 +133,7 @@ const AddJobOfferModal = ({
           {/* SELECT */}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Job type
             </label>
@@ -150,8 +149,7 @@ const AddJobOfferModal = ({
               }}
               name="jobType"
               // value={jobType}
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select Type
               </option>
@@ -166,17 +164,16 @@ const AddJobOfferModal = ({
         <div className="col-lg-6 ">
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Company
             </label>
-            <div className="form_icons" style={{ top: "36px" }}>
+            {/* <div className="form_icons" style={{ top: "36px" }}>
               <img className="mt-0" src={region} alt="user" />
-            </div>
+            </div> */}
             <input
               type="text"
-              className="form-control ps-5"
+              className="form-control"
               id="exampleFormControlInput1"
               placeholder="Enter your company"
               name="company"
@@ -186,8 +183,7 @@ const AddJobOfferModal = ({
           </div>
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Workplace Type
             </label>
@@ -202,8 +198,7 @@ const AddJobOfferModal = ({
                 padding: "0 14px",
               }}
               name="workplaceType"
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select Type
               </option>
@@ -216,14 +211,12 @@ const AddJobOfferModal = ({
           </div>
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <div className="row">
               <div className="col-lg-6">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Category
                 </label>
                 {/* <Select
@@ -248,8 +241,7 @@ const AddJobOfferModal = ({
                   }}
                   name="role"
                   // value={role}
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select Type
                   </option>
@@ -263,27 +255,34 @@ const AddJobOfferModal = ({
               <div className="col-lg-6">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Language
                 </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="Enter language"
-                  name="language"
-                  required
-                  onChange={handleInputChange}
-                />
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  style={{
+                    minHeight: "44px",
+                    width: "100%",
+                    backgroundColor: "#FFFFFF",
+                    padding: "0 14px",
+                  }}
+                  name="role"
+                  // value={role}
+                  onChange={handleInputChange}>
+                  <option selected disabled>
+                    Select Language
+                  </option>
+
+                  <option className="">Language</option>
+                </select>
               </div>
             </div>
           </div>
 
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Salary
             </label>

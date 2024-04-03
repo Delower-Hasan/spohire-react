@@ -9,15 +9,9 @@ import editIcon from "../../../assets/editIcon.png";
 import MobileButtons from "../players/MobileButtons";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import { useState } from "react";
-import {
-  useDeleteJobMutation,
-  useGetAllJobsQuery,
-} from "../../../features/job/jobApi";
+import { useDeleteJobMutation, useGetAllJobsQuery } from "../../../features/job/jobApi";
 import { useSelector } from "react-redux";
-import {
-  useGetMyObservationsQuery,
-  useToggleObservationMutation,
-} from "../../../features/observation/observationApi";
+import { useGetMyObservationsQuery, useToggleObservationMutation } from "../../../features/observation/observationApi";
 import Swal from "sweetalert2";
 import EditJobOffer from "../AddJobOffer/EditJobOffer";
 import { useNavigate } from "react-router-dom";
@@ -26,9 +20,7 @@ import Pagination from "../../Pagination/Pagination";
 const JobOffers = () => {
   const { data: allJobs } = useGetAllJobsQuery();
   const { user } = useSelector((state) => state.auth);
-  const { jobType, JobLocation, jobCategory } = useSelector(
-    (state) => state.job
-  );
+  const { jobType, JobLocation, jobCategory } = useSelector((state) => state.job);
 
   const [deleteJob, { isLoading }] = useDeleteJobMutation();
 
@@ -109,22 +101,21 @@ const JobOffers = () => {
       <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
         <div className="job_offers_topBtn_left d-flex gap-4">
           <button
-            className={`fs-6 fw-medium text_color_80 ${jobOffersType === "All" && "border-primary"
-              }`}
-            onClick={() => setJobOffersType("All")}
-          >
+            className={`fs-6 fw-medium text_color_80 ${
+              jobOffersType === "All" && "activeBtn"
+            }`}
+            onClick={() => setJobOffersType("All")}>
             All
           </button>
 
           <button
-            className={`fs-6 fw-medium text_color_80 ${jobOffersType === "My" && "border-primary"
-              }`}
-            onClick={() => setJobOffersType("My")}
-          >
+            className={`fs-6 fw-medium text_color_80 ${
+              jobOffersType === "My" && "activeBtn"
+            }`}
+            onClick={() => setJobOffersType("My")}>
             My Job Offers
           </button>
         </div>
-
       </div>
 
       <div className="job_offer_items_wrapper">
@@ -142,8 +133,7 @@ const JobOffers = () => {
         ) : (
           <div
             className="d-flex justify-content-center align-items-center fs-4"
-            style={{ height: "70vh" }}
-          >
+            style={{ height: "70vh" }}>
             No job offer
           </div>
         )}
@@ -247,8 +237,8 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                   //     ? import.meta.env.VITE_LOCAL_API_URL
                   //     : import.meta.env.VITE_LIVE_API_URL
                   //   }/api/v1/uploads/${item?.club_logo}`
-                  //   : 
-                    
+                  //   :
+
                     footBallCoachImg
                 }
                 alt="img"

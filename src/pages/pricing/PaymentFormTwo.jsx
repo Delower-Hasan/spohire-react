@@ -1,30 +1,25 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-import credit from "../../assets/creditcard.png";
-import v1 from "../../assets/v1.png";
-import v2 from "../../assets/v2.png";
-import v3 from "../../assets/v3.png";
-import v4 from "../../assets/v4.png";
-import paypal from "../../assets/paypal.svg";
-import { useEffect, useState } from "react";
-import Stripe from "stripe";
 import {
   CardCvcElement,
   CardExpiryElement,
   CardNumberElement,
-  useStripe,
   useElements,
+  useStripe,
 } from "@stripe/react-stripe-js";
-import { STRIPE_SK } from "../../config/config";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import {
-  useCreatePaymentMutation,
-  useUpdatePaymentStatusMutation,
-} from "../../features/payment/paymentApi";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Stripe from "stripe";
+import Swal from "sweetalert2";
+import v1 from "../../assets/v1.png";
+import v2 from "../../assets/v2.png";
+import v3 from "../../assets/v3.png";
+import v4 from "../../assets/v4.png";
+import { STRIPE_SK } from "../../config/config";
+import { useCreatePaymentMutation } from "../../features/payment/paymentApi";
 
 const PaymentFormTwo = ({
   handleSubmit,
@@ -170,82 +165,83 @@ const PaymentFormTwo = ({
     <>
       <div className="container mb-2 pb-5">
         <div className="payment_process_wrapper">
-          <p className={"mb-0 text-start"}>Select payment option</p>
-          <div className="all_payments_system mb-4">
-            <div className="card_wrapper">
-              <div className={"card_item d-flex gap-2 align-items-center"}>
-                <div className="form-check-two">
-                  <input
-                    className=""
-                    type="radio"
-                    name="card"
-                    id="card"
-                    checked={selectedOption === "card"}
-                  />
-                </div>
-                <button
-                  className="card_btn"
-                  onClick={() => setSelectedOption("card")}
-                >
-                  <img className={"mt-0"} src={credit} alt="credit card" />{" "}
-                  <span className={"text-black"}>Card</span>
-                </button>
-              </div>
-
-              {/* <div className={"card_item d-flex gap-2 align-items-center"}>
-                <div className="form-check">
-                  <input
-                    className=""
-                    type="radio"
-                    name="card"
-                    id="card"
-                    checked={selectedOption === "paypal"}
-                  />
-                </div>
-                <button
-                  className="card_btn"
-                  onClick={() => setSelectedOption("paypal")}
-                >
-                  <img className={"mt-0"} src={paypal} alt="credit card" />{" "}
-                  <span className={"text-black"}>Pay pal</span>
-                </button>
-              </div> */}
-            </div>
-          </div>
-
           <div className="payment_card">
-            <p className="text-start mb-4">Strengths Advantages</p>
-            <CardNumberElement
-              className="payment_input"
-              options={{
-                ...CARD_OPTIONS,
-                placeholder: "Enter card number",
-              }}
-            />
+            <p className="text-start text-black fs-5 fw-normal pb-4">
+              Payment Details
+            </p>
 
-            <div className="card_img">
-              <img src={v1} alt="card" />
-              <img src={v2} alt="card" />
-              <img src={v3} alt="card" />
-              <img src={v4} alt="card" />
+            <div className="d-flex justify-content-between align-items-center mb-5">
+              <p className="text-black">Use saved card</p>
+              <div className="payment_country_select">
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                  name="select_card">
+                  <option disabled selected>
+                    Mastercard ending 234
+                  </option>
+                  <option>Mastercard ending 234</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="card_holder mb-4">
+              <label htmlFor="" className="mb-2">
+                Name on card
+              </label>
+              <input
+                type="text"
+                className="payment_input"
+                placeholder="Card name"
+              />
+            </div>
+
+            <div className="card_holder mb-4">
+              <label htmlFor="" className="mb-2">
+                Card number
+              </label>
+              <CardNumberElement
+                className="payment_input"
+                options={{
+                  ...CARD_OPTIONS,
+                  placeholder: "Enter card number",
+                }}
+              />
+              <div className="card_img">
+                <img src={v1} alt="card" />
+                <img src={v2} alt="card" />
+                <img src={v3} alt="card" />
+                <img src={v4} alt="card" />
+              </div>
             </div>
           </div>
           {/* Expiration */}
           <div className="row mt-4">
             <div className="col-lg-6">
-              <CardExpiryElement
-                options={CARD_OPTIONS}
-                className="payment_input"
-              />
-            </div>
-            <div className="col-lg-6 mt-lg-0 mt-4">
-              <div className="payment_card">
-                <CardCvcElement
+              <div className="card_holder mb-4">
+                <label htmlFor="" className="mb-2">
+                  Expiration
+                </label>
+                <CardExpiryElement
                   options={CARD_OPTIONS}
                   className="payment_input"
                 />
-                <div className="card_img1">
-                  <img src={v4} alt="" />
+              </div>
+            </div>
+
+            <div className="col-lg-6 mt-lg-0 mt-4">
+              <div className="payment_card">
+                <div className="card_holder mb-4">
+                  <label htmlFor="" className="mb-2">
+                    CVC
+                  </label>
+                  <CardCvcElement
+                    options={CARD_OPTIONS}
+                    className="payment_input"
+                  />
+                  <div className="card_img1">
+                    <img src={v4} alt="" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -254,13 +250,15 @@ const PaymentFormTwo = ({
           <div className="row mt-4">
             <div className="col-lg-6">
               <div className="">
+                <label htmlFor="" className="mb-2">
+                  Country
+                </label>
                 <div className="payment_country_select">
                   <select
                     className="form-select"
                     aria-label="Default select example"
                     onChange={handleInputChange}
-                    name="nationality"
-                  >
+                    name="nationality">
                     <option disabled selected>
                       {" "}
                       Select country
@@ -275,6 +273,9 @@ const PaymentFormTwo = ({
               </div>
             </div>
             <div className="col-lg-6 mt-lg-0 mt-4">
+              <label htmlFor="" className="mb-2">
+                Zip Code
+              </label>
               <div className="payment_card">
                 <input
                   type="text"
@@ -291,24 +292,24 @@ const PaymentFormTwo = ({
         </div>
       </div>
 
-      <div className="d-flex justify-content-center">
+      <div className="d-flex gap-4 justify-content-end">
+        <button className="bg-none mt-0">Cancel order</button>
+
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={isLoading || paymentCreating || !stripe || addingJob}
-        >
+          disabled={isLoading || paymentCreating || !stripe || addingJob}>
           {isLoading || addingJob ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
-                role="status"
-              >
+                role="status">
                 <span className="visually-hidden">Loading...</span>
-              </div>{" "}
+              </div>
               Loading...
             </>
           ) : (
-            "Pay Now"
+            "Pay now"
           )}
         </button>
       </div>

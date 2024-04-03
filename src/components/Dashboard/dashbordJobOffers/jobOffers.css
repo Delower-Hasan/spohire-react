@@ -16,7 +16,7 @@
     margin-bottom: 24px;
     transition: all linear 0.2s;
 }
-/* 
+/*
 .job_offers_wrapper .job_offer_items_wrapper .job_offers_item:hover {
     border-radius: 16px;
     border-color: var(--color_fb);
@@ -27,3 +27,9 @@
 /* .job_offers_wrapper{
     padding: 40px;
 } */
+
+.activeBtn{
+    border: transparent !important;
+    background-color: #05CD99 !important;
+    color: white !important;
+}

@@ -184,7 +184,7 @@
   top: 86%;
 }
 
-.filter_wrapper .postion_wrapper .position_btn_wrapper{
+.filter_wrapper .postion_wrapper .position_btn_wrapper {
   display: flex;
   gap: 15px;
 }
@@ -199,20 +199,34 @@
 }
 
 .filter_wrapper .postion_wrapper .position_btn_wrapper button:hover {
-
   border: 1px solid #05CD99;
   background: #05CD99;
   color: white;
 }
 
 .filter_wrapper .postion_wrapper .position_btn_wrapper.status button:hover {
-
   border: 1px solid transparent;
   background: #FFC628;
   color: white;
 }
 
+.filter_wrapper .postion_wrapper .position_btn_wrapper.location select option {
+  color: #8593BC;
+}
 
+.filter_wrapper .postion_wrapper .position_btn_wrapper.age input {
+  background-color: #F4F7FE;
+  border: 0;
+  padding: 14px 23px;
+  width: 160px;
+}
+
+.filter_wrapper .postion_wrapper .position_btn_wrapper.age button {
+  border: 1px solid #05CD99;
+  background: #05CD99;
+  color: white;
+  width: 100%;
+}
 
 .filter_wrapper1 {
   padding: 40px 40px 40px 40px !important;

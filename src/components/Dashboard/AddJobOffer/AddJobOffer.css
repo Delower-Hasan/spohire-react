@@ -18,6 +18,20 @@
     margin: auto !important;
 }
 
+.payment_process_left {
+    padding: 37px 24px;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 2px 2px 20px 0px rgba(194, 194, 194, 0.25);
+}
+
+.payment_process_wrapper {
+    padding: 37px 24px;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 2px 2px 20px 0px rgba(194, 194, 194, 0.25);
+}
+
 .jobOfferModal {
     max-width: 648px !important;
     width: 100% !important;
@@ -56,25 +70,36 @@
 .active_position {
     background: #0177FB;
     color: #FFF;
-
-
 }
 
 .player_job_form_wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* gap: 24px; */
     margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.submit_now_btn.cancel {
+    padding: 12px 24px;
+    background: transparent;
+    color: #8593BC;
+    font-family: SF Pro Display;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: 1px solid #8593BC;
 }
 
 .submit_now_btn {
     padding: 12px 24px;
-    background: #0177FB;
+    background: #0095FF;
     color: #FFF;
     font-family: SF Pro Display;
-    font-size: 20px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -98,9 +123,9 @@
 }
 
 .add_job_offer .modal_title {
-    color: #161D24;
+    color: #2B2F32;
     font-family: SF Pro Display;
-    font-size: 32px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -116,7 +141,7 @@
 }
 
 .add_job_offer_admin input {
-    height: 44px !important;
+    height: 44px;
 }
 
 .job_location_select .css-5tv4gf-control {
@@ -124,3 +149,31 @@
     border: 1px solid #F0F0F0 !important;
 }
 
+.stepBorder {
+    width: 100%;
+    height: 2px;
+    border-radius: 20px;
+    background: #E2E6F9;
+    position: relative;
+    margin: 20px 0 40px 0;
+}
+
+.stepBorder::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 4px;
+    border-radius: 20px;
+    background-color: #0095FF;
+    width: 50%;
+}
+
+
+
+.payment_process_left,
+.payment_process_left>div {
+    flex-basis: 0;
+    flex-grow: 1;
+}
