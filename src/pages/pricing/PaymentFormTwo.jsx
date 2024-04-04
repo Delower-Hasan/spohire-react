@@ -293,7 +293,7 @@ const PaymentFormTwo = ({
       </div>
 
       <div className="d-flex gap-4 justify-content-end">
-        <button className="bg-none mt-0">Cancel order</button>
+        <button className="bg-none mt-0 text_clr_bc">Cancel order</button>
 
         <button
           onClick={handlePayment}

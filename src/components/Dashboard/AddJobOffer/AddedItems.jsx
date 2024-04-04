@@ -13,6 +13,7 @@ import ReferallProfiles from "./ReferallProfiles";
 
 const AddedItems = () => {
   const [jobOffersType, setJobOffersType] = useState("player");
+  const [active, setActive] = useState("active");
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   console.log();
@@ -65,14 +66,35 @@ const AddedItems = () => {
 
   return (
     <div className="job_offers_wrapper">
-      <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
+      <div className="job_offers_topBtn ">
+        <div className="job_offers_topBtn_left d-flex gap-4 mb-4">
+          <button
+            className={`fs-6 fw-medium text_color_80 ${
+              active === "active" && "activeBtn2"
+            }`}
+            onClick={() => setActive("active")}>
+            {/* {user?.role === "Coach" ? "Players" : "Player"} */}
+            Active
+          </button>
+
+          {user?.role === "Manager" && (
+            <button
+              className={`fs-6 fw-medium text_color_80 ${
+                active === "expired" && "activeBtn2"
+              }`}
+              onClick={() => setActive("expired")}>
+              {/* {user?.role === "Coach" ? "Players" : "Player"} */}
+              expired
+            </button>
+          )}
+        </div>
+
         <div className="job_offers_topBtn_left d-flex gap-4">
           <button
             className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "player" && "border-primary"
+              jobOffersType === "player" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("player")}
-          >
+            onClick={() => setJobOffersType("player")}>
             {/* {user?.role === "Coach" ? "Players" : "Player"} */}
             Players
           </button>
@@ -80,21 +102,20 @@ const AddedItems = () => {
           {user?.role === "Manager" && (
             <button
               className={`fs-6 fw-medium text_color_80 ${
-                jobOffersType === "coach" && "border-primary"
+                jobOffersType === "coach" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("coach")}
-            >
+              onClick={() => setJobOffersType("coach")}>
               {/* {user?.role === "Coach" ? "Players" : "Player"} */}
               Coaches
             </button>
           )}
+
           {user?.role === "Coach" && (
             <button
               className={`fs-6 fw-medium text_color_80 ${
-                jobOffersType === "coach" && "border-primary"
+                jobOffersType === "coach" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("coach")}
-            >
+              onClick={() => setJobOffersType("coach")}>
               {/* {user?.role === "Coach" ? "Players" : "Player"} */}
               Coaches
             </button>
@@ -102,18 +123,16 @@ const AddedItems = () => {
 
           <button
             className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "job" && "border-primary"
+              jobOffersType === "job" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("job")}
-          >
+            onClick={() => setJobOffersType("job")}>
             Job Offers
           </button>
           <button
             className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "announcement" && "border-primary"
+              jobOffersType === "announcement" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("announcement")}
-          >
+            onClick={() => setJobOffersType("announcement")}>
             Announcements
           </button>
         </div>

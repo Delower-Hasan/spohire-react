@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import addIcon from "../../../assets/addIcon.svg";
 import arrowDown from "../../../assets/arrow_down.svg";
 import AvatarImg from "../../../assets/avatar.svg";
 import logo from "../../../assets/dashbord-logo.png";
+import filterIcon from "../../../assets/filterIcon.svg";
 import messageIcon from "../../../assets/message-icon2.svg";
 import notificationIcon from "../../../assets/notification_icon.svg";
 import silverIcon from "../../../assets/silver_icon.svg";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
-import addIcon from "../../../assets/addIcon.svg";
-import filterIcon from "../../../assets/filterIcon.svg";
 import "./Topbar.css";
 
 const Topbar = () => {
@@ -148,110 +148,130 @@ const Topbar = () => {
                     {location.pathname === "/dashboard" && user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name}`
                       : ""}
+
                     {location.pathname === "/dashboard/jobOffers" &&
                       "job offer"}
+
                     {location.pathname === "/dashboard/basicinfo" &&
                       "job offer"}
+
                     {location.pathname.includes("/dashboard/jobApplicants") &&
                       "Applicants"}
+
                     {location.pathname === "/dashboard/players" &&
                       "Players List"}
+
                     {location.pathname === "/dashboard/createAnnouncements" &&
                       "Create Announcements"}
+
                     {location.pathname === "/dashboard/announcements" &&
                       "Announcements"}
+
                     {location.pathname === "/dashboard/password" && "Password"}
+
                     {location.pathname === "/dashboard/notification" &&
                       "Notifications"}
+
                     {location.pathname === "/dashboard/billing" &&
                       "Billing history"}
+
                     {location.pathname === "/dashboard/observed" && "Observed"}
+
                     {location.pathname === "/dashboard/addedItems" &&
                       "My Added Items"}
+
                     {location.pathname === "/dashboard/myAppliedJobs" &&
                       "My Applied Jobs"}
+
                     {location.pathname === "/dashboard/coaches" &&
                       "Coaches List"}
+
+                    {location.pathname.startsWith("/dashboard/messages") &&
+                      "Messages"}
                   </h2>
-                  {user?.isSubsCribed ? (
+                  {location.pathname === "/dashboard" && (
                     <>
-                      {user?.subscriptionName === "Silver" && (
-                        <div className="d-flex align-items-center gap-2">
-                          <p
-                            className="font-bold d-inline-flex gap-2"
-                            style={{
-                              fontSize: "10px",
-                              color: "#8A8988",
-                              border: "1px solid #8A8988",
-                              padding: "5px 10px",
-                              borderRadius: "28px",
-                            }}>
-                            <img src={silverIcon} alt="silver-icon" />
-                            Silver
-                          </p>
-                          <span
-                            style={{
-                              fontSize: "12px",
-                              fontWeight: "500",
-                              color: "#949494",
-                            }}>
-                            Until {formattedExpirationDate}
-                          </span>
-                        </div>
-                      )}
+                      {user?.isSubsCribed ? (
+                        <>
+                          {user?.subscriptionName === "Silver" && (
+                            <div className="d-flex align-items-center gap-2">
+                              <p
+                                className="font-bold d-inline-flex gap-2"
+                                style={{
+                                  fontSize: "10px",
+                                  color: "#8A8988",
+                                  border: "1px solid #8A8988",
+                                  padding: "5px 10px",
+                                  borderRadius: "28px",
+                                }}>
+                                <img src={silverIcon} alt="silver-icon" />
+                                Silver
+                              </p>
+                              <span
+                                style={{
+                                  fontSize: "12px",
+                                  fontWeight: "500",
+                                  color: "#949494",
+                                }}>
+                                Until {formattedExpirationDate}
+                              </span>
+                            </div>
+                          )}
 
-                      {user?.subscriptionName === "Gold" && (
-                        <div className="d-flex align-items-center gap-2">
-                          <p
-                            className="font-bold d-inline-flex gap-2"
-                            style={{
-                              fontSize: "10px",
-                              color: "#EBB111",
-                              border: "1px solid #FFD029",
-                              padding: "5px 10px",
-                              borderRadius: "28px",
-                            }}>
-                            <img src={silverIcon} alt="silver-icon" />
-                            Silver
-                          </p>
-                          <span
-                            style={{
-                              fontSize: "12px",
-                              fontWeight: "500",
-                              color: "#EBB111",
-                            }}>
-                            Until {formattedExpirationDate}
-                          </span>
-                        </div>
-                      )}
+                          {user?.subscriptionName === "Gold" && (
+                            <div className="d-flex align-items-center gap-2">
+                              <p
+                                className="font-bold d-inline-flex gap-2"
+                                style={{
+                                  fontSize: "10px",
+                                  color: "#EBB111",
+                                  border: "1px solid #FFD029",
+                                  padding: "5px 10px",
+                                  borderRadius: "28px",
+                                }}>
+                                <img src={silverIcon} alt="silver-icon" />
+                                Silver
+                              </p>
+                              <span
+                                style={{
+                                  fontSize: "12px",
+                                  fontWeight: "500",
+                                  color: "#EBB111",
+                                }}>
+                                Until {formattedExpirationDate}
+                              </span>
+                            </div>
+                          )}
 
-                      {user?.subscriptionName === "Bronze" && (
-                        <div className="d-flex align-items-center gap-2">
-                          <p
-                            className="font-bold d-inline-flex gap-2"
-                            style={{
-                              fontSize: "10px",
-                              color: "#CD7F32",
-                              border: "1px solid #CD7F32",
-                              padding: "5px 10px",
-                              borderRadius: "28px",
-                            }}>
-                            <img src={silverIcon} alt="silver-icon" />
-                            Silver
-                          </p>
-                          <span
-                            style={{
-                              fontSize: "12px",
-                              fontWeight: "500",
-                              color: "#CD7F32",
-                            }}>
-                            Until {formattedExpirationDate}
-                          </span>
-                        </div>
+                          {user?.subscriptionName === "Bronze" && (
+                            <div className="d-flex align-items-center gap-2">
+                              <p
+                                className="font-bold d-inline-flex gap-2"
+                                style={{
+                                  fontSize: "10px",
+                                  color: "#CD7F32",
+                                  border: "1px solid #CD7F32",
+                                  padding: "5px 10px",
+                                  borderRadius: "28px",
+                                }}>
+                                <img src={silverIcon} alt="silver-icon" />
+                                Silver
+                              </p>
+                              <span
+                                style={{
+                                  fontSize: "12px",
+                                  fontWeight: "500",
+                                  color: "#CD7F32",
+                                }}>
+                                Until {formattedExpirationDate}
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <p className="text_clr_70 fw-medium">No subscription</p>
                       )}
                     </>
-                  ) : (
-                    <p className="text_clr_70 fw-medium">No subscription</p>
                   )}
                 </>
               )}
@@ -548,7 +568,7 @@ const Topbar = () => {
             ) : location.pathname === "/dashboard/announcements" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
-                  onClick={handleButtonClick1}
+                  onClick={handleAddAnnouncementClick}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />

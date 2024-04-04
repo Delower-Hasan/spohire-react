@@ -105,7 +105,7 @@ const JobOffers = () => {
   const endIndex = startIndex + itemsPerPage;
 
   return (
-    <div className="job_offers_wrapper">
+    <>
       <div className="job_offer_items_wrapper">
         {allJobs?.data && filteredJobs?.length > 0 ? (
           filteredJobs
@@ -146,7 +146,7 @@ const JobOffers = () => {
         style={{ width: "648px" }}
         editingItem={editingItem}
       />
-    </div>
+    </>
   );
 };
 

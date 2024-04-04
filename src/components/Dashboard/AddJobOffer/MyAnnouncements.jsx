@@ -87,7 +87,7 @@ const MyAnnouncement = () => {
     <>
       <div
         className="announcement"
-        style={{ margin: "30px", paddingTop: "30px" }}
+        // style={{ margin: "30px", paddingTop: "30px" }}
       >
         <div>
           {allAnnouncements?.data && filteredData.length > 0 ? (

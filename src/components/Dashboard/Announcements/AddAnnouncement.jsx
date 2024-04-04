@@ -144,36 +144,48 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
         centered
         show={isModalOpen}
         onHide={onHide}
-        className="modal_width1"
-      >
+        className="modal_width1">
         {/*closeButton*/}
         {nextOption === "AddJobOfferModal" && (
-          <Modal.Header className="justify-content-center">
-            <Modal.Title>Create Announcement</Modal.Title>
-          </Modal.Header>
+          <>
+            <Modal.Header className="justify-content-start p-0">
+              <Modal.Title>Create Announcement</Modal.Title>
+            </Modal.Header>
+            <div className="step_number d-flex justify-content-end">
+              <p>
+                <span style={{ color: "#0095FF" }}>Step 1</span> of 2
+              </p>
+            </div>
+            <div className={"stepBorder"}></div>
+          </>
         )}
 
         {nextOption === "AddJobOfferModalTwo" && (
-          <Modal.Header
-            className=" justify-content-start container"
-            style={{ maxWidth: "750px", width: "100%" }}
-          >
-            <Modal.Title className={"fs-3 text-black fw-bold text-start"}>
-              Payment Process
-            </Modal.Title>
-          </Modal.Header>
+          <>
+            <Modal.Header
+              className="justify-content-start p-0"
+              style={{ maxWidth: "750px", width: "100%" }}>
+              <Modal.Title className={"fs-3 text-black fw-bold text-start"}>
+                Payment Process
+              </Modal.Title>
+            </Modal.Header>
+            <div className="step_number d-flex justify-content-end">
+              <p>
+                <span style={{ color: "#0095FF" }}>Step 2</span> of 2
+              </p>
+            </div>
+            <div className={"stepBorder2"}></div>
+          </>
         )}
 
         <Modal.Body className="p-0 add_job_offer_admin">
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
+              style={{ marginBottom: "40px" }}>
               <div
                 // onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0"
-              >
+                className="w-100 player_job_form_wrapper mt-0">
                 {nextOption === "AddJobOfferModal" && (
                   <CreateAnnouncemnetModal
                     fileInputRef={fileInputRef}
@@ -197,14 +209,22 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
                 )}
 
                 {nextOption === "AddJobOfferModal" ? (
-                  <div className={"d-flex justify-content-center"}>
+                  <div className="d-flex gap-3 justify-content-center">
+                    <button
+                      className="submit_now_btn cancel m-0"
+                      onClick={onHide}
+                      type="button"
+                      // disabled={loading || isLoading}
+                    >
+                      Cancel
+                    </button>
+
                     <button
                       onClick={handleNextOption}
                       className="submit_now_btn m-0"
                       // onClick={onHide}
                       type="button"
                       // disabled={loading || isLoading}
-                      style={{ maxWidth: "568px", width: "100%" }}
                     >
                       Next
                     </button>

@@ -103,8 +103,8 @@ const DashboardAnnouncements = () => {
   return (
     <>
       <div
-        className="announcement"
-        style={{ margin: "30px", paddingTop: "30px" }}>
+        className="announcement bg-white rounded-2"
+        style={{ margin: "30px", padding: "30px" }}>
         <div className="job_offers_topBtn d-flex align-items-center justify-content-between mb-3">
           <div className="job_offers_topBtn_left d-flex gap-4">
             <button
@@ -130,8 +130,6 @@ const DashboardAnnouncements = () => {
               onClick={() => setAnnouncementType("My")}>
               My Announcement
             </button>
-
-
           </div>
 
           {/* <div className="job_offers_topBtn_right">
@@ -170,7 +168,7 @@ const DashboardAnnouncements = () => {
       </div>
 
       <DeleteModal />
-      <Pagination/>
+      <Pagination />
     </>
   );
 };
@@ -345,8 +343,6 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
             <img src={delet} alt="" />
           </button>
         </div>
-
-
       </div>
     </>
   );

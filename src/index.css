@@ -33,6 +33,9 @@ p {
   box-shadow: none;
 }
 
+.form-select {
+  color: #8593BC;
+}
 /* .category_wrapper ::-webkit-scrollbar {
   width:2px;
 } */
@@ -79,6 +82,7 @@ button {
   --clr_49: #3A3A49;
   --clr_99: #05CD99;
   --clr_ff: #0095FF;
+  --clr_bc:#8593BC;
 }
 
 .bg_clr_ff{
@@ -296,6 +300,10 @@ a {
 
 .text_clr_99 {
   color: var(--clr_99);
+}
+
+.text_clr_bc{
+  color: var(--clr_bc);
 }
 
 .bg_clr_99 {

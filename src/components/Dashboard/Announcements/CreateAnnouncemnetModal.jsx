@@ -1,6 +1,7 @@
 import React from "react";
 import region from "../../../assets/aregion.png";
 import brows from "../../../assets/brows.svg";
+import dollarImg from "../../../assets/asalary.png";
 
 const CreateAnnouncemnetModal = ({
   fileInputRef,
@@ -20,8 +21,7 @@ const CreateAnnouncemnetModal = ({
           {/*title*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Title
             </label>
@@ -45,8 +45,7 @@ const CreateAnnouncemnetModal = ({
           {/*category type*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Category
             </label>
@@ -62,8 +61,7 @@ const CreateAnnouncemnetModal = ({
               }}
               name="category"
               // value={jobType}
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select here
               </option>
@@ -82,8 +80,7 @@ const CreateAnnouncemnetModal = ({
               <div className="col-lg-6 job_location_select">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Country
                 </label>
 
@@ -97,8 +94,7 @@ const CreateAnnouncemnetModal = ({
                     padding: "0 14px",
                   }}
                   name="country"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select here
                   </option>
@@ -112,12 +108,10 @@ const CreateAnnouncemnetModal = ({
               <div className="col-lg-6">
                 <div
                   className="position-relative text-start "
-                  style={{ marginBottom: "32px" }}
-                >
+                  style={{ marginBottom: "32px" }}>
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     City
                   </label>
 
@@ -135,12 +129,96 @@ const CreateAnnouncemnetModal = ({
             </div>
           </div>
           {/* country end */}
+        </div>
+
+        <div className="col-lg-6 ">
+          {/* <div style={{ marginBottom: "32px" }}>
+            <label htmlFor="exampleFormControlInput1" className="form-label">
+              Status
+            </label>
+
+            <div className={"status_wrapper d-flex gap-3"}>
+              <button className={"status_btn_active"}>In progress</button>
+              <button className={"status_btn"}>Published</button>
+              <button className={"status_btn"}>Denied</button>
+            </div>
+          </div> */}
+
+          {/*category type*/}
+          <div
+            className="position-relative text-start "
+            style={{ marginBottom: "32px" }}>
+            <label htmlFor="exampleFormControlInput1" className="form-label">
+              Sports
+            </label>
+
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              style={{
+                minHeight: "44px",
+                width: "100%",
+                backgroundColor: "#FFFFFF",
+                padding: "0 14px",
+              }}
+              name="sports"
+              // value={jobType}
+              onChange={handleInputChange}>
+              <option selected disabled>
+                Select here
+              </option>
+              {["Football", "Basketball", "Handball", "Volleyball"].map(
+                (country, index) => (
+                  <option value={country} className="" key={index}>
+                    {country}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+          {/*category type end*/}
+
+          {/*    budget */}
+          <div
+            className="position-relative text-start "
+            style={{ marginBottom: "32px" }}>
+            <label htmlFor="exampleFormControlInput1" className="form-label">
+              Budget
+            </label>
+
+            <div className={"d-flex upload_wrapper"}>
+              {/* <button
+                style={{
+                  borderTopLeftRadius: "5px",
+                  borderBottomLeftRadius: "5px",
+                  color: "white",
+                }}>
+                $
+              </button> */}
+              <input
+                type="text"
+                className="form-control border-0"
+                style={{
+                  cursor: "pointer",
+                  backgroundImage: `url(${dollarImg})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "left 10px center",
+                  borderTopLeftRadius: "5px",
+                  borderBottomLeftRadius: "5px",
+                  paddingLeft: "40px",
+                }}
+                id="exampleFormControlInput1"
+                placeholder="500"
+                name="budget"
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
 
           {/*image*/}
           <div
             className="position-relative text-start"
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Image
             </label>
@@ -171,7 +249,8 @@ const CreateAnnouncemnetModal = ({
                 id="exampleFormControlInput1"
                 placeholder="Brows Here"
               />
-              <button
+
+              {/* <button
                 style={{
                   borderTopRightRadius: "5px",
                   borderBottomRightRadius: "5px",
@@ -179,117 +258,33 @@ const CreateAnnouncemnetModal = ({
                   paddingLeft: "35px",
                   paddingRight: "35px",
                   color: "white",
-                }}
-              >
+                }}>
                 Upload
-              </button>
+              </button> */}
             </div>
           </div>
           {/*image end*/}
+
+          {/*    budget end*/}
         </div>
 
-        <div className="col-lg-6 ">
-          {/* <div style={{ marginBottom: "32px" }}>
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              Status
-            </label>
-
-            <div className={"status_wrapper d-flex gap-3"}>
-              <button className={"status_btn_active"}>In progress</button>
-              <button className={"status_btn"}>Published</button>
-              <button className={"status_btn"}>Denied</button>
-            </div>
-          </div> */}
-
-          {/*category type*/}
-          <div
-            className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              Sports
-            </label>
-
-            <select
-              className="form-select"
-              aria-label="Default select example"
-              style={{
-                minHeight: "44px",
-                width: "100%",
-                backgroundColor: "#FFFFFF",
-                padding: "0 14px",
-              }}
-              name="sports"
-              // value={jobType}
+        <div className="mb-3" style={{ marginBottom: "32px" }}>
+          <label hytmlFor="exampleFormControlInput1" className="form-label">
+            Description
+          </label>
+          <div className="input-group mb-3">
+            <textarea
+              type="text"
+              style={{ height: "120px", boxShadow: "none" }}
+              className="form-control"
+              placeholder="Enter Your Description...."
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              name="description"
+              required
               onChange={handleInputChange}
-            >
-              <option selected disabled>
-                Select here
-              </option>
-              {["Football", "Basketball", "Handball", "Volleyball"].map(
-                (country, index) => (
-                  <option value={country} className="" key={index}>
-                    {country}
-                  </option>
-                )
-              )}
-            </select>
+            />
           </div>
-          {/*category type end*/}
-
-          {/*    budget */}
-          <div
-            className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              Budget
-            </label>
-
-            <div className={"d-flex upload_wrapper"}>
-              <button
-                style={{
-                  borderTopLeftRadius: "5px",
-                  borderBottomLeftRadius: "5px",
-                  backgroundColor: "#0177FB",
-                  paddingLeft: "35px",
-                  paddingRight: "35px",
-                  color: "white",
-                }}
-              >
-                $
-              </button>
-              <input
-                type="text"
-                className="form-control border-0"
-                style={{ cursor: "pointer" }}
-                id="exampleFormControlInput1"
-                placeholder="500"
-                name="budget"
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-
-          <div className="mb-3" style={{ marginBottom: "32px" }}>
-            <label hytmlFor="exampleFormControlInput1" className="form-label">
-              Description
-            </label>
-            <div className="input-group mb-3">
-              <textarea
-                type="text"
-                style={{ height: "65px", boxShadow: "none" }}
-                className="form-control"
-                placeholder="Enter Your Description...."
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                name="description"
-                required
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-          {/*    budget end*/}
         </div>
       </div>
     </>

@@ -58,7 +58,7 @@ const ReferallProfiles = ({
     navigate(`/dashboard/editDetails/${item?._id}`);
   };
   return (
-    <div className="job_offers_wrapper">
+    <>
       <div className="job_offer_items_wrapper">
         {data && data?.length > 0 ? (
           data
@@ -81,7 +81,7 @@ const ReferallProfiles = ({
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

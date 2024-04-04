@@ -23,6 +23,7 @@ import {
 import { formatMessageTime } from "../../../utils/formateChatTIme";
 import { useGetUserByIdQuery } from "../../../features/auth/authApi";
 import { useCreateNotificationMutation } from "../../../features/notification/notificationApi";
+import chatAvatar from "../../../assets/avatar.png";
 
 const Messages = () => {
   const { user } = useSelector((state) => state.auth);
@@ -159,7 +160,7 @@ const Messages = () => {
         <div className="message_wrapper">
           <div className="row w-100">
             <div className={`col-lg-3 d-lg-block d-none`}>
-              <div>
+              <div className="chat_profile">
                 <div className="chat_list_wrapper ">
                   <h3>Message details</h3>
                   <div className="form-group has-search1">
@@ -175,27 +176,23 @@ const Messages = () => {
                 </div>
               </div>
             </div>
-            <div
-              className={`col-lg-${
-                showChatDetails ? "6" : "9"
-              } message_border d-flex`}
-            >
-              <div className="border-right"></div>
+            <div className={`col-lg-9 d-flex`}>
+              {/* <div className="border-right"></div> */}
               {/* <Messaging setShowChatDetails={setShowChatDetails}  myParam={myParam} /> */}
               <div className="messaging" style={{ width: "100%" }}>
                 <h2 onClick={close} className="pointer">
                   {selectedMsgUser?.first_name} {selectedMsgUser?.last_name}
                 </h2>
-                <div className="message_content ">
+                <div className="message_content">
                   {messages &&
                     messages?.length > 0 &&
                     messages.map((item, idx) => (
                       <div ref={chatContainerRef} key={idx}>
                         {item?.sender !== user?._id ? (
                           <div className="d-flex align-items-end">
-                            <div className="bg_curve_blue">
+                            {/* <div className="bg_curve_blue">
                               <div className="bg_curve_white"></div>
-                            </div>
+                            </div> */}
                             <div className="message1">
                               <p>{item?.text}</p>
                               <span>{formatMessageTime(item?.createdAt)}</span>
@@ -203,18 +200,28 @@ const Messages = () => {
                           </div>
                         ) : (
                           <div className="d-flex align-items-end" key={idx}>
-                            <div className="message2">
-                              <p>{item?.text}</p>
-                              <div className="d-flex justify-content-between mt-2 align-items-center">
-                                <span>
-                                  {formatMessageTime(item?.createdAt)}
-                                </span>
-                                <img src={senticon} alt="sent" />
+                            <div className="position-relative w-100">
+                              <div className="message_two">
+                                <div className="message2 position-relative">
+                                  <p>{item?.text}</p>
+                                  <div className="d-flex justify-content-between mt-2 align-items-center">
+                                    <span>
+                                      {formatMessageTime(item?.createdAt)}
+                                    </span>
+                                    <img src={senticon} alt="sent" />
+                                  </div>
+                                </div>
+                                <p className="message_time position-absolute">asdfasdf</p>
+                              </div>
+
+                              <div className="position-absolute avatar_img">
+                                <img src={chatAvatar} alt="" />
                               </div>
                             </div>
-                            <div className="bg_curve_blue1">
+
+                            {/* <div className="bg_curve_blue1">
                               <div className="bg_curve_white1"></div>
-                            </div>
+                            </div> */}
                           </div>
                         )}
                       </div>
@@ -235,17 +242,16 @@ const Messages = () => {
                     <button
                       onClick={handleSendClick}
                       className="bg-none"
-                      disabled={!messageText}
-                    >
+                      disabled={!messageText}>
                       <img src={send} alt="" />
                     </button>
                   </div>
                 </div>
               </div>
-              {showChatDetails && <div className="border-right"></div>}
+              {/* {showChatDetails && <div className="border-right"></div>} */}
             </div>
 
-            {showChatDetails && (
+            {/* {showChatDetails && (
               <div className={`col-lg-3 d-lg-block d-none`}>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex align-items-center  gap-2">
@@ -285,7 +291,7 @@ const Messages = () => {
                 </div>
                 <hr className="coach_hr" />
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

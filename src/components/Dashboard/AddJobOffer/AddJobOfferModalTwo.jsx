@@ -31,10 +31,10 @@ const AddJobOfferModalTwo = ({
       <div className="text-start fs-4 fw-bold">Payment Process</div>
       <div className="step_number d-flex justify-content-end">
         <p>
-          <span style={{ color: "#0095FF" }}>Step 1</span> of 2
+          <span style={{ color: "#0095FF" }}>Step 2</span> of 2
         </p>
       </div>
-      <div className="stepBorder"></div>
+      <div className="stepBorder2"></div>
       <div className="d-flex gap-4">
         <div className="payment_process_left">
           <p className="text-start text-black fs-5 fw-medium pb-4">
@@ -115,10 +115,10 @@ const AddJobOfferModalTwo = ({
                 </div>
 
                 <div className={"card_item d-flex gap-2 align-items-center"}>
-                  <div className="form-check">
-                    {/* <input className="" type="radio" name="card" id="card" checked={selectedOption === "paypal"}
+                  {/* <div className="form-check"> */}
+                  {/* <input className="" type="radio" name="card" id="card" checked={selectedOption === "paypal"}
                   /> */}
-                  </div>
+                  {/* </div> */}
                   <button
                     className={`${
                       selectedOption === "paypal"
@@ -177,9 +177,7 @@ const AddJobOfferModalTwo = ({
             </div>
 
             <div className="sub_total d-flex justify-content-between">
-              <p className="fs-5 text-black fw-normal mb-0">
-                Total
-              </p>
+              <p className="fs-5 text-black fw-normal mb-0">Total</p>
               <p className={"fs-5 text-black fw-normal mb-0"}>
                 ${selectedSubscription?.price}
               </p>

@@ -13,18 +13,21 @@ const AddJobOfferModal = ({
   options,
   WorkplaceOptions,
   categoryOptions,
+
 }) => {
   const [step, setStep] = useState(1);
 
   return (
     <>
       <div className="text-start modal_title">Add Job offer</div>
-      <div className="step_number d-flex justify-content-end">
-        <p>
-          <span style={{ color: "#0095FF" }}>Step 1</span> of 2
-        </p>
-      </div>
-      <div className={"stepBorder"}></div>
+        <div className="step_number d-flex justify-content-end">
+          <p>
+            <span style={{ color: "#0095FF" }}>Step 1</span> of 2
+          </p>
+        </div>
+
+        <div className={"stepBorder"}></div>
+
       <div className="row">
         <div className="col-lg-6">
           <div
@@ -161,6 +164,7 @@ const AddJobOfferModal = ({
             </select>
           </div>
         </div>
+
         <div className="col-lg-6 ">
           <div
             className="position-relative text-start "
@@ -301,6 +305,7 @@ const AddJobOfferModal = ({
             />
           </div>
         </div>
+
         <div className="position-relative text-start">
           <div className="mb-3">
             <label hytmlFor="exampleFormControlInput1" className="form-label">
