@@ -7,7 +7,8 @@ import "./Notification.css";
 import deleteIcon from "../../../../assets/deleteIcon.png";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import Pagination from "../../../Pagination/Pagination";
+import Pagination from './../../../Pagination/Pagination';
+
 
 const Notification = () => {
   const { data } = useGetMyNotificationsQuery();
@@ -21,6 +22,7 @@ const Notification = () => {
   const totalPages = Math.ceil(data?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+    const [jobOffersType, setJobOffersType] = useState("All");
 
   const handleDelete = (item) => {
     Swal.fire({
@@ -124,25 +126,23 @@ const Notification = () => {
 
     <div className="job_offers_wrapper">
       <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
-        {/* <div className="job_offers_topBtn_left d-flex gap-4">
+        <div className="job_offers_topBtn_left d-flex gap-4">
           <button
             className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "All" && "border-primary"
+              jobOffersType === "All" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("All")}
-          >
+            onClick={() => setJobOffersType("All")}>
             All
           </button>
 
           <button
             className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "My" && "border-primary"
+              jobOffersType === "My" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("My")}
-          >
+            onClick={() => setJobOffersType("My")}>
             My Job Offers
           </button>
-        </div> */}
+        </div>
 
         {/* <div className="job_offers_topBtn_right">
           <button className="bg-transparent border-0 text_color_fb">
@@ -165,8 +165,7 @@ const Notification = () => {
         ) : (
           <div
             className="d-flex justify-content-center align-items-center fs-4"
-            style={{ height: "70vh" }}
-          >
+            style={{ height: "70vh" }}>
             No job offer
           </div>
         )}
@@ -179,6 +178,8 @@ const Notification = () => {
         />
         // <div>fsjkjfsk</div>
       )}
+
+      <Pagination/>
     </div>
   );
 };
@@ -205,14 +206,15 @@ function SingleNotification({ item, handleDelete }) {
             <div className="job_offer_item_content">
               <div className="job_offer_nameDesignation">
                 <h5
-                  className="fw-medium fs-5 text_color_36 mb-1"
+                  className="fw-medium fs-5 text_clr_e7 mb-1"
                   onClick={() => handleCLick(item)}
-                  style={{ cursor: "pointer" }}
-                >
+                  style={{ cursor: "pointer" }}>
                   {item?.type}
                 </h5>
 
-                <p className="fs-14 fw-normal text_color_80 mb-1">
+                <p
+                  className="fs-14 fw-normal text_color_80 mb-1"
+                  style={{ color: "#8593BC" }}>
                   {item?.message}
                 </p>
               </div>

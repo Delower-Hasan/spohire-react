@@ -176,7 +176,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
   const navigate = useNavigate();
   const handleCLick = (value) => {
     // if (value.creator !== user?._id)
-    navigate(`/jobOffer/jobDetails/${value?._id}`);
+    navigate(`/dashboard/jobDetails/${value?._id}`);
   };
 
   const { data, isSuccess } = useGetMyObservationsQuery();

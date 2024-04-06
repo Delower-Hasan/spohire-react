@@ -51,7 +51,7 @@ const MyAppliedJob = () => {
       });
     }
   };
-  
+
   if (isLoading) {
     return (
       <div
@@ -148,9 +148,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
     <>
       <div
         className="job_offers_item p-3"
-        onClick={() => navigate(`/jobOffer/jobDetails/${item?.job?._id}`)}
-        style={{ cursor: "pointer" }}
-      >
+        onClick={() => navigate(`/dashboard/jobDetails/${item?.job?._id}`)}
+        style={{ cursor: "pointer" }}>
         <div className="job_offers_item_content d-flex justify-content-between align-items-center">
           <div className=" ">
             <h2 className="mb-2">{item?.job?.job_title}</h2>
@@ -163,8 +162,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   Job Type
                 </p>
                 <p
@@ -172,8 +170,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   {/* {convertDate(item?.birth_date)} */}
                   {item?.job?.jobType}
                 </p>
@@ -184,8 +181,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   Location
                 </p>
                 <p
@@ -193,8 +189,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   {item?.job?.job_location}
                 </p>
               </div>
@@ -204,8 +199,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   Salary
                 </p>
                 <p
@@ -213,8 +207,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   $ {item?.job?.salary}
                 </p>
               </div>
@@ -224,8 +217,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   Role
                 </p>
                 <p
@@ -233,8 +225,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}
-                >
+                  }}>
                   {item?.job?.role}
                 </p>
               </div>
@@ -267,8 +258,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                   e.stopPropagation();
                   handleCancleJob(item);
                 }}
-                disabled={deleting}
-              >
+                disabled={deleting}>
                 {deleting ? "Cancling..." : "Cancle"}
               </button>
             </div>

@@ -12,6 +12,7 @@ import { useUpdateUserMutation } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 // data
 const inputFieldData = [
@@ -27,7 +28,6 @@ const inputFieldData = [
     type: "date",
     name: "date_of_birth",
   },
-  // { label: "Age", placeholderText: "Your Age", type: "number" },
   {
     label: "Nationality",
     placeholderText: "Your Nationality",
@@ -58,12 +58,10 @@ const inputFieldData = [
     type: "number",
     name: "weight",
   },
-  // { label: "Race", placeholderText: "Your Race", type: "text" },
 ];
 
 const EditPlayerDetails = () => {
   const { user } = useSelector((state) => state.auth);
-
   const [updateUser, { isLoading }] = useUpdateUserMutation();
   // gallary
   const [selectedImages, setSelectedImages] = useState([]);
@@ -93,9 +91,7 @@ const EditPlayerDetails = () => {
       gallary: [],
     }
   );
-
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState(initialFormData);
   const [gallaryImage, setGallaryImage] = useState(null);
   const [socialMedia, setSocialMedia] = useState({
@@ -104,7 +100,6 @@ const EditPlayerDetails = () => {
     instagram: "",
     youtube: "",
   });
-
   const [userInfo, setUserInfo] = useState({
     first_name: "",
     date_of_birth: "",
@@ -121,11 +116,8 @@ const EditPlayerDetails = () => {
     sports: "",
   });
   const [editedInfo, setEditedInfo] = useState({});
-
   console.log(editedInfo, "editinfo");
-
   const navigate = useNavigate();
-
   const handleGallaryImageChange = (e) => {
     const files = e.target.files;
     setGallaryImage(Array.from(files));
@@ -146,28 +138,14 @@ const EditPlayerDetails = () => {
       reader.readAsDataURL(files[i]);
     }
   };
-
   // handle profile image upload
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-
     if (file) {
       setUserInfo({ ...userInfo, ["image"]: file });
       setSelectedImage(file);
       setEditedInfo({ ...editedInfo, ["image"]: file });
     }
-
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //     setFormData((prevData) => ({
-    //       ...prevData,
-    //       selectedImage: reader.result,
-    //     }));
-    //     setSelectedImage(reader.result);
-    //   };
-    //   reader.readAsDataURL(file);
-    // }
   };
 
   const handleButtonClick = () => {
@@ -190,23 +168,11 @@ const EditPlayerDetails = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    // if (gallaryImage && gallaryImage?.length > 3) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "oopss!",
-    //     text: `Please choose`,
-    //   });
-    // }
-
     const socialMediaArray = Object.values(socialMedia);
 
     const infoData = { ...editedInfo, social_media: socialMediaArray };
 
     const formData = new FormData();
-
-    // Object.entries(infoData)?.forEach(([key, value]) => {
-    //   formData.append(key, value);
-    // });
 
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
@@ -332,19 +298,24 @@ const EditPlayerDetails = () => {
     console.log(values, "nnoso");
   }, [user]);
 
-  // console.log("usr", user);
-  // console.log("userInfo", userInfo);
-  // console.log("Form Data:", formData);
-  // console.log("editedInfo:", editedInfo);
 
   console.log(socialMedia, "socialMedia");
 
   return (
-    <form className="" onSubmit={handleUpdate}>
+    <form className="p-5 bg-white" onSubmit={handleUpdate} style={{borderRadius: "20px"}}>
+      <div className="profile_heading d-flex align-items-center justify-content-between py-5">
+        <h2>My Profile</h2>
+        <div className="btn_group d-flex align-items-center gap-4">
+          <button className="cancel"> Cancel </button>
+          <Link to={"/dashboard/editPlayerDetals"} className="edit d-block">
+            Edit
+          </Link>
+        </div>
+      </div>
       <div className="View_details container p-0 overflow-hidden">
-        <div className="job_offer desktop_vd edit_player_details_wrapper  ps-lg-0 pe-lg-0">
+        <div className="job_offer desktop_vd edit_player_details_wrapper">
           <div className="row" style={{ margin: "0 40px" }}>
-            <div className="col-12 col-lg-3 ps-lg-5">
+            <div className="col-12 col-lg-3">
               <div className="upload_profile_image" onClick={handleButtonClick}>
                 <img
                   className="img-fluid profiles"
@@ -385,29 +356,10 @@ const EditPlayerDetails = () => {
             </div>
             <div className="col-12 col-lg-9">
               <div className="edit_profile_input">
-                {/* <div className="mb-4 position-relative">
-                  <label
-                    htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
-                    Player Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="playerNameInput"
-                    placeholder="Your name"
-                    value={formData.playerName}
-                    onChange={(e) =>
-                      handleInputChange("playerName", e.target.value)
-                    }
-                  />
-                </div> */}
                 <div className="mb-4 position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Sports Type
                   </label>
                   <input
@@ -422,6 +374,7 @@ const EditPlayerDetails = () => {
                   />
                 </div>
               </div>
+
               <div className="personalInfo editpersonal_info">
                 <div className="row mb_40">
                   {inputFieldData.map((field, index) => (
@@ -432,14 +385,13 @@ const EditPlayerDetails = () => {
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "40px" : "0",
-                          }}
-                        >
+                          }}>
                           <div className="w-100">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label"
-                            >
-                              {field.label}
+                              className="form-label">
+                              {" "}
+                              {field.label}{" "}
                             </label>
                             <input
                               type={field.type}
@@ -488,8 +440,7 @@ const EditPlayerDetails = () => {
                   className="form-control about_me_editField"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  value={userInfo?.strengths_advantage}
-                ></textarea>
+                  value={userInfo?.strengths_advantage}></textarea>
               </div>
             </div>
             <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
@@ -503,8 +454,7 @@ const EditPlayerDetails = () => {
                   className="form-control about_me_editField"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  value={userInfo?.about_me}
-                ></textarea>
+                  value={userInfo?.about_me}></textarea>
               </div>
             </div>
 
@@ -524,8 +474,7 @@ const EditPlayerDetails = () => {
                   className="form-control about_me_editField"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  value={userInfo?.expectations_from_new_club}
-                ></textarea>
+                  value={userInfo?.expectations_from_new_club}></textarea>
               </div>
             </div>
           </div>
@@ -534,15 +483,13 @@ const EditPlayerDetails = () => {
         <div className="d-flex align-items-center gap-3 mb_28">
           <p
             className="f_sfPro text_color_36 fs_18"
-            style={{ paddingLeft: "75px" }}
-          >
+            style={{ paddingLeft: "75px" }}>
             Gallery
           </p>
 
           <label
             style={{ cursor: "pointer" }}
-            className="add_image_btn bg-none"
-          >
+            className="add_image_btn bg-none">
             <span>Add Image</span>
             <img src={plus4} alt="" />
             <input
@@ -560,8 +507,7 @@ const EditPlayerDetails = () => {
         <button
           type="submit"
           disabled={isLoading}
-          className="experience_wrapper playerDetailsUpdate_btn"
-        >
+          className="experience_wrapper playerDetailsUpdate_btn">
           {isLoading ? "Updating..." : "Update"}
         </button>
       </div>
@@ -570,24 +516,3 @@ const EditPlayerDetails = () => {
 };
 
 export default EditPlayerDetails;
-
-// {
-//     "playerName": "sdfsdf",
-//     "sportsType": "dsfds",
-//     "selectedImage": null,
-//     "name": "sdfsd",
-//     "date of birth": "",
-//     "age": "",
-//     "nationality": "",
-//     "position": "",
-//     "dominant hand": "",
-//     "height": "",
-//     "weight": "",
-//     "race": "",
-//     experiences:[{startYear:"",endYear:""}],
-//     clubName:"",
-//     strengthsAbout:"",
-//     aboutme:"",
-//     expectationFromClub:"",
-//     gallary:[]
-// }

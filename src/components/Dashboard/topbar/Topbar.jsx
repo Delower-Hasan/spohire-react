@@ -1,14 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import addIcon from "../../../assets/addIcon.svg";
 import arrowDown from "../../../assets/arrow_down.svg";
 import AvatarImg from "../../../assets/avatar.svg";
+import billingIcon from "../../../assets/billing_icon.svg";
 import logo from "../../../assets/dashbord-logo.png";
 import filterIcon from "../../../assets/filterIcon.svg";
+import helpIcon from "../../../assets/help_icon.svg";
+import hoverBilling from "../../../assets/hover-billing.svg";
+import hoverBuy from "../../../assets/hover-buy.svg";
+import hoverHelp from "../../../assets/hover-help.svg";
+import hoverProfile from "../../../assets/hover-profile.svg";
+import hoverSettings from "../../../assets/hover-settings.png";
+import logoutIcon from "../../../assets/logout_icon.svg";
 import messageIcon from "../../../assets/message-icon2.svg";
 import notificationIcon from "../../../assets/notification_icon.svg";
+import profileIcon from "../../../assets/profile_icon.svg";
+import settingsIcon from "../../../assets/setting_icon.png";
 import silverIcon from "../../../assets/silver_icon.svg";
+import subscriptionIcon from "../../../assets/subcription_icon.svg";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
 import "./Topbar.css";
@@ -19,6 +30,7 @@ const Topbar = () => {
   const [playerFilter, setPlayerFilter] = useState(false);
   const [coachFilter, setCoachFilter] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
@@ -28,7 +40,6 @@ const Topbar = () => {
 
   // announcement state
   const myDivRef1 = useRef(null);
-
   const handleFilterAnnouncementModal = () => {
     setFilterAnnouncement(!filterAnnouncement);
   };
@@ -37,6 +48,10 @@ const Topbar = () => {
     handleFilterAnnouncementModal();
   };
   // announcemnet modal fn end--------
+
+  const handleIsDropDownOpen = () => {
+    setIsDropDownOpen(!isDropDownOpen);
+  };
 
   // joboffer modal--------------
   const myDivRef = useRef(null);
@@ -122,6 +137,39 @@ const Topbar = () => {
     year: "numeric",
   });
 
+  const profileMenu = [
+    {
+      icon: profileIcon,
+      onHover: hoverProfile,
+      menuName: "profile",
+      link: "/dashboard/viewProfile",
+    },
+    {
+      icon: subscriptionIcon,
+      onHover: hoverBuy,
+      menuName: "Buy Subscription",
+      link: "#",
+    },
+    {
+      icon: settingsIcon,
+      onHover: hoverSettings,
+      menuName: "Settings",
+      link: "#",
+    },
+    {
+      icon: helpIcon,
+      onHover: hoverHelp,
+      menuName: "Help",
+      link: "#",
+    },
+    {
+      icon: billingIcon,
+      onHover: hoverBilling,
+      menuName: "Billing",
+      link: "/dashboard/viewProfile",
+    },
+  ];
+
   return (
     <>
       <div
@@ -133,24 +181,25 @@ const Topbar = () => {
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
-              {(location.pathname == "/dashboard/viewProfile") |
-              (location.pathname === "/dashboard/viewDetails") |
-              (location.pathname === "/dashboard/coacheDetails") |
-              (location.pathname == "/dashboard/coachesProfile") |
-              (location.pathname == "/dashboard/messages") |
-              (location.pathname === "/dashboard/editAnnouncements") |
-              (location.pathname == "/dashboard/editPlayerDetals") ? (
+              {location.pathname === "/dashboard/viewDetails" ||
+              location.pathname === "/dashboard/coacheDetails" ||
+              location.pathname == "/dashboard/coachesProfile" ||
+              location.pathname == "/dashboard/messages" ||
+              location.pathname === "/dashboard/editAnnouncements" ||
+              location.pathname == "/dashboard/editPlayerDetals" ? (
                 <button></button>
               ) : (
-                // <button className="back_btn fs_10">Back</button>
                 <>
                   <h2 className="text_color_36 fs-4 fw-medium text-capitalize pb-1">
                     {location.pathname === "/dashboard" && user?.isSubsCribed
-                      ? `Hello ${user?.first_name} ${user?.last_name}`
+                      ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
 
                     {location.pathname === "/dashboard/jobOffers" &&
                       "job offer"}
+
+                    {location.pathname.startsWith("/dashboard/jobDetails") &&
+                      "job description"}
 
                     {location.pathname === "/dashboard/basicinfo" &&
                       "job offer"}
@@ -180,6 +229,11 @@ const Topbar = () => {
                     {location.pathname === "/dashboard/addedItems" &&
                       "My Added Items"}
 
+                    {location.pathname === "/dashboard/viewProfile" &&
+                    user?.isSubsCribed
+                      ? `Hello ${user?.first_name} ${user?.last_name} `
+                      : ""}
+
                     {location.pathname === "/dashboard/myAppliedJobs" &&
                       "My Applied Jobs"}
 
@@ -189,7 +243,9 @@ const Topbar = () => {
                     {location.pathname.startsWith("/dashboard/messages") &&
                       "Messages"}
                   </h2>
-                  {location.pathname === "/dashboard" && (
+
+                  {location.pathname === "/dashboard" ||
+                  location.pathname === "/dashboard/viewProfile" ? (
                     <>
                       {user?.isSubsCribed ? (
                         <>
@@ -272,215 +328,13 @@ const Topbar = () => {
                         <p className="text_clr_70 fw-medium">No subscription</p>
                       )}
                     </>
-                  )}
+                  ) : null}
                 </>
               )}
             </div>
 
-            {/* <div>
-              {location.pathname === "/dashboard" ? (
-                <div className="d-flex gap-5">
-                  {user?.role !== "Other" && (
-                    <div
-                      className="d-flex gap-2 align-items-center"
-                      style={{
-                        border: "2px dashed #d1d8e4",
-
-                        padding: "3px 15px",
-                        borderRadius: "8px",
-                      }}>
-                      <p className="fs-5 me-3">Transfer Market</p>
-
-                      {user?.role === "Player" && (
-                        <button
-                          className="px-3 py-2 rounded text-white bg_color_fb"
-                          onClick={() => navigate("/addPlayerProfile")}
-                          disabled={user?.addedProfile}>
-                          {user?.addedProfile ? "Added" : "Add Player"}
-                        </button>
-                      )}
-
-                      {user?.role === "Coach" && (
-                        <button
-                          className="px-3 py-2 rounded text-white bg_color_fb"
-                          onClick={() => navigate("/addProfilePlayer")}>
-                          Add Player
-                        </button>
-                      )}
-                      {user?.role === "Coach" && (
-                        <button
-                          className="px-3 py-2 rounded text-white bg_color_fb"
-                          onClick={() => navigate("/addCoachProfile")}
-                          disabled={user?.addedProfile}>
-                          {user?.addedProfile ? "Added" : "Add Coach"}
-                        </button>
-                      )}
-
-                      {user?.role === "Manager" && (
-                        <>
-                          <button
-                            className="px-3 py-2 rounded text-white bg_color_fb"
-                            onClick={() => navigate("/addProfilePlayer")}>
-                            Add player
-                          </button>
-                          <button
-                            className="px-3 py-2 rounded text-white bg_color_fb"
-                            onClick={() => navigate("/addProfileCoach")}>
-                            Add coach
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  )}
-                  <div className="d-flex gap-2">
-                    <button
-                      className="px-3 py-2 rounded text-white bg_color_fb"
-                      onClick={() => handleAddJobOfferClick()}>
-                      Add Job Offer
-                    </button>
-
-                    <button
-                      className="px-3 py-2 rounded text-white bg_color_fb"
-                      onClick={() => handleAddAnnouncementClick()}>
-                      Add Announcement
-                    </button>
-                  </div>
-                </div>
-              ) : location.pathname.includes("/dashboard/jobApplicants") ? (
-                ""
-              ) : (
-                <div className="dashbord_topbar_button d-flex gap-4">
-                  {location.pathname === "/dashboard/players" && (
-                    <button
-                      onClick={(event) => handlePlayerFilterModal(event)}
-                      className={`${"filter_btn d-flex gap-2 text-decoration-none"} `}>
-                      <img src={filterIcon} alt="icon" />
-                      <span className="text_color_cb">Filter</span>
-                    </button>
-                  )}
-                  {location.pathname === "/dashboard/coaches" && (
-                    <button
-                      onClick={(event) => handleCoachFilterModal(event)}
-                      className={`${"filter_btn d-flex gap-2 text-decoration-none"} `}>
-                      <img src={filterIcon} alt="icon" />
-                      <span className="text_color_cb">Filter</span>
-                    </button>
-                  )}
-                  {location.pathname === "/dashboard/jobOffers" && (
-                    <button
-                      onClick={(event) => handleButtonClick(event)}
-                      className={`${"filter_btn d-flex gap-2 text-decoration-none"} `}>
-                      <img src={filterIcon} alt="icon" />
-                      <span className="text_color_cb">Filter</span>
-                    </button>
-                  )}
-                  {location.pathname === "/dashboard/announcements" && (
-                    <button
-                      onClick={(event) => handleButtonClick1(event)}
-                      className={`${"filter_btn d-flex gap-2 text-decoration-none"} `}>
-                      <img src={filterIcon} alt="icon" />
-                      <span className="text_color_cb">Filter</span>
-                    </button>
-                  )}
-
-                  <Link
-                    to={`${
-                      location.pathname === "/dashboard/jobOffers"
-                        ? "/dashboard/jobOffers"
-                        : (location.pathname === "/dashboard/coachesProfile") |
-                            (location.pathname ==
-                              "/dashboard/editCoacheProfile") |
-                            (location.pathname ==
-                              "/dashboard/editPlayerDetals") &&
-                          !user?.subscriptionName
-                        ? "/pricing"
-                        : location.pathname === "/dashboard/coaches"
-                        ? "/dashboard/coachesProfile"
-                        : "#"
-                    }`}
-                    className={`${
-                      location.pathname == "/dashboard/observed" ||
-                      location.pathname == "/dashboard/viewProfile" ||
-                      location.pathname.includes("/dashboard/coacheDetails") ||
-                      location.pathname.includes("/dashboard/viewDetails") ||
-                      location.pathname.includes("/dashboard/messages") ||
-                      location.pathname == "/dashboard/addedItems" ||
-                      location.pathname == "/dashboard/myAppliedJobs" ||
-                      location.pathname == "/dashboard/messages" ||
-                      location.pathname == "/dashboard/password" ||
-                      location.pathname == "/dashboard/notification" ||
-                      location.pathname == "/dashboard/billing" ||
-                      location.pathname == "/dashboard/editAnnouncements" ||
-                      location.pathname === "/dashboard/coaches" ||
-                      location.pathname === "/dashboard/players" ||
-                      location.pathname === "/dashboard/viewDetails" ||
-                      location.pathname === "/dashboard/coacheDetails" ||
-                      location.pathname === "/dashboard/createAnnouncements" ||
-                      (location.pathname === "/dashboard/announcements" &&
-                        user.role == "Player") ||
-                      (location.pathname === "/dashboard/jobOffers" &&
-                        user.role == "Player")
-                        ? "d-none"
-                        : "add_btn d-flex gap-2 text-decoration-none bg_color_fb"
-                    } `}
-                    onClick={() =>
-                      location.pathname === "/dashboard/jobOffers"
-                        ? handleAddJobOfferClick()
-                        : location.pathname === "/dashboard/announcements"
-                        ? handleAddAnnouncementClick()
-                        : undefined
-                    }>
-                    {(location.pathname === "/dashboard/jobOffers") |
-                    (location.pathname === "/dashboard/announcements") |
-                    (location.pathname == "/dashboard/basicinfo") ? (
-                      <img src={addIcon} alt="icon" />
-                    ) : (
-                      ""
-                    )}
-                    <span
-                      className={`${
-                        (location.pathname == "/dashboard/observed") |
-                        (location.pathname == "/dashboard/messages") |
-                        (location.pathname === "/dashboard/editAnnouncements") |
-                        (location.pathname === "/dashboard/players")
-                          ? " d-none"
-                          : "text-white"
-                      } `}>
-                      {(location.pathname === "/dashboard/jobOffers") |
-                      (location.pathname === "/dashboard/basicinfo")
-                        ? "Add Job Offer"
-                        : location.pathname === "/dashboard"
-                        ? "View Details"
-                        : (location.pathname === "/dashboard/coachesProfile") |
-                          (location.pathname ===
-                            "/dashboard/editCoacheProfile" &&
-                            !user?.subscriptionName)
-                        ? "Click here to upgrade your current package"
-                        : location.pathname === "/dashboard/announcements"
-                        ? "Create Announcement"
-                        : location.pathname === "/dashboard/viewProfile" &&
-                          !user?.subscriptionName
-                        ? "Click here to upgrade your current package"
-                        : location.pathname === "/dashboard/editPlayerDetals" &&
-                          !user?.subscriptionName
-                        ? "Click here to upgrade your current package"
-                        : ""}
-                    </span>
-                  </Link>
-                </div>
-              )}
-
-              {filter && <FilterModal myDivRef={myDivRef} />}
-              {filterAnnouncement && (
-                <FilteAnnouncementModal myDivRef1={myDivRef1} />
-              )}
-              {playerFilter && <PlayerFilterModal playerRef={playerRef} />}
-              {coachFilter && <CoachFilterModal playerRef={coachRef} />}
-
-
-            </div> */}
-
-            {location.pathname === "/dashboard" ? (
+            {location.pathname === "/dashboard" ||
+            location.pathname === "/dashboard/viewProfile" ? (
               <div className="right_searchItem d-flex justify-content-between align-items-center gap-4">
                 <div className="search_item">
                   <input id="search_input" type="text" placeholder="Search" />
@@ -494,13 +348,15 @@ const Topbar = () => {
                   <img src={notificationIcon} alt="notification-icon" />
                 </button>
 
-                <div className="userprofile d-flex gap-3 align-items-center">
+                <div className="userprofile d-flex gap-3 align-items-center position-relative">
                   <div className="userImg">
                     <img src={AvatarImg} alt="" />
                   </div>
-
                   <div className="user_info">
-                    <button className="user_name bg-none d-flex align-items-center gap-2 ">
+                    {/* drop down here */}
+                    <button
+                      onClick={handleIsDropDownOpen}
+                      className="user_name bg-none d-flex align-items-center gap-2 ">
                       <h2 className="">
                         {user?.isSubsCribed
                           ? `${user?.first_name} ${user?.last_name}`
@@ -517,6 +373,46 @@ const Topbar = () => {
                       </p>
                     </div>
                   </div>
+                  {/* Dropdown here */}
+                  {isDropDownOpen && (
+                    <div className="position-absolute dropdown_menu">
+                      <ul className="p-0 m-0 list-unstyled">
+                        {profileMenu.map((dropdownItem, index) => (
+                          <li
+                            key={index}
+                            className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer">
+                            <div className="menus_item">
+                              <img
+                                className="hover_icon d-none"
+                                src={dropdownItem.onHover}
+                                alt="icon"
+                              />
+                              <img
+                                className="nonHover_icon"
+                                src={dropdownItem.icon}
+                                alt="icon"
+                              />
+                            </div>
+                            <Link
+                              to={dropdownItem.link}
+                              className="d-inline-block text-capitalize">
+                              {dropdownItem.menuName}
+                            </Link>
+                          </li>
+                        ))}
+                        <li className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer border-top">
+                          <Link
+                            className="d-inline-flex align-items-center gap-2 text-capitalize"
+                            style={{ color: "#FE6470" }}>
+                            <div className="menus_item">
+                              <img className="" src={logoutIcon} alt="icon" />
+                            </div>
+                            Logout
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             ) : location.pathname === "/dashboard/players" ? (
@@ -667,7 +563,7 @@ const Topbar = () => {
             </div>
 
             <div className="postion_wrapper pb-4">
-              <h2>Dominant hand </h2>
+              <h2>Dominant hand</h2>
               <div className="position_btn_wrapper location">
                 <select class="form-select" aria-label="Default select example">
                   <option selected>Select</option>

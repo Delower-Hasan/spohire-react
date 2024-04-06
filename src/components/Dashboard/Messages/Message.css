@@ -127,7 +127,7 @@
   padding: 12px 32px 7px 12px;
   background: linear-gradient(180deg, #0177fb 0%, #2d5bff 100%);
   font-family: "SF Pro Display" sans-serif;
-  left: 0;
+  margin-left: 40px;
 }
 
 .message2 {
@@ -146,9 +146,18 @@
   bottom: 20px;
 }
 
+.avatar_img2 {
+  left: 0;
+  bottom: 15px
+}
+
 .message_time {
   right: 60px;
   bottom: -20px;
+}
+
+.message_time_one {
+  left: 45px;
 }
 
 .messages_blue_wrapper {
@@ -288,9 +297,9 @@
 
 .type_message {
   position: fixed;
-  bottom: 62px;
-  width: 35%;
-  left: 58%;
+  bottom: 80px;
+  width: 50%;
+  left: 67%;
   transform: translateX(-50%);
 }
 

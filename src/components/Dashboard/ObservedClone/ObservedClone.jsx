@@ -259,7 +259,7 @@ const ObservedClone = () => {
                                     className="fw-medium fs-6 text_color_36 mb-1"
                                     onClick={() =>
                                       navigate(
-                                        `/jobOffer/jobDetails/${item?.target_id?._id}`
+                                        `/dashboard/jobDetails/${item?.target_id?._id}`
                                       )
                                     }
                                     style={{ cursor: "pointer" }}>

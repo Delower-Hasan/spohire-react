@@ -1,9 +1,9 @@
 .billing_header {
     display: flex;
     padding: 16px 19px;
-    border-radius: 7px;
-    border: 1px solid #DFE5F1;
-    background: #FAFCFF;
+
+    border-bottom: 1px solid #DFE5F1;
+
     margin-left: 30px !important;
     margin-right: 30px !important;
     margin-bottom: 24px !important;
@@ -12,20 +12,35 @@
 
 .billing_header1 {
     display: flex;
-    padding: 16px 19px;
+    padding: 25px 20px;
     /* background: #FFF; */
     align-items: center;
 }
 
-.billing_header1:not(:last-child) {
-    border-bottom: 1px solid #DFE5F1;
+.billing_header1 {
+    border: 1px solid #DFE5F1;
+    margin-bottom: 20px;
+    border-radius: 6px;
+        border: 1px solid var(--Light-blue, #F4F7FE);
+        background: var(--White, #FFF);
+
+        box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
 
 }
 
 .billing_table {
-    padding-top: 30px;
+    padding: 30px 0;
     width: 100%;
     /* padding-right: 30px; */
+    background-color: white;
+    border-radius: 20px;
+}
+
+.export_csv{
+    background-color: transparent;
+    border: 2px solid #DFE5F1;
+    padding: 10px 20px;
+    border-radius: 10px;
 }
 
 .col1 {
@@ -55,13 +70,25 @@
 
 .table_row_wrapper {
     border-radius: 7px;
-    border: 1px solid #DFE5F1;
+    /* border: 1px solid #DFE5F1; */
     margin-left: 30px !important;
     margin-right: 30px !important;
 }
 
+
+
+.billing_table .tableHead {
+    color: #8593BC;
+    font-family: 'SF Pro Display' sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
 .billing_table p {
-    color: #141736;
+    color: #8593BC;
     font-family: 'SF Pro Display' sans-serif;
     font-size: 14px;
     font-style: normal;
@@ -73,19 +100,23 @@
 .form_mobile {
 
     padding-left: 0 !important;
-   
+
 }
-.dashbord_content{
+
+.dashbord_content {
     position: relative;
     height: 100%;
 }
+
 @media(max-width:768px) {
     .billing_table p {
         font-size: 8px;
     }
-.col1{
-    width: 8%;
-}
+
+    .col1 {
+        width: 8%;
+    }
+
     .col2 {
         width: 30%;
     }

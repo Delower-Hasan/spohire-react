@@ -12,7 +12,7 @@ const DetailsHeader = () => {
         <div className="container">
           <div className="inner d-flex align-items-center justify-content-between gap-4">
             <div className="d-flex align-items-center gap-4">
-              <img src={google} alt="" />
+              <img style={{width: "100px"}} src={google} alt="" />
               <div>
                 <h4>Senior UX Designer</h4>
                 <div className="d-flex align-items-center gap-2">

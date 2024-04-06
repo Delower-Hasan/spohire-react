@@ -12,6 +12,21 @@
     border-right: 2px solid #DFE5F1;
     height: 100vh;
     color: #E3E3E3;
+    overflow-y: scroll;
+}
+
+.dashobard_layout .dashbord_sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.dashobard_layout .dashbord_sidebar::-webkit-scrollbar-track {
+    background: #232E33;
+    border-radius: 14px;
+}
+
+.dashobard_layout .dashbord_sidebar::-webkit-scrollbar-thumb {
+    background: #2d2d2d;
+    border-radius: 14px;
 }
 
 .dashobard_layout .dashbord_content {

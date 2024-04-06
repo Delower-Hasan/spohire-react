@@ -4,6 +4,7 @@ import Salary from "../../components/JobOffer/Details/Salary";
 import JobOverview from "../../components/JobOffer/Details/JobOverview";
 import RelatedJob from "../../components/JobOffer/Details/RelatedJob";
 
+
 const JobOfferDetails = () => {
   return (
     <div>
@@ -11,7 +12,9 @@ const JobOfferDetails = () => {
       <div className="container mb-5">
         <div className="row">
           <div className="col-lg-7">
+
             <Description />
+
           </div>
           <div className="col-lg-5">
             <Salary />

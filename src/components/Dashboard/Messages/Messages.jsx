@@ -187,15 +187,27 @@ const Messages = () => {
                   {messages &&
                     messages?.length > 0 &&
                     messages.map((item, idx) => (
-                      <div ref={chatContainerRef} key={idx}>
+                      <div ref={chatContainerRef} key={idx} className="pb-5">
                         {item?.sender !== user?._id ? (
                           <div className="d-flex align-items-end">
                             {/* <div className="bg_curve_blue">
                               <div className="bg_curve_white"></div>
                             </div> */}
-                            <div className="message1">
-                              <p>{item?.text}</p>
-                              <span>{formatMessageTime(item?.createdAt)}</span>
+                            <div className="position-relative w-100">
+                              <div className="message_one">
+                                <div className="message1 position-relative">
+                                  <p>{item?.text}</p>
+                                  <span>
+                                    {formatMessageTime(item?.createdAt)}
+                                  </span>
+                                </div>
+                                <p className="message_time_one position-absolute">
+                                  8:00 PM
+                                </p>
+                              </div>
+                              <div className="position-absolute avatar_img2">
+                                <img src={chatAvatar} alt="" />
+                              </div>
                             </div>
                           </div>
                         ) : (
@@ -211,7 +223,9 @@ const Messages = () => {
                                     <img src={senticon} alt="sent" />
                                   </div>
                                 </div>
-                                <p className="message_time position-absolute">asdfasdf</p>
+                                <p className="message_time position-absolute">
+                                  8:00 PM
+                                </p>
                               </div>
 
                               <div className="position-absolute avatar_img">

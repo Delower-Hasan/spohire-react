@@ -1,6 +1,6 @@
 /* Job Offers Start */
 .job_offer {
-    padding: 100px 45px 50px 75px;
+    /* padding: 100px 45px 50px 75px; */
     position: relative;
 }
 
@@ -259,9 +259,10 @@
     -webkit-filter: blur(8px);   */
     position: relative;
 }
-.upload_profile_image .profiles{
+
+.upload_profile_image .profiles {
     width: 252px;
-height: 584px;
+    height: 584px;
 }
 
 .profile_upload_btn {
@@ -400,7 +401,7 @@ height: 584px;
 }
 
 
-/* 
+/*
 
  const [formData, setFormData] = useState({
         experiences: [{ startYear: '', endYear: '' }],
@@ -449,3 +450,158 @@ height: 584px;
 
 
 */
+
+.View_details {
+    border-radius: 20px;
+    padding: 25px 30px !important;
+}
+
+.profile_heading h2 {
+    color: #2B3674;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.profile_heading .btn_group .cancel {
+    color: #8593BC;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent;
+}
+
+.profile_heading .btn_group .edit {
+    color: var(--White, #FFF);
+    font-family: "SF Pro Display";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.26px;
+    border-radius: 5px;
+    background: var(--green, #05CD99);
+    padding: 10px 15px;
+}
+
+.personal_information {
+    border-radius: 16px;
+    border: 1px solid var(--Light-blue, #F4F7FE);
+    background: var(--White, #FFF);
+    box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
+    padding: 35px 20px;
+}
+
+.View_details .user_title {
+    color: #0095FF;
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+.View_details .user_designation {
+    color: #8593BC;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.28px;
+    margin-bottom: 10px;
+}
+
+.View_details .nationality {
+    color: #2B3674;
+    font-family: "SF Pro Display";
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.24px;
+}
+
+.View_details .update_plan {
+    color: #0095FF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    background-color: transparent;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin-bottom: 35px;
+}
+
+.social_media_icon a {
+
+    border-radius: 4px;
+    background: var(--Light-blue, #F4F7FE);
+}
+
+.social_media_icon .icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link_btn {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green, #05CD99);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.experience_information {
+    border-radius: 16px;
+    border: 1px solid #F4F7FE;
+    background: var(--White, #FFF);
+    box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
+    /* padding: 42px 26px; */
+}
+
+.experience_information .ei_left p {
+    color: #4C4E52;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: -0.48px;
+}
+
+.experience_information .user_name {
+    color: #8593BC;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.32px;
+}
+
+.experience_information .ei_left {
+    padding: 42px 26px;
+}
+.experience_information .ei_left .user_data_info {
+    color: #4C4E52;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.32px;
+}
+
+.experience_information .ei_right {
+    border-radius: 0px 16px 16px 0px;
+        background: #F8F8F8;
+        padding: 42px 26px;
+}
+.experience_information .ei_right .experience {
+    color: #4C4E52;
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}

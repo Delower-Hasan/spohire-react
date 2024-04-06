@@ -1,57 +1,56 @@
-import Home from "../pages/Home.jsx";
-import TransfarMarket from "../pages/TransferMarket/TransfarMarket.jsx";
-import Announcements from "../pages/Announcement/Announcements.jsx";
-import Pricing from "../pages/pricing/Pricing.jsx";
-import DashboardLayout from "../components/Dashboard/DashboardLayout/DashboardLayout";
-import JobOffer from "../pages/JobOffer/JobOffer.jsx";
-import JobOffers from "../components/Dashboard/dashbordJobOffers/JobOffers";
-import Players from "../components/Dashboard/players/Players";
-import ViewDetails from "../components/Dashboard/viewDetails/ViewDetails";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
+import Layout from "../Layout/Layout.jsx";
+import AddedItems from "../components/Dashboard/AddJobOffer/AddedItems.jsx";
+import DashboardAnnouncements from "../components/Dashboard/Announcements/DashboardAnnouncements.jsx";
+import Coaches from "../components/Dashboard/Coaches/Coaches.jsx";
+import CoachesDetails from "../components/Dashboard/Coaches/CoachesDetails.jsx";
+import CoachesProfile from "../components/Dashboard/Coaches/CoachesProfile.jsx";
+import DashboardLayout from "../components/Dashboard/DashboardLayout/DashboardLayout";
+import BlankMessages from "../components/Dashboard/Messages/BlankMessages.jsx";
+import Messages from "../components/Dashboard/Messages/Messages.jsx";
+import ObservedClone from "../components/Dashboard/ObservedClone/ObservedClone.jsx";
+import OverView from "../components/Dashboard/OverView/OverView.jsx";
 import Billing from "../components/Dashboard/Setting/Billing/Billing.jsx";
 import Notification from "../components/Dashboard/Setting/Notification/Notification.jsx";
 import Password from "../components/Dashboard/Setting/Password/Password";
-import DashboardAnnouncements from "../components/Dashboard/Announcements/DashboardAnnouncements.jsx";
-import Coaches from "../components/Dashboard/Coaches/Coaches.jsx";
+import AppliedJobs from "../components/Dashboard/dashbordJobOffers/AppliedJobs.jsx";
+import JobOffers from "../components/Dashboard/dashbordJobOffers/JobOffers";
+import MyAppliedJob from "../components/Dashboard/dashbordJobOffers/MyAppliedJob.jsx";
+import Players from "../components/Dashboard/players/Players";
+import EditAddedPlayerDetails from "../components/Dashboard/viewDetails/EditAddedPlayerDetails.jsx";
+import EditPlayerDetails from "../components/Dashboard/viewDetails/EditPlayerDetails.jsx";
+import ViewDetails from "../components/Dashboard/viewDetails/ViewDetails";
+import ViewProfile from "../components/Dashboard/viewDetails/ViewProfile.jsx";
+import NewsDetails from "../components/News/NewsDetails.jsx";
 import AddPlayerInfo2 from "../pages/AddPlayer/AddPlayerInfo2.jsx";
 import AddPlayerInfo3 from "../pages/AddPlayer/AddPlayerInfo3.jsx";
-import ObservedClone from "../components/Dashboard/ObservedClone/ObservedClone.jsx";
-import Messages from "../components/Dashboard/Messages/Messages.jsx";
-import OverView from "../components/Dashboard/OverView/OverView.jsx";
-import CoachesProfile from "../components/Dashboard/Coaches/CoachesProfile.jsx";
-import EditAnnouncements from "../pages/Announcement/EditAnnouncements.jsx";
-import Layout from "../Layout/Layout.jsx";
-import EditPlayerDetails from "../components/Dashboard/viewDetails/EditPlayerDetails.jsx";
-import Gallary from "../pages/TransferMarket/Gallary.jsx";
-import { createBrowserRouter } from "react-router-dom";
-import EditCoachProfile from "./../components/Dashboard/Coaches/EditCoachProfile";
-import ViewProfile from "../components/Dashboard/viewDetails/ViewProfile.jsx";
-import CoachesDetails from "../components/Dashboard/Coaches/CoachesDetails.jsx";
+import AddCoachProfile from "../pages/AddProfile/AddCoachProfile.jsx";
+import AddPlayerProfile from "../pages/AddProfile/AddPlayerProfile.jsx";
 import AddProfile from "../pages/AddProfile/AddProfile.jsx";
-import SubscribedRoute from "./SubscribedRoute.jsx";
-import CreateAnnouncements from "../pages/Announcement/CreateAnnouncements.jsx";
-import BlankMessages from "../components/Dashboard/Messages/BlankMessages.jsx";
-import PaymentRoute from "./PaymentRoute.jsx";
-import PrivateRoute from "./PrivateRoute.jsx";
-import AppliedJobs from "../components/Dashboard/dashbordJobOffers/AppliedJobs.jsx";
-import MyAppliedJob from "../components/Dashboard/dashbordJobOffers/MyAppliedJob.jsx";
-import AddedItems from "../components/Dashboard/AddJobOffer/AddedItems.jsx";
-import PricingAddProfile from "../pages/pricing/PricingAddProfile.jsx";
 import AddProfilePlayer from "../pages/AddProfile/AddProfilePlayer.jsx";
 import AddProfileCoach from "../pages/AddProfile/AddProflieCoach.jsx";
-import PaymentProcessAddPlayer from "../pages/pricing/PaymentProcessAddPlayer.jsx";
-import PaymentProcessNew from "../pages/pricing/PaymentProcessNew.jsx";
-import AddPlayerProfile from "../pages/AddProfile/AddPlayerProfile.jsx";
-import AddCoachProfile from "../pages/AddProfile/AddCoachProfile.jsx";
-import EditAddedPlayerDetails from "../components/Dashboard/viewDetails/EditAddedPlayerDetails.jsx";
+import Announcements from "../pages/Announcement/Announcements.jsx";
+import CreateAnnouncements from "../pages/Announcement/CreateAnnouncements.jsx";
+import EditAnnouncements from "../pages/Announcement/EditAnnouncements.jsx";
+import Home from "../pages/Home.jsx";
+import JobOffer from "../pages/JobOffer/JobOffer.jsx";
 import JobOfferDetails from "../pages/JobOffer/JobOfferDetails.jsx";
 import News from "../pages/News/News.jsx";
 import TermsAndCondition from "../pages/TermsAndCondition/TermsAndCondition.jsx";
-import NewsDetails from "../components/News/NewsDetails.jsx";
+import Gallary from "../pages/TransferMarket/Gallary.jsx";
+import TransfarMarket from "../pages/TransferMarket/TransfarMarket.jsx";
+import PaymentProcessAddPlayer from "../pages/pricing/PaymentProcessAddPlayer.jsx";
+import PaymentProcessNew from "../pages/pricing/PaymentProcessNew.jsx";
+import Pricing from "../pages/pricing/Pricing.jsx";
+import PricingAddProfile from "../pages/pricing/PricingAddProfile.jsx";
+import EditCoachProfile from "./../components/Dashboard/Coaches/EditCoachProfile";
+import PaymentRoute from "./PaymentRoute.jsx";
+import PrivateRoute from "./PrivateRoute.jsx";
+import SubscribedRoute from "./SubscribedRoute.jsx";
 
 export const router = createBrowserRouter([
-
   {
     path: "/",
     element: <Layout />,
@@ -96,15 +95,18 @@ export const router = createBrowserRouter([
           // </PaymentRoute>
         ),
       },
+
       {
         path: "/jobOffer",
         element: <JobOffer />,
       },
-      {
-        path: "/jobOffer/jobDetails/:id",
-        // element: <JobDetails />,
-        element: <JobOfferDetails />,
-      },
+
+      // {
+      //   path: "/jobOffer/jobDetails/:id",
+      //   // element: <JobDetails />,
+      //   element: <JobOfferDetails />,
+      // },
+
       {
         path: "/announcements",
         element: <Announcements />,
@@ -201,6 +203,12 @@ export const router = createBrowserRouter([
           // </SubscribedRoute>
         ),
       },
+      {
+        path: "/dashboard/jobDetails/:id",
+        // element: <JobDetails />,
+        element: <JobOfferDetails />,
+      },
+
       {
         path: "/dashboard/myAppliedJobs",
         element: (
