@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import "./ViewDetails.css";
-import profileImage from "../../../assets/profile_upload.png";
+import profileImage from "../../../assets/profile_avatar.png";
 import upload from "../../../assets/upload.png";
 import plus4 from "../../../assets/plus4.png";
 import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
@@ -302,7 +302,10 @@ const EditPlayerDetails = () => {
   console.log(socialMedia, "socialMedia");
 
   return (
-    <form className="p-5 bg-white" onSubmit={handleUpdate} style={{borderRadius: "20px"}}>
+    <form
+      className="p-5 bg-white"
+      onSubmit={handleUpdate}
+      style={{ borderRadius: "20px" }}>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
@@ -316,8 +319,11 @@ const EditPlayerDetails = () => {
         <div className="job_offer desktop_vd edit_player_details_wrapper">
           <div className="row" style={{ margin: "0 40px" }}>
             <div className="col-12 col-lg-3">
+              <h2 className="edit_profile">Edit Profile</h2>
+              <p className="text-center py-4">Upload Main Photo</p>
+
               <div className="upload_profile_image" onClick={handleButtonClick}>
-                <img
+                {/* <img
                   className="img-fluid profiles"
                   src={
                     selectedImage
@@ -330,6 +336,12 @@ const EditPlayerDetails = () => {
                         }/api/v1/uploads/${userInfo?.image}`
                       : profileImage
                   }
+                  alt="Profile"
+                  style={{ objectFit: "cover" }}
+                /> */}
+                <img
+                  className="img-fluid profiles"
+                  src={profileImage}
                   alt="Profile"
                   style={{ objectFit: "cover" }}
                 />
@@ -353,7 +365,9 @@ const EditPlayerDetails = () => {
                   />
                 </div>
               </div>
+              
             </div>
+
             <div className="col-12 col-lg-9">
               <div className="edit_profile_input">
                 <div className="mb-4 position-relative">
@@ -479,6 +493,7 @@ const EditPlayerDetails = () => {
             </div>
           </div>
         </div>
+
         {/* <!-- Slider Start --> */}
         <div className="d-flex align-items-center gap-3 mb_28">
           <p

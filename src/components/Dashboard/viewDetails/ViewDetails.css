@@ -583,6 +583,7 @@
 .experience_information .ei_left {
     padding: 42px 26px;
 }
+
 .experience_information .ei_left .user_data_info {
     color: #4C4E52;
     font-family: "SF Pro Display";
@@ -595,13 +596,35 @@
 
 .experience_information .ei_right {
     border-radius: 0px 16px 16px 0px;
-        background: #F8F8F8;
-        padding: 42px 26px;
+    background: #F8F8F8;
+    padding: 42px 26px;
 }
+
 .experience_information .ei_right .experience {
     color: #4C4E52;
     font-family: "SF Pro Display";
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 0.2px;
+}
+
+.View_details .edit_profile {
+    color: #2B2F32;
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-bottom: 2px solid #0095FF;
+    padding-bottom: 10px;
+}
+
+.upload_profile_image p {
+    color: #1E2128;
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
