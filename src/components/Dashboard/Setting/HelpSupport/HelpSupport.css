@@ -1,0 +1,70 @@
+.contact .talk {
+    border-radius: 5px;
+    background: linear-gradient(180deg, #1E2128 0%, #253070 100%);
+    padding: 100px;
+}
+
+.contact .talk h3 {
+    color: var(--Text-White, var(--White, #FFF));
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 63.984px;
+    margin-bottom: 22px;
+}
+
+.contact .talk h6 {
+    color: var(--Text-White, var(--White, #FFF));
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 31.992px;
+    margin-bottom: 27px;
+}
+
+.contact p {
+    color: var(--Text-White, var(--White, #FFF));
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.contact .icon {
+    background-color: #B3D5FF;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact .form {
+    background-color: white;
+    padding: 100px 58px;
+}
+
+.contact .form label {
+    color: var(--Black-2, #4C4E52);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    display: block;
+    margin-bottom: 18px;
+}
+
+.contact .form input,
+.contact .form textarea {
+    border-radius: 5px;
+    background: #F3F7FF;
+    padding: 16px 14px;
+    width: 100%;
+    border: 0;
+}
+
+.contact .form input::placeholder {
+    color: var(--b3, #8593BC);
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
