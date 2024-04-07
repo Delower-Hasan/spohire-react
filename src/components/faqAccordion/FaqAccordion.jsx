@@ -8,7 +8,8 @@ import "./FaqAccordion.css";
 
 const FaqAccordion = ({ fontSize }) => {
   const [isOpen, setIsOpen] = useState(null);
-  const accoprdionData = [
+  const [showAll, setShowAll] = useState(false);
+  const accordionData = [
     {
       ques: "What Are The Hours of Operation?",
       ans: "Through a selection of ingenious residential projects –in which materials are immersed into a transformation, maintenance, or renovation process–, the article opens a discussion on how good architecture is durable and reusable.",
@@ -58,6 +59,8 @@ const FaqAccordion = ({ fontSize }) => {
       ans: "Through a selection of ingenious residential projects –in which materials are immersed into a transformation, maintenance, or renovation process–, the article opens a discussion on how good architecture is durable and reusable.",
     },
   ];
+
+  const visibleData = showAll ? accordionData : accordionData.slice(0, 5);
   return (
     <div className="accordion section_padding">
       <div className="container">
@@ -65,11 +68,12 @@ const FaqAccordion = ({ fontSize }) => {
           <h2 className={`${fontSize}`}>Frequently Asked Questions</h2>
         </div>
         <div>
-          {accoprdionData.map((data, index) => (
+          {visibleData.map((data, index) => (
             <div key={index} className="accordion_items mb-4 m-auto">
               <div
                 onClick={() => setIsOpen(index === isOpen ? null : index)}
-                className="d-flex align-items-center justify-content-between">
+                className="d-flex align-items-center justify-content-between"
+              >
                 <p className="question text_color_19 fs-4 fw-medium">
                   {data.ques}
                 </p>
@@ -95,11 +99,13 @@ const FaqAccordion = ({ fontSize }) => {
           ))}
         </div>
 
-        <div className="d-flex justify-content-center">
-          <button className="more_btn mt-5">
-            <img src={add_circle} alt="" /> More
-          </button>
-        </div>
+        {!showAll && (
+          <div className="d-flex justify-content-center">
+            <button className="more_btn mt-5" onClick={() => setShowAll(true)}>
+              <img src={add_circle} alt="" /> More
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

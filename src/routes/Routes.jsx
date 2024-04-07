@@ -49,6 +49,7 @@ import EditCoachProfile from "./../components/Dashboard/Coaches/EditCoachProfile
 import PaymentRoute from "./PaymentRoute.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import SubscribedRoute from "./SubscribedRoute.jsx";
+import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -343,6 +344,10 @@ export const router = createBrowserRouter([
           <Password />
           // </SubscribedRoute>
         ),
+      },
+      {
+        path: "/dashboard/help-and-support",
+        element: <HelpSupport />,
       },
       {
         path: "/dashboard/announcements",
