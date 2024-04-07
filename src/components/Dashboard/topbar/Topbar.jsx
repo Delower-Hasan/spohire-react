@@ -23,8 +23,10 @@ import subscriptionIcon from "../../../assets/subcription_icon.svg";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
 import "./Topbar.css";
+import AddPlayerModal from "../Modal/AddPlayerModal";
 
 const Topbar = () => {
+  let location = useLocation();
   const [filterAnnouncement, setFilterAnnouncement] = useState(false);
   const [filter, setFilter] = useState(false);
   const [playerFilter, setPlayerFilter] = useState(false);
@@ -34,34 +36,25 @@ const Topbar = () => {
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const [addPlayerModal, setAddPlayerModal] = useState(false);
-
-  console.log("user", user);
-
-  let location = useLocation();
-
-  // announcement state
   const myDivRef1 = useRef(null);
+
   const handleFilterAnnouncementModal = () => {
     setFilterAnnouncement(!filterAnnouncement);
   };
+
   const handleButtonClick1 = (event) => {
     event.stopPropagation();
     handleFilterAnnouncementModal();
   };
 
-  // addplayer modal
   const handleAddPlayerClick = () => {
-      setAddPlayerModal(!addPlayerModal);
-    }
-  // addplyer modal -/end
-
-  // announcemnet modal fn end--------
+    setAddPlayerModal(!addPlayerModal);
+  };
 
   const handleIsDropDownOpen = () => {
     setIsDropDownOpen(!isDropDownOpen);
   };
 
-  // joboffer modal--------------
   const myDivRef = useRef(null);
 
   const handleFilterModal = () => {
@@ -134,11 +127,13 @@ const Topbar = () => {
     // navigate("/dashboard/createAnnouncements");
     setAnnouncementIsModalOpen(true);
   };
+
   const closeAnnouncementModal = () => {
     setAnnouncementIsModalOpen(false);
   };
 
   const expirationDate = new Date(user?.expirationDate);
+
   const formattedExpirationDate = expirationDate.toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
@@ -436,6 +431,7 @@ const Topbar = () => {
                 </div>
 
                 {/* add player */}
+
                 <button
                   onClick={handleAddPlayerClick}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
@@ -444,6 +440,8 @@ const Topbar = () => {
                   </div>
                   Add Player
                 </button>
+
+                {/* add player -/ end */}
 
                 <button
                   onClick={handleFilterModal}
@@ -629,6 +627,8 @@ const Topbar = () => {
         style={{ width: "648px" }}
         closeModal={closeAnnouncementModal}
       />
+
+      {addPlayerModal && <AddPlayerModal />}
     </>
   );
 };

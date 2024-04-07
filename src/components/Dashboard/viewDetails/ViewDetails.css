@@ -444,6 +444,64 @@
 
 }
 
+.addplayer_modal {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #1417362c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+}
+
+.addplayer_modal .inner {
+    border-radius: 10px;
+    background: white;
+    max-width: 1088px;
+    width: 100%;
+    max-height: 80vh;
+    padding: 47px 70px;
+    overflow-y: scroll;
+}
+
+.addplayer_modal .inner .modal_heading h2 {
+    border-bottom: 2px solid #0095FF;
+    width: 300px;
+    padding-bottom: 14px;
+}
+
+.addplayer_modal .inner .upload_photo {
+    padding: 37px;
+}
+
+.addplayer_modal .inner .upload_photo p {
+    color: var(--Black, #1E2128);
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.addplayer_modal .inner .upload_photo .upload_thumbnail {
+    width: 212px;
+    height: 212px;
+    border: 1px solid #C5CDE7;
+    border-radius: 50%;
+}
+
+.addplayer_modal .label_name {
+    color: var(--Black, #1E2128);
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
 
 /*
  const [formData, setFormData] = useState({
@@ -503,6 +561,41 @@
     color: #2B3674;
     font-size: 24px;
     font-weight: 500;
+}
+
+.input_form #name {
+    border-radius: 4px;
+    background: #F3F7FF;
+    border: transparent;
+    padding: 15px;
+    width: 100%;
+}
+
+.input_form .btn_group .yes {
+    border-radius: 4px;
+    background: var(--green, #05CD99);
+    color: var(--White, #FFF);
+    font-family: "SF Pro Display";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.26px;
+    padding: 10px 20px;
+}
+
+.input_form .btn_group .no {
+    border-radius: 4px;
+    border: 1px solid var(--Border-green, rgba(84, 173, 150, 0.20));
+    background: var(--White, #FFF);
+    color: var(--White, #1E2128);
+    font-family: "SF Pro Display";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.26px;
+    padding: 10px 20px;
 }
 
 .profile_heading .btn_group .cancel {
