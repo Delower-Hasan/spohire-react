@@ -15,13 +15,14 @@ import RecentlyObserved from "./RecentlyObserved";
 const OverviewTransferMarket = () => {
   const { user } = useSelector((state) => state.auth);
 
-  // console.log("user role detect", user);
+  console.log("user role detect", user);
 
   return (
     <>
       <div className="over_tm_wrapper">
         <p className="transfer_title text-end">Monday, February 26, 2024</p>
         <p className="transfer_title">Transfer Market</p>
+
         <div className="buttons_design">
           {user?.isSubsCribed ? (
             <>
@@ -48,8 +49,7 @@ const OverviewTransferMarket = () => {
               <button
                 className="modal_link"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-              >
+                data-bs-target="#staticBackdrop">
                 <img src={add3icon} alt="addpicon" />{" "}
                 <span>Upgrade Subscription</span>{" "}
               </button>
@@ -85,12 +85,8 @@ const OverviewTransferMarket = () => {
               </button>
             </>
           )}
-
-          {/* {user.role == "Coach" && <button className="modal_link"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop" > <img src={add3icon} alt="addpicon" /> <span>Buy dfdsfSubscription</span> </button>
-          } */}
         </div>
+
         {/* buy subscription coatch */}
         <BuySubscriptionModal user={user} />
         {/* buy subscription coatch */}

@@ -13,50 +13,52 @@ import { userLoggedIn } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { PiPencilSimpleLineDuotone } from "react-icons/pi";
+import coverImg from "../../../assets/cover_img.png";
+import addNewPhoto from "../../../assets/addNewPhoto.svg";
 
 // data
 const inputFieldData = [
   {
     label: "Name",
-    placeholderText: "Your name",
+    placeholderText: "Jhon",
     type: "text",
     name: "first_name",
   },
+
+  {
+    label: "Last Name",
+    placeholderText: "Doe",
+    type: "text",
+    name: "last_name",
+  },
+
+  {
+    label: "Sports",
+    placeholderText: "Basketball",
+    type: "text",
+    name: "sports",
+  },
+
+  {
+    label: "Function",
+    placeholderText: "Manager",
+    type: "text",
+    name: "function",
+  },
+
   {
     label: "Date of Birth",
     placeholderText: "DD-MM-YYYY",
     type: "date",
     name: "date_of_birth",
   },
+
   {
     label: "Nationality",
     placeholderText: "Your Nationality",
     type: "text",
     name: "nationality",
-  },
-  {
-    label: "Position",
-    placeholderText: "Your Position",
-    type: "text",
-    name: "club_position",
-  },
-  {
-    label: "Dominant Hand",
-    placeholderText: "Your Dominant Hand",
-    type: "text",
-    name: "dominant_hand",
-  },
-  {
-    label: "Height",
-    placeholderText: "You Height",
-    type: "number",
-    name: "height",
-  },
-  {
-    label: "Weight",
-    placeholderText: "Your Weight",
-    type: "number",
-    name: "weight",
   },
 ];
 
@@ -298,7 +300,6 @@ const EditPlayerDetails = () => {
     console.log(values, "nnoso");
   }, [user]);
 
-
   console.log(socialMedia, "socialMedia");
 
   return (
@@ -320,9 +321,11 @@ const EditPlayerDetails = () => {
           <div className="row" style={{ margin: "0 40px" }}>
             <div className="col-12 col-lg-3">
               <h2 className="edit_profile">Edit Profile</h2>
-              <p className="text-center py-4">Upload Main Photo</p>
+              <p className="text-center py-4 upload_photo">Upload Main Photo</p>
 
-              <div className="upload_profile_image" onClick={handleButtonClick}>
+              <div
+                className="upload_profile_image d-flex align-items-center justify-content-center"
+                onClick={handleButtonClick}>
                 {/* <img
                   className="img-fluid profiles"
                   src={
@@ -339,60 +342,65 @@ const EditPlayerDetails = () => {
                   alt="Profile"
                   style={{ objectFit: "cover" }}
                 /> */}
-                <img
-                  className="img-fluid profiles"
-                  src={profileImage}
-                  alt="Profile"
-                  style={{ objectFit: "cover" }}
-                />
-                <div>
-                  {!selectedImage && (
-                    <button
-                      type="button"
-                      className="profile_upload_btn"
-                      // onClick={handleButtonClick}
-                    >
-                      <img src={upload} alt="" />
-                      <span>Upload</span>
-                    </button>
-                  )}
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={handleImageChange}
+                <div className="profile_img position-relative">
+                  <img
+                    className="img-fluid profiles pointer"
+                    src={profileImage}
+                    alt="Profile"
+                    style={{ objectFit: "cover" }}
                   />
+
+                  <div>
+                    {!selectedImage && (
+                      <button
+                        type="button"
+                        className="profile_upload_btn"
+                        // onClick={handleButtonClick}
+                      >
+                        {/* photo here */}
+                        {/* <img src={upload} alt="" /> */}
+                        <PiPencilSimpleLineDuotone />
+                        {/* <span>Upload</span> */}
+                      </button>
+                    )}
+
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={handleImageChange}
+                    />
+                  </div>
                 </div>
               </div>
-              
             </div>
 
             <div className="col-12 col-lg-9">
               <div className="edit_profile_input">
                 <div className="mb-4 position-relative">
-                  <label
-                    htmlFor="exampleFormControlInput1"
-                    className="form-label">
-                    Sports Type
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="sportsTypeInput"
-                    placeholder="Basketball"
-                    value={userInfo?.sports}
-                    onChange={(e) =>
-                      handleInputChange("sports", e.target.value)
-                    }
-                  />
+                  {/* <label
+                      htmlFor="exampleFormControlInput1"
+                      className="form-label">
+                      Sports Type
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="sportsTypeInput"
+                      placeholder="Basketball"
+                      value={userInfo?.sports}
+                      onChange={(e) =>
+                        handleInputChange("sports", e.target.value)
+                      }
+                    /> */}
                 </div>
               </div>
 
               <div className="personalInfo editpersonal_info">
-                <div className="row mb_40">
+                <div className="row">
                   {inputFieldData.map((field, index) => (
-                    <div key={index} className="col-12 col-md-4">
+                    <div key={index} className="col-12 col-md-6">
                       <div className="personal_info_edit_wrapper">
                         <div
                           className="d-flex flex-column align-items-start gap-3"
@@ -440,91 +448,34 @@ const EditPlayerDetails = () => {
         />
 
         <div className=" mb_60 experience_wrapper">
-          <div className="row justify-content-start about_part">
-            <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-              <p className="f_sfPro text_color_36 fs_18 mb-2">
-                Strengths Advantages
-              </p>
-              <div className="">
-                {/*  */}
-                <textarea
-                  onChange={(e) =>
-                    handleInputChange("strengths_advantage", e.target.value)
-                  }
-                  className="form-control about_me_editField"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={userInfo?.strengths_advantage}></textarea>
+          <div className="row align-items-center about_part">
+            <div className="col-lg-6 p-0">
+              <div className="cover_img">
+                <img className="img-fluid" src={coverImg} alt="" />
+              </div>
+              <div className="d-flex justify-content-center align-items-center">
+                <button className="addNewPhoto">
+                  <img src={addNewPhoto} alt="" />
+                  Add New Photo or Video
+                </button>
               </div>
             </div>
-            <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-              <p className="f_sfPro text_color_36 fs_18 mb-2">About Me</p>
-              <div className="">
-                {/*  */}
-                <textarea
-                  onChange={(e) =>
-                    handleInputChange("about_me", e.target.value)
-                  }
-                  className="form-control about_me_editField"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={userInfo?.about_me}></textarea>
-              </div>
-            </div>
-
-            <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-              <p className="f_sfPro text_color_36 fs_18 mb-2">
-                Expectations From a New Club
-              </p>
-              <div className="">
-                {/*  */}
-                <textarea
-                  onChange={(e) =>
-                    handleInputChange(
-                      "expectations_from_new_club",
-                      e.target.value
-                    )
-                  }
-                  className="form-control about_me_editField"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={userInfo?.expectations_from_new_club}></textarea>
+            <div className="col-lg-6 p-0">
+              <div className="about_me">
+                <h2 className="mb-4">About Me</h2>
+                <p>
+                  |Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. standard dummy text ever since the
+                  1500s, when an unknown printer took a galley of type and
+                  scrambled standard dummy Ipsum is simply dummy text of the
+                  printing and type setting industry. standard text ever since
+                  the 1500s, printer took a galley it to make a type specimen
+                  book.
+                </p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <!-- Slider Start --> */}
-        <div className="d-flex align-items-center gap-3 mb_28">
-          <p
-            className="f_sfPro text_color_36 fs_18"
-            style={{ paddingLeft: "75px" }}>
-            Gallery
-          </p>
-
-          <label
-            style={{ cursor: "pointer" }}
-            className="add_image_btn bg-none">
-            <span>Add Image</span>
-            <img src={plus4} alt="" />
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleGallaryImageChange}
-              style={{ display: "none" }}
-            />
-          </label>
-        </div>
-
-        <EditGallary images={selectedImages} />
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="experience_wrapper playerDetailsUpdate_btn">
-          {isLoading ? "Updating..." : "Update"}
-        </button>
       </div>
     </form>
   );

@@ -78,27 +78,11 @@ const UpdateexperienceAndMedia = ({
                   </p>
                 ))}
                 <>
-                  <div className="w-100">
-                    <label
-                      htmlFor="exampleFormControlInput1"
-                      className="form-label"
-                    >
-                      Club
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="club_name"
-                      id="exampleFormControlInput1"
-                      placeholder="Cleveland Cavaliers"
-                      onChange={handleExperienceChange}
-                    />
-                  </div>
                   <div className="row">
-                    <div className="col-lg-6">
+                    <div className="col-lg-4">
                       <div className="w-100">
                         <label htmlFor={`startYear`} className="form-label">
-                          Start Year
+                          From
                         </label>
                         <input
                           type="number"
@@ -110,10 +94,10 @@ const UpdateexperienceAndMedia = ({
                         />
                       </div>
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-4">
                       <div className="w-100">
                         <label htmlFor={`endYear`} className="form-label">
-                          End Year
+                          To
                         </label>
                         <input
                           type="number"
@@ -125,14 +109,30 @@ const UpdateexperienceAndMedia = ({
                         />
                       </div>
                     </div>
+                    <div className="col-lg-4">
+                      <div className="w-100">
+                        <label
+                          htmlFor="exampleFormControlInput1"
+                          className="form-label">
+                          Club Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="club_name"
+                          id="exampleFormControlInput1"
+                          placeholder="Cleveland Cavaliers"
+                          onChange={handleExperienceChange}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="row mt-3">
                     <div className="col-lg-12">
                       <button
                         className="add_more_btn"
                         type="button"
-                        onClick={handleAddMore}
-                      >
+                        onClick={handleAddMore}>
                         <span>Add more</span>
                         <img src={plus} alt="" />
                       </button>
@@ -147,8 +147,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Instagram
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -168,8 +167,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Facebook
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -188,8 +186,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Twitter
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -209,8 +206,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Youtube
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>

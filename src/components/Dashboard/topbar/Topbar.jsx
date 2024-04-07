@@ -33,6 +33,7 @@ const Topbar = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const [addPlayerModal, setAddPlayerModal] = useState(false);
 
   console.log("user", user);
 
@@ -47,6 +48,13 @@ const Topbar = () => {
     event.stopPropagation();
     handleFilterAnnouncementModal();
   };
+
+  // addplayer modal
+  const handleAddPlayerClick = () => {
+      setAddPlayerModal(!addPlayerModal);
+    }
+  // addplyer modal -/end
+
   // announcemnet modal fn end--------
 
   const handleIsDropDownOpen = () => {
@@ -185,8 +193,7 @@ const Topbar = () => {
               location.pathname === "/dashboard/coacheDetails" ||
               location.pathname == "/dashboard/coachesProfile" ||
               location.pathname == "/dashboard/messages" ||
-              location.pathname === "/dashboard/editAnnouncements" ||
-              location.pathname == "/dashboard/editPlayerDetals" ? (
+              location.pathname === "/dashboard/editAnnouncements" ? (
                 <button></button>
               ) : (
                 <>
@@ -234,6 +241,11 @@ const Topbar = () => {
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
 
+                    {location.pathname == "/dashboard/editPlayerDetals" &&
+                    user?.isSubsCribed
+                      ? `Hello ${user?.first_name} ${user?.last_name} `
+                      : ""}
+
                     {location.pathname === "/dashboard/myAppliedJobs" &&
                       "My Applied Jobs"}
 
@@ -245,7 +257,8 @@ const Topbar = () => {
                   </h2>
 
                   {location.pathname === "/dashboard" ||
-                  location.pathname === "/dashboard/viewProfile" ? (
+                  location.pathname === "/dashboard/viewProfile" ||
+                  location.pathname == "/dashboard/editPlayerDetals" ? (
                     <>
                       {user?.isSubsCribed ? (
                         <>
@@ -334,7 +347,8 @@ const Topbar = () => {
             </div>
 
             {location.pathname === "/dashboard" ||
-            location.pathname === "/dashboard/viewProfile" ? (
+            location.pathname === "/dashboard/viewProfile" ||
+            location.pathname == "/dashboard/editPlayerDetals" ? (
               <div className="right_searchItem d-flex justify-content-between align-items-center gap-4">
                 <div className="search_item">
                   <input id="search_input" type="text" placeholder="Search" />
@@ -421,7 +435,10 @@ const Topbar = () => {
                   <input id="search_input" type="text" placeholder="Search" />
                 </div>
 
-                <button className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                {/* add player */}
+                <button
+                  onClick={handleAddPlayerClick}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
