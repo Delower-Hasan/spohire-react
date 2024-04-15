@@ -51,8 +51,8 @@ const Topbar = () => {
 
   // addplayer modal
   const handleAddPlayerClick = () => {
-      setAddPlayerModal(!addPlayerModal);
-    }
+    setAddPlayerModal(!addPlayerModal);
+  };
   // addplyer modal -/end
 
   // announcemnet modal fn end--------
@@ -185,7 +185,8 @@ const Topbar = () => {
           isModalOpen | isAnnouncementModalOpen
             ? "position_static"
             : "position-fixed"
-        } dashbord_topbar`}>
+        } dashbord_topbar`}
+      >
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
@@ -224,6 +225,9 @@ const Topbar = () => {
                       "Announcements"}
 
                     {location.pathname === "/dashboard/password" && "Password"}
+                    {location.pathname === "/dashboard/settings" && "Settings"}
+                    {location.pathname === "/dashboard/help-and-support" &&
+                      "Help and Support"}
 
                     {location.pathname === "/dashboard/notification" &&
                       "Notifications"}
@@ -272,7 +276,8 @@ const Topbar = () => {
                                   border: "1px solid #8A8988",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}>
+                                }}
+                              >
                                 <img src={silverIcon} alt="silver-icon" />
                                 Silver
                               </p>
@@ -281,7 +286,8 @@ const Topbar = () => {
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#949494",
-                                }}>
+                                }}
+                              >
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -297,7 +303,8 @@ const Topbar = () => {
                                   border: "1px solid #FFD029",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}>
+                                }}
+                              >
                                 <img src={silverIcon} alt="silver-icon" />
                                 Silver
                               </p>
@@ -306,7 +313,8 @@ const Topbar = () => {
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#EBB111",
-                                }}>
+                                }}
+                              >
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -322,7 +330,8 @@ const Topbar = () => {
                                   border: "1px solid #CD7F32",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}>
+                                }}
+                              >
                                 <img src={silverIcon} alt="silver-icon" />
                                 Silver
                               </p>
@@ -331,7 +340,8 @@ const Topbar = () => {
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#CD7F32",
-                                }}>
+                                }}
+                              >
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -370,7 +380,8 @@ const Topbar = () => {
                     {/* drop down here */}
                     <button
                       onClick={handleIsDropDownOpen}
-                      className="user_name bg-none d-flex align-items-center gap-2 ">
+                      className="user_name bg-none d-flex align-items-center gap-2 "
+                    >
                       <h2 className="">
                         {user?.isSubsCribed
                           ? `${user?.first_name} ${user?.last_name}`
@@ -394,7 +405,8 @@ const Topbar = () => {
                         {profileMenu.map((dropdownItem, index) => (
                           <li
                             key={index}
-                            className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer">
+                            className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer"
+                          >
                             <div className="menus_item">
                               <img
                                 className="hover_icon d-none"
@@ -409,7 +421,8 @@ const Topbar = () => {
                             </div>
                             <Link
                               to={dropdownItem.link}
-                              className="d-inline-block text-capitalize">
+                              className="d-inline-block text-capitalize"
+                            >
                               {dropdownItem.menuName}
                             </Link>
                           </li>
@@ -417,7 +430,8 @@ const Topbar = () => {
                         <li className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer border-top">
                           <Link
                             className="d-inline-flex align-items-center gap-2 text-capitalize"
-                            style={{ color: "#FE6470" }}>
+                            style={{ color: "#FE6470" }}
+                          >
                             <div className="menus_item">
                               <img className="" src={logoutIcon} alt="icon" />
                             </div>
@@ -438,7 +452,8 @@ const Topbar = () => {
                 {/* add player */}
                 <button
                   onClick={handleAddPlayerClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
+                >
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -447,10 +462,12 @@ const Topbar = () => {
 
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
+                >
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}>
+                    style={{ backgroundColor: "#05cd9914" }}
+                  >
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -460,7 +477,8 @@ const Topbar = () => {
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
                   onClick={handleAddJobOfferClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
+                >
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -469,10 +487,12 @@ const Topbar = () => {
 
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
+                >
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}>
+                    style={{ backgroundColor: "#05cd9914" }}
+                  >
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -482,7 +502,8 @@ const Topbar = () => {
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
                   onClick={handleAddAnnouncementClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
+                >
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -491,10 +512,12 @@ const Topbar = () => {
 
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
+                >
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}>
+                    style={{ backgroundColor: "#05cd9914" }}
+                  >
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
