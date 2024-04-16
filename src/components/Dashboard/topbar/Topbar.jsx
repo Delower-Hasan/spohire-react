@@ -24,6 +24,7 @@ import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
 import "./Topbar.css";
 import AddPlayerModal from "../Modal/AddPlayerModal";
+import AddCoachModal from "../Modal/AddCoachModal";
 
 const Topbar = () => {
   let location = useLocation();
@@ -36,6 +37,7 @@ const Topbar = () => {
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const [addPlayerModal, setAddPlayerModal] = useState(false);
+  const [addCoachModal, setAddCoachModal] = useState(false);
   const myDivRef1 = useRef(null);
 
   const handleFilterAnnouncementModal = () => {
@@ -47,8 +49,16 @@ const Topbar = () => {
     handleFilterAnnouncementModal();
   };
 
-  const handleAddPlayerClick = () => {
-    setAddPlayerModal(!addPlayerModal);
+  const openModal = () => {
+    setAddPlayerModal(true);
+  };
+
+  const openCoachModal = () => {
+setAddCoachModal(true)
+  }
+
+  const modalClose = () => {
+    setAddPlayerModal(false);
   };
 
   const handleIsDropDownOpen = () => {
@@ -184,8 +194,7 @@ const Topbar = () => {
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
-              {location.pathname === "/dashboard/viewDetails" ||
-              location.pathname === "/dashboard/coacheDetails" ||
+              {location.pathname === "/dashboard/coacheDetails" ||
               location.pathname == "/dashboard/coachesProfile" ||
               location.pathname == "/dashboard/messages" ||
               location.pathname === "/dashboard/editAnnouncements" ? (
@@ -196,60 +205,51 @@ const Topbar = () => {
                     {location.pathname === "/dashboard" && user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
-
                     {location.pathname === "/dashboard/jobOffers" &&
                       "job offer"}
-
                     {location.pathname.startsWith("/dashboard/jobDetails") &&
                       "job description"}
-
                     {location.pathname === "/dashboard/basicinfo" &&
                       "job offer"}
-
                     {location.pathname.includes("/dashboard/jobApplicants") &&
                       "Applicants"}
-
                     {location.pathname === "/dashboard/players" &&
                       "Players List"}
-
                     {location.pathname === "/dashboard/createAnnouncements" &&
                       "Create Announcements"}
-
                     {location.pathname === "/dashboard/announcements" &&
                       "Announcements"}
-
                     {location.pathname === "/dashboard/password" && "Password"}
-
                     {location.pathname === "/dashboard/notification" &&
                       "Notifications"}
-
                     {location.pathname === "/dashboard/billing" &&
                       "Billing history"}
-
                     {location.pathname === "/dashboard/observed" && "Observed"}
-
                     {location.pathname === "/dashboard/addedItems" &&
                       "My Added Items"}
-
                     {location.pathname === "/dashboard/viewProfile" &&
                     user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
-
                     {location.pathname == "/dashboard/editPlayerDetals" &&
                     user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
-
                     {location.pathname === "/dashboard/myAppliedJobs" &&
                       "My Applied Jobs"}
-
                     {location.pathname === "/dashboard/coaches" &&
                       "Coaches List"}
-
                     {location.pathname.startsWith("/dashboard/messages") &&
                       "Messages"}
                   </h2>
+
+                  {/* view_details */}
+                  {location.pathname.startsWith("/dashboard/viewDetails") && (
+                    <button className="view_details">Back</button>
+                  )}
+                  {location.pathname.startsWith("/dashboard/coacheDetails") && (
+                    <button className="view_details">Back</button>
+                  )}
 
                   {location.pathname === "/dashboard" ||
                   location.pathname === "/dashboard/viewProfile" ||
@@ -433,7 +433,7 @@ const Topbar = () => {
                 {/* add player */}
 
                 <button
-                  onClick={handleAddPlayerClick}
+                  onClick={openModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -486,6 +486,36 @@ const Topbar = () => {
                   </div>
                   Create Announcement
                 </button>
+
+                <button
+                  onClick={handleFilterModal}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div
+                    className="add_icon"
+                    style={{ backgroundColor: "#05cd9914" }}>
+                    <img src={filterIcon} alt="add-icon" />
+                  </div>
+                  Filters
+                </button>
+              </div>
+            ) : location.pathname === "/dashboard/coaches" ? (
+              <div className="d-flex justify-content-between align-items-center gap-4">
+                <div className="search_item">
+                  <input id="search_input" type="text" placeholder="Search" />
+                </div>
+
+                {/* add coach */}
+
+                <button
+                  onClick={openCoachModal}
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
+                  <div className="add_icon">
+                    <img src={addIcon} alt="add-icon" />
+                  </div>
+                  Add Coach
+                </button>
+
+                {/* add player -/ end */}
 
                 <button
                   onClick={handleFilterModal}
@@ -628,7 +658,8 @@ const Topbar = () => {
         closeModal={closeAnnouncementModal}
       />
 
-      {addPlayerModal && <AddPlayerModal />}
+      {addPlayerModal && <AddPlayerModal onClose={modalClose} />}
+      {addCoachModal && <AddCoachModal />}
     </>
   );
 };

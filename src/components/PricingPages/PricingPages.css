@@ -1,0 +1,164 @@
+.price_card.active {
+    background: #2B196A;
+}
+
+.make_payment_left {
+    padding: 30px;
+    border-radius: 12px;
+    background: #F4F7FE;
+}
+
+.make_payment_left .mpl_price_length {
+    color: var(--Neutral-400, #D9DBE9);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.make_payment_left .mpl_price {
+    color: var(--Neutral-100, var(--White, #FFF));
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 66px;
+}
+
+
+.make_payment_left .modify_price {
+    color: var(--White, #FFF);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 83.333% */
+    text-decoration-line: underline;
+}
+
+.make_payment_left .auto_renewal p {
+    color: #000;
+    text-align: center;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.make_payment_left .terms_conditions p {
+    color: #4C4E52;
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0.2px;
+}
+
+.make_payment_left .terms_conditions a {
+    color: #8593BC;
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-decoration-line: underline;
+}
+
+/* payment right */
+
+.make_payment_right .heading h3 {
+    color: var(--Black-2, #4C4E52);
+    font-family: "SF Pro Display";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+}
+
+.make_payment_right .sub_total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.make_payment_right .sub_total p {
+    color: var(--Black-2, #4C4E52);
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.make_payment_right .gift_voucher label {
+    color: var(--Black-2, #4C4E52);
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.make_payment_right .gift_voucher button {
+    border-radius: 4px;
+    background: var(--green, #05CD99);
+    display: inline-flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--White, #FFF);
+    font-family: "SF Pro Display";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.26px;
+}
+
+.make_payment_right .input_form input {
+    padding: 7px !important;
+}
+
+.make_payment_right .voucher p {
+    color: var(--green, #05CD99);
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.make_payment_right .total p {
+    color: var(--Black, #1E2128);
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.make_payment_right .payment_details .heading h4 {
+    color: var(--Black, #1E2128);
+    font-family: "SF Pro Display";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.make_payment_right .payment_details select{
+    background: #F3F7FF;
+}
+
+.addplayer_modal .inner .icon{
+    right: 20px;
+    padding: 20px;
+}
+
+.addplayer_modal .inner .icon  button{
+    background: transparent;
+}

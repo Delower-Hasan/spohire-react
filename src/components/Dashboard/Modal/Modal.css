@@ -1,0 +1,913 @@
+.addplayer_modal {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #1417362c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999999;
+}
+
+.addplayer_modal .inner {
+    border-radius: 10px;
+    background: white;
+    max-width: 1088px;
+    width: 100%;
+    max-height: 80vh;
+    padding: 47px 70px;
+    overflow-y: scroll;
+}
+
+.modal_btn {
+    border-radius: 5px;
+    background: #0095FF;
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.other_information {
+    border-radius: 16px;
+    border: 1px solid var(--Gray-for-line, #C5CDE7);
+    background: var(--White, #FFF);
+    box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
+}
+
+.btn_save {
+    border-radius: 20px;
+    background: var(--Light-blue, #F4F7FE);
+    color: var(--Black-2, #4C4E52);
+    font-family: "SF Pro Display";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.26px;
+}
+
+.oi_title h4 {
+    color: var(--Black-2, #4C4E52);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    /* 200% */
+    letter-spacing: -0.32px;
+}
+
+.other_information textarea {
+    border-radius: 6px;
+    border: 1px dashed #C5CDE7;
+    height: 125px;
+    color: var(--b3, #8593BC);
+    font-family: "SF Pro Display";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.24px;
+}
+
+.other_information textarea::placeholder {
+    color: var(--b3, #8593BC);
+    font-family: "SF Pro Display";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.24px;
+}
+
+.gallery {
+    border-radius: 16px;
+    border: 1px solid #F4F7FE;
+    background: #FFF;
+    box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
+}
+
+.gallery .add-btn {
+    border-radius: 20px;
+    background: #F4F7FE;
+    color: #8593BC;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.32px;
+}
+
+.gallery .add_icon {
+    border-radius: 10px;
+    background: #FFF;
+    padding: 10px;
+}
+
+.action_btn button {
+    color: var(--b3, #8593BC);
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    background: transparent;
+}
+
+.action_btn .addplayer_btn {
+    padding: 15px 30px;
+    border-radius: 5px;
+    background: #0095FF !important;
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+/* page_header start */
+:root {
+    --color_19: #0a0119;
+    --color_19_7: #0a01195e;
+    --color_36: #141736;
+    --color_cb: #a5b4cb;
+    --color_f1: #dfe5f1;
+    --color_fb: #0177fb;
+    --color_80: #546580;
+    --color_55: #2b2e55;
+}
+
+.page_header {
+    background-image: url("/src/assets/pricingbg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 152px 0;
+}
+
+.page_header h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 24px;
+    font-family: "SF Pro Display-Bold" sans-serif;
+}
+
+.page_header h2 span {
+    color: var(--color_fb);
+}
+
+.page_header p {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+}
+
+/* best offera */
+.bestofferwrapper {
+    margin-top: 156px;
+}
+
+.bestOffer_title h1 {
+    color: #1a1a1a;
+    text-align: center;
+    font-size: 79px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 88px;
+    margin-bottom: 90px;
+}
+
+.bestOffer_title h1 span {
+    color: var(--color_fb);
+}
+
+.pricing_card {
+    padding: 50px;
+    border-radius: 11px 11px 0px 0px;
+    background: #04012f;
+}
+
+.pricing_card h3 {
+    color: #fff;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.pricing_card span {
+    color: #fff;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 100px;
+}
+
+.pricing_card h2 {
+    color: #0177fb;
+    font-family: "SF Pro Display" sans-serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.pricing_card p {
+    color: #eee;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.pricing_card button {
+    border-radius: 8px;
+    background: #2d5bff;
+    width: 100%;
+    border: none;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.white_wrapper {
+    padding: 50px 0 43px 52px;
+    border-radius: 0 0 11px 11px;
+    background: #f6f8ff;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.blue_dot {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+@media (max-width: 990px) {
+    .col-lg-4 {
+        margin-bottom: 20px;
+    }
+}
+
+/* best offer */
+
+/* get started section start */
+.getstartted_wrapper {
+    background-image: url("/src/assets/getstartedbg.png");
+    background-repeat: no-repeat;
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 150px;
+    padding: 91px 0;
+}
+
+.getstarted_title {
+    color: #fff;
+    text-align: center;
+    font-family: "SF Pro Display" sans-serif;
+    font-size: 79px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 88px;
+    /* 111.392% */
+}
+
+.getstarted_btn {
+    padding: 25px;
+    border-radius: 60px;
+    background: #04012f;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    text-transform: uppercase;
+}
+
+/* get started section end */
+
+/* payment process start */
+.payment_process_wrapper {
+    /* padding: 31px; */
+    /* border-radius: 7px; */
+    background: #fff;
+    /* box-shadow: -10px 10px 50px -2px rgba(123, 123, 123, 0.15); */
+    /* max-width: 750px; */
+    /* width: 100%; */
+    /* height: 507px; */
+    /* margin: auto; */
+}
+
+.payment_title {
+    color: #1a1a1a;
+    text-align: center;
+    font-family: "SF Pro Display" sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    /* 128.571% */
+}
+
+.payment_title span {
+    color: #0177fb;
+}
+
+.pay_nowbtn {
+    display: inline-flex;
+    padding: 10px 62px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: #2d5bff;
+    color: #fff;
+    text-align: center;
+    font-family: "SF Pro Display" sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 48px;
+}
+
+.pay_nowbtn_two {
+    display: inline-flex;
+    max-width: 568px;
+    /* width: 100%; */
+    border-radius: 5px;
+    background: #0177FB;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-align: center;
+    font-family: "SF Pro Display" sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 48px;
+}
+
+.card_btn {
+    padding: 20px 69px 20px 20px;
+    height: 56px;
+    background-color: transparent;
+    border: 1px solid #e3e6eb;
+    border-radius: 7px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3a9;
+    font-family: "SF Pro Display" sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.bg_clr_ff {
+    background-color: #0095FF
+}
+
+.card_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.all_payments_system {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.payment_input {
+    /* height: 50px; */
+    border-radius: 5px;
+    border: 0.7px solid rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 15px;
+    width: 100%;
+    /* display: flex;
+    align-items: center; */
+}
+
+.payment_process_wrapper p {
+    color: #161d24;
+    font-family: " SF Pro Display" sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.mb_20 {
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.card_img img,
+.card_img1 img {
+    margin-right: 6px;
+}
+
+.payment_card {
+    position: relative;
+}
+
+.card_img {
+    position: absolute;
+    right: 20px;
+    bottom: 13px;
+}
+
+.card_img1 {
+    position: absolute;
+    right: 20px;
+    bottom: 13px;
+}
+
+/* payment process end */
+
+/*  */
+@media (max-width: 768px) {
+    .all_payments_system {
+        gap: 0;
+    }
+
+    .mb_20 {
+        margin-bottom: 20px;
+    }
+
+    .bestOffer_title h1 {
+        font-size: 40px;
+        line-height: 40px;
+        margin-bottom: 50px;
+    }
+
+    .bestofferwrapper {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .pricing_card {
+        padding: 30px;
+    }
+
+    .pricing_card h3 {
+        font-size: 24px;
+    }
+
+    .pricing_card span {
+        font-size: 16px;
+    }
+
+    .pricing_card h2 {
+        font-size: 32px;
+    }
+
+    .pricing_card p {
+        font-size: 14px;
+    }
+
+    .mt_30 {
+        margin-top: 20px;
+    }
+
+    .white_wrapper {
+        padding: 30px;
+    }
+
+    .col-lg-4 {
+        margin-bottom: 30px;
+    }
+
+    .slider_bg {
+        margin-bottom: 50px;
+    }
+
+    .getstarted_title {
+        font-size: 40px;
+    }
+
+    .getstartted_wrapper {
+        padding: 40px 0;
+        margin-bottom: 50px;
+    }
+
+    .getstarted_btn {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .page_header h2 {
+        font-size: 28px;
+    }
+
+    .page_header p {
+        font-size: 16px;
+    }
+}
+
+.country_select .css-11l6u31-control {
+    height: 50px;
+}
+
+.country_select .css-11l6u31-control .css-14i3obi-placeholder {
+    color: #9ca3a9;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 20px;
+}
+
+
+.payment_country_select select {
+    border-radius: 5px;
+    border: 0.7px solid rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.02);
+    display: inline-flex;
+    height: 50px;
+    padding: 11px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 197px;
+    color: #9CA3A9;
+    font-family: SF Pro Display;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.payment_input::placeholder {
+    color: #9CA3A9;
+    font-size: 14px;
+}
+
+
+.ElementsApp .InputElement {
+    color: #9CA3A9;
+    font-size: 14px !important;
+}
+
+
+
+.pricing_banner {
+    background-color: #FCFCFC;
+    padding: 53px 0 32px;
+}
+
+.pricing_inner {
+    border-radius: 10px;
+    background: var(--White, #FFF);
+    box-shadow: 6px -2px 39.9px 4px rgba(86, 95, 104, 0.08);
+    padding: 72px;
+    color: var(--Black-2, #4C4E52);
+    text-align: center;
+    font-size: 48px;
+    font-weight: 500;
+}
+
+.price_range {
+    margin-bottom: 40px;
+    /* padding-bottom: 63px; */
+    padding-top: 80px;
+}
+
+.pricing_bg_wrapper {
+    border-radius: 10px;
+    background: var(--White, #FFF);
+    box-shadow: 6px -2px 39.9px 4px rgba(86, 95, 104, 0.08);
+    margin-bottom: 40px;
+    padding-bottom: 63px;
+}
+
+.pricing_dropdown {
+    border-radius: 10px !important;
+    background: var(--White, #FFF) !important;
+    box-shadow: 6px -2px 39.9px 4px rgba(86, 95, 104, 0.04) !important;
+    color: var(--Neutral-700, #514F6E);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    text-transform: uppercase;
+    width: 211px;
+    border-radius: 10px !important;
+    background: var(--White, #FFF) !important;
+    box-shadow: 6px -2px 39.9px 4px rgba(86, 95, 104, 0.04) !important;
+    cursor: pointer;
+}
+
+.dropDown_lists {
+    position: absolute;
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    background: var(--White, #FFF) !important;
+    box-shadow: 6px -2px 39.9px 4px rgba(86, 95, 104, 0.04) !important;
+    width: 211px;
+    padding: 21px;
+}
+
+.dropDown_lists p {
+    color: var(--Neutral-700, #514F6E);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    /* 150% */
+    text-transform: uppercase;
+}
+
+.range_header {
+    margin-bottom: 135px;
+}
+
+.range_header h6 {
+    color: var(--Black, #1E2128);
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 30px;
+    text-transform: uppercase;
+    /* padding-top: 30px; */
+}
+
+.price_card {
+    border-radius: 24px;
+    border: 1px solid var(--Neutral-300, #EFF0F6);
+    background: var(--White, #FFF);
+    box-shadow: 0px 2px 12px 0px rgba(20, 20, 43, 0.08);
+    padding: 40px;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+}
+
+.price_card .model {
+    width: 72px;
+    height: 72px;
+    background-color: #ECEBFF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price_card .title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 35px;
+}
+
+.price_card .price {
+    color: var(--Neutral-800, #170F49);
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 66px;
+}
+
+.price_card .active_price {
+    color: #FFF;
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 66px;
+}
+
+.price_card .price span {
+    color: var(--Neutral-600, #6F6C90);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.price_card .active_price span {
+    color: #D9DBE9;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+
+.price_card .include {
+    color: var(--Neutral-800, #170F49);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 24px;
+}
+
+.price_card .active_include {
+    color: var(--Neutral-100, var(--White, #FFF));
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    /* 111.111% */
+    margin-bottom: 24px;
+}
+
+.price_card .options {
+    color: var(--Neutral-800, #170F49);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* .price_card:hover .options,
+.price_card:hover .price span,
+.price_card:hover .price,
+.price_card:hover .include {
+    color: #D9DBE9;
+} */
+
+.price_range .row {
+    max-width: 1241px;
+    margin: auto;
+    /* padding-bottom: 61px; */
+}
+
+/* .price_card:hover {
+    background-color: #2B196A;
+} */
+.price_range .active {
+    background-color: #2B196A;
+}
+
+.active_color {
+    color: var(--Neutral-400, #D9DBE9) !important;
+    font-family: "DM Sans", sans-serif !important;
+    font-size: 18px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    /* 111.111% */
+}
+
+.additional_pricing_wrapper p {
+    color: #4C4E52;
+    text-align: center;
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    margin-bottom: 38px;
+}
+
+.pricing_line {
+    max-width: 978px;
+    width: 100%;
+    background: #C5CDE7;
+    height: 1px;
+    text-align: center;
+    margin: auto;
+
+}
+
+.pricing_buttons .inactive {
+    color: var(--Black, #1E2128);
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    border-radius: 4px;
+    border: 1px solid var(--Border-green, rgba(84, 173, 150, 0.20));
+    background: var(--White, #FFF);
+    padding: 20px 40px;
+}
+
+.pricing_buttons .active {
+    color: var(--Black, #FFF);
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    border-radius: 4px;
+    background: var(--green, #05CD99);
+    box-shadow: 4px 4px 10px 0px rgba(191, 191, 191, 0.25);
+    padding: 20px 40px;
+}
+
+.pricing_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+
+/* addjoboffer_pricing_wrapper */
+.addjoboffer_pricing_wrapper {
+    padding: 99px 0;
+
+}
+
+.addjoboffer_pricing_wrapper h2 {
+    color: var(--Black-2, #4C4E52);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "SF Pro Display";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+}
+
+.addjoboffer_pricing_wrapper .monthly_cards {
+    width: 394px;
+    height: 240px;
+    border-radius: 24px;
+    border: 1px solid #EFF0F6;
+    background: #FFF;
+    box-shadow: 0px 2px 12px 0px rgba(20, 20, 43, 0.08);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.addjoboffer_pricing_wrapper .monthly_cards.active {
+    background-color: #2B196A;
+    /* Set the background to red for active cards */
+}
+
+.addjoboffer_pricing_wrapper .monthly_cards h3 {
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 66px;
+}
+
+.addjoboffer_pricing_wrapper .monthly_cards h3>span {
+    text-align: center;
+    font-family: "DM Sans", sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.addjoboffer_pricing_wrapper .monthly_cards.active h3 {
+    color: white;
+}
+
+.addjoboffer_pricing_wrapper .monthly_cards.active h3>span {
+    color: #C5CDE7;
+}
+
+.price_of_announcement {
+    color: var(--Black-2, #4C4E52);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "SF Pro Display";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+}

@@ -5,7 +5,7 @@ import uploadImg from "../../../assets/upload_img.png";
 import "./Modal.css";
 import PricingModal from "./PricingModal";
 
-const AddPlayerModal = ({ onClose }) => {
+const AddCoachModal = ({ onClose }) => {
   const { user } = useSelector((state) => state.auth);
   const convertAge = (dateString) => {
     const dob = new Date(dateString);
@@ -28,7 +28,7 @@ const AddPlayerModal = ({ onClose }) => {
     <div className="addplayer_modal ">
       <div className="inner">
         <div className="modal_heading">
-          <h2>Add Player</h2>
+          <h2>Add Coach</h2>
         </div>
         <div className="row">
           <div className="col-lg-4">
@@ -391,12 +391,10 @@ const AddPlayerModal = ({ onClose }) => {
           </div>
         </div>
 
-
-        {showPricing && <PricingModal/> }
-
+        {showPricing && <PricingModal />}
       </div>
     </div>
   );
 };
 
-export default AddPlayerModal;
+export default AddCoachModal;

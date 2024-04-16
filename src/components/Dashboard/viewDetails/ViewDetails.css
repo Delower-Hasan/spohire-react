@@ -764,3 +764,360 @@
     font-weight: 500;
     line-height: normal;
 }
+
+
+/* details information */
+.details_information .profile_cover {
+    border-radius: 25px;
+    background: linear-gradient(91deg, #0095FF -77.19%, #5165DA 141.89%);
+    padding: 0 30px 30px;
+    margin-bottom: 30px;
+}
+
+.details_information .profile_cover .cover_title h2 {
+    -webkit-text-stroke: 3px #ffffff33;
+    font-size: 231.088px;
+    color: transparent;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -4.622px;
+    text-transform: uppercase;
+}
+
+.details_information .personal_info {
+    /* padding: 15px 30px; */
+    margin-top: -5%;
+}
+
+.details_information .personal_info .surname {
+    color: #F4F7FE;
+    font-family: "SF Pro Display";
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    opacity: 0.33;
+}
+
+.details_information .personal_info .nickname {
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 68.017px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.36px;
+    text-transform: capitalize;
+}
+
+.details_information .personal_info .country {
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 18.686px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.187px;
+    text-transform: uppercase;
+}
+
+.details_information .personal_info .contact_method .cm_message {
+    width: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 6px;
+    border-radius: 10px;
+    background: #FFF;
+    backdrop-filter: blur(27px);
+}
+
+.details_information .personal_info .contact_method .cm_link {
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid #FFF;
+    backdrop-filter: blur(27px);
+    background: transparent;
+    color: #F4F7FE;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+.details_information .personal_info .cm_favourite {
+    background: transparent;
+}
+
+.details_information .personal_info .photograph .photograph_border {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 15px solid #3675e7;
+    border-radius: 50%;
+}
+
+.details_information .personal_info .photograph .photograph_border .photograph_img {
+    width: 386px;
+    height: 386px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 15px solid #0095FF;
+}
+
+.details_information .personal_info .photograph .photograph_border .photograph_img .subscription_title {
+    bottom: 20px;
+}
+
+
+.details_information .personal_info .bio_graphy2 .age {
+    padding-right: 20px;
+    border-right: 1.361px solid #FFF;
+    backdrop-filter: blur(27.80815887451172px);
+}
+
+.details_information .personal_info .bio_graphy2 .height {
+    padding-right: 20px;
+    border-right: 1.361px solid #FFF;
+    backdrop-filter: blur(27.80815887451172px);
+}
+
+.details_information .personal_info .bio_graphy2 .bio_title {
+    color: var(--White, #FFF);
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    opacity: 0.5;
+    letter-spacing: 2.52px;
+    text-transform: uppercase;
+}
+
+.details_information .personal_info .bio_graphy2 .bio_info {
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+
+}
+
+.details_information .personal_info .bio_graphy2 .bio_footer_title {
+    color: #FFF;
+    font-family: "SF Pro Display";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+/* details information -/ end */
+
+.other_information {
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.23);
+    backdrop-filter: blur(40.849998474121094px);
+    padding: 30px 25px;
+    margin-top: -5%;
+}
+
+.other_information .info_title {
+    color: var(--White, #FFF);
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    text-transform: uppercase;
+}
+
+.other_information .info_des {
+    color: var(--White, #FFF);
+    text-align: right;
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.24px;
+}
+
+.details_information .social_media {
+    border-radius: 15px;
+    border: 3px solid #FFF;
+    background: rgba(255, 255, 255, 0.40);
+    backdrop-filter: blur(40.849998474121094px);
+    padding: 40px 45px;
+}
+
+.details_information .social_media .media {
+    border-right: 1px solid #2B36741C;
+    padding-right: 60px;
+}
+
+.details_information .social_media .media:last-child {
+    border-right: 1px solid transparent;
+    padding-right: 60px;
+}
+
+.details_information .social_media .follower_count {
+    color: #2B3674;
+    text-shadow: 0px 53px 63px rgba(57, 71, 153, 0.44);
+    font-family: "SF Pro Display";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+.details_information .social_media .follower_title {
+    color: #2B3674;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 2.94px;
+    text-transform: uppercase;
+}
+
+
+.details_information .other_info .other_info_details {
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.90);
+    backdrop-filter: blur(40px);
+    padding: 33px 52px;
+}
+
+.details_information .other_info .other_info_details .other_info_title {
+    color: #2B3674;
+    text-align: center;
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.details_information .other_info .other_info_details .other_info_des {
+    color: #2B3674;
+    font-family: Roboto;
+    font-size: 14px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 2.94px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+.details_information .experience {
+    border-radius: 15px;
+    border: 3px solid #FFF;
+    background: rgba(255, 255, 255, 0.40);
+    backdrop-filter: blur(40.849998474121094px);
+    padding: 25px 30px;
+}
+
+.details_information .section_title h3 {
+    color: #2B3674;
+    font-family: "SF Pro Display";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    text-transform: capitalize;
+    border-bottom: 2px solid rgba(64, 80, 172, 0.11);
+    padding-bottom: 10px;
+}
+
+.details_information .experience .exerience_infomation .year {
+    color: #2B3674;
+    text-shadow: 0px 53px 63px rgba(57, 71, 153, 0.44);
+    font-family: "SF Pro Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.2px;
+    text-transform: uppercase;
+    padding-bottom: 13px;
+}
+
+.details_information .experience .exerience_infomation .exprince_info {
+    color: #2B3674;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 2.52px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+
+.details_information .advantages .left,
+.right {
+    border-radius: 15px;
+    background: var(--White, #FFF);
+    backdrop-filter: blur(40.849998474121094px);
+    padding: 30px;
+}
+
+.details_information .advantages .left ul li {
+    color: #51597E;
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 133.333% */
+}
+
+.details_information .advantages .advantages_content {
+    color: #51597E;
+    font-family: "SF Pro Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 133.333% */
+}
+
+.details_information .about_me {
+    border-radius: 15px;
+    border: 3px solid #FFF;
+    background: rgba(255, 255, 255, 0.40);
+    backdrop-filter: blur(40.849998474121094px);
+    padding: 25px 30px;
+}
+
+.details_information .about_me .about_me_des {
+    color: #51597E;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.details_information .gallery {
+    border-radius: 15px;
+    background: var(--White, #FFF);
+    backdrop-filter: blur(40.849998474121094px);
+    padding: 25px 30px;
+}

@@ -4,10 +4,14 @@ import AddToSubscription from './AddToSubscription'
 
 const SubsCriptionPricing = () => {
     return (
-        <div style={{paddingBottom:"150px"}}>
-            <PriceRange component={<AddToSubscription />} />
-        </div>
-    )
+      <div
+        style={{
+          paddingBottom:
+            location.pathname === "/dashboard/players" ? "0px" : "150px",
+        }}>
+        <PriceRange component={<AddToSubscription />} />
+      </div>
+    );
 }
 
 export default SubsCriptionPricing

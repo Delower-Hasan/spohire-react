@@ -81,18 +81,17 @@
 // export default PriceRange;
 
 import React, { useState } from "react";
-
 import PricingCard from "./PricingCard";
 
 const PriceRange = ({ component }) => {
-
   return (
-    <div>
-      <div>
-        <div className="price_range">
-          {component}
+    <div
+      className={`${
+        location.pathname === "/dashboard/players" ? "p-0" : null
+      } price_range`}>
+      {component}
 
-          {/* <div className="row g-4">
+      {/* <div className="row g-4">
             {priceOptions.map((data, index) => (
               <div
                 key={index}
@@ -133,10 +132,7 @@ const PriceRange = ({ component }) => {
               </div>
             ))}
           </div> */}
-          <PricingCard />
-
-        </div>
-      </div>
+      <PricingCard />
     </div>
   );
 };

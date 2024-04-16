@@ -1,342 +1,325 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-unescaped-entities */
-import "./ViewDetails.css";
-import profileImage from "../../../assets/playerImg.png";
-import messageImage from "../../../assets/message.png";
-import twitterIcon from "../../../assets/tw_jobOffer.png";
-import instagramIcon from "../../../assets/ig_jobOffer.png";
-import facebookIcon from "../../../assets/fb_JobOffer.png";
-import youtubeIcon from "../../../assets/youtube.png";
-import silver from "../../../assets/silver1.png";
-import bronze from "../../../assets/bronze.png";
-import gold from "../../../assets/gold.png";
-import ViewDetailsMobile from "./ViewDetailsMobile";
-import Gallary from "./Gallary";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  useGetPlayerByIdQuery,
-  useGetUserByIdQuery,
-} from "../../../features/auth/authApi";
-import obserbeIcon from "../../../assets/observeIcon.svg";
-import ovservedIcon from "../../../assets/observedIcon.svg";
-import {
-  useGetMyObservationsQuery,
-  useToggleObservationMutation,
-} from "../../../features/observation/observationApi";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-
+import React from "react";
+import Marquee from "react-fast-marquee";
+import Germany from "../../../assets/germany.png";
+import { AiOutlineMessage } from "react-icons/ai";
+import { FaLink } from "react-icons/fa6";
+import { FaRegBookmark } from "react-icons/fa";
+import photographImg from "../../../assets/photograph.png";
+import silverIcon from "../../../assets/silver_icon.svg";
+import { FaInstagram, FaFacebookF } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
+import { BsTiktok } from "react-icons/bs";
+import { GoDotFill } from "react-icons/go";
+import ImageOne from "../../../assets/imagesOne.png";
+import ImageTwoMini from "../../../assets/imagesTwoMini.png";
+import ImageThreeMini from "../../../assets/imagesThreeMini.png";
+import ImageFourMini from "../../../assets/imagesFourMini.png";
+import ImageFiveMini from "../../../assets/imagesFiveMini.png";
 const ViewDetails = () => {
-  const { id } = useParams();
-
-  const { user: loggedInUser } = useSelector((state) => state.auth);
-
-  // const { data: user } = useGetUserByIdQuery(id);
-  const { data: user } = useGetPlayerByIdQuery(id);
-  const { data: userObservation } = useGetMyObservationsQuery();
-  const [toggleObservation] = useToggleObservationMutation();
-  console.log(userObservation?.data, "userObservation");
-
-  const isObserved = userObservation?.data.find((i) => i.target_id?._id === id);
-
-  const convertAge = (dateString) => {
-    const dob = new Date(dateString);
-    const currentDate = new Date();
-    const timeDiff = currentDate - dob;
-    const age = Math.floor(timeDiff / (365.25 * 24 * 60 * 60 * 1000));
-    return age;
-  };
-
-  const navigate = useNavigate();
-
-  const handleMessageLink = (id) => {
-    navigate(`/dashboard/messages/${id}`);
-  };
-
-  const handleObserve = async () => {
-    const data = {
-      user_id: loggedInUser?._id,
-      target_id: id,
-      target_type: "User",
-    };
-
-    // console.log(data, "jjjDD");
-
-    try {
-      const response = await toggleObservation(data);
-      if (response?.data?.success) {
-        Swal.fire({
-          icon: "success",
-          title: "Successsful!",
-        });
-      }
-      if (response?.error?.data?.message) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: `${response?.error?.data?.message}`,
-        });
-      }
-
-      console.log(response, "ress");
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `${error?.message}`,
-      });
-    }
-  };
-
-  console.log(user, "dsf");
   return (
-    <div className="View_details container p-0 overflow-hidden">
-      {/* <!-- Personal Info Start --> */}
-      <div className="job_offer desktop_vd  ps-lg-0 pe-lg-0">
+    <div className="details_information">
+      <div className="profile_cover">
+        <div className="cover_title">
+          <h2>
+            <Marquee>Anderson Anderson</Marquee>
+          </h2>
+        </div>
+
+        <div className="personal_info d-flex align-items-center justify-content-between">
+          <div className="bio_graphy">
+            <p className="surname">John</p>
+            <p className="nickname pb-3">Anderson</p>
+            <div className="country d-flex gap-2 align-items-center pb-3">
+              <img src={Germany} alt="" />
+              <p>Germany</p>
+            </div>
+            <div className="contact_method d-flex gap-3 align-items-center pb-3">
+              <button className="cm_message">
+                <AiOutlineMessage />
+                <p>Message</p>
+              </button>
+
+              <button className="cm_link d-flex gap-2 align-items-center justify-content-center">
+                <FaLink />
+                <p>Message</p>
+              </button>
+
+              <button className="cm_favourite">
+                <FaRegBookmark style={{ color: "#FFF" }} />
+              </button>
+            </div>
+          </div>
+
+          <div className="photograph z-1">
+            <div className="photograph_border">
+              <div className="photograph_img position-relative">
+                <img src={photographImg} alt="photograph" />
+
+                <div className="subscription_title d-flex align-items-center gap-2 position-absolute">
+                  <p
+                    className="font-bold d-inline-flex gap-2"
+                    style={{
+                      fontSize: "10px",
+                      color: "#CD7F32",
+                      border: "1px solid #CD7F32",
+                      padding: "5px 10px",
+                      borderRadius: "28px",
+                      backgroundColor: "white",
+                    }}>
+                    <img src={silverIcon} alt="silver-icon" />
+                    Silver
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bio_graphy2 d-flex gap-4">
+            <div className="age text-center">
+              <p className="bio_title">Age</p>
+              <p className="bio_info">35</p>
+              <p className="bio_footer_title">years</p>
+            </div>
+
+            <div className="height text-center">
+              <p className="bio_title">height</p>
+              <p className="bio_info">160</p>
+              <p className="bio_footer_title">CM</p>
+            </div>
+
+            <div className="wight text-center">
+              <p className="bio_title">Weight</p>
+              <p className="bio_info">67</p>
+              <p className="bio_footer_title">Kgs</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="other_information d-flex justify-content-between">
+          <div className="other_info_left">
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">Main position</p>
+              <p className="info_des">Shooting guard</p>
+            </div>
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">Alternative</p>
+              <p className="info_des">Point guard</p>
+            </div>
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">Date of birth</p>
+              <p className="info_des">20.01.1991</p>
+            </div>
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">Gender</p>
+              <p className="info_des">Male</p>
+            </div>
+          </div>
+          <div className="other_info_right">
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">Nationality </p>
+              <p className="info_des">Germany</p>
+            </div>
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">residence </p>
+              <p className="info_des">USA</p>
+            </div>
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">sport </p>
+              <p className="info_des">Basketball</p>
+            </div>
+            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+              <p className="info_title">Added by </p>
+              <p className="info_des">Jan Kowalski</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="social_media d-flex justify-content-between mb-4">
+        <div className="media text-center">
+          <FaInstagram
+            style={{ color: "#2B3674", width: "36px", height: "36px" }}
+          />
+          <p className="follower_count">126K</p>
+          <p className="follower_title">FOLLOWers</p>
+        </div>
+
+        <div className="media text-center">
+          <FaFacebookF
+            style={{ color: "#2B3674", width: "36px", height: "36px" }}
+          />
+          <p className="follower_count">26M</p>
+          <p className="follower_title">FOLLOWers</p>
+        </div>
+
+        <div className="media text-center">
+          <BsTwitterX
+            style={{ color: "#2B3674", width: "36px", height: "36px" }}
+          />
+          <p className="follower_count">26M</p>
+          <p className="follower_title">FOLLOWers</p>
+        </div>
+
+        <div className="media text-center">
+          <BsTiktok
+            style={{ color: "#2B3674", width: "36px", height: "36px" }}
+          />
+          <p className="follower_count">26M</p>
+          <p className="follower_title">FOLLOWers</p>
+        </div>
+      </div>
+
+      <div className="other_info d-flex justify-content-between mb-4">
+        <div className="other_info_details">
+          <p className="other_info_title">Right</p>
+          <p className="other_info_des">Dominant Hand</p>
+        </div>
+
+        <div className="other_info_details">
+          <p className="other_info_title">Berlin</p>
+          <p className="other_info_des">City of residence </p>
+        </div>
+
+        <div className="other_info_details">
+          <p className="other_info_title">Alba Berlin</p>
+          <p className="other_info_des">Current club</p>
+        </div>
+
+        <div className="other_info_details">
+          <p className="other_info_title">N/A</p>
+          <p className="other_info_des">Additional passport</p>
+        </div>
+      </div>
+
+      <div className="experience mb-4">
+        <div className="section_title">
+          <h3>Experience</h3>
+        </div>
+        <div className="top d-flex justify-content-between py-4">
+          <div className="exerience_infomation">
+            <p className="year">2003 –2010</p>
+            <p className="exprince_info">Cleveland</p>
+          </div>
+          <div className="exerience_infomation">
+            <p className="year">2003 –2010</p>
+            <p className="exprince_info">Cleveland</p>
+          </div>
+          <div className="exerience_infomation">
+            <p className="year">2003 –2010</p>
+            <p className="exprince_info">Cleveland</p>
+          </div>
+        </div>
+        <div className="top d-flex justify-content-between py-4">
+          <div className="exerience_infomation">
+            <p className="year">2003 –2010</p>
+            <p className="exprince_info">Cleveland</p>
+          </div>
+          <div className="exerience_infomation">
+            <p className="year">2003 –2010</p>
+            <p className="exprince_info">Cleveland</p>
+          </div>
+          <div className="exerience_infomation">
+            <p className="year">2003 –2010</p>
+            <p className="exprince_info">Cleveland</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="advantages mb-4">
         <div className="row">
-          <div className="col-12 col-lg-3 ">
-            <div
-              className="w-100 upload_profile_image ms-4"
-              style={{ position: "relative" }}
-            >
-              <img
-                className="img-fluid profiles"
-                src={
-                  user?.image
-                    ? `${
-                        process.env.NODE_ENV !== "production"
-                          ? import.meta.env.VITE_LOCAL_API_URL
-                          : import.meta.env.VITE_LIVE_API_URL
-                      }/api/v1/uploads/${user?.image}`
-                    : profileImage
-                }
-                style={{ objectFit: "cover" }}
-                alt="Profile"
-              />
-              <img
-                src={isObserved ? ovservedIcon : obserbeIcon}
-                alt=""
-                style={{
-                  position: "absolute",
-                  bottom: "40px",
-                  left: 0,
-                  cursor: "pointer",
-                }}
-                onClick={handleObserve}
-              />
+          <div className="col-lg-6">
+            <div className="left">
+              <div className="section_title">
+                <h3>Strength Advantages</h3>
+              </div>
+
+              <ul className="list-unstyled ">
+                <li className="d-flex align-items-center gap-2 py-3">
+                  <GoDotFill style={{ width: "10px", height: "10px" }} />
+                  When we talk about Virtual Reality (VR), many of us think of
+                  science fiction films.
+                </li>
+                <li className="d-flex align-items-center gap-2 py-3">
+                  <GoDotFill style={{ width: "10px", height: "10px" }} />
+                  When we talk about Virtual Reality (VR), many of us think of
+                  science fiction films.
+                </li>
+                <li className="d-flex align-items-center gap-2 py-3">
+                  <GoDotFill style={{ width: "10px", height: "10px" }} />
+                  When we talk about Virtual Reality (VR), many of us think of
+                  science fiction films.
+                </li>
+              </ul>
             </div>
           </div>
-          <div className="col-12 col-lg-9">
-            {user?.subscriptionName ? (
-              <button className="gold_btn">
-                <img
-                  src={
-                    user?.subscriptionName === "Gold"
-                      ? gold
-                      : user?.subscriptionName === "Silver"
-                      ? silver
-                      : bronze
-                  }
-                  alt=""
-                />{" "}
-                {user?.subscriptionName}
-              </button>
-            ) : (
-              <button className="gold_btn">No Plan</button>
-            )}
-            <div className="d-flex align-items-center justify-content-between">
-              <p className="text_color_36 f_sfPro fs_40 mb-2">
-                {/* {user?.first_name} {user?.last_name} */}
-                {user?.fullName}
-              </p>
-              <p className="me-5">
-                Added By: {user?.referral?.first_name}{" "}
-                {user?.referral?.last_name}
-              </p>
-            </div>
-
-            <span className="d-block f_sfPro text_color_cb fs_28 mb-3">
-              {user?.sports}
-            </span>
-            <div className="personalInfo" style={{ marginRight: "48px" }}>
-              <p className="f_sfPro text_color_36 fs_18">
-                Personal Information
-              </p>
-              <button
-                className="message"
-                onClick={() => handleMessageLink(user?.referral)}
-              >
-                <img className="img-fluid" src={messageImage} alt="Message" />
-              </button>
-              <div className="row mb_40">
-                <div className="col-12 col-md-4">
-                  <div className="d-flex flex-column align-items-start gap-3">
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">Name</span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.fullName}
-                      </p>
-                    </div>
-
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Nationality-Passport
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.nationality}
-                      </p>
-                    </div>
-
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Height
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.height ? user?.height : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-4">
-                  <div className="d-flex flex-column align-items-start gap-3">
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Date of Birth
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.date_of_birth}
-                      </p>
-                    </div>
-
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Position
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.mainPosition ? user?.mainPosition : "N/A"}
-                      </p>
-                    </div>
-
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Weight
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.weight ? user?.weight : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-12 col-md-4">
-                  <div className="d-flex flex-column align-items-start gap-3">
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">Age</span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {convertAge(user?.date_of_birth)}
-                      </p>
-                    </div>
-
-                    <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Dominant
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">
-                        {user?.dominantHand ? user?.dominantHand : "N/A"}
-                      </p>
-                    </div>
-
-                    {/* <div>
-                      <span className="f_sfPro text_color_cb fs_15">
-                        Weight
-                      </span>
-                      <p className="f_sfPro text_color_36 fs_17">99kg</p>
-                    </div> */}
-                  </div>
-                </div>
+          <div className="col-lg-6">
+            <div className="right">
+              <div className="section_title">
+                <h3>Expectations From A New Club</h3>
               </div>
 
-              <div>
-                <p className="f_sfPro text_color_cb fs_15 mb-2">Experience</p>
-                <div className="d-flex flex-column flex-lg-row align-items-start gap-5">
-                  <div className="d-flex flex-column">
-                    {user?.experience.map((i, idx) => (
-                      <div key={idx}>
-                        <p className="f_sfPro text_color_36 fs_18">
-                          {i?.start_year}-{i?.end_year} {i?.club_name}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="d-flex gap-2">
-                    {user?.social_media.length > 0 &&
-                      user?.social_media.map((item, idx) => (
-                        <Link to={item} key={idx}>
-                          <img
-                            src={
-                              item?.includes("twitter.com")
-                                ? twitterIcon
-                                : item?.includes("instagram.com")
-                                ? instagramIcon
-                                : item?.includes("facebook.com")
-                                ? facebookIcon
-                                : youtubeIcon
-                            }
-                            alt=""
-                          />
-                        </Link>
-                      ))}
-                  </div>
-                </div>
-              </div>
+              <p className="advantages_content py-4">
+                When we talk about Virtual Reality (VR), many of us think of
+                science fiction films like “Minority Report”. However, the truth
+                is that nowadays, this technology completely blends in with our
+                daily lives.
+              </p>
+              <p className="advantages_content">
+                When we talk about Virtual Reality (VR), many of us think of
+                science fiction films like “Minority Report”. However, the truth
+                is that nowadays, this technology completely blends in with our
+                daily lives.
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <ViewDetailsMobile />
-      {/* <!-- Personal Info End --> */}
-      {/* <!-- Strengths, About Me part Start --> */}
-      <div className="strAbout mb_60 ">
-        <div className="row justify-content-start about_part">
-          <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 col_padding">
-            <p className="f_sfPro text_color_36 fs_18 mb-2">
-              Strengths Advantages
-            </p>
-            <p className="f_sfPro text_color_cb fs_16">
-              {user?.strengths_advantage ? user?.strengths_advantage : "N/A"}
-            </p>
-          </div>
-          <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 col_padding">
-            <p className="f_sfPro text_color_36 fs_18 mb-2">About Me</p>
-            <p className="f_sfPro text_color_cb fs_16">
-              {user?.about_me ? user?.about_me : "N/A"}
-            </p>
-          </div>
 
-          <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 col_padding">
-            <p className="f_sfPro text_color_36 fs_18 mb-2">
-              Expectations From a New Club
-            </p>
-            <p className="f_sfPro text_color_cb fs_16">
-              {user?.expectations_from_new_club
-                ? user?.expectations_from_new_club
-                : "N/A"}
-            </p>
+      <div className="about_me mb-4">
+        <div className="section_title">
+          <h3>About Me</h3>
+        </div>
+
+        <p className="about_me_des py-4">
+          When we talk about Virtual Reality (VR), many of us think of science
+          fiction films like “Minority Report”. However, the truth is that
+          nowadays, this technology completely blends in with our daily lives.
+        </p>
+      </div>
+
+      <div className="gallery">
+        <div className="section_title">
+          <h3>Gallery</h3>
+        </div>
+        <div className="images_wrapper py-4 d-flex align-items-center justify-content-between">
+          <div className="largeImg">
+            <img src={ImageOne} alt="" />
+          </div>
+          <div className="miniImg">
+            <div className="d-flex gap-2 mb-2">
+              <img src={ImageTwoMini} alt="" />
+              <img src={ImageThreeMini} alt="" />
+            </div>
+            <div className="d-flex gap-2 mb-2">
+              <img src={ImageFourMini} alt="" />
+              <img src={ImageFiveMini} alt="" />
+            </div>
+          </div>
+          <div className="largeImg">
+            <img src={ImageOne} alt="" />
+          </div>
+          <div className="miniImg">
+            <div className="d-flex gap-2 mb-2">
+              <img src={ImageTwoMini} alt="" />
+              <img src={ImageThreeMini} alt="" />
+            </div>
+            <div className="d-flex gap-2 mb-2">
+              <img src={ImageFourMini} alt="" />
+              <img src={ImageFiveMini} alt="" />
+            </div>
           </div>
         </div>
       </div>
-      {/* <!-- Strengths, About Me part End --> */}
-      {/* <!-- Slider Start --> */}
-      <p
-        className="f_sfPro text_color_36 fs_18 mb-4 ps-lg-4"
-        style={{ paddingLeft: "24px" }}
-      >
-        Gallery
-      </p>
-      <Gallary gallary={user?.gallary} />
-      {/* <!-- Slider End --> */}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import "./Pricing.css";
 
 import PricingBanner from "./PricingBanner";
@@ -31,6 +30,7 @@ const Pricing = () => {
       </div>
 
       <div className="container pricing_bg_wrapper">
+
         <SubsCriptionPricing />
       </div>
       <div className="container pricing_bg_wrapper pb-0">

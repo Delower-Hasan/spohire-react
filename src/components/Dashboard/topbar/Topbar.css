@@ -383,3 +383,17 @@
 .dropdown_menu ul li:hover .hover_icon {
   display: block !important;
 }
+
+.view_details {
+  padding: 15px 40px;
+  border-radius: 4px;
+  border: 1px solid var(--Border-green, rgba(84, 173, 150, 0.20));
+  background: var(--White, #FFF);
+  color: var(--Black, #1E2128);
+  font-family: "SF Pro Display";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 0.32px;
+}

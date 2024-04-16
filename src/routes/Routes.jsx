@@ -123,10 +123,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "/login",
     element: <Login />,
   },
+
   {
     path: "/signup",
     element: <SignUp />,
@@ -136,18 +138,22 @@ export const router = createBrowserRouter([
     path: "/addProfile",
     element: <AddProfile />,
   },
+
   {
     path: "/addPlayerProfile",
     element: <AddPlayerProfile />,
   },
+
   {
     path: "/addCoachProfile",
     element: <AddCoachProfile />,
   },
+
   {
     path: "/addProfilePlayer",
     element: <AddProfilePlayer />,
   },
+
   {
     path: "/addProfileCoach",
     element: <AddProfileCoach />,
@@ -160,6 +166,7 @@ export const router = createBrowserRouter([
     path: "/addplayer2",
     element: <AddPlayerInfo2 />,
   },
+
   {
     path: "/addplayer3",
     element: <AddPlayerInfo3 />,

@@ -70,7 +70,7 @@ const PricingCard = () => {
                 className={` ${
                   activeCard === index ? "active_include" : "include"
                 }`}>
-                What’s included
+                What's included
               </p>
 
               <div className="d-flex flex-column gap-4 pb-4">
