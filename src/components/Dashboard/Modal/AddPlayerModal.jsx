@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
 import "./Modal.css";
 import PricingModal from "./PricingModal";
 
-const AddPlayerModal = ({ onClose }) => {
+const AddPlayerModal = ({ onClose, setAddPlayerModal }) => {
+  const modalRef = useRef();
   const { user } = useSelector((state) => state.auth);
   const convertAge = (dateString) => {
     const dob = new Date(dateString);
@@ -23,10 +24,25 @@ const AddPlayerModal = ({ onClose }) => {
   const handleClose = () => {
     setShowPricing(false);
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      event.stopPropagation();
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setAddPlayerModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
 
   return (
     <div className="addplayer_modal ">
       <div className="inner">
+        {/* ref={modalRef} */}
         <div className="modal_heading">
           <h2>Add Player</h2>
         </div>
@@ -381,7 +397,6 @@ const AddPlayerModal = ({ onClose }) => {
             </div>
           </div>
         </div>
-
         <div className="d-flex justify-content-center py-4">
           <div className="action_btn d-flex gap-4">
             <button onClick={onClose}>Cancel</button>
@@ -390,10 +405,7 @@ const AddPlayerModal = ({ onClose }) => {
             </button>
           </div>
         </div>
-
-
-        {showPricing && <PricingModal/> }
-
+        {showPricing && <PricingModal />}
       </div>
     </div>
   );

@@ -190,8 +190,7 @@ setAddCoachModal(true)
           isModalOpen | isAnnouncementModalOpen
             ? "position_static"
             : "position-fixed"
-        } dashbord_topbar`}
-      >
+        } dashbord_topbar`}>
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
@@ -272,8 +271,7 @@ setAddCoachModal(true)
                                   border: "1px solid #8A8988",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}
-                              >
+                                }}>
                                 <img src={silverIcon} alt="silver-icon" />
                                 Silver
                               </p>
@@ -282,8 +280,7 @@ setAddCoachModal(true)
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#949494",
-                                }}
-                              >
+                                }}>
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -299,8 +296,7 @@ setAddCoachModal(true)
                                   border: "1px solid #FFD029",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}
-                              >
+                                }}>
                                 <img src={silverIcon} alt="silver-icon" />
                                 Silver
                               </p>
@@ -309,8 +305,7 @@ setAddCoachModal(true)
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#EBB111",
-                                }}
-                              >
+                                }}>
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -326,8 +321,7 @@ setAddCoachModal(true)
                                   border: "1px solid #CD7F32",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}
-                              >
+                                }}>
                                 <img src={silverIcon} alt="silver-icon" />
                                 Silver
                               </p>
@@ -336,8 +330,7 @@ setAddCoachModal(true)
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#CD7F32",
-                                }}
-                              >
+                                }}>
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -376,8 +369,7 @@ setAddCoachModal(true)
                     {/* drop down here */}
                     <button
                       onClick={handleIsDropDownOpen}
-                      className="user_name bg-none d-flex align-items-center gap-2 "
-                    >
+                      className="user_name bg-none d-flex align-items-center gap-2 ">
                       <h2 className="">
                         {user?.isSubsCribed
                           ? `${user?.first_name} ${user?.last_name}`
@@ -401,8 +393,7 @@ setAddCoachModal(true)
                         {profileMenu.map((dropdownItem, index) => (
                           <li
                             key={index}
-                            className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer"
-                          >
+                            className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer">
                             <div className="menus_item">
                               <img
                                 className="hover_icon d-none"
@@ -417,8 +408,7 @@ setAddCoachModal(true)
                             </div>
                             <Link
                               to={dropdownItem.link}
-                              className="d-inline-block text-capitalize"
-                            >
+                              className="d-inline-block text-capitalize">
                               {dropdownItem.menuName}
                             </Link>
                           </li>
@@ -426,8 +416,7 @@ setAddCoachModal(true)
                         <li className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer border-top">
                           <Link
                             className="d-inline-flex align-items-center gap-2 text-capitalize"
-                            style={{ color: "#FE6470" }}
-                          >
+                            style={{ color: "#FE6470" }}>
                             <div className="menus_item">
                               <img className="" src={logoutIcon} alt="icon" />
                             </div>
@@ -460,12 +449,10 @@ setAddCoachModal(true)
 
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -475,8 +462,7 @@ setAddCoachModal(true)
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
                   onClick={handleAddJobOfferClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -485,12 +471,10 @@ setAddCoachModal(true)
 
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -500,8 +484,7 @@ setAddCoachModal(true)
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
                   onClick={handleAddAnnouncementClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -510,12 +493,10 @@ setAddCoachModal(true)
 
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -681,7 +662,12 @@ setAddCoachModal(true)
         closeModal={closeAnnouncementModal}
       />
 
-      {addPlayerModal && <AddPlayerModal onClose={modalClose} />}
+      {addPlayerModal && (
+        <AddPlayerModal
+          onClose={modalClose}
+          setAddPlayerModal={setAddPlayerModal}
+        />
+      )}
       {addCoachModal && <AddCoachModal />}
     </>
   );

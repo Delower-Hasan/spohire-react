@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://devid-9ngw.onrender.com";
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "https://devid-9ngw.onrender.com";
+// export const BASE_URL = "http://localhost:8000";
 export const imageHostKey = "7378254be2fef904c69a0c05769ced22";
 export const PAYPAL_CLIENT_ID =
   "AU5MU_zv99-9lisi6REmdZR8BY-AD2Oz9qOkfR_3c5vmpNealS-bIEBRl1kUO3cTdelJf1uqLOVg1jQ1";
