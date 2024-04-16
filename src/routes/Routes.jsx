@@ -50,6 +50,7 @@ import PaymentRoute from "./PaymentRoute.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import SubscribedRoute from "./SubscribedRoute.jsx";
 import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
+import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -355,6 +356,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/help-and-support",
         element: <HelpSupport />,
+      },
+      {
+        path: "/dashboard/settings",
+        element: <Settings />,
       },
       {
         path: "/dashboard/announcements",

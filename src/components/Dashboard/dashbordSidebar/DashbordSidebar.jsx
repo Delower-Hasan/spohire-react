@@ -338,7 +338,7 @@ const DashbordSidebar = ({ user }) => {
                   <ul className="list-unstyled">
                     <li className="nav_item">
                       <Link
-                        to="/dashboard/password"
+                        to="/dashboard/settings"
                         className="text-decoration-none d-flex align-items-center gap-3"
                       >
                         <img src={coach} alt="icon" />

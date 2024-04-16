@@ -1,0 +1,95 @@
+.settings_header {
+    margin-bottom: 30px;
+}
+
+.settings_header h4 {
+    color: var(--Black, #1E2128);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 120%;
+}
+
+.settings_header .save_btn {
+    padding: 15px 30px;
+    border-radius: 5px;
+    background: var(--Blue-2, #0095FF);
+    color: var(--White, #FFF);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.settings_header .cancel_btn {
+    color: var(--b3, #8593BC);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.settings {
+    border-radius: 10px;
+    background: var(--White, #FFF);
+    padding: 30px 30px 41px 20px;
+}
+
+.settings label {
+    color: var(--Black, #1E2128);
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.settings input,
+.settings select,
+.settings .select {
+    border-radius: 4px;
+    background: #F3F7FF;
+    color: var(--Gray, #6D6D6D);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.26px;
+    padding: 14px 15px;
+    width: 100%;
+    border: 0;
+}
+
+.settings h4 {
+    color: var(--Black-2, #4C4E52);
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 33px;
+}
+
+.settings .comment {
+    color: var(--Black-2, #4C4E52);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.settings .post {
+    color: var(--b3, #8593BC);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.settings .label {
+    color: var(--Black, #1E2128);
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+.settings .answer {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.settings .subscription_btn {
+    color: var(--Neutral-100, var(--White, #FFF));
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    border-radius: 96px;
+    background: var(--Dark-blue, #2B3674);
+    padding: 10px 18px;
+}
