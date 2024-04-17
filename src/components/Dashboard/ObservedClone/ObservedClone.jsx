@@ -1,22 +1,20 @@
 /* eslint-disable no-unused-vars */
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import a1 from "../../../assets/a1.png";
-import flag from "../../../assets/flag.png";
-import dollar from "../../../assets/coin-dollar.png";
-import location from "../../../assets/location.png";
 import bookmarkfill from "../../../assets/bookmark-fill.png";
+import dollar from "../../../assets/coin-dollar.png";
+import dollarIcon from "../../../assets/dollar-icon.svg";
 import footBallCoachImg from "../../../assets/footballCoach.png";
 import locationIcon from "../../../assets/location-icon.svg";
-import dollarIcon from "../../../assets/dollar-icon.svg";
+import location from "../../../assets/location.png";
 import playerprofile from "../../../assets/player_profile.png";
-import "./ObservedClone.css";
 import {
-  useGetMyObservationsQuery,
-  useToggleObservationMutation,
+    useGetMyObservationsQuery,
+    useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import "./ObservedClone.css";
 
 const ObservedClone = () => {
   const { data, isLoading, isSuccess } = useGetMyObservationsQuery();
@@ -228,7 +226,7 @@ const ObservedClone = () => {
                       .filter((i) => i?.target_type === "Job")
                       .map((item, idx) => (
                         <div className="job_offers_item p-3" key={idx}>
-                          <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+                          <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
                             <div className="left d-flex align-items-center gap-3">
                               <div className="job_offer_item_img">
                                 <img
@@ -337,7 +335,7 @@ const ObservedClone = () => {
                       .filter((i) => i?.target_type === "Player")
                       .map((item, idx) => (
                         <div className="job_offers_item p-3" key={idx}>
-                          <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+                          <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
                             <div className="left d-flex align-items-center gap-3">
                               <div className="job_offer_item_img">
                                 <img

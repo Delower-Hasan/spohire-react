@@ -54,8 +54,8 @@ const Topbar = () => {
   };
 
   const openCoachModal = () => {
-setAddCoachModal(true)
-  }
+    setAddCoachModal(true);
+  };
 
   const modalClose = () => {
     setAddPlayerModal(false);
@@ -628,20 +628,21 @@ setAddCoachModal(true)
         <div className="topbar_mobile">
           <div className="d-flex justify-content-between align-items-center">
             <button className="back_btn fs_10">Back</button>
-            <div style={{ marginRight: "50px" }}>
+            {/* <div style={{ marginRight: "50px" }}>
               <img src={logo} alt="" />
             </div>
-            <p></p>
+            <p></p> */}
+
+            <h2 className="text_color_36 job_title_mobile fs-4 fw-medium text-capitalize">
+              {location.pathname === "/dashboard/jobOffers" && "job offer"}
+              {location.pathname === "/dashboard/players" && "Players"}
+              {location.pathname === "/dashboard/coaches" && "Coaches"}
+              {location.pathname === "/dashboard/createAnnouncements" &&
+                "Create Announcements"}
+              {location.pathname === "/dashboard/announcements" &&
+                "Announcements"}
+            </h2>
           </div>
-          <h2 className="text_color_36 job_title_mobile fs-4 fw-medium text-capitalize">
-            {location.pathname === "/dashboard/jobOffers" && "job offer"}
-            {location.pathname === "/dashboard/players" && "Players"}
-            {location.pathname === "/dashboard/coaches" && "Coaches"}
-            {location.pathname === "/dashboard/createAnnouncements" &&
-              "Create Announcements"}
-            {location.pathname === "/dashboard/announcements" &&
-              "Announcements"}
-          </h2>
         </div>
       </div>
 
@@ -668,6 +669,7 @@ setAddCoachModal(true)
           setAddPlayerModal={setAddPlayerModal}
         />
       )}
+
       {addCoachModal && <AddCoachModal />}
     </>
   );

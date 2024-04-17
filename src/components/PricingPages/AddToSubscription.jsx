@@ -14,7 +14,7 @@ const AddToSubscription = () => {
       className={`${
         location.pathname === "/dashboard/players" ? "d-none" : null
       }`}>
-      <div className="range_header d-flex align-items-center w-100 justify-content-center gap-4">
+      <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
         <h6>Subscription to view</h6>
         <OptionDropdown
           title="Players"

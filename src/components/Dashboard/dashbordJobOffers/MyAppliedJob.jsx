@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import {
-  useDeleteJobApplyMutation,
-  useGetMyAppliedJobsQuery,
+    useDeleteJobApplyMutation,
+    useGetMyAppliedJobsQuery,
 } from "../../../features/job/jobApi";
 import MobileButtons from "../players/MobileButtons";
-import { convertDate } from "../../../utils/TimeConverter";
 
-import pdfIcon from "../../../assets/pdfIcon.svg";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import pdfIcon from "../../../assets/pdfIcon.svg";
 import Pagination from "../../Pagination/Pagination";
 
 const MyAppliedJob = () => {
@@ -150,7 +149,7 @@ function SingleJob({ item, handleCancleJob, deleting }) {
         className="job_offers_item p-3"
         onClick={() => navigate(`/dashboard/jobDetails/${item?.job?._id}`)}
         style={{ cursor: "pointer" }}>
-        <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+        <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className=" ">
             <h2 className="mb-2">{item?.job?.job_title}</h2>
             <p style={{ color: "#747474" }}>{item?.job?.company}</p>

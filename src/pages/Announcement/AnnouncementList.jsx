@@ -294,8 +294,8 @@ const SingleAnnouncement = ({ item }) => {
 
   return (<>
     <div className="announcelist_wrapper">
-      <div className="d-flex justify-content-between align-items-start">
-        <div className="d-flex align-items-center" style={{ gap: "36px" }}>
+      <div className="d-flex flex-wrap justify-content-between align-items-start">
+        <div className="d-flex flex-wrap align-items-center" style={{ gap: "36px" }}>
           <div className="announcement_pic">
             <img
               src={a1}
@@ -343,7 +343,7 @@ const SingleAnnouncement = ({ item }) => {
           <div>
             <button
               className="bg-none"
-              
+
               onClick={handleBookmark}
             >
               {bookmark ? (

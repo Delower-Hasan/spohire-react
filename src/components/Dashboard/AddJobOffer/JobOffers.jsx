@@ -214,7 +214,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
   return (
     <>
       <div className="job_offers_item p-3">
-        <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+        <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className="left d-flex align-items-center gap-3">
             <div className="job_offer_item_img">
               <img

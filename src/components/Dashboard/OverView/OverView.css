@@ -91,7 +91,7 @@
     font-family: 'SF Pro Display', sans-serif;
     height: 90vh;
     margin-top: 80px;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x: hidden;
 }
 
@@ -256,6 +256,10 @@
     margin: 14px 0 !important;
 }
 
+.message_overview_hr:last-child{
+    display: none;
+}
+
 .announcement_details_wrapper {
     display: flex;
     align-items: center;
@@ -269,7 +273,7 @@
     }
 
     .player_overview {
-        padding: 0;
+        padding: 40px;
         border: none;
     }
 

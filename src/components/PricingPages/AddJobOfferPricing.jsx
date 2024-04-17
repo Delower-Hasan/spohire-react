@@ -46,7 +46,7 @@ const AddJobOfferPricing = () => {
       )}
 
       <div
-        className={`d-flex flex-lg-row flex-column justify-content-center`}
+        className={`d-flex flex-lg-row flex-column justify-content-center align-items-center`}
         style={{
           gap: "30px",
           marginBottom:
@@ -85,26 +85,39 @@ const AddJobOfferPricing = () => {
         className={`${
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
-            : "d-flex justify-content-center"
+            : ""
         }`}>
-        <div
-          className={`${
-            location.pathname === "/dashboard/players"
-              ? "something"
-              : monthly_cards
-          }  active`}
-          style={{
-            maxWidth: `${
-              location.pathname === "/dashboard/players" ? "0" : "723px"
-            }`,
-            width: `${
-              location.pathname === "/dashboard/players" ? "100%" : "100%"
-            }`,
-            justifyContent: `${
-              location.pathname === "/dashboard/players" ? "end" : "center"
-            }`,
-          }}></div>
+        {location.pathname === "/dashboard/players" ? null : (
+          <h2>price of announcement</h2>
+        )}
 
+        <div className="d-flex justify-content-center">
+          <div
+            className={`${
+              location.pathname === "/dashboard/players"
+                ? "something"
+                : "monthly_cards"
+            } active`}
+            style={{
+              maxWidth: `${
+                location.pathname === "/dashboard/players" ? "0" : "723px"
+              }`,
+
+              width: `${
+                location.pathname === "/dashboard/players" ? "100%" : "100%"
+              }`,
+
+              justifyContent: `${
+                location.pathname === "/dashboard/players" ? "end" : "center"
+              }`,
+            }}>
+            {location.pathname === "/dashboard/players" ? null : (
+              <div>
+                <h3>${selectedPrice}</h3>
+              </div>
+            )}
+          </div>
+        </div>
         {location.pathname === "/dashboard/players" ? (
           <div>
             <h3
@@ -113,21 +126,19 @@ const AddJobOfferPricing = () => {
               Total : {selectedPrice}$
             </h3>
           </div>
-        ) : (
-          <div>
-            <h3>${selectedPrice}</h3>
-          </div>
-        )}
+        ) : null}
       </div>
 
-      <div className="d-flex justify-content-end py-4">
-        <div className="action_btn d-flex gap-4">
-          <button>Cancel</button>
-          <button className="addplayer_btn" onClick={handleNextPaymentModal}>
-            Next
-          </button>
+      {location.pathname === "/dashboard/players" ? (
+        <div className="d-flex justify-content-end py-4">
+          <div className="action_btn d-flex gap-4">
+            <button>Cancel</button>
+            <button className="addplayer_btn" onClick={handleNextPaymentModal}>
+              Next
+            </button>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {nextPaymentModal && (
         <div className="addplayer_modal">

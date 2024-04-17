@@ -112,7 +112,7 @@ function SingleJob({
   return (
     <>
       <div className="job_offers_item p-3" onClick={handleCLick}>
-        <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+        <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className="left d-flex align-items-center gap-3">
             <div className="job_offer_item_img">
               <img
@@ -140,8 +140,7 @@ function SingleJob({
                 <h5
                   className="fw-medium fs-6 text_color_36 mb-1"
                   //   onClick={() => handleCLick(item)}
-                  style={{ cursor: "pointer" }}
-                >
+                  style={{ cursor: "pointer" }}>
                   {/* {item?.first_name} {item?.last_name} */}
                   {item?.fullName}
                 </h5>
@@ -177,8 +176,7 @@ function SingleJob({
           <div className="right d-flex  gap-2">
             <button
               className="bg-none"
-              onClick={(e) => handleEditPlayerProfile(item, e)}
-            >
+              onClick={(e) => handleEditPlayerProfile(item, e)}>
               <img src={editIcon} alt="" />
             </button>
             <button className="bg-none" onClick={(e) => handleDelete(item, e)}>

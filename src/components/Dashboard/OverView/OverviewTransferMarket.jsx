@@ -143,7 +143,7 @@ function BuySubscriptionModal({ user }) {
                 aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <div style={{ paddingBottom: "150px" }}>
+              <div >
                 <PriceRange
                   component={<BuySubscriptionModalContent user={user} />}
                 />

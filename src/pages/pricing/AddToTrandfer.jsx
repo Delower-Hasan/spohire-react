@@ -3,7 +3,7 @@ import OptionDropdown from "./OptionDropdown";
 
 const AddToTrandfer = () => {
   return (
-    <div className="range_header d-flex align-items-center w-100 justify-content-center gap-4">
+    <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
       <h6>ADD</h6>
       <OptionDropdown
         title="HANDBALL"

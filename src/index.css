@@ -87,6 +87,473 @@ button {
   --clr_e7: #C5CDE7;
 }
 
+@media (max-width: 1024px) {
+  .dashbord_sidebar {
+    display: none !important;
+  }
+
+  .mobileTopbar {
+    display: block !important;
+  }
+}
+
+@media (max-width: 990px) {
+  .trustContent {
+    font-size: 16px !important;
+    margin-bottom: 34px !important;
+  }
+
+  .section_padding {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .section_heading {
+    margin-bottom: 32px;
+  }
+
+  .nav_form_small {
+    margin-top: 30px !important;
+  }
+
+  .right_content_wrapper {
+    padding-bottom: 50px !important;
+  }
+
+  .fs_82 {
+    font-size: 60px !important;
+    line-height: 70px;
+  }
+
+  .right_content_wrapper {
+    /* margin-top: 30px; */
+    text-align: center;
+  }
+
+  .star_design {
+    margin: 7px;
+  }
+
+  .carousel-item {
+    height: 1250px !important;
+  }
+
+  /* banner */
+  .header_position .navbar-collapse {
+    /* background-color: #221355; */
+  }
+
+  .banner_top_pd {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .banner .bannerContent span {
+    font-size: 8.5px !important;
+    padding: 6px 19px !important;
+  }
+
+  .banner .bannerContent {
+    text-align: center;
+  }
+
+  .banner .bannerContent {
+    padding-top: 154px !important;
+  }
+
+  .banner .bannerContent h1 {
+    font-size: 36px !important;
+  }
+
+  .banner-right-image {
+    margin-top: 50px !important;
+  }
+
+  .banner .bannerContent p {
+    font-size: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .banner .bannerContent a {
+    padding: 10px 16px !important;
+    font-size: 9px !important;
+    line-height: 17px !important;
+  }
+
+  /* banner */
+
+  /* work */
+  .workBg h3 {
+    font-size: 24px !important;
+  }
+
+  .workBg .tabOutter button {
+    font-size: 13px !important;
+    padding: 11px 35px !important;
+  }
+
+  .workBg .local p {
+    font-size: 16px !important;
+    line-height: 23px !important;
+  }
+
+  .workBg .local button {
+    font-size: 11px !important;
+    padding: 7px 11px !important;
+  }
+
+  .workBg .innerWhiteBox {
+    padding: 17px 15px !important;
+  }
+
+  .Work_container {
+    width: 100% !important;
+  }
+
+  .workBg .tabOutter {
+    width: 100% !important;
+  }
+
+  .workBg .playerBox p {
+    font-size: 12px !important;
+  }
+
+  .img1 {
+    width: 82px !important;
+    height: 41px !important;
+  }
+
+  .img2 {
+    width: 72.249px !important;
+    height: 72.992px !important;
+  }
+
+  .img3 {
+    width: 83px !important;
+    height: 41px !important;
+  }
+
+  .local {
+    align-items: start !important;
+  }
+
+  .workBg .playerBox span,
+  .workBg .detailBox span {
+    font-size: 8px !important;
+    padding: 4px 6px !important;
+  }
+
+  .workBg .detailBox p {
+    font-size: 8px !important;
+    padding: 5px 10px !important;
+  }
+
+  .numTag {
+    width: 33px !important;
+    height: 33px !important;
+  }
+
+  .numTag p {
+    font-size: 15px !important;
+  }
+
+  .workBg .connect p {
+    font-size: 14px !important;
+  }
+
+  .workBg .connect span {
+    font-size: 11px !important;
+    line-height: 14px !important;
+  }
+
+  .mobile_numtag {
+    align-items: start !important;
+  }
+
+  .workBg .leftBlueBox button {
+    font-size: 11px !important;
+  }
+
+  .workBg .leftBlueBox button img {
+    width: 13px;
+    height: 13px;
+  }
+
+  .workBg .leftBlueBox {
+    padding-top: 21px !important;
+    padding-left: 33px !important;
+    padding-right: 21px !important;
+    padding-bottom: 21px !important;
+  }
+
+  /* sign up */
+  .workBg .howWorkRight p {
+    font-size: 15px !important;
+  }
+
+  .workBg .howWorkRight span {
+    font-size: 11px !important;
+    line-height: 17px !important;
+  }
+
+  .workBg .howWorkRight {
+    padding: 24px 20px !important;
+  }
+
+  .workBg .howWorkRight form {
+    padding: 25px !important;
+  }
+
+  .workBg .howWorkRight form .txtInput label {
+    font-size: 11px !important;
+  }
+
+  .workBg .howWorkRight form .txtInput input {
+    padding: 0 !important;
+    width: 100% !important;
+    height: 24px !important;
+  }
+
+  .playOption label {
+    font-size: 9px !important;
+  }
+
+  .playOption label::after {
+    width: 9px !important;
+    height: 9px !important;
+  }
+
+  .playOption label::before {
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  .workBg {
+    padding-bottom: 32px !important;
+  }
+
+  .workBg .tabOutter {
+    margin-bottom: 32px !important;
+  }
+
+  .workBg h3 {
+    margin-bottom: 37px !important;
+    line-height: normal !important;
+  }
+
+  /* sign up */
+  /* what people say */
+  .sayHeader p {
+    font-size: 24px !important;
+    line-height: 30px !important;
+    letter-spacing: -0.24px !important;
+  }
+
+  .sayHeader span {
+    font-size: 10px !important;
+    line-height: 160% !important;
+  }
+
+  .sayHeader {
+    margin-bottom: 24px !important;
+  }
+
+  .trustContent {
+    font-size: 16px;
+    line-height: 21.365px;
+  }
+
+  .trust_img {
+    width: 92px !important;
+    height: 25px !important;
+  }
+
+  .trustContent_mobile {
+    justify-content: center !important;
+    gap: 30px !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* what people say */
+  /* why we */
+  .why_we_mobile {
+    flex-direction: column-reverse;
+  }
+
+  .top_content h1 {
+    font-size: 36px !important;
+    font-family: 'Gilroy-SemiBold', sans-serif !important;
+    line-height: 46px !important;
+    margin-bottom: 0 !important;
+    max-width: 300px;
+    text-align: center;
+    margin: auto;
+  }
+
+  .top_content p {
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: 24px;
+  }
+
+  .top_content {
+    margin-bottom: 10px !important;
+  }
+
+  .common_btn a {
+    padding: 10px 16px !important;
+    font-size: 9px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 17px !important;
+    text-transform: uppercase !important;
+  }
+
+  .WhyWeList li {
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 24px !important;
+  }
+
+  /* why we */
+  /* faq section */
+  .section_heading h2 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 30px !important;
+  }
+
+  .question {
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    margin-bottom: 8px;
+  }
+
+  .answer {
+    font-size: 11px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 19px !important;
+  }
+
+  /* .mobile_icon {
+    height: 30px !important;
+    width: 30px !important;
+  } */
+
+  /* faq section */
+
+  /* footer */
+
+  footer {
+    background: url("../src/assets/mobile_footer_bg.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+    padding: 30px 0 !important;
+  }
+
+  footer p {
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: normal !important;
+  }
+
+  .fooBottom a {
+    font-size: 11px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: normal !important;
+  }
+
+  footer ul li:first-child {
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: normal !important;
+  }
+
+  footer ul li a {
+    font-size: 11px !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    line-height: normal !important;
+  }
+
+  .followBox {
+    padding: 17px !important;
+  }
+
+  .followBox a {
+    height: 34px !important;
+    width: 34px !important;
+  }
+
+  .followBox a img {
+    height: 18px;
+    width: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .all_mb {
+    margin-bottom: 64px;
+  }
+
+  .text_color_80 {
+    font-size: 10px !important;
+  }
+
+  .p-3 {
+    padding: 12px !important;
+  }
+
+  .job_offer_item_img img {
+    width: 57px !important;
+    height: 57px !important;
+  }
+
+  .right {
+    width: 17px !important;
+    height: 16px !important;
+  }
+
+  .job_offerItem_address img {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .pricing_inner {
+    padding: 35px !important;
+    font-size: 40px !important;
+  }
+
+  .pricing_buttons {
+    flex-wrap: wrap;
+  }
+
+  .range_header {
+    margin-bottom: 40px !important;
+  }
+
+  .job_header_wrapper {
+    padding: 45px 20px !important;
+  }
+
+  .announcement_heading {
+    font-size: 34px !important;
+  }
+
+  .over_tm_wrapper .buttons_design {
+    flex-wrap: wrap !important;
+  }
+}
+
 .bg_clr_ff {
   background-color: var(--clr_ff);
 }
@@ -813,448 +1280,4 @@ a {
   color: var(--Black-2, #4C4E52);
   font-size: 16px;
   font-weight: 400;
-}
-
-
-
-@media (max-width: 1024px) {
-  .dashbord_sidebar {
-    display: none !important;
-  }
-
-  .mobileTopbar {
-    display: block !important;
-  }
-}
-
-@media (max-width: 990px) {
-  .trustContent {
-    font-size: 16px !important;
-    margin-bottom: 34px !important;
-  }
-
-  .section_padding {
-    padding-top: 64px;
-    padding-bottom: 64px;
-  }
-
-  .section_heading {
-    margin-bottom: 32px;
-  }
-
-  .nav_form_small {
-    margin-top: 30px !important;
-  }
-
-  .right_content_wrapper {
-    padding-bottom: 50px !important;
-  }
-
-  .fs_82 {
-    font-size: 60px !important;
-    line-height: 70px;
-  }
-
-  .right_content_wrapper {
-    /* margin-top: 30px; */
-    text-align: center;
-  }
-
-  .star_design {
-    margin: 7px;
-  }
-
-  .carousel-item {
-    height: 1250px !important;
-  }
-
-  /* banner */
-  .header_position .navbar-collapse {
-    /* background-color: #221355; */
-  }
-
-  .banner_top_pd {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .banner .bannerContent span {
-    font-size: 8.5px !important;
-    padding: 6px 19px !important;
-  }
-
-  .banner .bannerContent {
-    text-align: center;
-  }
-
-  .banner .bannerContent {
-    padding-top: 154px !important;
-  }
-
-  .banner .bannerContent h1 {
-    font-size: 36px !important;
-  }
-
-  .banner-right-image {
-    margin-top: 50px !important;
-  }
-
-  .banner .bannerContent p {
-    font-size: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-
-  .banner .bannerContent a {
-    padding: 10px 16px !important;
-    font-size: 9px !important;
-    line-height: 17px !important;
-  }
-
-  /* banner */
-
-  /* work */
-  .workBg h3 {
-    font-size: 24px !important;
-  }
-
-  .workBg .tabOutter button {
-    font-size: 13px !important;
-    padding: 11px 35px !important;
-  }
-
-  .workBg .local p {
-    font-size: 16px !important;
-    line-height: 23px !important;
-  }
-
-  .workBg .local button {
-    font-size: 11px !important;
-    padding: 7px 11px !important;
-  }
-
-  .workBg .innerWhiteBox {
-    padding: 17px 15px !important;
-  }
-
-  .Work_container {
-    width: 100% !important;
-  }
-
-  .workBg .tabOutter {
-    width: 100% !important;
-  }
-
-  .workBg .playerBox p {
-    font-size: 12px !important;
-  }
-
-  .img1 {
-    width: 82px !important;
-    height: 41px !important;
-  }
-
-  .img2 {
-    width: 72.249px !important;
-    height: 72.992px !important;
-  }
-
-  .img3 {
-    width: 83px !important;
-    height: 41px !important;
-  }
-
-  .local {
-    align-items: start !important;
-  }
-
-  .workBg .playerBox span,
-  .workBg .detailBox span {
-    font-size: 8px !important;
-    padding: 4px 6px !important;
-  }
-
-  .workBg .detailBox p {
-    font-size: 8px !important;
-    padding: 5px 10px !important;
-  }
-
-  .numTag {
-    width: 33px !important;
-    height: 33px !important;
-  }
-
-  .numTag p {
-    font-size: 15px !important;
-  }
-
-  .workBg .connect p {
-    font-size: 14px !important;
-  }
-
-  .workBg .connect span {
-    font-size: 11px !important;
-    line-height: 14px !important;
-  }
-
-  .mobile_numtag {
-    align-items: start !important;
-  }
-
-  .workBg .leftBlueBox button {
-    font-size: 11px !important;
-  }
-
-  .workBg .leftBlueBox button img {
-    width: 13px;
-    height: 13px;
-  }
-
-  .workBg .leftBlueBox {
-    padding-top: 21px !important;
-    padding-left: 33px !important;
-    padding-right: 21px !important;
-    padding-bottom: 21px !important;
-  }
-
-  /* sign up */
-  .workBg .howWorkRight p {
-    font-size: 15px !important;
-  }
-
-  .workBg .howWorkRight span {
-    font-size: 11px !important;
-    line-height: 17px !important;
-  }
-
-  .workBg .howWorkRight {
-    padding: 24px 20px !important;
-  }
-
-  .workBg .howWorkRight form {
-    padding: 25px !important;
-  }
-
-  .workBg .howWorkRight form .txtInput label {
-    font-size: 11px !important;
-  }
-
-  .workBg .howWorkRight form .txtInput input {
-    padding: 0 !important;
-    width: 100% !important;
-    height: 24px !important;
-  }
-
-  .playOption label {
-    font-size: 9px !important;
-  }
-
-  .playOption label::after {
-    width: 9px !important;
-    height: 9px !important;
-  }
-
-  .playOption label::before {
-    width: 11px !important;
-    height: 11px !important;
-  }
-
-  .workBg {
-    padding-bottom: 32px !important;
-  }
-
-  .workBg .tabOutter {
-    margin-bottom: 32px !important;
-  }
-
-  .workBg h3 {
-    margin-bottom: 37px !important;
-    line-height: normal !important;
-  }
-
-  /* sign up */
-  /* what people say */
-  .sayHeader p {
-    font-size: 24px !important;
-    line-height: 30px !important;
-    letter-spacing: -0.24px !important;
-  }
-
-  .sayHeader span {
-    font-size: 10px !important;
-    line-height: 160% !important;
-  }
-
-  .sayHeader {
-    margin-bottom: 24px !important;
-  }
-
-  .trustContent {
-    font-size: 16px;
-    line-height: 21.365px;
-  }
-
-  .trust_img {
-    width: 92px !important;
-    height: 25px !important;
-  }
-
-  .trustContent_mobile {
-    justify-content: center !important;
-    gap: 30px !important;
-    flex-wrap: wrap !important;
-  }
-
-  /* what people say */
-  /* why we */
-  .why_we_mobile {
-    flex-direction: column-reverse;
-  }
-
-  .top_content h1 {
-    font-size: 36px !important;
-    font-family: 'Gilroy-SemiBold', sans-serif !important;
-    line-height: 46px !important;
-    margin-bottom: 0 !important;
-    max-width: 300px;
-    text-align: center;
-    margin: auto;
-  }
-
-  .top_content p {
-    font-size: 14px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: 24px;
-  }
-
-  .top_content {
-    margin-bottom: 10px !important;
-  }
-
-  .common_btn a {
-    padding: 10px 16px !important;
-    font-size: 9px !important;
-    font-style: normal !important;
-    font-weight: 700 !important;
-    line-height: 17px !important;
-    text-transform: uppercase !important;
-  }
-
-  .WhyWeList li {
-    font-size: 10px !important;
-    font-weight: 500 !important;
-    line-height: 24px !important;
-  }
-
-  /* why we */
-  /* faq section */
-  .section_heading h2 {
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    line-height: 30px !important;
-  }
-
-  .question {
-    font-size: 14px !important;
-    font-style: normal !important;
-    font-weight: 400 !important;
-    line-height: 20px !important;
-    margin-bottom: 8px;
-  }
-
-  .answer {
-    font-size: 11px !important;
-    font-style: normal !important;
-    font-weight: 400 !important;
-    line-height: 19px !important;
-  }
-
-  /* .mobile_icon {
-    height: 30px !important;
-    width: 30px !important;
-  } */
-
-  /* faq section */
-
-  /* footer */
-
-  footer {
-    background: url("../src/assets/mobile_footer_bg.png") !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: cover !important;
-    padding: 30px 0 !important;
-  }
-
-  footer p {
-    font-size: 14px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: normal !important;
-  }
-
-  .fooBottom a {
-    font-size: 11px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: normal !important;
-  }
-
-  footer ul li:first-child {
-    font-size: 14px !important;
-    font-style: normal !important;
-    font-weight: 400 !important;
-    line-height: normal !important;
-  }
-
-  footer ul li a {
-    font-size: 11px !important;
-    font-style: normal !important;
-    font-weight: 500 !important;
-    line-height: normal !important;
-  }
-
-  .followBox {
-    padding: 17px !important;
-  }
-
-  .followBox a {
-    height: 34px !important;
-    width: 34px !important;
-  }
-
-  .followBox a img {
-    height: 18px;
-    width: 18px;
-  }
-}
-
-@media (max-width: 768px) {
-  .all_mb {
-    margin-bottom: 64px;
-  }
-
-  .text_color_80 {
-    font-size: 10px !important;
-  }
-
-  .p-3 {
-    padding: 12px !important;
-  }
-
-  .job_offer_item_img img {
-    width: 57px !important;
-    height: 57px !important;
-  }
-
-  .right {
-    width: 17px !important;
-    height: 16px !important;
-  }
-
-  .job_offerItem_address img {
-    width: 15px !important;
-    height: 15px !important;
-  }
 }

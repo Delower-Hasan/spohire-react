@@ -6,9 +6,9 @@ const NewsCard = ({ data }) => {
     return (
         <>
             <div className='news_card'>
-                <div className="d-flex" style={{ gap: "64px" }}>
+                <div className="d-flex flex-wrap" style={{ gap: "64px" }}>
                     <div className="">
-                        <div className="d-flex" style={{ gap: "61px" }}>
+                        <div className="d-flex flex-wrap" style={{ gap: "61px" }}>
                             <div className='date_wrapper'>
                                 <h3>{data?.month}</h3>
                                 <div className='date_line'></div>

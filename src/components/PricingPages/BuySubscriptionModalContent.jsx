@@ -14,7 +14,7 @@ const BuySubscriptionModalContent = ({ user }) => {
 
     return (
         <div>
-            <div className="range_header d-flex align-items-center w-100 justify-content-center gap-4">
+            <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
                 <h6>Subscription to view</h6>
                 {manager && <OptionDropdown title="Players" subtitle={["Players", "COACHES", "PLAYERS + COACHES"]} />}
                 <h6>IN</h6>

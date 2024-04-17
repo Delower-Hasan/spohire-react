@@ -120,7 +120,7 @@ function SingleJob({ item }) {
   return (
     <>
       <div className="job_offers_item p-3">
-        <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+        <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className=" ">
             <h2 className="mb-2">{item?.name}</h2>
             <p style={{ color: "#747474" }}>{item?.email}</p>

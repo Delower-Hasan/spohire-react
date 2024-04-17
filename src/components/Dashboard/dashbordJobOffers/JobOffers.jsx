@@ -221,13 +221,12 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
     }
   };
   return (
-    <div  >
+    <div>
       <div
         className="job_offers_item p-3"
         onClick={() => handleCLick(item)}
-        style={{ cursor: "pointer" }}
-      >
-        <div className="job_offers_item_content d-flex justify-content-between align-items-center">
+        style={{ cursor: "pointer" }}>
+        <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className="left d-flex align-items-center gap-3">
             <div className="job_offer_item_img">
               <img
@@ -239,7 +238,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                   //   }/api/v1/uploads/${item?.club_logo}`
                   //   :
 
-                    footBallCoachImg
+                  footBallCoachImg
                 }
                 alt="img"
                 style={{
@@ -255,8 +254,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
               <div className="job_offer_nameDesignation">
                 <h5
                   className="fw-medium fs-6 text_color_36 mb-1"
-                  style={{ cursor: "pointer" }}
-                >
+                  style={{ cursor: "pointer" }}>
                   {item?.job_title}
                 </h5>
 
@@ -297,12 +295,19 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                   handleBookmark(item?._id);
                 }}
                 style={{ width: "20px" }}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 {isBookmarked ? (
-                  <img style={{height:"24px",width:"24px"}} src={bookmarkfill} alt="" />
+                  <img
+                    style={{ height: "24px", width: "24px" }}
+                    src={bookmarkfill}
+                    alt=""
+                  />
                 ) : (
-                  <img style={{height:"24px",width:"24px"}} src={b1} alt="" />
+                  <img
+                    style={{ height: "24px", width: "24px" }}
+                    src={b1}
+                    alt=""
+                  />
                 )}
               </button>
             )}
@@ -312,8 +317,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   handleEditJobOfferClick(item);
-                }}
-              >
+                }}>
                 <img src={editIcon} alt="" />
               </button>
             )}
@@ -323,8 +327,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDelete(item);
-                }}
-              >
+                }}>
                 <img src={deleteIcon} alt="" />
               </button>
             )}
