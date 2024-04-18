@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import footBallCoachImg from "../../../assets/footballCoach.png";
 import threedot from "../../../assets/threedot.png";
 import { useGetAllJobsQuery } from "../../../features/job/jobApi";
+import React from "react";
 
 const JobOfferOverview = () => {
   const { data: allJobs } = useGetAllJobsQuery();
@@ -18,7 +19,7 @@ const JobOfferOverview = () => {
         </div>
         {allJobs?.data && allJobs?.data?.length > 0 ? (
           allJobs?.data.slice(0, 3).map((item, idx) => (
-            <>
+            <React.Fragment key={idx}>
               <div className="d-flex align-items-center justify-content-between joboffer_ov_wrapper">
                 <div
                   key={idx}
@@ -63,7 +64,7 @@ const JobOfferOverview = () => {
                 <img style={{width:"24px",height:"24px"}} src={threedot} alt="" />
 
               </div>
-            </>
+            </React.Fragment>
           ))
         ) : (
           <div className="d-flex justify-content-center py-5">

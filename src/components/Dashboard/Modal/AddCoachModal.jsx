@@ -4,8 +4,9 @@ import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
 import "./Modal.css";
 import PricingModal from "./PricingModal";
+import { Modal } from "react-bootstrap";
 
-const AddCoachModal = ({ onClose }) => {
+const AddCoachModal = ({ onClose, onHide, isModalOpen, closeModal }) => {
   const { user } = useSelector((state) => state.auth);
   const convertAge = (dateString) => {
     const dob = new Date(dateString);
@@ -25,8 +26,8 @@ const AddCoachModal = ({ onClose }) => {
   };
 
   return (
-    <div className="addplayer_modal ">
-      <div className="inner">
+    <Modal className="addplayer_modal ">
+      <Modal.Body className="inner">
         <div className="modal_heading">
           <h2>Add Coach</h2>
         </div>
@@ -392,8 +393,8 @@ const AddCoachModal = ({ onClose }) => {
         </div>
 
         {showPricing && <PricingModal />}
-      </div>
-    </div>
+      </Modal.Body>
+    </Modal>
   );
 };
 

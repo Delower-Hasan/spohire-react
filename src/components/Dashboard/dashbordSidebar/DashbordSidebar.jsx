@@ -31,6 +31,7 @@ import {
 const DashbordSidebar = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { data } = useGetMyNotificationsQuery();
   const [updateNotification] = useUpdateNotificationMutation();
 

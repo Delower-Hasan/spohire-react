@@ -20,13 +20,13 @@ const AddJobOfferModal = ({
   return (
     <>
       <div className="text-start modal_title">Add Job offer</div>
-        <div className="step_number d-flex justify-content-end">
-          <p>
-            <span style={{ color: "#0095FF" }}>Step 1</span> of 2
-          </p>
-        </div>
+      <div className="step_number d-flex justify-content-end">
+        <p>
+          <span style={{ color: "#0095FF" }}>Step 1</span> of 2
+        </p>
+      </div>
 
-        <div className={"stepBorder"}></div>
+      <div className={"stepBorder"}></div>
 
       <div className="row">
         <div className="col-lg-6">
@@ -103,8 +103,11 @@ const AddJobOfferModal = ({
                   <option selected disabled>
                     Select country
                   </option>
-                  {countryNames.map((country, index) => (
-                    <option value={country.name} className="" key={index}>
+                  {countryNames?.map((country, index) => (
+                    <option
+                      defaultValue={country.name}
+                      className=""
+                      key={index}>
                       {country.name}
                     </option>
                   ))}
@@ -156,8 +159,8 @@ const AddJobOfferModal = ({
               <option selected disabled>
                 Select Type
               </option>
-              {options.map((country, index) => (
-                <option value={country.value} className="" key={index}>
+              {options?.map((country, index) => (
+                <option defaultValue={country.value} className="" key={index}>
                   {country.value}
                 </option>
               ))}
@@ -206,8 +209,8 @@ const AddJobOfferModal = ({
               <option selected disabled>
                 Select Type
               </option>
-              {WorkplaceOptions.map((country, index) => (
-                <option value={country.value} key={index}>
+              {WorkplaceOptions?.map((country, index) => (
+                <option defaultValue={country.value} key={index}>
                   {country.value}
                 </option>
               ))}
@@ -249,8 +252,11 @@ const AddJobOfferModal = ({
                   <option selected disabled>
                     Select Type
                   </option>
-                  {categoryOptions.map((category, index) => (
-                    <option value={category.value} className="" key={index}>
+                  {categoryOptions?.map((category, index) => (
+                    <option
+                      defaultValue={category.value}
+                      className=""
+                      key={index}>
                       {category.value}
                     </option>
                   ))}
@@ -308,7 +314,7 @@ const AddJobOfferModal = ({
 
         <div className="position-relative text-start">
           <div className="mb-3">
-            <label hytmlFor="exampleFormControlInput1" className="form-label">
+            <label htmlFor="exampleFormControlInput1" className="form-label">
               Description
             </label>
             <div className="input-group mb-3">

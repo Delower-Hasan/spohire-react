@@ -125,9 +125,10 @@
   width: 45%;
   border-radius: 7px;
   padding: 12px 32px 7px 12px;
-  background: linear-gradient(180deg, #0177fb 0%, #2d5bff 100%);
+  background: #fff;
   font-family: "SF Pro Display" sans-serif;
   margin-left: 40px;
+  box-shadow: 3px 3px 20px 0px rgba(180, 180, 180, 0.25);
 }
 
 .message2 {
@@ -215,7 +216,7 @@
 }
 
 .message1 p {
-  color: var(--White, #dddcdc);
+  color: #595f69;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

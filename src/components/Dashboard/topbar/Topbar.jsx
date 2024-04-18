@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import addIcon from "../../../assets/addIcon.svg";
 import arrowDown from "../../../assets/arrow_down.svg";
 import AvatarImg from "../../../assets/avatar.svg";
@@ -19,6 +19,7 @@ import profileIcon from "../../../assets/profile_icon.svg";
 import settingsIcon from "../../../assets/setting_icon.png";
 import silverIcon from "../../../assets/silver_icon.svg";
 import subscriptionIcon from "../../../assets/subcription_icon.svg";
+import { userLoggedOut } from "../../../features/auth/authSlice";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
 import AddCoachModal from "../Modal/AddCoachModal";
@@ -124,26 +125,39 @@ const Topbar = () => {
       icon: settingsIcon,
       onHover: hoverSettings,
       menuName: "Settings",
-      link: "#",
+      link: "/dashboard/settings",
     },
     {
       icon: helpIcon,
       onHover: hoverHelp,
       menuName: "Help",
-      link: "#",
+      link: "/dashboard/help-and-support",
     },
     {
       icon: billingIcon,
       onHover: hoverBilling,
       menuName: "Billing",
-      link: "/dashboard/viewProfile",
+      link: "/dashboard/billing",
     },
   ];
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLoggout = () => {
+    dispatch(userLoggedOut());
+    localStorage.removeItem("spohireAuth");
+    navigate("/login");
+  };
+
   return (
     <>
-      <div className={`${ isModalOpen | isAnnouncementModalOpen ? "position_static" : "position-fixed" } dashbord_topbar`}>
-
+      <div
+        className={`${
+          isModalOpen | isAnnouncementModalOpen
+            ? "position_static"
+            : "position-fixed"
+        } dashbord_topbar`}>
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
@@ -158,44 +172,62 @@ const Topbar = () => {
                     {location.pathname === "/dashboard" && user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
+
                     {location.pathname === "/dashboard/jobOffers" &&
                       "job offer"}
+
                     {location.pathname.startsWith("/dashboard/jobDetails") &&
                       "job description"}
+
                     {location.pathname === "/dashboard/basicinfo" &&
                       "job offer"}
+
                     {location.pathname.includes("/dashboard/jobApplicants") &&
                       "Applicants"}
+
                     {location.pathname === "/dashboard/players" &&
                       "Players List"}
+
                     {location.pathname === "/dashboard/createAnnouncements" &&
                       "Create Announcements"}
+
                     {location.pathname === "/dashboard/announcements" &&
                       "Announcements"}
+
                     {location.pathname === "/dashboard/password" && "Password"}
+
                     {location.pathname === "/dashboard/settings" && "Settings"}
+
                     {location.pathname === "/dashboard/help-and-support" &&
                       "Help and Support"}
 
                     {location.pathname === "/dashboard/notification" &&
                       "Notifications"}
+
                     {location.pathname === "/dashboard/billing" &&
                       "Billing history"}
+
                     {location.pathname === "/dashboard/observed" && "Observed"}
+
                     {location.pathname === "/dashboard/addedItems" &&
                       "My Added Items"}
+
                     {location.pathname === "/dashboard/viewProfile" &&
                     user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
+
                     {location.pathname == "/dashboard/editPlayerDetals" &&
                     user?.isSubsCribed
                       ? `Hello ${user?.first_name} ${user?.last_name} `
                       : ""}
+
                     {location.pathname === "/dashboard/myAppliedJobs" &&
                       "My Applied Jobs"}
+
                     {location.pathname === "/dashboard/coaches" &&
                       "Coaches List"}
+
                     {location.pathname.startsWith("/dashboard/messages") &&
                       "Messages"}
                   </h2>
@@ -204,6 +236,7 @@ const Topbar = () => {
                   {location.pathname.startsWith("/dashboard/viewDetails") && (
                     <button className="view_details">Back</button>
                   )}
+
                   {location.pathname.startsWith("/dashboard/coacheDetails") && (
                     <button className="view_details">Back</button>
                   )}
@@ -299,19 +332,24 @@ const Topbar = () => {
             </div>
             {location.pathname === "/dashboard" ||
             location.pathname === "/dashboard/viewProfile" ||
-            location.pathname == "/dashboard/editPlayerDetals" ? (
+            location.pathname === "/dashboard/editPlayerDetals" ? (
               <div className="right_searchItem d-flex justify-content-between align-items-center gap-4">
                 <div className="search_item">
                   <input id="search_input" type="text" placeholder="Search" />
                 </div>
 
-                <button className="message_icon bg-none">
+                {/* Message Icon */}
+                <Link
+                  to={"/dashboard/messages"}
+                  className="message_icon bg-none">
                   <img src={messageIcon} alt="message-icon" />
-                </button>
+                </Link>
 
-                <button className="notification_icon bg-none">
+                <Link
+                  to={"/dashboard/notification"}
+                  className="notification_icon bg-none">
                   <img src={notificationIcon} alt="notification-icon" />
-                </button>
+                </Link>
 
                 <div className="userprofile d-flex gap-3 align-items-center position-relative">
                   <div className="userImg">
@@ -343,37 +381,37 @@ const Topbar = () => {
                     <div className="position-absolute dropdown_menu">
                       <ul className="p-0 m-0 list-unstyled">
                         {profileMenu.map((dropdownItem, index) => (
-                          <li
-                            key={index}
-                            className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer">
-                            <div className="menus_item">
-                              <img
-                                className="hover_icon d-none"
-                                src={dropdownItem.onHover}
-                                alt="icon"
-                              />
-                              <img
-                                className="nonHover_icon"
-                                src={dropdownItem.icon}
-                                alt="icon"
-                              />
-                            </div>
+                          <li key={index} className="py-3 px-3">
                             <Link
                               to={dropdownItem.link}
-                              className="d-inline-block text-capitalize">
+                              className="d-flex align-items-center gap-2 text-capitalize">
+                              <div className="menus_item">
+                                <img
+                                  className="hover_icon d-none"
+                                  src={dropdownItem.onHover}
+                                  alt="icon"
+                                />
+                                <img
+                                  className="nonHover_icon"
+                                  src={dropdownItem.icon}
+                                  alt="icon"
+                                />
+                              </div>
+
                               {dropdownItem.menuName}
                             </Link>
                           </li>
                         ))}
                         <li className="py-3 px-3 d-flex flex-grow-0 gap-2 align-items-center pointer border-top">
-                          <Link
-                            className="d-inline-flex align-items-center gap-2 text-capitalize"
+                          <button
+                            onClick={handleLoggout}
+                            className="d-inline-flex align-items-center gap-2 text-capitalize bg-transparent"
                             style={{ color: "#FE6470" }}>
                             <div className="menus_item">
                               <img className="" src={logoutIcon} alt="icon" />
                             </div>
                             Logout
-                          </Link>
+                          </button>
                         </li>
                       </ul>
                     </div>
@@ -389,7 +427,7 @@ const Topbar = () => {
                 {/* add player */}
 
                 <button
-                  onClick={openModal}
+                  onClick={() => setIsModalOpen(true)}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -413,7 +451,7 @@ const Topbar = () => {
             ) : location.pathname === "/dashboard/jobOffers" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
-                  onClick={handleAddJobOfferClick}
+                  onClick={() => setIsModalOpen(true)}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -435,7 +473,7 @@ const Topbar = () => {
             ) : location.pathname === "/dashboard/announcements" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
-                  onClick={handleAddAnnouncementClick}
+                  onClick={() => setIsModalOpen(true)}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -463,7 +501,7 @@ const Topbar = () => {
                 {/* add coach */}
 
                 <button
-                  onClick={openCoachModal}
+                  onClick={() => setIsModalOpen(true)}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -490,16 +528,20 @@ const Topbar = () => {
 
         {filter && (
           <div className="filter_wrapper ">
-            <div className="postion_wrapper pb-4">
-              <h2>Position</h2>
-              <div className="position_btn_wrapper">
-                <button>All</button>
-                <button>Goalkeeper</button>
-                <button>Defender</button>
-                <button>Midfielder</button>
-                <button>Forward</button>
+            {location.pathname === "/dashboard/coaches" ? (
+              ""
+            ) : (
+              <div className="postion_wrapper pb-4">
+                <h2>Position</h2>
+                <div className="position_btn_wrapper">
+                  <button>All</button>
+                  <button>Goalkeeper</button>
+                  <button>Defender</button>
+                  <button>Midfielder</button>
+                  <button>Forward</button>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="postion_wrapper pb-4">
               <h2>Status</h2>
@@ -553,26 +595,33 @@ const Topbar = () => {
                 <button>Apply</button>
               </div>
             </div>
+            {location.pathname === "/dashboard/coaches" ? (
+              ""
+            ) : (
+              <>
+                <div className="postion_wrapper pb-4">
+                  <h2>Height</h2>
+                  <div className="position_btn_wrapper age d-flex">
+                    <input type="number" placeholder="Min" />
+                    <input type="number" placeholder="Max" />
+                    <button>Apply</button>
+                  </div>
+                </div>
 
-            <div className="postion_wrapper pb-4">
-              <h2>Height</h2>
-              <div className="position_btn_wrapper age d-flex">
-                <input type="number" placeholder="Min" />
-                <input type="number" placeholder="Max" />
-                <button>Apply</button>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Dominant hand</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                </select>
-              </div>
-            </div>
+                <div className="postion_wrapper pb-4">
+                  <h2>Dominant hand</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                    </select>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         )}
 

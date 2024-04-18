@@ -216,10 +216,10 @@ const Messages = () => {
                               <div className="message_two">
                                 <div className="message2 position-relative">
                                   <p>{item?.text}</p>
-                                  <div className="d-flex justify-content-between mt-2 align-items-center">
-                                    <span>
+                                  <div className="d-flex justify-content-end mt-2 align-items-center">
+                                    {/* <span>
                                       {formatMessageTime(item?.createdAt)}
-                                    </span>
+                                    </span> */}
                                     <img src={senticon} alt="sent" />
                                   </div>
                                 </div>

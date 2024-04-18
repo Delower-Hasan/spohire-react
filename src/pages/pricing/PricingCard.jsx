@@ -74,10 +74,10 @@ const PricingCard = () => {
               </p>
 
               <div className="d-flex flex-column gap-4 pb-4">
-                {options.map((option) => (
+                {options.map((option, index) => (
                   <div
                     className="d-flex align-items-center gap-2"
-                    // key={index}
+                    key={index}
                   >
                     <img
                       className="mt-0"
