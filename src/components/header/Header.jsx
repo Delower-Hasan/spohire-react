@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profile from "../../assets/PROFILE.png";
 import dropdown from "../../assets/dropdownicon.png";
 import Logo from "../../assets/logo.png";
@@ -41,11 +41,19 @@ const Header = () => {
     };
   }, [isDropdownActive]);
 
+  const navigate = useNavigate();
+
+  const handleUnlockClick = () => {
+    window.location.href = "/login";
+  };
+
   return (
     <header
-      className={`${!user && "pt-4 pb-4"} ${location.pathname === "/" ? "header_position position-absolute w-100" : ""
-        }`}
-    >
+      className={`${!user && "pt-4 pb-4"} ${
+        location.pathname === "/"
+          ? "header_position position-absolute w-100"
+          : ""
+      }`}>
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
           <Navbar.Brand href="#home" className="d-flex align-items-center">
@@ -61,8 +69,7 @@ const Header = () => {
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
-                fill="none"
-              >
+                fill="none">
                 <g clipPath="url(#clip0_239_167)">
                   <path
                     d="M2.5 8H13.5"
@@ -97,10 +104,11 @@ const Header = () => {
                     className="d-none"
                     src={
                       user?.image
-                        ? `${process.env.NODE_ENV !== "production"
-                          ? import.meta.env.VITE_LOCAL_API_URL
-                          : import.meta.env.VITE_LIVE_API_URL
-                        }/api/v1/uploads/${user?.image}`
+                        ? `${
+                            process.env.NODE_ENV !== "production"
+                              ? import.meta.env.VITE_LOCAL_API_URL
+                              : import.meta.env.VITE_LIVE_API_URL
+                          }/api/v1/uploads/${user?.image}`
                         : profile
                     }
                     alt=""
@@ -109,8 +117,7 @@ const Header = () => {
                 <Link
                   to="/dashboard/jobOffers"
                   type="submit"
-                  className="text-decoration-none ms-3 profilename"
-                >
+                  className="text-decoration-none ms-3 profilename">
                   {user.firstName}
                 </Link>
               </div>
@@ -123,8 +130,7 @@ const Header = () => {
                   <Link
                     to="/signup"
                     type="submit"
-                    className="text-decoration-none"
-                  >
+                    className="text-decoration-none">
                     <button className="authBtn btnNone visibility-lg-hidden visually-visible">
                       Sign Up
                     </button>
@@ -145,8 +151,7 @@ const Header = () => {
                 <button
                   className="modal_link "
                   data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
+                  data-bs-target="#staticBackdrop">
                   Transfer Market
                 </button>
               )}
@@ -154,12 +159,11 @@ const Header = () => {
               <div
                 className="modal fade"
                 id="staticBackdrop"
-                data-bs-backdrop="static"
+                // data-bs-backdrop="static"
                 data-bs-keyboard="false"
                 tabIndex="-1"
                 aria-labelledby="staticBackdropLabel"
-                aria-hidden="true"
-              >
+                aria-hidden="true">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
@@ -167,8 +171,7 @@ const Header = () => {
                         type="button"
                         className="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
+                        aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                       <h2>
@@ -178,7 +181,6 @@ const Header = () => {
                         </span>
                       </h2>
                       <p>
-
                         Log in and Dive into a World of Sports Thrills and
                         Exclusive Content!
                       </p>
@@ -187,7 +189,12 @@ const Header = () => {
                         <img src={TransfarMarket} alt="TransfarMarket" />
                       </div>
 
-                      <button className="unlock_btn">unlock now</button>
+                      {/* login */}
+                      <button
+                        onClick={handleUnlockClick}
+                        className="unlock_btn">
+                        unlock now
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -219,17 +226,17 @@ const Header = () => {
                 <div
                   type="button"
                   onClick={(event) => handleButtonClick(event)}
-                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative"
-                >
+                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative">
                   <Link to="/dashboard/viewProfile">
                     <img
                       className="profile_picture d-lg-block d-none"
                       src={
                         user?.image
-                          ? `${process.env.NODE_ENV !== "production"
-                            ? import.meta.env.VITE_LOCAL_API_URL
-                            : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${user?.image}`
+                          ? `${
+                              process.env.NODE_ENV !== "production"
+                                ? import.meta.env.VITE_LOCAL_API_URL
+                                : import.meta.env.VITE_LIVE_API_URL
+                            }/api/v1/uploads/${user?.image}`
                           : profile
                       }
                       alt=""
@@ -248,8 +255,9 @@ const Header = () => {
 
                         <img
                           src={dropdown}
-                          className={`${isDropdownActive ? "" : "rotate_arrow"
-                            }`}
+                          className={`${
+                            isDropdownActive ? "" : "rotate_arrow"
+                          }`}
                           alt="dropdown"
                         />
                       </div>
@@ -272,8 +280,7 @@ const Header = () => {
                 <Link
                   to="/signup"
                   type="submit"
-                  className="text-decoration-none"
-                >
+                  className="text-decoration-none">
                   <button className="authBtn btnNone">
                     <span> Sign Up</span>
                   </button>

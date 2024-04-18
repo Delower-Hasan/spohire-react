@@ -5,7 +5,6 @@ import addIcon from "../../../assets/addIcon.svg";
 import arrowDown from "../../../assets/arrow_down.svg";
 import AvatarImg from "../../../assets/avatar.svg";
 import billingIcon from "../../../assets/billing_icon.svg";
-import logo from "../../../assets/dashbord-logo.png";
 import filterIcon from "../../../assets/filterIcon.svg";
 import helpIcon from "../../../assets/help_icon.svg";
 import hoverBilling from "../../../assets/hover-billing.svg";
@@ -22,9 +21,9 @@ import silverIcon from "../../../assets/silver_icon.svg";
 import subscriptionIcon from "../../../assets/subcription_icon.svg";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
-import "./Topbar.css";
-import AddPlayerModal from "../Modal/AddPlayerModal";
 import AddCoachModal from "../Modal/AddCoachModal";
+import AddPlayerModal from "../Modal/AddPlayerModal";
+import "./Topbar.css";
 
 const Topbar = () => {
   let location = useLocation();
@@ -39,15 +38,9 @@ const Topbar = () => {
   const [addPlayerModal, setAddPlayerModal] = useState(false);
   const [addCoachModal, setAddCoachModal] = useState(false);
   const myDivRef1 = useRef(null);
-
-  const handleFilterAnnouncementModal = () => {
-    setFilterAnnouncement(!filterAnnouncement);
-  };
-
-  const handleButtonClick1 = (event) => {
-    event.stopPropagation();
-    handleFilterAnnouncementModal();
-  };
+  const myDivRef = useRef(null);
+  const playerRef = useRef(null);
+  const coachRef = useRef(null);
 
   const openModal = () => {
     setAddPlayerModal(true);
@@ -65,40 +58,26 @@ const Topbar = () => {
     setIsDropDownOpen(!isDropDownOpen);
   };
 
-  const myDivRef = useRef(null);
-
   const handleFilterModal = () => {
     console.log("Filter");
     setFilter(!filter);
   };
 
-  // const handleButtonClick = (event) => {
-  //   event.stopPropagation();
-  //   handleFilterModal();
-  // };
-  // joboffer modal-------------
-
-  // player modal ----
-  const playerRef = useRef(null);
-
-  const handlePlayerFilterModal = (event) => {
-    event.stopPropagation();
-    setPlayerFilter(!playerFilter);
+  const handleAddJobOfferClick = () => {
+    setIsModalOpen(true);
   };
 
-  // player modal ----
-
-  // coach modal ----
-  const coachRef = useRef(null);
-
-  const handleCoachFilterModal = (event) => {
-    event.stopPropagation();
-    setCoachFilter(!coachFilter);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
-  // coach modal ----
+  const handleAddAnnouncementClick = () => {
+    setAnnouncementIsModalOpen(true);
+  };
 
-  // outside close ------------------
+  const closeAnnouncementModal = () => {
+    setAnnouncementIsModalOpen(false);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -119,28 +98,6 @@ const Topbar = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
-  // add job offer modal
-
-  const handleAddJobOfferClick = () => {
-    setIsModalOpen(true);
-  };
-
-  // close modalo
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  // announcement modal start
-
-  const handleAddAnnouncementClick = () => {
-    // navigate("/dashboard/createAnnouncements");
-    setAnnouncementIsModalOpen(true);
-  };
-
-  const closeAnnouncementModal = () => {
-    setAnnouncementIsModalOpen(false);
-  };
 
   const expirationDate = new Date(user?.expirationDate);
 
@@ -185,12 +142,8 @@ const Topbar = () => {
 
   return (
     <>
-      <div
-        className={`${
-          isModalOpen | isAnnouncementModalOpen
-            ? "position_static"
-            : "position-fixed"
-        } dashbord_topbar`}>
+      <div className={`${ isModalOpen | isAnnouncementModalOpen ? "position_static" : "position-fixed" } dashbord_topbar`}>
+
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
@@ -344,7 +297,6 @@ const Topbar = () => {
                 </>
               )}
             </div>
-
             {location.pathname === "/dashboard" ||
             location.pathname === "/dashboard/viewProfile" ||
             location.pathname == "/dashboard/editPlayerDetals" ? (
@@ -628,11 +580,6 @@ const Topbar = () => {
         <div className="topbar_mobile">
           <div className="d-flex justify-content-between align-items-center">
             <button className="back_btn fs_10">Back</button>
-            {/* <div style={{ marginRight: "50px" }}>
-              <img src={logo} alt="" />
-            </div>
-            <p></p> */}
-
             <h2 className="text_color_36 job_title_mobile fs-4 fw-medium text-capitalize">
               {location.pathname === "/dashboard/jobOffers" && "job offer"}
               {location.pathname === "/dashboard/players" && "Players"}

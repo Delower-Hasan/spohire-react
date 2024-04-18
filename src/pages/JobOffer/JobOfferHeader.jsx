@@ -16,9 +16,11 @@ const JobOfferHeader = ({
   setSearchParams,
   searchParams,
 }) => {
-  const handleSearch = () => {
-    setSearchParams(filterItems);
-  };
+  const [countryNames, setCountryNames] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedJobType, setSelectedJobType] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
   const options = [
     { value: "Coach", label: "Coach" },
@@ -45,12 +47,11 @@ const JobOfferHeader = ({
     "Scout",
     "Referee",
   ];
-  const [countryNames, setCountryNames] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedJobType, setSelectedJobType] = useState(null);
 
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+  // handle function
+  const handleSearch = (event) => {
+    setSearchParams(event.target.value);
+  };
 
   const handleCheckboxChange = (event, name) => {
     event.preventDefault(); // Prevent the default behavior to keep the dropdown open
@@ -79,6 +80,31 @@ const JobOfferHeader = ({
     setSearchParams({});
   };
 
+  const handleChange = (e) => {
+    // setSelectedCountry(selectedOption);
+    setFilterItems({
+      ...filterItems,
+      jobLocation: [e.target.value],
+    });
+  };
+
+  const handleChangeJobType = (e) => {
+    if (e.target.value === "All") {
+      setFilterItems({
+        ...filterItems,
+        jobType: [...allOptions],
+      });
+    } else {
+      setFilterItems({
+        ...filterItems,
+        jobType: [e.target.value],
+      });
+    }
+  };
+
+  // handle function end
+
+  // useEffect
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
 
@@ -100,26 +126,6 @@ const JobOfferHeader = ({
       });
   }, []);
 
-  const handleChange = (e) => {
-    // setSelectedCountry(selectedOption);
-    setFilterItems({
-      ...filterItems,
-      jobLocation: [e.target.value],
-    });
-  };
-  const handleChangeJobType = (e) => {
-    if (e.target.value === "All") {
-      setFilterItems({
-        ...filterItems,
-        jobType: [...allOptions],
-      });
-    } else {
-      setFilterItems({
-        ...filterItems,
-        jobType: [e.target.value],
-      });
-    }
-  };
   return (
     <>
       <div className="container job_header_wrapper">
@@ -153,6 +159,8 @@ const JobOfferHeader = ({
             <input
               type="text"
               placeholder="Keywords e.g ( job Title, description)"
+              value={searchParams}
+              onChange={handleSearch}
             />
           </div>
         </div>
