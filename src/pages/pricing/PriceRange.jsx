@@ -88,50 +88,66 @@ const PriceRange = ({ component }) => {
     <div
       className={`${
         location.pathname === "/dashboard/players" ? "p-0" : null
-      } price_range`}>
+      } price_range`}
+    >
       {component}
 
       {/* <div className="row g-4">
-            {priceOptions.map((data, index) => (
-              <div
-                key={index}
-                className={`col-lg-4 `}
-                onClick={() => handleCardClick(index)}
+        {priceOptions.map((data, index) => (
+          <div
+            key={index}
+            className={`col-lg-4 `}
+            onClick={() => handleCardClick(index)}
+          >
+            <div
+              className={`price_card ${activeCard === index ? "active" : ""}`}
+            >
+              <div className="d-flex align-items-center gap-4 mb-5">
+                <div className="model">
+                  <img src={data.pic} alt="" />
+                </div>
+                <p style={{ color: `${data.color}` }} className="title">
+                  {data.title}
+                </p>
+              </div>
+              <p
+                className={` mb-3 ${
+                  activeCard === index ? "active_price" : "price"
+                }`}
               >
-                <div className={`price_card ${activeCard === index ? "active" : ""
-                  }`}>
-                  <div className="d-flex align-items-center gap-4 mb-5">
-                    <div className="model">
-                      <img src={data.pic} alt="" />
-                    </div>
-                    <p style={{ color: `${data.color}` }} className="title">
-                      {data.title}
+                ${data.price} <span>/month</span>
+              </p>
+              <p
+                className={` ${
+                  activeCard === index ? "active_include" : "include"
+                }`}
+              >
+                What’s included
+              </p>
+              <div className="d-flex flex-column gap-4">
+                {options.map((option) => (
+                  <div
+                    className="d-flex align-items-center gap-2"
+                    // key={index}
+                  >
+                    <img
+                      src={activeCard === index ? checkActive : check}
+                      alt=""
+                    />
+                    <p
+                      className={` ${
+                        activeCard === index ? "active_color" : "options"
+                      }`}
+                    >
+                      {option}
                     </p>
                   </div>
-                  <p className={` mb-3 ${activeCard === index ? "active_price" : "price"
-                    }`}
-                  >
-                    ${data.price} <span>/month</span>
-                  </p>
-                  <p className={` ${activeCard === index ? "active_include" : "include"
-                    }`}>What’s included</p>
-                  <div className="d-flex flex-column gap-4">
-                    {options.map((option) => (
-                      <div
-                        className="d-flex align-items-center gap-2"
-                      // key={index}
-                      >
-                        <img src={activeCard === index ? checkActive : check} alt="" />
-                        <p className={` ${activeCard === index ? "active_color" : "options"
-                          }`}>{option}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
+                ))}
               </div>
-            ))}
-          </div> */}
+            </div>
+          </div>
+        ))}
+      </div> */}
       <PricingCard />
     </div>
   );

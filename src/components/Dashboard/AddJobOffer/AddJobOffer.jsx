@@ -64,7 +64,7 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
   const navigate = useNavigate();
 
   const [selectedSubscription, setSelectedSubscription] = useState({
-    duration: "1 months",
+    duration: 1,
     price: 10,
     month: 1,
   });
@@ -87,9 +87,11 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
       ...jobData,
       subscriptionDate: date,
       expirationDate: setExpireDate(selectedSubscription?.month),
+      packagechoose: selectedSubscription?.month,
       creator: user?._id,
     };
 
+    console.log("jobDataInfo", jobDataInfo);
     const formData = new FormData();
 
     Object.entries(jobDataInfo).forEach(([key, value]) => {
@@ -124,6 +126,7 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
     }
   };
   const fileInputRef = useRef(null);
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
@@ -153,7 +156,8 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
         centered
         show={isModalOpen}
         onHide={onHide}
-        className="modal_width1">
+        className="modal_width1"
+      >
         {/*closeButton*/}
         <Modal.Header className="p-0">
           <Modal.Title className="text-center"></Modal.Title>
@@ -162,10 +166,12 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div
                 onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0">
+                className="w-100 player_job_form_wrapper mt-0"
+              >
                 {nextOption === "AddJobOfferModal" && (
                   <AddJobOfferModal
                     handleNextOption={handleNextOption}
@@ -185,6 +191,7 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
                   <AddJobOfferModalTwo
                     handleSubmit={handleSubmit}
                     addingJob={addingJob}
+                    setNextOption={setNextOption}
                     selectedSubscription={selectedSubscription}
                     setSelectedSubscription={setSelectedSubscription}
                     closeModal={closeModal}

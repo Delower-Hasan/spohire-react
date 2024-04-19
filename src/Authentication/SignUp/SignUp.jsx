@@ -16,6 +16,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [nationality, setNationality] = useState("");
   const [functionType, setFunctionType] = useState("");
   const [sports, setSports] = useState("");
@@ -24,9 +25,6 @@ const SignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
-  const [dateOfBirth, setDateOfBirth] = useState("");
-
-  console.log(dateOfBirth, "dfsdfkk");
 
   const button_disability =
     !firstName ||
@@ -81,8 +79,8 @@ const SignUp = () => {
       return;
     }
     try {
+      console.log("formData", formData);
       const response = await registerUser(formData);
-
       if (response?.data?.status === 200) {
         navigate("/dashboard");
       }
@@ -150,7 +148,8 @@ const SignUp = () => {
 
         <div
           className="login_wrapper"
-          style={{ margin: "60px 100px 80px 0px", width: "100%" }}>
+          style={{ margin: "60px 100px 80px 0px", width: "100%" }}
+        >
           <div>
             <h3>Create new account</h3>
             <p>Fill all input to create a account</p>
@@ -208,7 +207,8 @@ const SignUp = () => {
                 </div>
                 <div
                   className=" w-full input-container"
-                  style={{ width: "100%" }}>
+                  style={{ width: "100%" }}
+                >
                   <label htmlFor="">Confirm Password*</label>
                   <input
                     type="password"
@@ -233,7 +233,8 @@ const SignUp = () => {
                       backgroundColor: "#F3F7FF",
                       border: " 0.707px solid rgba(0, 0, 0, 0.02)",
                     }}
-                    onChange={(e) => setNationality(e.target.value)}>
+                    onChange={(e) => setNationality(e.target.value)}
+                  >
                     <option disabled selected>
                       {" "}
                       Select country
@@ -250,16 +251,17 @@ const SignUp = () => {
                   <label
                     htmlFor=""
                     className=""
-                    style={{ marginBottom: "10px" }}>
+                    style={{ marginBottom: "10px" }}
+                  >
                     Date of birth
                   </label>
 
                   <input
                     type="date"
                     className="form-control login_input"
-                    placeholder="Enter password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Date Of Birth"
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(e.target.value)}
                     required
                   />
                 </div>
@@ -275,7 +277,8 @@ const SignUp = () => {
                       backgroundColor: "#F3F7FF",
                       border: " 0.707px solid rgba(0, 0, 0, 0.02)",
                     }}
-                    onChange={(e) => setCoutryCode(e.target.value)}>
+                    onChange={(e) => setCoutryCode(e.target.value)}
+                  >
                     <option disabled selected>
                       {" "}
                       Select country code
@@ -321,7 +324,8 @@ const SignUp = () => {
                           : "function_btn"
                       } `}
                       type="button"
-                      onClick={() => setFunctionType(data)}>
+                      onClick={() => setFunctionType(data)}
+                    >
                       {data}
                     </button>
                   </>
@@ -337,7 +341,8 @@ const SignUp = () => {
                         sports === data ? "function_btn_active" : "function_btn"
                       } `}
                       type="button"
-                      onClick={() => setSports(data)}>
+                      onClick={() => setSports(data)}
+                    >
                       {data}
                     </button>
                   </>
@@ -345,23 +350,29 @@ const SignUp = () => {
               )}
               {/* terms and condition */}
               <div className="d-flex justify-content-start terms_condition">
-                <label htmlFor="checkBox" className="d-flex align-items-center gap-2">
+                <label
+                  htmlFor="checkBox"
+                  className="d-flex align-items-center gap-2"
+                >
                   <input type="checkbox" id="checkBox" />I agree to all
                   statements included in terms of servicee.
                 </label>
               </div>
               <div
                 className="d-flex justify-content-center pointer"
-                onClick={handleButtonError}>
+                onClick={handleButtonError}
+              >
                 <button
                   type="submit"
                   className="login-btn"
-                  disabled={button_disability}>
+                  disabled={button_disability}
+                >
                   {isLoading ? (
                     <>
                       <div
                         className="spinner-border spinner-border-sm me-2"
-                        role="status">
+                        role="status"
+                      >
                         <span className="visually-hidden">Loading...</span>
                       </div>{" "}
                       Loading...

@@ -44,7 +44,7 @@ const inputFieldData = [
     label: "Function",
     placeholderText: "Manager",
     type: "text",
-    name: "function",
+    name: "role",
   },
 
   {
@@ -106,20 +106,16 @@ const EditPlayerDetails = () => {
     first_name: "",
     date_of_birth: "",
     nationality: "",
-    club_position: "",
-    dominant_hand: "",
-    height: "",
-    weight: "",
     image: "",
     experience: [],
-    strengths_advantage: "",
     about_me: "",
-    expectations_from_new_club: "",
     sports: "",
   });
+
   const [editedInfo, setEditedInfo] = useState({});
-  console.log(editedInfo, "editinfo");
+
   const navigate = useNavigate();
+
   const handleGallaryImageChange = (e) => {
     const files = e.target.files;
     setGallaryImage(Array.from(files));
@@ -178,7 +174,6 @@ const EditPlayerDetails = () => {
 
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
-
       if (Array.isArray(propertyValue)) {
         propertyValue.forEach((element, index) => {
           if (typeof element === "object") {
@@ -244,19 +239,15 @@ const EditPlayerDetails = () => {
   useEffect(() => {
     const newData = {
       first_name: user?.first_name,
+      last_name: user?.last_name,
       date_of_birth: user?.date_of_birth,
       nationality: user?.nationality,
-      club_position: user?.club_position,
-      dominant_hand: user?.dominant_hand,
-      height: user?.height,
-      weight: user?.weight,
       image: user?.image,
       social_media: user?.social_media,
       experience: user?.experience,
-      strengths_advantage: user?.strengths_advantage,
       about_me: user?.about_me,
-      expectations_from_new_club: user?.expectations_from_new_club,
       sports: user?.sports,
+      role: user?.role,
     };
 
     setUserInfo(newData);
@@ -300,6 +291,7 @@ const EditPlayerDetails = () => {
   }, [user]);
 
   console.log(socialMedia, "socialMedia");
+  console.log("userInfo", userInfo);
 
   return (
     <form
@@ -450,7 +442,7 @@ const EditPlayerDetails = () => {
           exp={userInfo["experience"]}
         />
 
-        <div className=" mb_60 experience_wrapper">
+        <div className="mb_60 experience_wrapper">
           <div className="row align-items-center about_part">
             <div className="col-lg-6 p-0">
               <div className="cover_img">
