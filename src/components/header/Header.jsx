@@ -42,7 +42,9 @@ const Header = () => {
     };
   }, [isDropdownActive]);
 
-  console.log("navigate.pathname", navigate.pathname);
+  const handleUnlockClick = () => {
+    navigate.pathname = "/login";
+  };
 
   return (
     <header
@@ -161,7 +163,7 @@ const Header = () => {
               <div
                 className="modal fade"
                 id="staticBackdrop"
-                data-bs-backdrop="static"
+                // data-bs-backdrop="static"
                 data-bs-keyboard="false"
                 tabIndex="-1"
                 aria-labelledby="staticBackdropLabel"
@@ -193,7 +195,13 @@ const Header = () => {
                         <img src={TransfarMarket} alt="TransfarMarket" />
                       </div>
 
-                      <button className="unlock_btn">unlock now</button>
+                      {/* login */}
+                      <button
+                        onClick={handleUnlockClick}
+                        className="unlock_btn"
+                      >
+                        unlock now
+                      </button>
                     </div>
                   </div>
                 </div>

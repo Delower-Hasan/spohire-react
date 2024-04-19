@@ -28,7 +28,7 @@ const Banner = () => {
                 club
               </h1>
               <p>Add your profile and join a new sports team</p>
-              <Link to="#" className="text-decoration">
+              <Link to="/login" className="text-decoration">
                 Get Started Now
               </Link>
             </div>

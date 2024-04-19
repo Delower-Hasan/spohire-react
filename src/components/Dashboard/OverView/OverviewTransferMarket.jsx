@@ -1,21 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import add2icon from "../../../assets/add2icon.png";
 import add3icon from "../../../assets/add3icon.png";
 import addpicon from "../../../assets/addpicon.png";
-import PriceRange from "../../../pages/pricing/PriceRange";
 import "../../../pages/pricing/Pricing.css";
-import BuySubscriptionModalContent from "../../PricingPages/BuySubscriptionModalContent";
+import AddJobOffer from "../AddJobOffer/AddJobOffer";
+import AddCoachModal from "../Modal/AddCoachModal";
+import AddPlayerModal from "../Modal/AddPlayerModal";
+import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
 import AnnouncementOverview from "./AnnouncementOverview";
 import JobOfferOverview from "./JobOfferOverview";
 import MessagesOverview from "./MessagesOverview";
 import PlayerOverview from "./PlayerOverview";
 import RecentlyObserved from "./RecentlyObserved";
+import AddAnnouncement from "../Announcements/AddAnnouncement";
 
 const OverviewTransferMarket = () => {
   const { user } = useSelector((state) => state.auth);
 
   console.log("user role detect", user);
+
+  const [isAddPlayer, setIsAddPlayer] = useState(false);
+
+  const [isAddCoach, setIsAddCoach] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
+
+  const handleAddPlayerModal = () => {
+    setIsAddPlayer(!isAddPlayer);
+  };
+
+  const handleAddCoach = () => {
+    setIsAddCoach(!isAddCoach);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAddAnnouncementClick = () => {
+    setAnnouncementIsModalOpen(true);
+  };
+
+  const closeAnnouncementModal = () => {
+    setAnnouncementIsModalOpen(false);
+  };
 
   return (
     <>
@@ -26,22 +57,22 @@ const OverviewTransferMarket = () => {
         <div className="buttons_design">
           {user?.isSubsCribed ? (
             <>
-              <button>
+              <button onClick={() => setIsModalOpen(true)}>
                 <img src={addpicon} alt="addpicon" />
                 <span>Add Player</span>
               </button>
 
-              <button>
+              <button onClick={() => setIsModalOpen(true)}>
                 <img src={addpicon} alt="addpicon" />
                 <span>Add Coach</span>
               </button>
 
-              <button>
+              <button onClick={() => setIsModalOpen(true)}>
                 <img src={add2icon} alt="addpicon" />
                 <span>Add Job Offer</span>
               </button>
 
-              <button>
+              <button onClick={handleAddAnnouncementClick}>
                 <img src={add2icon} alt="addpicon" />
                 <span>Add Announcement</span>
               </button>
@@ -106,6 +137,7 @@ const OverviewTransferMarket = () => {
               <AnnouncementOverview />
             </div>
           </div>
+
           <div className="row mt-4">
             <div className="col-lg-8 ps-0 pe-lg-3 pe-0">
               <RecentlyObserved />
@@ -115,43 +147,46 @@ const OverviewTransferMarket = () => {
             </div>
           </div>
         </div>
+
+        {isAddPlayer && (
+          <AddPlayerModal
+            show={isModalOpen}
+            onHide={closeModal}
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+            style={{ width: "648px" }}
+          />
+        )}
+
+        {isAddCoach && (
+          <AddCoachModal
+            show={isModalOpen}
+            onHide={closeModal}
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+            style={{ width: "648px" }}
+          />
+        )}
+
+        {/* modals */}
+        <AddJobOffer
+          show={isModalOpen}
+          onHide={closeModal}
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          style={{ width: "648px" }}
+        />
+
+        <AddAnnouncement
+          show={isAnnouncementModalOpen}
+          onHide={closeAnnouncementModal}
+          isModalOpen={isAnnouncementModalOpen}
+          style={{ width: "648px" }}
+          closeModal={closeAnnouncementModal}
+        />
       </div>
     </>
   );
 };
 
 export default OverviewTransferMarket;
-
-function BuySubscriptionModal({ user }) {
-  return (
-    <>
-      <div
-        className="modal fade"
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabIndex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <div >
-                <PriceRange
-                  component={<BuySubscriptionModalContent user={user} />}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}

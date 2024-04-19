@@ -11,8 +11,8 @@ const MobilePlayers = () => {
         <div>
             <div className="players_mobile ">
                 <div className="row gy-3">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-                        <div className="col-6">
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
+                        <div className="col-6" key={index}>
                             <div className="players_wrapper ">
                                 <div className="d-flex justify-content-between">
                                     <div className="d-flex gap-1 align-items-start">

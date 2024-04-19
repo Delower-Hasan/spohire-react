@@ -1,51 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
 import "./Modal.css";
 import PricingModal from "./PricingModal";
+import { Modal } from "react-bootstrap";
 
-const AddPlayerModal = ({ onClose, setAddPlayerModal }) => {
-  const modalRef = useRef();
+const AddPlayerModal = ({ onClose, onHide, isModalOpen, closeModal }) => {
   const { user } = useSelector((state) => state.auth);
-  const convertAge = (dateString) => {
-    const dob = new Date(dateString);
-    const currentDate = new Date();
-    const timeDiff = currentDate - dob;
-    const age = Math.floor(timeDiff / (365.25 * 24 * 60 * 60 * 1000));
-    return age;
-  };
   const [showPricing, setShowPricing] = useState(false);
 
   const handleAddPlayerClick = () => {
     setShowPricing(true);
   };
 
-  const handleClose = () => {
-    setShowPricing(false);
-  };
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      event.stopPropagation();
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setAddPlayerModal(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
-
   return (
-    <div className="addplayer_modal ">
-      <div className="inner">
-        {/* ref={modalRef} */}
+    <Modal className="addplayer_modal">
+      <Modal.Body className="inner">
         <div className="modal_heading">
           <h2>Add Player</h2>
         </div>
+
         <div className="row">
           <div className="col-lg-4">
             <div className="upload_photo">
@@ -397,6 +372,7 @@ const AddPlayerModal = ({ onClose, setAddPlayerModal }) => {
             </div>
           </div>
         </div>
+
         <div className="d-flex justify-content-center py-4">
           <div className="action_btn d-flex gap-4">
             <button onClick={onClose}>Cancel</button>
@@ -406,8 +382,8 @@ const AddPlayerModal = ({ onClose, setAddPlayerModal }) => {
           </div>
         </div>
         {showPricing && <PricingModal />}
-      </div>
-    </div>
+      </Modal.Body>
+    </Modal>
   );
 };
 

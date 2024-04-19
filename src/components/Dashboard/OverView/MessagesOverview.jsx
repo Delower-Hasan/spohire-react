@@ -7,7 +7,7 @@ import startmessage from "../../../assets/startmessage.png";
 
 import { useGetUserAllConversationsQuery } from "../../../features/chat/chatApi";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const chatData = [
   {
@@ -69,7 +69,7 @@ const MessagesOverview = () => {
         <div className="messages_list">
           {data && data?.length > 0 ? (
             data.slice(1, 4).map((item, index) => (
-              <>
+              <React.Fragment key={index}>
                 <div
                   className="d-flex align-items-start justify-content-between chat_wrapper mt-3"
                   key={index}
@@ -117,7 +117,7 @@ const MessagesOverview = () => {
                 {index !== chatData.length - 1 && (
                   <hr className="message_overview_hr" />
                 )}
-              </>
+              </React.Fragment>
             ))
           ) : (
             <div className="d-flex justify-content-center py-5">
