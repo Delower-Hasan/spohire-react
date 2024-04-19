@@ -42,6 +42,8 @@ const Topbar = () => {
   const myDivRef = useRef(null);
   const playerRef = useRef(null);
   const coachRef = useRef(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const openModal = () => {
     setAddPlayerModal(true);
@@ -140,9 +142,6 @@ const Topbar = () => {
       link: "/dashboard/billing",
     },
   ];
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleLoggout = () => {
     dispatch(userLoggedOut());

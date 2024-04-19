@@ -105,6 +105,7 @@ const MatchesJob = ({ searchParams, setSearchParams }) => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
+
   // const handleClick = () => {
   //   Swal.fire({
   //     icon: "error",
@@ -122,105 +123,12 @@ const MatchesJob = ({ searchParams, setSearchParams }) => {
           you
         </h3>
         <div className="row">
-          {/* <>
-            <div className="col-lg-9">
-              <div className="row">
-                {allJobs?.data &&
-                  allJobs?.data?.length > 0 &&
-                  filteredJobs?.slice(startIndex, endIndex).map((item, idx) => (
-                    <div className="col-lg-6" key={idx}>
-                      <div className="matchedJobs_wrapper">
-                        <div className="d-flex gap-4 align-items-center">
-                          <div className="tennis_logo">
-                            <img
-                              src={`${
-                                process.env.NODE_ENV !== "production"
-                                  ? import.meta.env.VITE_LOCAL_API_URL
-                                  : import.meta.env.VITE_LIVE_API_URL
-                              }/api/v1/uploads/${item?.club_logo}`}
-                              alt=""
-                              style={{
-                                objectFit: "cover",
-                                borderRadius: "8px",
-                              }}
-                            />
-                          </div>
-                          <div className="tennis_desc">
-                            <p>{item?.job_title}</p>
-                            <small>{item?.company}</small>
-                          </div>
-                        </div>
-                        <div className="jobs_details">
-                          <div
-                            className="d-flex align-items-center"
-                            style={{ gap: "10px" }}
-                          >
-                            <img src={location} alt="" />
-                            <span>{item?.job_location}</span>
-                          </div>
-                          <div
-                            className="d-flex align-items-center"
-                            style={{ gap: "10px" }}
-                          >
-                            <img src={flag} alt="" />
-                            <span>{item?.jobType} </span>
-                          </div>
-                          <div
-                            className="d-flex align-items-center"
-                            style={{ gap: "10px" }}
-                          >
-                            <img src={dollar} alt="" />
-                            <span>{item?.salary}</span>
-                          </div>
-                        </div>
-                        <div className="job_details">
-                          {" "}
-                          {item.description}
-                          <button
-                            className="ps-2"
-                            onClick={() => handleDetails(item._id)}
-                          >
-                            {" "}
-                            Learn More
-                          </button>
-                        </div>
-
-                        <button
-                          className="apply_btn"
-                          data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"
-                          onClick={() => setSelectedJob(item)}
-                          disabled={item?.creator === user?._id || !user}
-                        >
-                          Apply
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-
+          {[1, 2, 3, 4, 4, 5, 6, 7, 8].map(() => (
+            <div className="col-lg-4">
+              <SingleJobs handleDetails={handleDetails} />
             </div>
-          </> */}
+          ))}
 
-          <div className="col-lg-4">
-            <SingleJobs handleDetails={handleDetails} />
-          </div>
-          <div className="col-lg-4">
-            <SingleJobs />
-          </div>
-          <div className="col-lg-4">
-            <SingleJobs />
-          </div>
-
-          <div className="col-lg-4">
-            <SingleJobs />
-          </div>
-          <div className="col-lg-4">
-            <SingleJobs />
-          </div>
-          <div className="col-lg-4">
-            <SingleJobs />
-          </div>
           {/* pagination */}
 
           {filteredJobs?.length > itemsPerPage && (

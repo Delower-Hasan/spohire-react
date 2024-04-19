@@ -53,6 +53,10 @@ const JobOfferHeader = ({
     setSearchParams(event.target.value);
   };
 
+  const handleClear = () => {
+    setSearchParams({});
+  };
+
   const handleCheckboxChange = (event, name) => {
     event.preventDefault(); // Prevent the default behavior to keep the dropdown open
 
@@ -74,10 +78,6 @@ const JobOfferHeader = ({
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setShowDropdown(false);
     }
-  };
-
-  const handleClear = () => {
-    setSearchParams({});
   };
 
   const handleChange = (e) => {

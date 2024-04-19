@@ -54,6 +54,7 @@ const DashbordSidebar = ({ user }) => {
   const handleAccordionToggle = () => {
     setIsAccordionOpen(!isAccordionOpen);
   };
+
   const handleAccordionToggle1 = () => {
     setIsAccordionOpen1(!isAccordionOpen1);
   };
@@ -115,6 +116,7 @@ const DashbordSidebar = ({ user }) => {
                       />
                     </li>
                   </Accordion.Header>
+
                   <Accordion.Body className="pb-0">
                     <ul
                       className="list-unstyled"
@@ -161,10 +163,7 @@ const DashbordSidebar = ({ user }) => {
               </Accordion>
 
               <li className="nav_item">
-                <Link
-                  to={"/dashboard/jobOffers"}
-                  className="text-decoration-none d-flex align-items-center gap-4"
-                >
+                <Link to={"/dashboard/jobOffers"} className="text-decoration-none d-flex align-items-center gap-4">
                   <img src={jobOfferIcon} alt="icon" />
                   <span className="text_color_E3 text-capitalize fs-6">
                     Job Offers
@@ -173,10 +172,7 @@ const DashbordSidebar = ({ user }) => {
               </li>
 
               <li className="nav_item">
-                <Link
-                  to="/dashboard/announcements"
-                  className="text-decoration-none d-flex align-items-center gap-4"
-                >
+                <Link to="/dashboard/announcements" className="text-decoration-none d-flex align-items-center gap-4">
                   <img src={announcementOffer} alt="icon" />
                   <span to={"#"} className="text_color_E3 text-capitalize fs-6">
                     Announcements
