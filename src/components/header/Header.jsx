@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import profile from "../../assets/PROFILE.png";
 import dropdown from "../../assets/dropdownicon.png";
 import Logo from "../../assets/logo.png";
@@ -11,6 +11,7 @@ import { userLoggedOut } from "../../features/auth/authSlice";
 import "./Header.css";
 
 const Header = () => {
+  const navigate = useLocation();
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -41,10 +42,15 @@ const Header = () => {
     };
   }, [isDropdownActive]);
 
+  console.log("navigate.pathname", navigate.pathname);
+
   return (
     <header
-      className={`${!user && "pt-4 pb-4"} ${location.pathname === "/" ? "header_position position-absolute w-100" : ""
-        }`}
+      className={`${!user && "pt-4 pb-4"} ${
+        navigate.pathname === "/"
+          ? "header_position position-absolute w-100"
+          : ""
+      }`}
     >
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
@@ -97,10 +103,11 @@ const Header = () => {
                     className="d-none"
                     src={
                       user?.image
-                        ? `${process.env.NODE_ENV !== "production"
-                          ? import.meta.env.VITE_LOCAL_API_URL
-                          : import.meta.env.VITE_LIVE_API_URL
-                        }/api/v1/uploads/${user?.image}`
+                        ? `${
+                            process.env.NODE_ENV !== "production"
+                              ? import.meta.env.VITE_LOCAL_API_URL
+                              : import.meta.env.VITE_LIVE_API_URL
+                          }/api/v1/uploads/${user?.image}`
                         : profile
                     }
                     alt=""
@@ -178,7 +185,6 @@ const Header = () => {
                         </span>
                       </h2>
                       <p>
-
                         Log in and Dive into a World of Sports Thrills and
                         Exclusive Content!
                       </p>
@@ -226,10 +232,11 @@ const Header = () => {
                       className="profile_picture d-lg-block d-none"
                       src={
                         user?.image
-                          ? `${process.env.NODE_ENV !== "production"
-                            ? import.meta.env.VITE_LOCAL_API_URL
-                            : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${user?.image}`
+                          ? `${
+                              process.env.NODE_ENV !== "production"
+                                ? import.meta.env.VITE_LOCAL_API_URL
+                                : import.meta.env.VITE_LIVE_API_URL
+                            }/api/v1/uploads/${user?.image}`
                           : profile
                       }
                       alt=""
@@ -248,8 +255,9 @@ const Header = () => {
 
                         <img
                           src={dropdown}
-                          className={`${isDropdownActive ? "" : "rotate_arrow"
-                            }`}
+                          className={`${
+                            isDropdownActive ? "" : "rotate_arrow"
+                          }`}
                           alt="dropdown"
                         />
                       </div>

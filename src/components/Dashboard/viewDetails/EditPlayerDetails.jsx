@@ -253,7 +253,6 @@ const EditPlayerDetails = () => {
       image: user?.image,
       social_media: user?.social_media,
       experience: user?.experience,
-      social_media: user?.social_media,
       strengths_advantage: user?.strengths_advantage,
       about_me: user?.about_me,
       expectations_from_new_club: user?.expectations_from_new_club,
@@ -306,7 +305,8 @@ const EditPlayerDetails = () => {
     <form
       className="p-5 bg-white"
       onSubmit={handleUpdate}
-      style={{ borderRadius: "20px" }}>
+      style={{ borderRadius: "20px" }}
+    >
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
@@ -325,7 +325,8 @@ const EditPlayerDetails = () => {
 
               <div
                 className="upload_profile_image d-flex align-items-center justify-content-center"
-                onClick={handleButtonClick}>
+                onClick={handleButtonClick}
+              >
                 {/* <img
                   className="img-fluid profiles"
                   src={
@@ -407,11 +408,13 @@ const EditPlayerDetails = () => {
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "40px" : "0",
-                          }}>
+                          }}
+                        >
                           <div className="w-100">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label">
+                              className="form-label"
+                            >
                               {" "}
                               {field.label}{" "}
                             </label>

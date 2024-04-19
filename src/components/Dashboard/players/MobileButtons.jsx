@@ -12,6 +12,7 @@ const MobileButtons = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <div className="mobile_btns">
@@ -26,7 +27,8 @@ const MobileButtons = () => {
                 location.pathname === "/dashboard/jobOffers" &&
                 handleAddJobOfferClick()
               }
-              className="filter_btn1 fs_10">
+              className="filter_btn1 fs_10"
+            >
               {location.pathname === "/dashboard/jobOffers" && `Add job offer`}
               {location.pathname === "/dashboard/players" && "View Details"}
             </button>
