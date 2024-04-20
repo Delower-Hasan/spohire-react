@@ -20,13 +20,14 @@ import settingsIcon from "../../../assets/setting_icon.png";
 import silverIcon from "../../../assets/silver_icon.svg";
 import subscriptionIcon from "../../../assets/subcription_icon.svg";
 import { userLoggedOut } from "../../../features/auth/authSlice";
+import useClickOutside from "../../../hooks/useClickOutside";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
 import AddCoachModal from "../Modal/AddCoachModal";
 import AddPlayerModal from "../Modal/AddPlayerModal";
 import "./Topbar.css";
 
-const Topbar = () => {
+const Topbar = ({ onClose }) => {
   let location = useLocation();
   const [filterAnnouncement, setFilterAnnouncement] = useState(false);
   const [filter, setFilter] = useState(false);
@@ -44,8 +45,9 @@ const Topbar = () => {
   const coachRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const wrapperRef = useClickOutside(() => setIsDropDownOpen(false));
 
-  const openModal = () => {
+  const handleAddPlayerModal = () => {
     setAddPlayerModal(true);
   };
 
@@ -53,9 +55,6 @@ const Topbar = () => {
     setAddCoachModal(true);
   };
 
-  const modalClose = () => {
-    setAddPlayerModal(false);
-  };
 
   const handleIsDropDownOpen = () => {
     setIsDropDownOpen(!isDropDownOpen);
@@ -377,7 +376,9 @@ const Topbar = () => {
                   </div>
                   {/* Dropdown here */}
                   {isDropDownOpen && (
-                    <div className="position-absolute dropdown_menu">
+                    <div
+                      ref={wrapperRef}
+                      className="position-absolute dropdown_menu">
                       <ul className="p-0 m-0 list-unstyled">
                         {profileMenu.map((dropdownItem, index) => (
                           <li key={index} className="py-3 px-3">
@@ -426,7 +427,7 @@ const Topbar = () => {
                 {/* add player */}
 
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleAddPlayerModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -658,9 +659,10 @@ const Topbar = () => {
         closeModal={closeAnnouncementModal}
       />
 
+      {/* Add Plyer Modal */}
       {addPlayerModal && (
         <AddPlayerModal
-          onClose={modalClose}
+          addPlayerModal={addPlayerModal}
           setAddPlayerModal={setAddPlayerModal}
         />
       )}

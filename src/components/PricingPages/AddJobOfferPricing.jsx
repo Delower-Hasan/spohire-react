@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import bronze from "../../assets/bronze.svg";
 import checkActive from "../../assets/white-check.svg";
 import "./PricingPages.css";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const AddJobOfferPricing = () => {
   const [activeCard, setActiveCard] = useState(1);
   const [selectedPrice, setSelectedPrice] = useState(15);
   const [nextPaymentModal, setNextPaymentModal] = useState(false);
+  const wrapperRef = useClickOutside(() => setNextPaymentModal(false));
 
   const handleCardClick = (index, price) => {
     setActiveCard(index);
@@ -19,12 +21,7 @@ const AddJobOfferPricing = () => {
     setNextPaymentModal(!nextPaymentModal);
   };
 
-  const options = [
-    "All analytics features",
-    "Up to 250,000 tracked visits",
-    "Normal support",
-    "Up to 3 team members",
-  ];
+
 
   return (
     <div
@@ -129,7 +126,7 @@ const AddJobOfferPricing = () => {
         ) : null}
       </div>
 
-      {location.pathname === "/dashboard/players" ? (
+      {/* {location.pathname === "/dashboard/players" ? (
         <div className="d-flex justify-content-end py-4">
           <div className="action_btn d-flex gap-4">
             <button>Cancel</button>
@@ -138,11 +135,11 @@ const AddJobOfferPricing = () => {
             </button>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
 
-      {nextPaymentModal && (
+      {/* {nextPaymentModal && (
         <div className="addplayer_modal">
-          <div className="inner position-relative">
+          <div ref={wrapperRef} className="inner position-relative">
             <div className="icon position-absolute top-0">
               <button>
                 <IoMdCloseCircleOutline
@@ -354,7 +351,7 @@ const AddJobOfferPricing = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

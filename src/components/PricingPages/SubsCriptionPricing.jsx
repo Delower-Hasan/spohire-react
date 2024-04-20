@@ -1,17 +1,17 @@
-import React from 'react'
-import PriceRange from '../../pages/pricing/PriceRange'
-import AddToSubscription from './AddToSubscription'
+import React from "react";
+import PriceRange from "../../pages/pricing/PriceRange";
+import AddToSubscription from "./AddToSubscription";
 
 const SubsCriptionPricing = () => {
-    return (
-      <div
-        style={{
-          paddingBottom:
-            location.pathname === "/dashboard/players" ? "0px" : "150px",
-        }}>
-        <PriceRange component={<AddToSubscription />} />
-      </div>
-    );
-}
+  return (
+    <div
+      style={{
+        paddingBottom:
+          location.pathname === "/dashboard/players" ? "0px" : "150px",
+      }}>
+      <PriceRange component={<AddToSubscription />} />
+    </div>
+  );
+};
 
-export default SubsCriptionPricing
+export default SubsCriptionPricing;

@@ -1,13 +1,15 @@
 import React from "react";
 import AddJobOfferPricing from "../../PricingPages/AddJobOfferPricing";
 import SubsCriptionPricing from "../../PricingPages/SubsCriptionPricing";
+import useClickOutside from "../../../hooks/useClickOutside";
 
-const PricingModal = () => {
+const PricingModal = ({ setShowPricing }) => {
+  const wrapperRef = useClickOutside(() => setShowPricing(false));
   return (
-    <div className="addplayer_modal">
-      <div className="inner">
+    <div className="">
+      <div className="">
         <SubsCriptionPricing />
-        <AddJobOfferPricing/>
+        <AddJobOfferPricing />
       </div>
     </div>
   );
