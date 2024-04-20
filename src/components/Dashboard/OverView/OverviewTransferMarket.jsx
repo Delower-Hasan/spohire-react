@@ -5,6 +5,7 @@ import add3icon from "../../../assets/add3icon.png";
 import addpicon from "../../../assets/addpicon.png";
 import "../../../pages/pricing/Pricing.css";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
+import AddAnnouncement from "../Announcements/AddAnnouncement";
 import AddCoachModal from "../Modal/AddCoachModal";
 import AddPlayerModal from "../Modal/AddPlayerModal";
 import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
@@ -13,18 +14,15 @@ import JobOfferOverview from "./JobOfferOverview";
 import MessagesOverview from "./MessagesOverview";
 import PlayerOverview from "./PlayerOverview";
 import RecentlyObserved from "./RecentlyObserved";
-import AddAnnouncement from "../Announcements/AddAnnouncement";
 
 const OverviewTransferMarket = () => {
   const { user } = useSelector((state) => state.auth);
-
-  console.log("user role detect", user);
 
   const [isAddPlayer, setIsAddPlayer] = useState(false);
 
   const [isAddCoach, setIsAddCoach] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isJobOffer, setIsJobOffer] = useState(false);
 
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
 
@@ -36,16 +34,12 @@ const OverviewTransferMarket = () => {
     setIsAddCoach(!isAddCoach);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleJobOffer = () => {
+    setIsJobOffer(!isJobOffer);
   };
 
   const handleAddAnnouncementClick = () => {
-    setAnnouncementIsModalOpen(true);
-  };
-
-  const closeAnnouncementModal = () => {
-    setAnnouncementIsModalOpen(false);
+    setAnnouncementIsModalOpen(!isAnnouncementModalOpen);
   };
 
   return (
@@ -67,7 +61,7 @@ const OverviewTransferMarket = () => {
                 <span>Add Coach</span>
               </button>
 
-              <button onClick={() => setIsModalOpen(true)}>
+              <button onClick={handleJobOffer}>
                 <img src={add2icon} alt="addpicon" />
                 <span>Add Job Offer</span>
               </button>
@@ -148,42 +142,19 @@ const OverviewTransferMarket = () => {
           </div>
         </div>
 
-        {isAddPlayer && (
-          <AddPlayerModal
-            // show={isModalOpen}
-            // onHide={closeModal}
-            // isModalOpen={isModalOpen}
-            // closeModal={closeModal}
-            // style={{ width: "648px" }}
-          />
-        )}
+        {isAddPlayer && <AddPlayerModal setAddPlayerModal={setIsAddPlayer} />}
 
-        {isAddCoach && (
-          <AddCoachModal
-            // show={isModalOpen}
-            // onHide={closeModal}
-            // isModalOpen={isModalOpen}
-            // closeModal={closeModal}
-            // style={{ width: "648px" }}
-          />
-        )}
+        {isAddCoach && <AddCoachModal setAddCoachModal={setIsAddCoach} />}
 
         {/* modals */}
-        <AddJobOffer
-          show={isModalOpen}
-          onHide={closeModal}
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
-          style={{ width: "648px" }}
-        />
 
-        <AddAnnouncement
-          show={isAnnouncementModalOpen}
-          onHide={closeAnnouncementModal}
-          isModalOpen={isAnnouncementModalOpen}
-          style={{ width: "648px" }}
-          closeModal={closeAnnouncementModal}
-        />
+        {isJobOffer && <AddJobOffer setAddJobOffer={setIsJobOffer} />}
+
+        {isAnnouncementModalOpen && (
+          <AddAnnouncement
+            setAnnouncementIsModalOpen={setAnnouncementIsModalOpen}
+          />
+        )}
       </div>
     </>
   );

@@ -1,29 +1,25 @@
-import "./jobOffers.css";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import deleteIcon from "../../../assets/deleteIcon.png";
+import dollarIcon from "../../../assets/dollar-icon.svg";
+import editIcon from "../../../assets/editIcon.png";
 import footBallCoachImg from "../../../assets/footballCoach.png";
 import locationIcon from "../../../assets/location-icon.svg";
-import flagIcon from "../../../assets/flag-icon.svg";
-import dollarIcon from "../../../assets/dollar-icon.svg";
-import b1 from "../../../assets/bookmark.png";
-import bookmarkfill from "../../../assets/bookmark-fill.png";
-import deleteIcon from "../../../assets/deleteIcon.png";
-import editIcon from "../../../assets/editIcon.png";
-import MobileButtons from "../players/MobileButtons";
-import AddJobOffer from "../AddJobOffer/AddJobOffer";
-import { useState } from "react";
 import {
   useDeleteJobMutation,
   useGetAllJobsQuery,
   useGetJobApplicantsQuery,
 } from "../../../features/job/jobApi";
-import { useSelector } from "react-redux";
 import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
-import Swal from "sweetalert2";
-import EditJobOffer from "../AddJobOffer/EditJobOffer";
-import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../Pagination/Pagination";
+import EditJobOffer from "../AddJobOffer/EditJobOffer";
+import MobileButtons from "../players/MobileButtons";
+import "./jobOffers.css";
 
 const JobOffers = () => {
   const { data: allJobs } = useGetAllJobsQuery();
@@ -134,7 +130,7 @@ const JobOffers = () => {
       )}
       <MobileButtons />
 
-      <AddJobOffer />
+      {/* <AddJobOffer /> */}
       <EditJobOffer
         show={isModalOpen}
         onHide={closeModal}

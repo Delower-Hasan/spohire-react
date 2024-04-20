@@ -7,7 +7,7 @@ import useClickOutside from "../../../hooks/useClickOutside";
 import MakePaymenModal from "./MakePaymenModal";
 import AddPlayerForm from "./AddPlayerForm";
 
-const AddPlayerModal = ({ onClose, setAddPlayerModal }) => {
+const AddPlayerModal = ({ setAddPlayerModal }) => {
   const { user } = useSelector((state) => state.auth);
   const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
   const [step, setStep] = useState(1);

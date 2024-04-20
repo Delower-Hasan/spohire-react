@@ -148,7 +148,7 @@ const JobOffers = () => {
       )}
       <MobileButtons />
 
-      <AddJobOffer />
+      {/* <AddJobOffer /> */}
       <EditJobOffer
         show={isModalOpen}
         onHide={closeModal}

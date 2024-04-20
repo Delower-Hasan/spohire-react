@@ -35,12 +35,12 @@ const MobileButtons = () => {
           </div>
         )}
       </div>
-      <AddJobOffer
+      {/* <AddJobOffer
         show={isModalOpen}
         onHide={closeModal}
         isModalOpen={isModalOpen}
         style={{ width: "648px" }}
-      />
+      /> */}
     </>
   );
 };

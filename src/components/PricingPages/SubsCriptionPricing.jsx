@@ -7,7 +7,9 @@ const SubsCriptionPricing = () => {
     <div
       style={{
         paddingBottom:
-          location.pathname === "/dashboard/players" ? "0px" : "150px",
+          location.pathname === "/dashboard/players" || "/dashboard"
+            ? "0px"
+            : "150px",
       }}>
       <PriceRange component={<AddToSubscription />} />
     </div>
