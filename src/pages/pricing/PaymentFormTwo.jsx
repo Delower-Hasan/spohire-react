@@ -26,6 +26,7 @@ const PaymentFormTwo = ({
   addingJob,
   selectedSubscription,
   closeModal,
+  setNextOption,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -128,9 +129,8 @@ const PaymentFormTwo = ({
           amount: selectedSubscription?.price,
           purpose: "Add Job",
         };
+        
         const createPaymentRes = await createPayment(createPaymentData);
-        // console.log(createPaymentRes, "kfjalkfred");
-
         // navigation
         closeModal();
         navigate("/dashboard");
@@ -176,7 +176,8 @@ const PaymentFormTwo = ({
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  name="select_card">
+                  name="select_card"
+                >
                   <option disabled selected>
                     Mastercard ending 234
                   </option>
@@ -258,7 +259,8 @@ const PaymentFormTwo = ({
                     className="form-select"
                     aria-label="Default select example"
                     onChange={handleInputChange}
-                    name="nationality">
+                    name="nationality"
+                  >
                     <option disabled selected>
                       {" "}
                       Select country
@@ -293,17 +295,26 @@ const PaymentFormTwo = ({
       </div>
 
       <div className="d-flex gap-4 justify-content-end">
-        <button className="bg-none mt-0 text_clr_bc">Cancel order</button>
+        <button
+          className="bg-none mt-0 text_clr_bc"
+          onClick={() => {
+            setNextOption("AddJobOfferModal");
+          }}
+        >
+          Cancel order
+        </button>
 
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={isLoading || paymentCreating || !stripe || addingJob}>
+          disabled={isLoading || paymentCreating || !stripe || addingJob}
+        >
           {isLoading || addingJob ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
-                role="status">
+                role="status"
+              >
                 <span className="visually-hidden">Loading...</span>
               </div>
               Loading...

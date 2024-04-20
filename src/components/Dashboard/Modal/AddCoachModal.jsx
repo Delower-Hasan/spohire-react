@@ -265,7 +265,6 @@ const AddCoachModal = ({ onClose, onHide, isModalOpen, closeModal }) => {
                   <p className="f_sfPro text_color_36 fs-4 mb-4">
                     Social Media
                   </p>
-
                   <div className="d-flex flex-column align-items-start gap-3">
                     <div className="input_form pb-4 w-100 pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
