@@ -96,7 +96,6 @@ const JobOffers = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 10;
-
   const totalPages = Math.ceil(filteredJobs?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -122,7 +121,7 @@ const JobOffers = () => {
           >
             No job offer
           </div>
-        )}
+        )        }
       </div>
       {filteredJobs?.length > itemsPerPage && (
         <Pagination
@@ -130,7 +129,6 @@ const JobOffers = () => {
           currentPage={currentPage}
           totalPages={totalPages}
         />
-        // <div>fsjkjfsk</div>
       )}
       <MobileButtons />
 
@@ -151,26 +149,17 @@ export default JobOffers;
 
 function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
   const [bookmark, setBookmark] = useState(false);
-
-  // const handleBookmark = () => {
-  //   setBookmark(!bookmark);
-  // };
-
-  console.log(item, "jkj");
   const { user } = useSelector((state) => state.auth);
-
   const { data: applicants } = useGetJobApplicantsQuery(item?._id);
-
   const navigate = useNavigate();
   const handleCLick = (value) => {
-    // if (value.creator !== user?._id)
     navigate(`/dashboard/jobDetails/${value?._id}`);
   };
 
   const { data, isSuccess } = useGetMyObservationsQuery();
 
   const isBookmarked = data?.data?.find((i) => i?.target_id?._id === item?._id);
-
+  
   const [toggleObservation, { isLoading }] = useToggleObservationMutation();
 
   const handleBookmark = async (id) => {
@@ -179,8 +168,6 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
       target_id: id,
       target_type: "Job",
     };
-
-    // console.log(data, "jjjDD");
 
     try {
       const response = await toggleObservation(data);

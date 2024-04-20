@@ -72,17 +72,18 @@ const PaymentFormTwo = ({
 
   const handlePayment = async () => {
     setIsLoading(true);
+
     if (!stripe) {
       setIsLoading(false);
       return;
     }
 
-    const adding = await handleSubmit();
+    // const adding = await handleSubmit();
 
-    if (!adding) {
-      setIsLoading(false);
-      return;
-    }
+    // if (!adding) {
+    //   setIsLoading(false);
+    //   return;
+    // }
 
     try {
       const clientSecret = await createPaymentIntent(
@@ -122,16 +123,16 @@ const PaymentFormTwo = ({
         });
       } else if (paymentIntent.status === "succeeded") {
         setIsLoading(false);
-
         const createPaymentData = {
           transactionId: paymentIntent?.id,
           userId: user?._id,
           amount: selectedSubscription?.price,
           purpose: "Add Job",
         };
-        
-        const createPaymentRes = await createPayment(createPaymentData);
+        await createPayment(createPaymentData);
+        await handleSubmit();
         // navigation
+
         closeModal();
         navigate("/dashboard");
       }

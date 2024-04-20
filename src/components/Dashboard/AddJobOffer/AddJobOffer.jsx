@@ -186,7 +186,6 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
                     handleInputChange={handleInputChange}
                   />
                 )}
-
                 {nextOption === "AddJobOfferModalTwo" && (
                   <AddJobOfferModalTwo
                     handleSubmit={handleSubmit}
