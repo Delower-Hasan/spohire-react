@@ -1,21 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
-import { Modal } from "react-bootstrap";
-import styles from "./Modal.module.css";
-import brows from "../../../assets/brows1.png";
-import region from "../../../assets/aregion.png";
-import salary from "../../../assets/asalary.png";
-import "./AddJobOffer.css";
-import { useAddJobMutation } from "../../../features/job/jobApi";
-import Swal from "sweetalert2";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useAddJobMutation } from "../../../features/job/jobApi";
+import useClickOutside from "../../../hooks/useClickOutside.jsx";
+import { setExpireDate } from "../../../utils/setExpireDate.js";
+import "./AddJobOffer.css";
 import AddJobOfferModal from "./AddJobOfferModal.jsx";
 import AddJobOfferModalTwo from "./AddJobOfferModalTwo.jsx";
-import { setExpireDate } from "../../../utils/setExpireDate.js";
 
 const options = [
   { value: "Full-time", label: "Full-time" },
@@ -49,8 +45,8 @@ const WorkplaceOptions = [
   },
 ];
 
-const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
-  const [nextOption, setNextOption] = useState("AddJobOfferModal");
+const AddJobOffer = ({ setAddJobOffer }) => {
+  // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
   const [imageFile, setImageFIle] = useState(null);
@@ -62,6 +58,7 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
   const [jobType, setJobType] = useState("");
   const [addJob, { isLoading: addingJob }] = useAddJobMutation();
   const navigate = useNavigate();
+  const addJobOfferRef = useClickOutside(() => setAddJobOffer(false));
 
   const [selectedSubscription, setSelectedSubscription] = useState({
     duration: 1,
@@ -133,6 +130,7 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
     setImageFIle(selectedFile);
     setJobData({ ...jobData, club_logo: selectedFile });
   };
+
   useEffect(() => {
     axios
       .get(
@@ -146,35 +144,20 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
       });
   }, []);
 
-  const handleNextOption = () => {
-    setNextOption("AddJobOfferModalTwo");
-  };
+  const [step, setStep] = useState(1);
 
   return (
-    <div className={` ${styles.addJob_wrapper}`}>
-      <Modal
-        centered
-        show={isModalOpen}
-        onHide={onHide}
-        className="modal_width1"
-      >
-        {/*closeButton*/}
-        <Modal.Header className="p-0">
-          <Modal.Title className="text-center"></Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="p-0 add_job_offer_admin">
+    <div className={`addplayer_modal`}>
+      <div ref={addJobOfferRef} className="inner">
+        <div className="p-0 add_job_offer_admin">
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
-              <div
-                onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0"
-              >
-                {nextOption === "AddJobOfferModal" && (
+              style={{ marginBottom: "40px" }}>
+              <div className="w-100 player_job_form_wrapper mt-0">
+                {step === 1 ? (
                   <AddJobOfferModal
-                    handleNextOption={handleNextOption}
+                    // handleNextOption={handleNextOption}
                     fileInputRef={fileInputRef}
                     handleFileChange={handleFileChange}
                     image={image}
@@ -185,56 +168,39 @@ const AddJobOffer = ({ onHide, isModalOpen, closeModal }) => {
                     categoryOptions={categoryOptions}
                     handleInputChange={handleInputChange}
                   />
-                )}
-                {nextOption === "AddJobOfferModalTwo" && (
+                ) : step === 2 ? (
                   <AddJobOfferModalTwo
                     handleSubmit={handleSubmit}
                     addingJob={addingJob}
-                    setNextOption={setNextOption}
+                    // setNextOption={setNextOption}
                     selectedSubscription={selectedSubscription}
                     setSelectedSubscription={setSelectedSubscription}
-                    closeModal={closeModal}
+                    // closeModal={closeModal}
                   />
-                )}
+                ) : null}
 
-                {/*<button*/}
-                {/*  className="submit_now_btn w-100 m-0"*/}
-                {/*  // onClick={onHide}*/}
-                {/*  type="submit"*/}
-                {/*  disabled={loading || isLoading}*/}
-                {/*>*/}
-                {/*  {loading ? "Adding..." : "Add Job"}*/}
-                {/*</button> */}
-
-                {nextOption === "AddJobOfferModal" ? (
+                {step !== 2 && (
                   <div className="d-flex gap-3 justify-content-center">
                     <button
+                      onClick={() => setAddJobOffer(false)}
                       className="submit_now_btn cancel m-0"
-                      onClick={onHide}
-                      type="button"
-                      // disabled={loading || isLoading}
-                    >
+                      type="button">
                       Cancel
                     </button>
 
                     <button
-                      onClick={handleNextOption}
                       className="submit_now_btn m-0"
-                      // onClick={onHide}
                       type="button"
-                      // disabled={loading || isLoading}
-                    >
+                      onClick={() => setStep((prevStep) => prevStep + 1)}>
                       Next
                     </button>
                   </div>
-                ) : (
-                  ""
                 )}
               </div>
             </div>
           </div>
-        </Modal.Body>
-      </Modal>
+        </div>
+      </div>
     </div>
   );
 };

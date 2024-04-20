@@ -158,7 +158,7 @@ const JobOffers = () => {
       )}
       <MobileButtons />
 
-      <AddJobOffer />
+      {/* <AddJobOffer /> */}
       <EditJobOffer
         show={isModalOpen}
         onHide={closeModal}
@@ -290,7 +290,6 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
           </div>
 
           <div className="right d-flex gap-2">
-            
             {item?.creator !== user?._id && (
               <button
                 className="bg-none"
@@ -303,13 +302,13 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
               >
                 {isBookmarked ? (
                   <img
-                    style={{ height: "24px", width: "24px" }}
+                    style={{ height: "20px", width: "20px" }}
                     src={bookmarkfill}
                     alt=""
                   />
                 ) : (
                   <img
-                    style={{ height: "24px", width: "24px" }}
+                    style={{ height: "18px", width: "16px" }}
                     src={b1}
                     alt=""
                   />

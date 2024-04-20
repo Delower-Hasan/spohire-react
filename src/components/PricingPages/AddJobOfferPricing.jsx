@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import bronze from "../../assets/bronze.svg";
 import checkActive from "../../assets/white-check.svg";
 import "./PricingPages.css";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const AddJobOfferPricing = () => {
   const [activeCard, setActiveCard] = useState(1);
   const [selectedPrice, setSelectedPrice] = useState(15);
   const [nextPaymentModal, setNextPaymentModal] = useState(false);
+  const wrapperRef = useClickOutside(() => setNextPaymentModal(false));
 
   const handleCardClick = (index, price) => {
     setActiveCard(index);
@@ -19,26 +21,21 @@ const AddJobOfferPricing = () => {
     setNextPaymentModal(!nextPaymentModal);
   };
 
-  const options = [
-    "All analytics features",
-    "Up to 250,000 tracked visits",
-    "Normal support",
-    "Up to 3 team members",
-  ];
-
   return (
     <div
       className={`${
-        location.pathname === "/dashboard/players"
+        location.pathname === "/dashboard/players" || "/dashboard"
           ? "addjoboffer_pricing_wrapper p-0"
           : "addjoboffer_pricing_wrapper"
       }`}>
-      {location.pathname === "/dashboard/players" ? (
+      {location.pathname === "/dashboard/players" || "/dashboard" ? (
         <h3 className="pb-4">Longer advertiser options</h3>
       ) : (
         <h2
           className={`${
-            location.pathname === "/dashboard/players" ? "d-none" : null
+            location.pathname === "/dashboard/players" || "/dashboard"
+              ? "d-none"
+              : null
           }`}>
           add job offer <br />
           period of active job offer
@@ -50,7 +47,9 @@ const AddJobOfferPricing = () => {
         style={{
           gap: "30px",
           marginBottom:
-            location.pathname === "/dashboard/players" ? "50px" : "128px",
+            location.pathname === "/dashboard/players" || "/dashboard"
+              ? "50px"
+              : "128px",
         }}>
         <div
           className={`monthly_cards ${activeCard === 0 ? "active" : ""}`}
@@ -81,20 +80,19 @@ const AddJobOfferPricing = () => {
         </div>
       </div>
 
-      <div
-        className={`${
+      <div className={`${
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
             : ""
         }`}>
-        {location.pathname === "/dashboard/players" ? null : (
+        {location.pathname === "/dashboard/players" || "/dashboard" ? null : (
           <h2>price of announcement</h2>
         )}
 
         <div className="d-flex justify-content-center">
           <div
             className={`${
-              location.pathname === "/dashboard/players"
+              location.pathname === "/dashboard/players" || "/dashboard"
                 ? "something"
                 : "monthly_cards"
             } active`}
@@ -111,14 +109,16 @@ const AddJobOfferPricing = () => {
                 location.pathname === "/dashboard/players" ? "end" : "center"
               }`,
             }}>
-            {location.pathname === "/dashboard/players" ? null : (
+            {location.pathname === "/dashboard/players" ||
+            "/dashboard" ? null : (
               <div>
                 <h3>${selectedPrice}</h3>
               </div>
             )}
           </div>
         </div>
-        {location.pathname === "/dashboard/players" ? (
+
+        {location.pathname === "/dashboard/players" || "/dashboard" ? (
           <div>
             <h3
               style={{ color: "#2B3674", fontSize: "36px", fontWeight: "700" }}
@@ -129,7 +129,7 @@ const AddJobOfferPricing = () => {
         ) : null}
       </div>
 
-      {location.pathname === "/dashboard/players" ? (
+      {/* {location.pathname === "/dashboard/players" ? (
         <div className="d-flex justify-content-end py-4">
           <div className="action_btn d-flex gap-4">
             <button>Cancel</button>
@@ -138,11 +138,11 @@ const AddJobOfferPricing = () => {
             </button>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
 
-      {nextPaymentModal && (
+      {/* {nextPaymentModal && (
         <div className="addplayer_modal">
-          <div className="inner position-relative">
+          <div ref={wrapperRef} className="inner position-relative">
             <div className="icon position-absolute top-0">
               <button>
                 <IoMdCloseCircleOutline
@@ -354,7 +354,7 @@ const AddJobOfferPricing = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

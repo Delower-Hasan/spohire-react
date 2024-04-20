@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import PaymentProcess from "./PaymentProcess.jsx";
 import { useAddAnnouncementMutation } from "../../../features/announcement/announcementApi.js";
+import useClickOutside from "../../../hooks/useClickOutside.jsx";
 
 const options = [
   { value: "Full-time", label: "Full-time" },
@@ -49,7 +50,7 @@ const WorkplaceOptions = [
   },
 ];
 
-const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
+const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
   const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
@@ -62,6 +63,7 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
   const [jobType, setJobType] = useState("");
   const [addAnnouncement, { isLoading: addingAnnounement }] =
     useAddAnnouncementMutation();
+
   const navigate = useNavigate();
 
   const [announcementData, setAnnouncementData] = useState({});
@@ -72,6 +74,7 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
   };
 
   console.log(announcementData, "jfskfj");
+
   const handleSubmit = async (e) => {
     setLoading(true);
 
@@ -114,13 +117,16 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
       setLoading(false);
     }
   };
+
   const fileInputRef = useRef(null);
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
     setImageFIle(selectedFile);
     setAnnouncementData({ ...announcementData, image: selectedFile });
   };
+
   useEffect(() => {
     axios
       .get(
@@ -137,46 +143,27 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
   const handleNextOption = () => {
     setNextOption("AddJobOfferModalTwo");
   };
+  const annoucnementRef = useClickOutside(() =>
+    setAnnouncementIsModalOpen(false)
+  );
+
+  const [step, setStep] = useState(1);
 
   return (
-    <div>
-      <Modal
-        centered
-        show={isModalOpen}
-        onHide={onHide}
-        className="modal_width1">
-        {/*closeButton*/}
-        {nextOption === "AddJobOfferModal" && (
-          <>
-            <Modal.Header className="justify-content-start p-0">
-              <Modal.Title>Create Announcement</Modal.Title>
-            </Modal.Header>
-            <div className="step_number d-flex justify-content-end">
-              <p>
-                <span style={{ color: "#0095FF" }}>Step 1</span> of 2
-              </p>
-            </div>
-            <div className={"stepBorder"}></div>
-          </>
-        )}
-
-        {nextOption === "AddJobOfferModalTwo" && (
-          <>
-            <Modal.Header
-              className="justify-content-start p-0"
-              style={{ maxWidth: "750px", width: "100%" }}>
-              <Modal.Title className={"fs-3 text-black fw-bold text-start"}>
-                Payment Process
-              </Modal.Title>
-            </Modal.Header>
-            <div className="step_number d-flex justify-content-end">
-              <p>
-                <span style={{ color: "#0095FF" }}>Step 2</span> of 2
-              </p>
-            </div>
-            <div className={"stepBorder2"}></div>
-          </>
-        )}
+    <div className="addplayer_modal">
+      <div ref={annoucnementRef} className="inner">
+        <div className="modal_head">
+          <div className="justify-content-start p-0">
+            <h2>{step === 1 ? "Create Announcement" : "Payment Process"}</h2>
+          </div>
+          <div className="step_number d-flex justify-content-end">
+            <p>
+              <span style={{ color: "#0095FF" }}>{step === 1 ? "1" : "2"}</span>{" "}
+              of 2
+            </p>
+          </div>
+          <div className={"stepBorder"}></div>
+        </div>
 
         <Modal.Body className="p-0 add_job_offer_admin">
           <div className="personal_info_edit_wrapper add_job_offer">
@@ -186,7 +173,7 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
               <div
                 // onSubmit={handleSubmit}
                 className="w-100 player_job_form_wrapper mt-0">
-                {nextOption === "AddJobOfferModal" && (
+                {step === 1 ? (
                   <CreateAnnouncemnetModal
                     fileInputRef={fileInputRef}
                     handleFileChange={handleFileChange}
@@ -198,21 +185,17 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
                     categoryOptions={categoryOptions}
                     handleInputChange={handleInputChange}
                   />
-                )}
-
-                {nextOption === "AddJobOfferModalTwo" && (
+                ) : step === 2 ? (
                   <PaymentProcess
                     handleSubmit={handleSubmit}
                     addingAnnounement={addingAnnounement}
-                    closeModal={closeModal}
                   />
-                )}
+                ) : null}
 
-                {nextOption === "AddJobOfferModal" ? (
+                {step !== 2 && (
                   <div className="d-flex gap-3 justify-content-center">
                     <button
                       className="submit_now_btn cancel m-0"
-                      onClick={onHide}
                       type="button"
                       // disabled={loading || isLoading}
                     >
@@ -220,23 +203,20 @@ const AddAnnouncement = ({ onHide, isModalOpen, closeModal }) => {
                     </button>
 
                     <button
-                      onClick={handleNextOption}
+                      onClick={() => setStep((prevStep) => prevStep + 1)}
                       className="submit_now_btn m-0"
-                      // onClick={onHide}
                       type="button"
                       // disabled={loading || isLoading}
                     >
                       Next
                     </button>
                   </div>
-                ) : (
-                  ""
                 )}
               </div>
             </div>
           </div>
         </Modal.Body>
-      </Modal>
+      </div>
     </div>
   );
 };

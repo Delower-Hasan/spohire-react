@@ -20,41 +20,41 @@ import settingsIcon from "../../../assets/setting_icon.png";
 import silverIcon from "../../../assets/silver_icon.svg";
 import subscriptionIcon from "../../../assets/subcription_icon.svg";
 import { userLoggedOut } from "../../../features/auth/authSlice";
+import useClickOutside from "../../../hooks/useClickOutside";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import AddAnnouncement from "../Announcements/AddAnnouncement";
 import AddCoachModal from "../Modal/AddCoachModal";
 import AddPlayerModal from "../Modal/AddPlayerModal";
 import "./Topbar.css";
 
-const Topbar = () => {
+const Topbar = ({ onClose }) => {
   let location = useLocation();
   const [filterAnnouncement, setFilterAnnouncement] = useState(false);
   const [filter, setFilter] = useState(false);
   const [playerFilter, setPlayerFilter] = useState(false);
   const [coachFilter, setCoachFilter] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [addJobOffer, setAddJobOffer] = useState(false);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const [addPlayerModal, setAddPlayerModal] = useState(false);
   const [addCoachModal, setAddCoachModal] = useState(false);
+  const [modalOpen, isModalOpen] = useState(false);
   const myDivRef1 = useRef(null);
   const myDivRef = useRef(null);
   const playerRef = useRef(null);
   const coachRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const wrapperRef = useClickOutside(() => setIsDropDownOpen(false));
+  const filterRef = useClickOutside(() => setFilter(false));
 
-  const openModal = () => {
+  const handleAddPlayerModal = () => {
     setAddPlayerModal(true);
   };
 
-  const openCoachModal = () => {
+  const handleCoachModal = () => {
     setAddCoachModal(true);
-  };
-
-  const modalClose = () => {
-    setAddPlayerModal(false);
   };
 
   const handleIsDropDownOpen = () => {
@@ -67,19 +67,11 @@ const Topbar = () => {
   };
 
   const handleAddJobOfferClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+    setAddJobOffer(true);
   };
 
   const handleAddAnnouncementClick = () => {
     setAnnouncementIsModalOpen(true);
-  };
-
-  const closeAnnouncementModal = () => {
-    setAnnouncementIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -377,7 +369,9 @@ const Topbar = () => {
                   </div>
                   {/* Dropdown here */}
                   {isDropDownOpen && (
-                    <div className="position-absolute dropdown_menu">
+                    <div
+                      ref={wrapperRef}
+                      className="position-absolute dropdown_menu">
                       <ul className="p-0 m-0 list-unstyled">
                         {profileMenu.map((dropdownItem, index) => (
                           <li key={index} className="py-3 px-3">
@@ -426,7 +420,7 @@ const Topbar = () => {
                 {/* add player */}
 
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleAddPlayerModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -450,7 +444,7 @@ const Topbar = () => {
             ) : location.pathname === "/dashboard/jobOffers" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleAddJobOfferClick}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -472,7 +466,7 @@ const Topbar = () => {
             ) : location.pathname === "/dashboard/announcements" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleAddAnnouncementClick}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -500,7 +494,7 @@ const Topbar = () => {
                 {/* add coach */}
 
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleCoachModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
@@ -526,7 +520,7 @@ const Topbar = () => {
         </div>
 
         {filter && (
-          <div className="filter_wrapper ">
+          <div ref={filterRef} className="filter_wrapper">
             {location.pathname === "/dashboard/coaches" ? (
               ""
             ) : (
@@ -641,31 +635,35 @@ const Topbar = () => {
         </div>
       </div>
 
-      {/* modals */}
-      <AddJobOffer
-        show={isModalOpen}
-        onHide={closeModal}
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
-        style={{ width: "648px" }}
-      />
-
-      <AddAnnouncement
-        show={isAnnouncementModalOpen}
-        onHide={closeAnnouncementModal}
-        isModalOpen={isAnnouncementModalOpen}
-        style={{ width: "648px" }}
-        closeModal={closeAnnouncementModal}
-      />
-
+      {/* Add Plyer Modal */}
       {addPlayerModal && (
         <AddPlayerModal
-          onClose={modalClose}
+          addPlayerModal={addPlayerModal}
           setAddPlayerModal={setAddPlayerModal}
         />
       )}
 
-      {addCoachModal && <AddCoachModal />}
+      {addCoachModal && (
+        <AddCoachModal
+          addCoachModal={addCoachModal}
+          setAddCoachModal={setAddCoachModal}
+        />
+      )}
+
+      {/* modals */}
+
+      {addJobOffer && (
+        <AddJobOffer
+          addJobOffer={addJobOffer}
+          setAddJobOffer={setAddJobOffer}
+        />
+      )}
+
+      {isAnnouncementModalOpen && (
+        <AddAnnouncement
+          setAnnouncementIsModalOpen={setAnnouncementIsModalOpen}
+        />
+      )}
     </>
   );
 };
