@@ -6,7 +6,6 @@ import AddToTrandfer from "./AddToTrandfer";
 import SubsCriptionPricing from "../../components/PricingPages/SubsCriptionPricing";
 import AddJobOfferPricing from "../../components/PricingPages/AddJobOfferPricing";
 const Pricing = () => {
-
   return (
     <div>
       {/* <button onClick={clickHandler}>Click</button>
@@ -30,15 +29,11 @@ const Pricing = () => {
       </div>
 
       <div className="container pricing_bg_wrapper">
-
         <SubsCriptionPricing />
       </div>
       <div className="container pricing_bg_wrapper pb-0">
         <AddJobOfferPricing />
       </div>
-
-
-
     </div>
   );
 };
