@@ -57,8 +57,6 @@ const JobOffers = () => {
   };
 
   const handleDelete = async (item) => {
-    console.log(item, "djkf");
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -70,7 +68,6 @@ const JobOffers = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await deleteJob(item?._id);
-        console.log(res, "ddd");
         if (res?.data?.success) {
           Swal.fire({
             title: "Deleted!",

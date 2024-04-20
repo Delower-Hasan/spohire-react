@@ -57,12 +57,12 @@ const OverviewTransferMarket = () => {
         <div className="buttons_design">
           {user?.isSubsCribed ? (
             <>
-              <button onClick={() => setIsModalOpen(true)}>
+              <button onClick={handleAddPlayerModal}>
                 <img src={addpicon} alt="addpicon" />
                 <span>Add Player</span>
               </button>
 
-              <button onClick={() => setIsModalOpen(true)}>
+              <button onClick={handleAddCoach}>
                 <img src={addpicon} alt="addpicon" />
                 <span>Add Coach</span>
               </button>
@@ -150,21 +150,21 @@ const OverviewTransferMarket = () => {
 
         {isAddPlayer && (
           <AddPlayerModal
-            show={isModalOpen}
-            onHide={closeModal}
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            style={{ width: "648px" }}
+            // show={isModalOpen}
+            // onHide={closeModal}
+            // isModalOpen={isModalOpen}
+            // closeModal={closeModal}
+            // style={{ width: "648px" }}
           />
         )}
 
         {isAddCoach && (
           <AddCoachModal
-            show={isModalOpen}
-            onHide={closeModal}
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            style={{ width: "648px" }}
+            // show={isModalOpen}
+            // onHide={closeModal}
+            // isModalOpen={isModalOpen}
+            // closeModal={closeModal}
+            // style={{ width: "648px" }}
           />
         )}
 

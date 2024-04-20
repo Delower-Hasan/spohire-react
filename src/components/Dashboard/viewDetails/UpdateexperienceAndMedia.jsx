@@ -15,6 +15,7 @@ const UpdateexperienceAndMedia = ({
   setEditedInfo,
   exp,
 }) => {
+  console.log("exp", exp);
   const [experienceFormData, setExperienceFormData] = useState({});
   const [userExperience, setUserExperience] = useState([...exp]);
 
@@ -61,8 +62,6 @@ const UpdateexperienceAndMedia = ({
     setUserExperience(newData);
   };
 
-  console.log(userExperience, "eeee");
-  console.log(editedInfo, "eeddeee");
 
   return (
     <>
@@ -72,7 +71,7 @@ const UpdateexperienceAndMedia = ({
             <div className="col-lg-6 mb-lg-0 mb-4">
               <div className="editpersonal_info experience_update_wrapper">
                 <p>Experience</p>
-                {userExperience.map((item, index) => (
+                {userExperience?.map((item, index) => (
                   <p className="f_sfPro text_color_36 fs_18" key={index}>
                     {item?.start_year}-{item?.end_year} {item?.club_name}
                   </p>
@@ -113,7 +112,8 @@ const UpdateexperienceAndMedia = ({
                       <div className="w-100">
                         <label
                           htmlFor="exampleFormControlInput1"
-                          className="form-label">
+                          className="form-label"
+                        >
                           Club Name
                         </label>
                         <input
@@ -132,7 +132,8 @@ const UpdateexperienceAndMedia = ({
                       <button
                         className="add_more_btn"
                         type="button"
-                        onClick={handleAddMore}>
+                        onClick={handleAddMore}
+                      >
                         <span>Add more</span>
                         <img src={plus} alt="" />
                       </button>
@@ -147,7 +148,8 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Instagram
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -167,7 +169,8 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Facebook
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -186,7 +189,8 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Twitter
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -206,7 +210,8 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Youtube
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>

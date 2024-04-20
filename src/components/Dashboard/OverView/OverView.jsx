@@ -100,7 +100,6 @@ const OverView = () => {
 
 export default OverView;
 
-
 // import { useEffect, useState } from "react";
 // import AnnouncementOverview from "./AnnouncementOverview";
 // import JobOfferOverview from "./JobOfferOverview";

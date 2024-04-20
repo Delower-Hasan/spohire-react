@@ -277,7 +277,6 @@ const EditAddedPlayerDetails = () => {
       image: user?.image,
       social_media: user?.social_media,
       experience: user?.experience,
-      social_media: user?.social_media,
       strengths_advantage: user?.strengths_advantage,
       about_me: user?.about_me,
       expectations_from_new_club: user?.expectations_from_new_club,

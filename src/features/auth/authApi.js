@@ -12,7 +12,6 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-
           localStorage.setItem(
             "spohireAuth",
             JSON.stringify({
@@ -20,7 +19,6 @@ export const authApi = apiSlice.injectEndpoints({
               user: result.data.user,
             })
           );
-
           dispatch(
             userLoggedIn({
               accessToken: result.data.accessToken,

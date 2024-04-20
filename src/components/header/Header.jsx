@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import profile from "../../assets/PROFILE.png";
 import dropdown from "../../assets/dropdownicon.png";
 import Logo from "../../assets/logo.png";
@@ -11,6 +11,7 @@ import { userLoggedOut } from "../../features/auth/authSlice";
 import "./Header.css";
 
 const Header = () => {
+  const navigate = useLocation();
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -41,19 +42,18 @@ const Header = () => {
     };
   }, [isDropdownActive]);
 
-  const navigate = useNavigate();
-
   const handleUnlockClick = () => {
-    window.location.href = "/login";
+    navigate.pathname = "/login";
   };
 
   return (
     <header
       className={`${!user && "pt-4 pb-4"} ${
-        location.pathname === "/"
+        navigate.pathname === "/"
           ? "header_position position-absolute w-100"
           : ""
-      }`}>
+      }`}
+    >
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
           <Navbar.Brand href="#home" className="d-flex align-items-center">
@@ -69,7 +69,8 @@ const Header = () => {
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
-                fill="none">
+                fill="none"
+              >
                 <g clipPath="url(#clip0_239_167)">
                   <path
                     d="M2.5 8H13.5"
@@ -117,7 +118,8 @@ const Header = () => {
                 <Link
                   to="/dashboard/jobOffers"
                   type="submit"
-                  className="text-decoration-none ms-3 profilename">
+                  className="text-decoration-none ms-3 profilename"
+                >
                   {user.firstName}
                 </Link>
               </div>
@@ -130,7 +132,8 @@ const Header = () => {
                   <Link
                     to="/signup"
                     type="submit"
-                    className="text-decoration-none">
+                    className="text-decoration-none"
+                  >
                     <button className="authBtn btnNone visibility-lg-hidden visually-visible">
                       Sign Up
                     </button>
@@ -151,7 +154,8 @@ const Header = () => {
                 <button
                   className="modal_link "
                   data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
+                  data-bs-target="#staticBackdrop"
+                >
                   Transfer Market
                 </button>
               )}
@@ -163,7 +167,8 @@ const Header = () => {
                 data-bs-keyboard="false"
                 tabIndex="-1"
                 aria-labelledby="staticBackdropLabel"
-                aria-hidden="true">
+                aria-hidden="true"
+              >
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
@@ -171,7 +176,8 @@ const Header = () => {
                         type="button"
                         className="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                        aria-label="Close"
+                      ></button>
                     </div>
                     <div className="modal-body">
                       <h2>
@@ -192,7 +198,8 @@ const Header = () => {
                       {/* login */}
                       <button
                         onClick={handleUnlockClick}
-                        className="unlock_btn">
+                        className="unlock_btn"
+                      >
                         unlock now
                       </button>
                     </div>
@@ -226,7 +233,8 @@ const Header = () => {
                 <div
                   type="button"
                   onClick={(event) => handleButtonClick(event)}
-                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative">
+                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative"
+                >
                   <Link to="/dashboard/viewProfile">
                     <img
                       className="profile_picture d-lg-block d-none"
@@ -280,7 +288,8 @@ const Header = () => {
                 <Link
                   to="/signup"
                   type="submit"
-                  className="text-decoration-none">
+                  className="text-decoration-none"
+                >
                   <button className="authBtn btnNone">
                     <span> Sign Up</span>
                   </button>

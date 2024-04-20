@@ -2,11 +2,13 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
 import Layout from "../Layout/Layout.jsx";
+
 import AddedItems from "../components/Dashboard/AddJobOffer/AddedItems.jsx";
 import DashboardAnnouncements from "../components/Dashboard/Announcements/DashboardAnnouncements.jsx";
 import Coaches from "../components/Dashboard/Coaches/Coaches.jsx";
 import CoachesDetails from "../components/Dashboard/Coaches/CoachesDetails.jsx";
 import CoachesProfile from "../components/Dashboard/Coaches/CoachesProfile.jsx";
+
 import DashboardLayout from "../components/Dashboard/DashboardLayout/DashboardLayout";
 import BlankMessages from "../components/Dashboard/Messages/BlankMessages.jsx";
 import Messages from "../components/Dashboard/Messages/Messages.jsx";
@@ -51,6 +53,7 @@ import PrivateRoute from "./PrivateRoute.jsx";
 import SubscribedRoute from "./SubscribedRoute.jsx";
 import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
 import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
+
 
 export const router = createBrowserRouter([
   {
@@ -102,13 +105,6 @@ export const router = createBrowserRouter([
         path: "/jobOffer",
         element: <JobOffer />,
       },
-
-      // {
-      //   path: "/jobOffer/jobDetails/:id",
-      //   // element: <JobDetails />,
-      //   element: <JobOfferDetails />,
-      // },
-
       {
         path: "/announcements",
         element: <Announcements />,
