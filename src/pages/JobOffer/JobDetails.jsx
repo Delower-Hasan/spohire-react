@@ -58,9 +58,8 @@ const jobcategory = [
 const JobDetails = ({ jobId, setSearchParams, searchParams }) => {
   const params = useParams();
   const detailsId = params.id;
-  
-  const { data: jobDetails } = useGetJobByIdQuery(detailsId);
 
+  const { data: jobDetails } = useGetJobByIdQuery(detailsId);
 
   const data = jobDetails?.data;
   const { user } = useSelector((state) => state.auth);

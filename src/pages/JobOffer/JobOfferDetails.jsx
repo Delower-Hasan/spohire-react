@@ -4,7 +4,10 @@ import Salary from "../../components/JobOffer/Details/Salary";
 import JobOverview from "../../components/JobOffer/Details/JobOverview";
 import RelatedJob from "../../components/JobOffer/Details/RelatedJob";
 import { useParams } from "react-router-dom";
-import { useGetJobByIdQuery } from "../../features/job/jobApi";
+import {
+  useGetJobByIdQuery,
+  useGetMyAppliedJobsQuery,
+} from "../../features/job/jobApi";
 import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
@@ -15,6 +18,9 @@ import Swal from "sweetalert2";
 const JobOfferDetails = () => {
   const { id } = useParams();
   const { data: jobDetails } = useGetJobByIdQuery(id);
+  const { data: appliedJobs } = useGetMyAppliedJobsQuery();
+
+  // console.log("appliedJobs", appliedJobs);
   const { user } = useSelector((state) => state.auth);
   const { data: myJobs, isSuccess } = useGetMyObservationsQuery();
 
@@ -56,12 +62,18 @@ const JobOfferDetails = () => {
     }
   };
 
+  const isApplied = appliedJobs?.some((item) => item.job._id === id);
+
+  const isCreator = jobDetails?.data.creator === user?._id;
+
   return (
     <div>
       <DetailsHeader
         data={jobDetails?.data}
         isBookmarked={isBookmarked}
         handleBookmark={handleBookmark}
+        isApplied={isApplied}
+        isCreator={isCreator}
       />
       <div className="container mb-5">
         <div className="row">

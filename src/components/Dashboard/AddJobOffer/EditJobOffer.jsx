@@ -101,7 +101,6 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setEditingInfo({ ...editingInfo, [name]: value });
     setJobDatas({ ...editingInfo, [name]: value });
   };
@@ -129,10 +128,17 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
       jobType: editingItem?.jobType,
       job_location: editingItem?.job_location,
       job_title: editingItem?.job_title,
-      role: editingItem?.role,
+      category: editingItem?.category,
       salary: editingItem?.salary,
       workplaceType: editingItem?.workplaceType,
     };
+
+    // category
+    // jobType
+    // language
+    // salary
+    // description
+
     setJobDatas(data);
   }, [editingItem]);
 
@@ -305,7 +311,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                           padding: "0 14px",
                         }}
                         name="jobType"
-                        // value={jobType}
+                        value={jobDatas?.jobType}
                         onChange={handleInputChange}
                       >
                         <option selected disabled>
@@ -353,16 +359,14 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                       className="position-relative text-start "
                       style={{ marginBottom: "32px" }}
                     >
-                      <label
-                        htmlFor="exampleFormControlInput1"
-                        className="form-label"
-                      >
+                      <label htmlFor="workplace" className="form-label">
                         Workplace Type
                       </label>
 
                       <select
                         className="form-select"
                         aria-label="Default select example"
+                        id="workplace"
                         style={{
                           minHeight: "44px",
                           width: "100%",
@@ -375,15 +379,13 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                         <option selected disabled>
                           Select Type
                         </option>
-                        {WorkplaceOptions.map((country, index) => (
+                        {WorkplaceOptions.map((work, index) => (
                           <option
-                            value={country.value}
+                            value={work.value}
                             key={index}
-                            selected={
-                              jobDatas?.workplaceType === country?.value
-                            }
+                            selected={jobDatas?.workplaceType === work.value}
                           >
-                            {country.value}
+                            {work.value}
                           </option>
                         ))}
                       </select>
@@ -394,35 +396,34 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                     >
                       <div className="row">
                         <div className="col-lg-6">
-                          <label
-                            htmlFor="exampleFormControlInput1"
-                            className="form-label"
-                          >
+                          <label htmlFor="category" className="form-label">
                             Category
                           </label>
 
                           <select
                             className="form-select"
                             aria-label="Default select example"
+                            id="category"
                             style={{
                               minHeight: "44px",
                               width: "100%",
                               backgroundColor: "#FFFFFF",
                               padding: "0 14px",
                             }}
-                            name="role"
-                            // value={role}
+                            name="category"
                             onChange={handleInputChange}
                           >
                             <option selected disabled>
                               Select Type
                             </option>
+
                             {categoryOptions.map((category, index) => (
                               <option
                                 value={category.value}
-                                className=""
                                 key={index}
-                                selected={jobDatas?.role === category?.value}
+                                selected={
+                                  jobDatas?.category === category?.value
+                                }
                               >
                                 {category.value}
                               </option>
@@ -430,16 +431,13 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                           </select>
                         </div>
                         <div className="col-lg-6">
-                          <label
-                            htmlFor="exampleFormControlInput1"
-                            className="form-label"
-                          >
+                          <label htmlFor="language" className="form-label">
                             Language
                           </label>
                           <input
                             type="text"
                             className="form-control"
-                            id="exampleFormControlInput1"
+                            id="language"
                             placeholder="Enter language"
                             name="language"
                             required
@@ -454,10 +452,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                       className="position-relative text-start "
                       style={{ marginBottom: "32px" }}
                     >
-                      <label
-                        htmlFor="exampleFormControlInput1"
-                        className="form-label"
-                      >
+                      <label htmlFor="salary" className="form-label">
                         Salary
                       </label>
                       <div className="form_icons" style={{ top: "36px" }}>
@@ -466,7 +461,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                       <input
                         type="number"
                         className="form-control ps-5"
-                        id="exampleFormControlInput1"
+                        id="salary"
                         placeholder="Numerical digit only"
                         required
                         name="salary"

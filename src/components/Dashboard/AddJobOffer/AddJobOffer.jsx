@@ -88,7 +88,6 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       creator: user?._id,
     };
 
-    console.log("jobDataInfo", jobDataInfo);
     const formData = new FormData();
 
     Object.entries(jobDataInfo).forEach(([key, value]) => {
@@ -153,7 +152,8 @@ const AddJobOffer = ({ setAddJobOffer }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
@@ -184,14 +184,16 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     <button
                       onClick={() => setAddJobOffer(false)}
                       className="submit_now_btn cancel m-0"
-                      type="button">
+                      type="button"
+                    >
                       Cancel
                     </button>
 
                     <button
                       className="submit_now_btn m-0"
                       type="button"
-                      onClick={() => setStep((prevStep) => prevStep + 1)}>
+                      onClick={() => setStep((prevStep) => prevStep + 1)}
+                    >
                       Next
                     </button>
                   </div>
