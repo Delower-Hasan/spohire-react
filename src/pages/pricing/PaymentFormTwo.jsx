@@ -171,7 +171,7 @@ const PaymentFormTwo = ({
               Payment Details
             </p>
 
-            <div className="d-flex justify-content-between align-items-center mb-5">
+            {/* <div className="d-flex justify-content-between align-items-center mb-5">
               <p className="text-black">Use saved card</p>
               <div className="payment_country_select">
                 <select
@@ -185,7 +185,7 @@ const PaymentFormTwo = ({
                   <option>Mastercard ending 234</option>
                 </select>
               </div>
-            </div>
+            </div> */}
 
             <div className="card_holder mb-4">
               <label htmlFor="" className="mb-2">

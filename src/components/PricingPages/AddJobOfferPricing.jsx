@@ -27,7 +27,8 @@ const AddJobOfferPricing = () => {
         location.pathname === "/dashboard/players" || "/dashboard"
           ? "addjoboffer_pricing_wrapper p-0"
           : "addjoboffer_pricing_wrapper"
-      }`}>
+      }`}
+    >
       {location.pathname === "/dashboard/players" || "/dashboard" ? (
         <h3 className="pb-4">Longer advertiser options</h3>
       ) : (
@@ -36,7 +37,8 @@ const AddJobOfferPricing = () => {
             location.pathname === "/dashboard/players" || "/dashboard"
               ? "d-none"
               : null
-          }`}>
+          }`}
+        >
           add job offer <br />
           period of active job offer
         </h2>
@@ -50,10 +52,12 @@ const AddJobOfferPricing = () => {
             location.pathname === "/dashboard/players" || "/dashboard"
               ? "50px"
               : "128px",
-        }}>
+        }}
+      >
         <div
           className={`monthly_cards ${activeCard === 0 ? "active" : ""}`}
-          onClick={() => handleCardClick(0, 10)}>
+          onClick={() => handleCardClick(0, 10)}
+        >
           <div>
             <h3>
               $10 <span>/ 1 month</span>
@@ -62,7 +66,8 @@ const AddJobOfferPricing = () => {
         </div>
         <div
           className={`monthly_cards ${activeCard === 1 ? "active" : ""}`}
-          onClick={() => handleCardClick(1, 15)}>
+          onClick={() => handleCardClick(1, 15)}
+        >
           <div>
             <h3>
               $15 <span>/ 2 month</span>
@@ -71,7 +76,8 @@ const AddJobOfferPricing = () => {
         </div>
         <div
           className={`monthly_cards ${activeCard === 2 ? "active" : ""}`}
-          onClick={() => handleCardClick(2, 20)}>
+          onClick={() => handleCardClick(2, 20)}
+        >
           <div>
             <h3>
               $20 <span>/ 3 month</span>
@@ -80,11 +86,13 @@ const AddJobOfferPricing = () => {
         </div>
       </div>
 
-      <div className={`${
+      <div
+        className={`${
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
             : ""
-        }`}>
+        }`}
+      >
         {location.pathname === "/dashboard/players" || "/dashboard" ? null : (
           <h2>price of announcement</h2>
         )}
@@ -108,7 +116,8 @@ const AddJobOfferPricing = () => {
               justifyContent: `${
                 location.pathname === "/dashboard/players" ? "end" : "center"
               }`,
-            }}>
+            }}
+          >
             {location.pathname === "/dashboard/players" ||
             "/dashboard" ? null : (
               <div>
@@ -122,7 +131,8 @@ const AddJobOfferPricing = () => {
           <div>
             <h3
               style={{ color: "#2B3674", fontSize: "36px", fontWeight: "700" }}
-              className="d-flex">
+              className="d-flex"
+            >
               Total : {selectedPrice}$
             </h3>
           </div>

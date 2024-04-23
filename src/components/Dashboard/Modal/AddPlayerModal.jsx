@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import "./Modal.css";
@@ -12,6 +12,26 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
   const [step, setStep] = useState(1);
 
+  const [playerData, setPlayerData] = useState({});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setPlayerData({ ...playerData, [name]: value });
+  };
+
+  const fileInputRef = useRef(null);
+
+  const [image, setImage] = useState("");
+  const [imageFile, setImageFIle] = useState(null);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setImage(selectedFile.name);
+    setImageFIle(selectedFile);
+    setPlayerData({ ...jobData, playerData: selectedFile });
+  };
+
   return (
     <div className="addplayer_modal">
       <div ref={wrapperRef} className="inner">
@@ -21,7 +41,12 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
           </div>
         )}
         {step === 1 ? (
-          <AddPlayerForm />
+          <AddPlayerForm
+            handleInputChange={handleInputChange}
+            handleFileChange={handleFileChange}
+            fileInputRef={fileInputRef}
+            image={image}
+          />
         ) : step === 2 ? (
           <PricingModal />
         ) : step === 3 ? (
@@ -34,12 +59,14 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}>
+            } `}
+          >
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
                 className="addplayer_btn"
-                onClick={() => setStep((prevStep) => prevStep + 1)}>
+                onClick={() => setStep((prevStep) => prevStep + 1)}
+              >
                 {step === 2 ? "Next" : "Add Player"}
               </button>
             </div>

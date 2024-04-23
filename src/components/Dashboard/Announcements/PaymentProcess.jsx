@@ -11,32 +11,86 @@ import paypal from "../../../assets/paypal.svg";
 
 import personImg from "../../../assets/person.png";
 
-
 const PaymentProcess = ({
   handleSubmit,
   addingAnnounement,
   closeModal,
+  selectedSubscription,
   addingJob,
+  setSelectedSubscription,
 }) => {
   const stripePromise = loadStripe(STRIPE_PK);
-  const [selectedSubscription, setSelectedSubscription] = useState(1);
+  // const [selectedSubscription, setSelectedSubscription] = useState(1);
   const [total, setTotal] = useState(20);
   const [selectedOption, setSelectedOption] = useState("card");
-  const subscriptions = [
-    { duration: "1 months", price: 0 },
-    { duration: "2 months", price: 20 },
-    { duration: "3 months", price: 30 },
-  ];
 
-  const handleSubscriptionClick = (index) => {
-    setSelectedSubscription(index);
-    setTotal(subscriptions[index].price);
-  };
+  // const subscriptions = [
+  //   { duration: "1 months", price: 0 },
+  //   { duration: "2 months", price: 20 },
+  //   { duration: "3 months", price: 30 },
+  // ];
+  const subscriptions = [
+    { duration: "1 months", price: 0, month: 1 },
+    { duration: "2 months", price: 10, month: 2 },
+    { duration: "3 months", price: 20, month: 3 },
+  ];
+  // const handleSubscriptionClick = (index) => {
+  //   setSelectedSubscription(subscriptions[index]);
+  //   setTotal(subscriptions[index].price);
+  // };
+
   return (
     <>
       <div className="d-flex gap-4">
         <div className="gift">
           <div className={"selected_subs"}>
+            <p className="text-start text-black fs-5 fw-medium pb-4">
+              How long will the add be active?
+            </p>
+
+            <div>
+              <div
+                className={
+                  "subscription_wrapper d-flex flex-wrap justify-content-between mb-4"
+                }
+              >
+                {subscriptions.map((sub, index) => (
+                  <div
+                    key={index}
+                    className={
+                      "subs_item pointer mb-4 mb-lg-0 " +
+                      (selectedSubscription?.price === sub?.price
+                        ? "bg_clr_99"
+                        : "border bg-white")
+                    }
+                    onClick={() => setSelectedSubscription(sub)}
+                  >
+                    <h4
+                      className={
+                        "fs-6 fw-bold " +
+                        (selectedSubscription?.price === sub?.price
+                          ? "text-white"
+                          : "text-black")
+                      }
+                    >
+                      {" "}
+                      {sub.duration}
+                    </h4>
+                    <p
+                      className={
+                        "fs-4 fw-normal mb-0" +
+                        (selectedSubscription?.price === sub?.price
+                          ? " text-white"
+                          : "")
+                      }
+                    >
+                      ${sub.price}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="sub_total mb-4">
               <p className="fs-6 text-black text-start fw-normal mb-2">
                 Gift Card / Voucher code

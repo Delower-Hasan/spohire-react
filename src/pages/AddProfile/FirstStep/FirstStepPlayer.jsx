@@ -393,6 +393,7 @@ const FirstStepPlayer = ({
           </div>
 
           {/*  */}
+          
           <div className="club_info mb-3  ">
             <h6>Do you currently belong to a club?</h6>
             <div className="d-flex gap-3 mt-2">

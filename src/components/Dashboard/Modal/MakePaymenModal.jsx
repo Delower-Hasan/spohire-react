@@ -11,6 +11,7 @@ const MakePaymenModal = () => {
     "Normal support",
     "Up to 3 team members",
   ];
+
   return (
     <div className="">
       <div className="">
@@ -116,7 +117,7 @@ const MakePaymenModal = () => {
                     <h4>Payment Details</h4>
                   </div>
 
-                  <div className="saved_card d-flex align-items-center justify-content-between pb-4">
+                  {/* <div className="saved_card d-flex align-items-center justify-content-between pb-4">
                     <p>Use saved card</p>
                     <select class="form-select w-50">
                       <option selected>Select</option>
@@ -124,7 +125,7 @@ const MakePaymenModal = () => {
                       <option value="2">Two</option>
                       <option value="3">Three</option>
                     </select>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="card_name">

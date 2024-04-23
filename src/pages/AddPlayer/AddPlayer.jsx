@@ -177,8 +177,6 @@ const AddPlayer = () => {
                                                         margin: "0",
                                                         width: "0",
                                                     }),
-
-                                                    // indicatorsContainer: (baseStyles) =>
                                                 }}
                                             />
                                         </div>

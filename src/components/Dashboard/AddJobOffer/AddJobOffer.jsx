@@ -74,8 +74,6 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     setJobData({ ...jobData, [name]: value });
   };
 
-  console.log(jobData, "jobData");
-
   const handleSubmit = async () => {
     setLoading(true);
     const date = new Date();
@@ -127,7 +125,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
     setImageFIle(selectedFile);
-    setJobData({ ...jobData, club_logo: selectedFile });
+    setJobData({ ...jobData, image: selectedFile });
   };
 
   useEffect(() => {

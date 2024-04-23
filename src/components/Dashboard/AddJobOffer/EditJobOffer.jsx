@@ -41,6 +41,7 @@ const WorkplaceOptions = [
 
 const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
   const { user } = useSelector((state) => state.auth);
+
   const [editJob, { isLoading: editing }] = useEditJobMutation();
 
   const [jobDatas, setJobDatas] = useState({});
@@ -317,14 +318,14 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                         <option selected disabled>
                           Select Type
                         </option>
-                        {options.map((country, index) => (
+                        {options.map((d, index) => (
                           <option
-                            value={country.value}
+                            value={d.value}
                             className=""
                             key={index}
-                            selected={jobDatas?.jobType === country?.value}
+                            selected={jobDatas?.jobType === d?.value}
                           >
-                            {country.value}
+                            {d.value}
                           </option>
                         ))}
                       </select>
