@@ -15,7 +15,7 @@ const PaymentProcess = ({
   handleSubmit,
   addingAnnounement,
   closeModal,
-  selectedSubscription,
+  setAnnouncementIsModalOpen,
   addingJob,
   setSelectedSubscription,
 }) => {
@@ -139,6 +139,7 @@ const PaymentProcess = ({
                   handleSubmit={handleSubmit}
                   addingJob={addingJob}
                   selectedSubscription={selectedSubscription}
+                  setAddJobOfferClose={setAnnouncementIsModalOpen}
                   closeModal={closeModal}
                 />
               </Elements>

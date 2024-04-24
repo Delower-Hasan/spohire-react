@@ -26,6 +26,7 @@ const PaymentFormTwo = ({
   addingJob,
   selectedSubscription,
   closeModal,
+  setAddJobOfferClose,
   setNextOption,
 }) => {
   const stripe = useStripe();
@@ -177,8 +178,7 @@ const PaymentFormTwo = ({
                 <select
                   className="form-select"
                   aria-label="Default select example"
-                  name="select_card"
-                >
+                  name="select_card">
                   <option disabled selected>
                     Mastercard ending 234
                   </option>
@@ -297,10 +297,8 @@ const PaymentFormTwo = ({
 
       <div className="d-flex gap-4 justify-content-end">
         <button
+          onClick={() => setAddJobOfferClose(false)}
           className="bg-none mt-0 text_clr_bc"
-          onClick={() => {
-            setNextOption("AddJobOfferModal");
-          }}
         >
           Cancel order
         </button>

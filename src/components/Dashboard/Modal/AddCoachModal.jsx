@@ -26,7 +26,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
         ) : step === 2 ? (
           <PricingModal />
         ) : step === 3 ? (
-          <MakePaymenModal />
+          <MakePaymenModal setMakePaymentClose={setAddCoachModal} />
         ) : null}
 
         {step !== 3 && (

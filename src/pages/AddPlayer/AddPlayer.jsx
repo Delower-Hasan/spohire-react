@@ -88,10 +88,7 @@ const AddPlayer = () => {
             functionType,
             sports,
         };
-        console.log(formData)
-
         localStorage.setItem("register", JSON.stringify(formData));
-
     };
     return (
         <>

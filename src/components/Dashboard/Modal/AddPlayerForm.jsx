@@ -1,13 +1,37 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
 
 const AddPlayerForm = ({
+  fileInputRef,
   handleInputChange,
   handleFileChange,
-  fileInputRef,
   image,
+  handleSocialLinkChange,
+  handleExperienceChange,
+  handleAddMore,
+  exp,
 }) => {
+  const [countryNames, setCountryNames] = useState([]);
+  // const [userExperiences, setUserExperience] = useState([
+  //   ...experienceFormData,
+  // ]);
+  console.log("exp", exp);
+  // const [userExperience, setUserExperience] = useState([...exp]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   return (
     <div>
       <div className="row">
@@ -58,9 +82,11 @@ const AddPlayerForm = ({
                   Name *
                 </label>
                 <input
+                  required
                   id="name"
-                  name="firstName"
                   type="text"
+                  name="firstName"
+                  onChange={handleInputChange}
                   placeholder="Enter Your Name"
                 />
               </div>
@@ -71,24 +97,31 @@ const AddPlayerForm = ({
                   Last Name *
                 </label>
                 <input
+                  required
                   id="name"
                   name="lastName"
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter Your Name"
                 />
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="input_form pb-4">
+              <div className="pb-4">
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Gender *
                 </label>
-                <input
-                  id="name"
-                  name="lastName"
-                  type="text"
-                  placeholder="Select here"
-                />
+
+                <select
+                  required
+                  className="select_form"
+                  name="gender"
+                  onChange={handleInputChange}
+                >
+                  <option disabled>Select Here</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
               </div>
             </div>
             <div className="col-lg-6">
@@ -96,15 +129,39 @@ const AddPlayerForm = ({
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Date of birth *
                 </label>
-                <input id="name" type="text" placeholder="DD - MM - YYYY" />
+                <input
+                  required
+                  id="name"
+                  type="date"
+                  name="date_of_birth"
+                  onChange={handleInputChange}
+                  placeholder="DD - MM - YYYY"
+                />
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="input_form pb-4">
+              <div className="  pb-4">
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Nationality *
                 </label>
-                <input id="name" type="text" placeholder="Select here" />
+                <select
+                  required
+                  className="select_form"
+                  name="nationality"
+                  onChange={handleInputChange}
+                >
+                  <option>Select Here</option>
+
+                  {countryNames?.map((country, index) => (
+                    <option
+                      defaultValue={country.name}
+                      className=""
+                      key={index}
+                    >
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="col-lg-6">
@@ -112,7 +169,23 @@ const AddPlayerForm = ({
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Country of residence *
                 </label>
-                <input id="name" type="text" placeholder="Select here" />
+                <select
+                  required
+                  className="select_form"
+                  name="country"
+                  onChange={handleInputChange}
+                >
+                  <option disabled>Select Here</option>
+                  {countryNames?.map((country, index) => (
+                    <option
+                      defaultValue={country.name}
+                      className=""
+                      key={index}
+                    >
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
@@ -123,7 +196,14 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               E-mail *
             </label>
-            <input id="name" type="text" placeholder="Type here" />
+            <input
+              required
+              id="name"
+              type="email"
+              name="email"
+              onChange={handleInputChange}
+              placeholder="Type here"
+            />
           </div>
         </div>
 
@@ -132,7 +212,14 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Phone number *
             </label>
-            <input id="name" type="text" placeholder="Phone number" />
+            <input
+              required
+              id="name"
+              type="number"
+              name="phone_number"
+              onChange={handleInputChange}
+              placeholder="Phone number"
+            />
           </div>
         </div>
         <div className="col-lg-4">
@@ -140,7 +227,14 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               City of residence *
             </label>
-            <input id="name" type="text" placeholder="City of residence " />
+            <input
+              required
+              id="name"
+              type="text"
+              name="city"
+              onChange={handleInputChange}
+              placeholder="City of residence "
+            />
           </div>
         </div>
 
@@ -149,7 +243,13 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Weight
             </label>
-            <input id="name" type="text" placeholder="Weight" />
+            <input
+              id="name"
+              name="weight"
+              onChange={handleInputChange}
+              type="number"
+              placeholder="Weight"
+            />
           </div>
         </div>
 
@@ -158,16 +258,31 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Height
             </label>
-            <input id="name" type="text" placeholder="Height" />
+            <input
+              id="name"
+              type="number"
+              name="height"
+              onChange={handleInputChange}
+              placeholder="Height"
+            />
           </div>
         </div>
 
         <div className="col-lg-4">
-          <div className="input_form pb-4">
+          <div className="pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
               Dominant Hand *
             </label>
-            <input id="name" type="text" placeholder="Dominant Hand" />
+            <select
+              required
+              className="select_form"
+              name="dominantHand"
+              onChange={handleInputChange}
+            >
+              <option>Select Here</option>
+              <option>Left</option>
+              <option>Right</option>
+            </select>
           </div>
         </div>
 
@@ -176,7 +291,14 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Main position *
             </label>
-            <input id="name" type="text" placeholder="Select here" />
+            <input
+              required
+              id="name"
+              name="mainPosition"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Select here"
+            />
           </div>
         </div>
 
@@ -185,7 +307,13 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Alternative position
             </label>
-            <input id="name" type="text" placeholder="Select here" />
+            <input
+              id="name"
+              type="text"
+              name="alterPosition"
+              onChange={handleInputChange}
+              placeholder="Select here"
+            />
           </div>
         </div>
 
@@ -194,7 +322,13 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Additional passport
             </label>
-            <input id="name" type="text" placeholder="Select here" />
+            <input
+              id="name"
+              name="additional_passport"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Select here"
+            />
           </div>
         </div>
 
@@ -204,8 +338,25 @@ const AddPlayerForm = ({
               Do you currently belong to a club? *
             </label>
             <div className="btn_group d-flex gap-3">
-              <button className="yes">Yes</button>
-              <button className="no">No</button>
+              <input
+                type="radio"
+                id="yes"
+                className="yes"
+                value={"yes"}
+                name="belong_to_the_club"
+                onChange={handleInputChange}
+              />{" "}
+              <label htmlFor="yes">YES</label>
+              <input
+                type="radio"
+                className="no"
+                value={"No"}
+                id="no"
+                name="belong_to_the_club"
+              />{" "}
+              <label htmlFor="no">NO</label>
+              {/* <button className="yes">Yes</button>
+              <button className="no">No</button> */}
             </div>
           </div>
         </div>
@@ -215,7 +366,13 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Club name
             </label>
-            <input id="name" type="text" placeholder="Club name" />
+            <input
+              id="name"
+              name="club_name"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Club name"
+            />
           </div>
         </div>
 
@@ -224,6 +381,14 @@ const AddPlayerForm = ({
             <div className="experience_information">
               <div className="ei_left">
                 <p className="f_sfPro text_color_36 fs-4 mb-4">Experience</p>
+                <ul className="mb-4">
+                  {exp &&
+                    exp?.map((item, index) => (
+                      <li className="f_sfPro text_color_36 fs-6" key={index}>
+                        {item?.start_year}-{item?.end_year} {item?.club_name}
+                      </li>
+                    ))}
+                </ul>
 
                 <div className="d-flex flex-column align-items-start gap-3">
                   <div className="d-flex gap-4 pb-4">
@@ -231,25 +396,49 @@ const AddPlayerForm = ({
                       <label htmlFor="name" className="d-block label_name mb-2">
                         From
                       </label>
-                      <input id="name" type="text" placeholder="Ex - 1997" />
+                      <input
+                        id="name"
+                        type="text"
+                        name="start_year"
+                        placeholder="2003"
+                        onChange={handleExperienceChange}
+                      />
                     </div>
 
                     <div className="input_form pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
                         To
                       </label>
-                      <input id="name" type="text" placeholder="Ex - 2005" />
+                      <input
+                        id="name"
+                        name="end_year"
+                        placeholder="2008"
+                        onChange={handleExperienceChange}
+                        type="text"
+                      />
                     </div>
 
                     <div className="input_form pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
+                      <label
+                        htmlFor="club_name"
+                        className="d-block label_name mb-2"
+                      >
                         Club Name
                       </label>
-                      <input id="name" type="text" placeholder="Type here" />
+                      <input
+                        id="club_name"
+                        name="club_name"
+                        placeholder="Cleveland Cavaliers"
+                        onChange={handleExperienceChange}
+                        type="text"
+                      />
                     </div>
                   </div>
 
-                  <button className="modal_btn py-3 px-4 d-flex gap-2 w-100 justify-content-center">
+                  <button
+                    className="modal_btn py-3 px-4 d-flex gap-2 w-100 justify-content-center"
+                    onClick={handleAddMore}
+                  >
                     Add more
                     <span>
                       <svg
@@ -290,8 +479,10 @@ const AddPlayerForm = ({
                     <input
                       className="w-100"
                       id="name"
+                      name="instagram"
+                      onChange={handleSocialLinkChange}
                       type="text"
-                      placeholder="johnkawalski05"
+                      placeholder="Instagram"
                     />
                   </div>
 
@@ -303,7 +494,9 @@ const AddPlayerForm = ({
                       className="w-100"
                       id="name"
                       type="text"
-                      placeholder="johnkawalski05"
+                      name="facebook"
+                      onChange={handleSocialLinkChange}
+                      placeholder="Facebook"
                     />
                   </div>
 
@@ -315,7 +508,9 @@ const AddPlayerForm = ({
                       className="w-100"
                       id="name"
                       type="text"
-                      placeholder="johnkawalski05"
+                      name="twitter"
+                      onChange={handleSocialLinkChange}
+                      placeholder="Twitter"
                     />
                   </div>
 
@@ -327,7 +522,9 @@ const AddPlayerForm = ({
                       className="w-100"
                       id="name"
                       type="text"
-                      placeholder="johnkawalski05"
+                      name="tiktok"
+                      onChange={handleSocialLinkChange}
+                      placeholder="Tiktok"
                     />
                   </div>
                 </div>
@@ -349,10 +546,11 @@ const AddPlayerForm = ({
                 <h4>Strengths Advantages</h4>
               </div>
               <textarea
-                name=""
                 id=""
                 cols="30"
                 rows="10"
+                name="strengths_advantage"
+                onChange={handleInputChange}
                 placeholder="Type here"
               ></textarea>
             </div>
@@ -362,7 +560,8 @@ const AddPlayerForm = ({
                 <h4>About Me</h4>
               </div>
               <textarea
-                name=""
+                name="about_me"
+                onChange={handleInputChange}
                 id=""
                 cols="30"
                 rows="10"
@@ -374,7 +573,8 @@ const AddPlayerForm = ({
                 <h4>Expectations From a New Club</h4>
               </div>
               <textarea
-                name=""
+                name="expectations_from_new_club"
+                onChange={handleInputChange}
                 id=""
                 cols="30"
                 rows="10"

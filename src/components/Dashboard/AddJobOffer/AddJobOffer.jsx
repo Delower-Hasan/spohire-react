@@ -49,6 +49,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
+    const [step, setStep] = useState(1);
   const [imageFile, setImageFIle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -141,7 +142,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       });
   }, []);
 
-  const [step, setStep] = useState(1);
+
 
   return (
     <div className={`addplayer_modal`}>
@@ -155,7 +156,6 @@ const AddJobOffer = ({ setAddJobOffer }) => {
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
-                    // handleNextOption={handleNextOption}
                     fileInputRef={fileInputRef}
                     handleFileChange={handleFileChange}
                     image={image}
@@ -173,6 +173,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     // setNextOption={setNextOption}
                     selectedSubscription={selectedSubscription}
                     setSelectedSubscription={setSelectedSubscription}
+                    setAddJobOffer={setAddJobOffer}
                     // closeModal={closeModal}
                   />
                 ) : null}

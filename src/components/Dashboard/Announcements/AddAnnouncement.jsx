@@ -204,6 +204,7 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                     setSelectedSubscription={setSelectedSubscription}
                     handleSubmit={handleSubmit}
                     addingAnnounement={addingAnnounement}
+                      setAnnouncementIsModalOpen={setAnnouncementIsModalOpen}
                   />
                 ) : null}
 
@@ -212,6 +213,7 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                     <button
                       className="submit_now_btn cancel m-0"
                       type="button"
+                      onClick={() => setAnnouncementIsModalOpen(false)}
                       // disabled={loading || isLoading}
                     >
                       Cancel

@@ -704,8 +704,11 @@
 
 /* addjoboffer_pricing_wrapper */
 .addjoboffer_pricing_wrapper {
-    padding: 99px 0;
+    padding: 99px;
+}
 
+.addjoboffer_pricing_wrapper2 {
+    padding: 15px;
 }
 
 .addjoboffer_pricing_wrapper h2 {

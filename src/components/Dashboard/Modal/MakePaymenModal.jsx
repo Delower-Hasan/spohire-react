@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import bronze from "../../../assets/bronze.svg";
 import checkActive from "../../../assets/white-check.svg";
 
-const MakePaymenModal = () => {
+const MakePaymenModal = ({ setMakePaymentClose }) => {
   const options = [
     "All analytics features",
     "Up to 250,000 tracked visits",
@@ -199,7 +199,9 @@ const MakePaymenModal = () => {
 
               <div className="d-flex justify-content-end py-4">
                 <div className="action_btn d-flex gap-4">
-                  <button>Cancel</button>
+                  <button onClick={() => setMakePaymentClose(false)}>
+                    Cancel
+                  </button>
                   <button className="addplayer_btn">Pay now</button>
                 </div>
               </div>
