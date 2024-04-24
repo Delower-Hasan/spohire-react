@@ -196,12 +196,12 @@ const Header = () => {
                       </div>
 
                       {/* login */}
-                      <button
-                        onClick={handleUnlockClick}
-                        className="unlock_btn"
+                      <Link
+                        to={"/pricing"}
+                        className="btn unlock_btn d-inline-flex align-items-center justify-content-center"
                       >
                         unlock now
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

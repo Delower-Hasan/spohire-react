@@ -31,18 +31,13 @@ const AddJobOfferPricing = () => {
             : null,
       }}
       className={`addjoboffer_pricing_wrapper`}>
-      {location.pathname === "/dashboard/players" || "/dashboard" ? (
-        <h3 className="pb-4">Longer advertiser options</h3>
-      ) : (
-        <h2
-          className={`${
-            location.pathname === "/dashboard/players" || "/dashboard"
-              ? "d-none"
-              : null
-          }`}>
+      {location.pathname === "/pricing" ? (
+        <h2>
           add job offer <br />
           period of active job offer
         </h2>
+      ) : (
+        <h3 className="pb-4">Longer advertiser options</h3>
       )}
 
       <div
@@ -89,16 +84,14 @@ const AddJobOfferPricing = () => {
             ? "d-flex justify-content-end pb-4"
             : ""
         }`}>
-        {location.pathname === "/dashboard/players" || "/dashboard" ? null : (
+        {location.pathname === "/pricing" ? (
           <h2>price of announcement</h2>
-        )}
+        ) : null}
 
         <div className="d-flex justify-content-center">
           <div
             className={`${
-              location.pathname === "/dashboard/players" || "/dashboard"
-                ? "something"
-                : "monthly_cards"
+              location.pathname === "/pricing" ? "monthly_cards" : null
             } active`}
             style={{
               maxWidth: `${
@@ -113,16 +106,15 @@ const AddJobOfferPricing = () => {
                 location.pathname === "/dashboard/players" ? "end" : "center"
               }`,
             }}>
-            {location.pathname === "/dashboard/players" ||
-            "/dashboard" ? null : (
+            {location.pathname === "/pricing" ? (
               <div>
                 <h3>${selectedPrice}</h3>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
 
-        {location.pathname === "/dashboard/players" || "/dashboard" ? (
+        {location.pathname === "/pricing" ? null : (
           <div>
             <h3
               style={{ color: "#2B3674", fontSize: "36px", fontWeight: "700" }}
@@ -130,7 +122,7 @@ const AddJobOfferPricing = () => {
               Total : {selectedPrice}$
             </h3>
           </div>
-        ) : null}
+        )}
       </div>
 
       {/* {location.pathname === "/dashboard/players" ? (
