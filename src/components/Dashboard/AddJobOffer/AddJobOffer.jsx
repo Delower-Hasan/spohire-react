@@ -49,6 +49,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
+    const [step, setStep] = useState(1);
   const [imageFile, setImageFIle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -144,7 +145,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       });
   }, []);
 
-  const [step, setStep] = useState(1);
+
 
   return (
     <div className={`addplayer_modal`}>

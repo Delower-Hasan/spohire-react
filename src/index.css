@@ -1281,3 +1281,25 @@ a {
   font-size: 16px;
   font-weight: 400;
 }
+
+
+.select_form {
+  border-radius: 4px;
+  background: #F3F7FF;
+  border: transparent;
+  padding: 15px;
+  width: 100%;
+  color: #8593BC;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.26px;
+}
+
+.input_form {
+  color: #8593BC;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.26px;
+}

@@ -296,7 +296,7 @@ const AddJobOfferModal = ({
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Salary
             </label>
-            <div className="form_icons" style={{ top: "36px" }}>
+            <div className="form_icons" style={{ top: "43px" }}>
               <img className="mt-0" src={salary} alt="user" />
             </div>
             <input

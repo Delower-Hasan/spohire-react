@@ -23,11 +23,14 @@ const AddJobOfferPricing = () => {
 
   return (
     <div
-      className={`${
-        location.pathname === "/dashboard/players" || "/dashboard"
-          ? "addjoboffer_pricing_wrapper p-0"
-          : "addjoboffer_pricing_wrapper"
-      }`}>
+      style={{
+        padding:
+          location.pathname === "/dashboard/players" ||
+          location.pathname === "/dashboard"
+            ? "15px"
+            : null,
+      }}
+      className={`addjoboffer_pricing_wrapper`}>
       {location.pathname === "/dashboard/players" || "/dashboard" ? (
         <h3 className="pb-4">Longer advertiser options</h3>
       ) : (
@@ -80,7 +83,8 @@ const AddJobOfferPricing = () => {
         </div>
       </div>
 
-      <div className={`${
+      <div
+        className={`${
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
             : ""

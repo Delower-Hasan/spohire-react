@@ -1,8 +1,22 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
 
 const AddPlayerForm = () => {
+  const [countryNames, setCountryNames] = useState([]);
+    useEffect(() => {
+      axios
+        .get(
+          "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+        )
+        .then(function (response) {
+          setCountryNames(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, []);
   return (
     <div>
       <div className="row">
@@ -23,7 +37,12 @@ const AddPlayerForm = () => {
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Name *
                 </label>
-                <input id="name" type="text" placeholder="Enter Your Name" />
+                <input
+                  required
+                  id="name"
+                  type="text"
+                  placeholder="Enter Your Name"
+                />
               </div>
             </div>
             <div className="col-lg-6">
@@ -31,15 +50,25 @@ const AddPlayerForm = () => {
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Last Name *
                 </label>
-                <input id="name" type="text" placeholder="Enter Your Name" />
+                <input
+                  required
+                  id="name"
+                  type="text"
+                  placeholder="Enter Your Name"
+                />
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="input_form pb-4">
+              <div className="pb-4">
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Gender *
                 </label>
-                <input id="name" type="text" placeholder="Select here" />
+
+                <select required className="select_form">
+                  <option disabled>Select Here</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
               </div>
             </div>
             <div className="col-lg-6">
@@ -47,15 +76,31 @@ const AddPlayerForm = () => {
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Date of birth *
                 </label>
-                <input id="name" type="text" placeholder="DD - MM - YYYY" />
+                <input
+                  required
+                  id="name"
+                  type="number"
+                  placeholder="DD - MM - YYYY"
+                />
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="input_form pb-4">
+              <div className="  pb-4">
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Nationality *
                 </label>
-                <input id="name" type="text" placeholder="Select here" />
+                <select required className="select_form">
+                  <option>Select Here</option>
+
+                  {countryNames?.map((country, index) => (
+                    <option
+                      defaultValue={country.name}
+                      className=""
+                      key={index}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="col-lg-6">
@@ -63,7 +108,17 @@ const AddPlayerForm = () => {
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Country of residence *
                 </label>
-                <input id="name" type="text" placeholder="Select here" />
+                <select required className="select_form">
+                  <option>Select Here</option>
+                  {countryNames?.map((country, index) => (
+                    <option
+                      defaultValue={country.name}
+                      className=""
+                      key={index}>
+                      {country.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
@@ -74,7 +129,7 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               E-mail *
             </label>
-            <input id="name" type="text" placeholder="Type here" />
+            <input required id="name" type="email" placeholder="Type here" />
           </div>
         </div>
 
@@ -83,7 +138,12 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Phone number *
             </label>
-            <input id="name" type="text" placeholder="Phone number" />
+            <input
+              required
+              id="name"
+              type="number"
+              placeholder="Phone number"
+            />
           </div>
         </div>
         <div className="col-lg-4">
@@ -91,7 +151,12 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               City of residence *
             </label>
-            <input id="name" type="text" placeholder="City of residence " />
+            <input
+              required
+              id="name"
+              type="text"
+              placeholder="City of residence "
+            />
           </div>
         </div>
 
@@ -100,7 +165,7 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Weight
             </label>
-            <input id="name" type="text" placeholder="Weight" />
+            <input id="name" type="number" placeholder="Weight" />
           </div>
         </div>
 
@@ -109,16 +174,20 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Height
             </label>
-            <input id="name" type="text" placeholder="Height" />
+            <input id="name" type="number" placeholder="Height" />
           </div>
         </div>
 
         <div className="col-lg-4">
-          <div className="input_form pb-4">
+          <div className="pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
               Dominant Hand *
             </label>
-            <input id="name" type="text" placeholder="Dominant Hand" />
+            <select required className="select_form">
+              <option>Select Here</option>
+              <option>Left</option>
+              <option>Right</option>
+            </select>
           </div>
         </div>
 
@@ -127,7 +196,7 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Main position *
             </label>
-            <input id="name" type="text" placeholder="Select here" />
+            <input required id="name" type="text" placeholder="Select here" />
           </div>
         </div>
 
@@ -350,6 +419,6 @@ const AddPlayerForm = () => {
       </div>
     </div>
   );
-}
+};
 
-export default AddPlayerForm
+export default AddPlayerForm;
