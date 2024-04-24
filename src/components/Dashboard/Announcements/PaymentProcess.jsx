@@ -16,6 +16,7 @@ const PaymentProcess = ({
   handleSubmit,
   addingAnnounement,
   closeModal,
+  setAnnouncementIsModalOpen,
   addingJob,
 }) => {
   const stripePromise = loadStripe(STRIPE_PK);
@@ -85,6 +86,7 @@ const PaymentProcess = ({
                   handleSubmit={handleSubmit}
                   addingJob={addingJob}
                   selectedSubscription={selectedSubscription}
+                  setAddJobOfferClose={setAnnouncementIsModalOpen}
                   closeModal={closeModal}
                 />
               </Elements>

@@ -931,7 +931,7 @@ a {
 .subscription_wrapper .subs_item {
   max-width: 146px;
   width: 100%;
-  padding: 20px 0;
+  padding: 20px;
   border-radius: 11px;
   background: #F6F8FF;
   box-shadow: 2px 2px 10px 0px rgba(170, 170, 170, 0.25);

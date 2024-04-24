@@ -157,7 +157,6 @@ const AddJobOffer = ({ setAddJobOffer }) => {
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
-                    // handleNextOption={handleNextOption}
                     fileInputRef={fileInputRef}
                     handleFileChange={handleFileChange}
                     image={image}
@@ -175,6 +174,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     // setNextOption={setNextOption}
                     selectedSubscription={selectedSubscription}
                     setSelectedSubscription={setSelectedSubscription}
+                    setAddJobOffer={setAddJobOffer}
                     // closeModal={closeModal}
                   />
                 ) : null}

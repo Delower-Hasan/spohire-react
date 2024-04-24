@@ -25,7 +25,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
         ) : step === 2 ? (
           <PricingModal />
         ) : step === 3 ? (
-          <MakePaymenModal />
+          <MakePaymenModal setMakePaymentClose={setAddPlayerModal} />
         ) : null}
 
         {step !== 3 && (

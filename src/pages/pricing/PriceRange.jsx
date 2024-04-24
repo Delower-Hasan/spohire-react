@@ -86,11 +86,11 @@ import PricingCard from "./PricingCard";
 const PriceRange = ({ component }) => {
   return (
     <div
-      className={`${
-        location.pathname === "/dashboard/players" || "/dashboard"
-          ? "p-0"
-          : null
-      } price_range`}>
+      // ${
+      //   location.pathname === "/dashboard/players" || "/dashboard"
+
+      // }
+      className={`price_range`}>
       {component}
 
       {/* <div className="row g-4">

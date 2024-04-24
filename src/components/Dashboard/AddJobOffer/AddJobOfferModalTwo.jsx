@@ -13,8 +13,10 @@ const AddJobOfferModalTwo = ({
   setSelectedSubscription,
   closeModal,
   setNextOption,
+  setAddJobOffer,
 }) => {
   const stripePromise = loadStripe(STRIPE_PK);
+
   const [selectedOption, setSelectedOption] = useState("card");
 
   const subscriptions = [
@@ -27,6 +29,7 @@ const AddJobOfferModalTwo = ({
     setSelectedSubscription(subscriptions[index]);
     setTotal(subscriptions[index].price);
   };
+
   return (
     <>
       <div className="text-start fs-4 fw-bold">Payment Process</div>
@@ -45,9 +48,8 @@ const AddJobOfferModalTwo = ({
           <div>
             <div
               className={
-                "subscription_wrapper d-flex flex-wrap justify-content-between mb-4"
-              }
-            >
+                "subscription_wrapper d-flex flex-wrap justify-content-between mb-4 gap-4"
+              }>
               {subscriptions.map((sub, index) => (
                 <div
                   key={index}
@@ -57,16 +59,14 @@ const AddJobOfferModalTwo = ({
                       ? "bg_clr_99"
                       : "border bg-white")
                   }
-                  onClick={() => setSelectedSubscription(sub)}
-                >
+                  onClick={() => setSelectedSubscription(sub)}>
                   <h4
                     className={
                       "fs-6 fw-bold " +
                       (selectedSubscription?.price === sub?.price
                         ? "text-white"
                         : "text-black")
-                    }
-                  >
+                    }>
                     {" "}
                     {sub.duration}
                   </h4>
@@ -76,8 +76,7 @@ const AddJobOfferModalTwo = ({
                       (selectedSubscription?.price === sub?.price
                         ? " text-white"
                         : "")
-                    }
-                  >
+                    }>
                     ${sub.price}
                   </p>
                 </div>
@@ -108,14 +107,12 @@ const AddJobOfferModalTwo = ({
                         ? "bg_clr_ff border-transparant"
                         : null
                     } card_btn`}
-                    onClick={() => setSelectedOption("card")}
-                  >
+                    onClick={() => setSelectedOption("card")}>
                     <img className={"mt-0"} src={credit} alt="credit card" />
                     <span
                       className={`${
                         selectedOption === "card" ? "text-white" : "text-black"
-                      }`}
-                    >
+                      }`}>
                       Card
                     </span>
                   </button>
@@ -132,16 +129,14 @@ const AddJobOfferModalTwo = ({
                         ? "bg_clr_ff border-transparant"
                         : null
                     } card_btn`}
-                    onClick={() => setSelectedOption("paypal")}
-                  >
+                    onClick={() => setSelectedOption("paypal")}>
                     <img className={"mt-0"} src={paypal} alt="credit card" />{" "}
                     <span
                       className={`${
                         selectedOption === "paypal"
                           ? "text-white"
                           : "text-black"
-                      }`}
-                    >
+                      }`}>
                       Pay pal
                     </span>
                   </button>
@@ -204,6 +199,7 @@ const AddJobOfferModalTwo = ({
                   selectedSubscription={selectedSubscription}
                   closeModal={closeModal}
                   setNextOption={setNextOption}
+                  setAddJobOfferClose={setAddJobOffer}
                 />
               </Elements>
             ) : (

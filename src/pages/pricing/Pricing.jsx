@@ -1,10 +1,10 @@
 import "./Pricing.css";
 
-import PricingBanner from "./PricingBanner";
-import PriceRange from "./PriceRange";
-import AddToTrandfer from "./AddToTrandfer";
-import SubsCriptionPricing from "../../components/PricingPages/SubsCriptionPricing";
 import AddJobOfferPricing from "../../components/PricingPages/AddJobOfferPricing";
+import SubsCriptionPricing from "../../components/PricingPages/SubsCriptionPricing";
+import AddToTrandfer from "./AddToTrandfer";
+import PriceRange from "./PriceRange";
+import PricingBanner from "./PricingBanner";
 const Pricing = () => {
   return (
     <div>
