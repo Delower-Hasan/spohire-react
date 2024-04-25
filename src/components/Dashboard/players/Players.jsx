@@ -51,8 +51,6 @@ const Players = () => {
     }
   };
 
-  console.log(user, "user");
-
   const filteredData =
     players
       ?.filter(
@@ -105,7 +103,6 @@ const Players = () => {
 };
 
 export default Players;
-
 
 const SinglePlayer = ({ player }) => {
   const navigate = useNavigate();

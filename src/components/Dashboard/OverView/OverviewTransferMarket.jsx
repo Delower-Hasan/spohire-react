@@ -74,7 +74,8 @@ const OverviewTransferMarket = () => {
               <button
                 className="modal_link"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">
+                data-bs-target="#staticBackdrop"
+              >
                 <img src={add3icon} alt="addpicon" />
                 <span>Upgrade Subscription</span>
               </button>
@@ -104,7 +105,8 @@ const OverviewTransferMarket = () => {
               <button
                 className="modal_link"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop">
+                data-bs-target="#staticBackdrop"
+              >
                 <img src={add3icon} alt="addpicon" />
                 <span>Buy Subscription</span>
               </button>

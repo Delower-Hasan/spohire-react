@@ -177,6 +177,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
   const { user } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
+  
   const handleCLick = (value) => {
     navigate(`/dashboard/jobDetails/${value?._id}`);
   };

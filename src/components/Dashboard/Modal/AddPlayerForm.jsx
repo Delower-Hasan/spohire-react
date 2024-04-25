@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
+import { useDropzone } from "react-dropzone";
 
 const AddPlayerForm = ({
   fileInputRef,
@@ -14,11 +15,26 @@ const AddPlayerForm = ({
   exp,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
-  // const [userExperiences, setUserExperience] = useState([
-  //   ...experienceFormData,
-  // ]);
-  console.log("exp", exp);
-  // const [userExperience, setUserExperience] = useState([...exp]);
+
+  const [isProfileUploaded, setIsProfileUploaded] = useState(false);
+  const [selectedProfileFile, setSelectedProfileFile] = useState(null);
+  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+
+  const onProfileDrop = (acceptedFiles) => {
+    // Set the selected profile file
+    setSelectedProfileFile(acceptedFiles[0]);
+    setIsProfileUploaded(true);
+  };
+
+  const onGalleryDrop = (acceptedFiles) => {
+    // Add the newly selected files to the existing selectedGalleryFiles state
+    setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
+  };
+
+  const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
+    useDropzone({ onDrop: onProfileDrop });
+  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+    useDropzone({ onDrop: onGalleryDrop });
 
   useEffect(() => {
     axios
@@ -36,42 +52,45 @@ const AddPlayerForm = ({
     <div>
       <div className="row">
         <div className="col-lg-4">
+          {/* this is for my upload profile images */}
           <div className="upload_photo">
-            {/* <p className="mb-4 text-center">Upload Main Photo</p> */}
-
-            {/* <div className="upload_thumbnail d-flex align-items-center justify-content-center">
-              <img src={uploadImg} alt="upload-img" />
-            </div> */}
-
             <div
               className="position-relative text-start"
               style={{ marginBottom: "32px" }}
             >
-              <label htmlFor="exampleFormControlInput1" className="form-label">
-                Company Logo
-              </label>
-              <input
-                type="file"
-                className="form-control "
-                id="exampleFormControlInput1"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                style={{ display: "none" }} // Hide the default file input
-              />
-
-              <div className="upload_thumbnail d-flex align-items-center justify-content-center">
-                <input
-                  type="text"
-                  onClick={() => fileInputRef.current.click()}
-                  className="form-control ps-5 border-0 h-100 w-100 "
-                  value={image}
-                  style={{ cursor: "pointer", borderRadius: "100%" }}
-                  id="exampleFormControlInput1"
-                  placeholder="Upload Main Photo"
-                />
+              {/* upload */}
+              <div
+                className={`${
+                  selectedProfileFile ? "d-block" : "d-none"
+                } upload_thumbnail border bg-transparent overflow-hidden`}
+                style={{ width: "230px", height: "230px" }}
+                {...profileRootProps()}
+              >
+                {selectedProfileFile ? (
+                  <img
+                    src={URL.createObjectURL(selectedProfileFile)}
+                    alt="Uploaded file"
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                ) : (
+                  <p>Drop your profile photo here or click to select</p>
+                )}
               </div>
+
+              {/* select image */}
+              <button
+                className={`upload_thumbnail border bg-transparent ${
+                  isProfileUploaded ? "d-none" : ""
+                }`}
+                style={{ width: "230px", height: "230px" }}
+                {...profileRootProps()}
+              >
+                <input {...profileInputProps()} />
+                Upload Profile Photo
+              </button>
             </div>
           </div>
+          {/* this is for my upload profile images -/end */}
         </div>
 
         <div className="col-lg-8">
@@ -350,7 +369,7 @@ const AddPlayerForm = ({
               <input
                 type="radio"
                 className="no"
-                value={"No"}
+                value={"no"}
                 id="no"
                 name="belong_to_the_club"
               />{" "}
@@ -426,7 +445,7 @@ const AddPlayerForm = ({
                         Club Name
                       </label>
                       <input
-                        id="club_name"
+                        id="name"
                         name="club_name"
                         placeholder="Cleveland Cavaliers"
                         onChange={handleExperienceChange}
@@ -451,8 +470,8 @@ const AddPlayerForm = ({
                         <path
                           d="M10.5 7.5V12.5M13 10H8M18 10C18 10.9849 17.806 11.9602 17.4291 12.8701C17.0522 13.7801 16.4997 14.6069 15.8033 15.3033C15.1069 15.9997 14.2801 16.5522 13.3701 16.9291C12.4602 17.306 11.4849 17.5 10.5 17.5C9.51509 17.5 8.53982 17.306 7.62987 16.9291C6.71993 16.5522 5.89314 15.9997 5.1967 15.3033C4.50026 14.6069 3.94781 13.7801 3.5709 12.8701C3.19399 11.9602 3 10.9849 3 10C3 8.01088 3.79018 6.10322 5.1967 4.6967C6.60322 3.29018 8.51088 2.5 10.5 2.5C12.4891 2.5 14.3968 3.29018 15.8033 4.6967C17.2098 6.10322 18 8.01088 18 10Z"
                           stroke="white"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                     </span>
@@ -585,20 +604,36 @@ const AddPlayerForm = ({
         </div>
 
         <div className="gallery mt-5 p-4">
+          {/* this is for my upload gallary images */}
           <div className="row">
             <div className="d-flex justify-content-between pb-5">
               <h2 className="fs-4">Gallery</h2>
               <button className="py-2 px-4 btn_save">Save</button>
             </div>
+            <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+              {selectedGalleryFiles.map((file, index) => (
+                <img
+                  style={{ width: "130px", height: "130px" }}
+                  key={index}
+                  src={URL.createObjectURL(file)}
+                  alt={`Uploaded file ${index}`}
+                />
+              ))}
+            </div>
             <div>
-              <button className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2">
+              <button
+                className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+                {...galleryRootProps()}
+              >
                 <div className="add_icon">
                   <img src={addIcon} alt="add-icon" />
                 </div>
+                <input {...galleryInputProps()} />
                 Add Photo or Video
               </button>
             </div>
           </div>
+          {/* this is for my upload gallary images -/end */}
         </div>
       </div>
     </div>

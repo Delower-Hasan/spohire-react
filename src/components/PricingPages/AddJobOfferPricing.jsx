@@ -6,15 +6,22 @@ import checkActive from "../../assets/white-check.svg";
 import "./PricingPages.css";
 import useClickOutside from "../../hooks/useClickOutside";
 
-const AddJobOfferPricing = () => {
+const AddJobOfferPricing = ({ setSelectedPackages }) => {
   const [activeCard, setActiveCard] = useState(1);
   const [selectedPrice, setSelectedPrice] = useState(15);
   const [nextPaymentModal, setNextPaymentModal] = useState(false);
   const wrapperRef = useClickOutside(() => setNextPaymentModal(false));
 
+  const packages = [
+    { duration: "1 months", price: 10, month: 1 },
+    { duration: "2 months", price: 20, month: 2 },
+    { duration: "3 months", price: 30, month: 3 },
+  ];
+
   const handleCardClick = (index, price) => {
     setActiveCard(index);
     setSelectedPrice(price);
+    setSelectedPackages(packages[index]);
   };
 
   const handleNextPaymentModal = () => {
@@ -30,7 +37,8 @@ const AddJobOfferPricing = () => {
             ? "15px"
             : null,
       }}
-      className={`addjoboffer_pricing_wrapper`}>
+      className={`addjoboffer_pricing_wrapper`}
+    >
       {location.pathname === "/pricing" ? (
         <h2>
           add job offer <br />
@@ -87,7 +95,8 @@ const AddJobOfferPricing = () => {
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
             : ""
-        }`}>
+        }`}
+      >
         {location.pathname === "/pricing" ? (
           <h2>price of announcement</h2>
         ) : null}
@@ -109,7 +118,8 @@ const AddJobOfferPricing = () => {
               justifyContent: `${
                 location.pathname === "/dashboard/players" ? "end" : "center"
               }`,
-            }}>
+            }}
+          >
             {location.pathname === "/pricing" ? (
               <div>
                 <h3>${selectedPrice}</h3>

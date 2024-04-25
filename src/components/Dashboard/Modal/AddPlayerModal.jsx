@@ -6,11 +6,15 @@ import PricingModal from "./PricingModal";
 import useClickOutside from "../../../hooks/useClickOutside";
 import MakePaymenModal from "./MakePaymenModal";
 import AddPlayerForm from "./AddPlayerForm";
+import { setExpireDate } from "../../../utils/setExpireDate";
+import { useAddPlayerMutation } from "../../../features/auth/authApi";
 
 const AddPlayerModal = ({ setAddPlayerModal }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, subscriptions } = useSelector((state) => state.auth);
+
   const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
   const [step, setStep] = useState(1);
+  const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
   const [socialMedia, setSocialMedia] = useState({
     instagram: "",
@@ -46,14 +50,9 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
   const socialMediaArray = Object.values(socialMedia);
 
-  console.log("socialMediaArray", socialMediaArray);
-
   const [playerData, setPlayerData] = useState({
-    social_media: socialMediaArray,
     experience: "",
   });
-
-  console.log("playerData", playerData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,70 +65,73 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const [image, setImage] = useState("");
   const [imageFile, setImageFIle] = useState(null);
 
+  const [selectedPackages, setSelectedPackages] = useState({
+    duration: 1,
+    price: 10,
+    month: 1,
+  });
+
+  console.log("user", user);
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
     setImageFIle(selectedFile);
     setPlayerData({ ...playerData, image: selectedFile });
   };
+  const [loading, setLoading] = useState(false);
 
-  // const [userInfo, setUserInfo] = useState({
-  //   firstName: "",
-  //   date_of_birth: "",
-  //   nationality: "",
-  //   mainPosition: "",
-  //   dominantHand: "",
-  //   height: "",
-  //   weight: "",
-  //   image: "",
-  //   experience: [],
-  //   strengths_advantage: "",
-  //   about_me: "",
-  //   expectations_from_new_club: "",
-  //   sports: "",
-  // });
+  const handleSubmit = async () => {
+    setLoading(true);
+    const date = new Date();
 
-  // useEffect(() => {
-  //   const newData = {
-  //     firstName: user?.firstName,
-  //     date_of_birth: user?.date_of_birth,
-  //     nationality: user?.nationality,
-  //     mainPosition: user?.mainPosition,
-  //     dominantHand: user?.dominantHand,
-  //     height: user?.height,
-  //     weight: user?.weight,
-  //     image: user?.image,
-  //     social_media: user?.social_media,
-  //     experience: user?.experience,
-  //     strengths_advantage: user?.strengths_advantage,
-  //     about_me: user?.about_me,
-  //     expectations_from_new_club: user?.expectations_from_new_club,
-  //     sports: user?.sports,
-  //   };
+    const playerInfo = {
+      ...playerData,
+      social_media: socialMediaArray,
+      subscriptionDate: date,
+      subscriptionName: subscriptions.subscriptionName,
+      expirationDate: setExpireDate(selectedPackages?.month),
+      packageChoosed: selectedPackages?.month,
+      isCreatedProfile: true,
+      isSubsCribed: true,
+      referral: user?._id,
+      role: "Player",
+    };
 
-  //   setUserInfo(newData);
+    const formData = new FormData();
 
-  //   let values = {};
+    Object.entries(playerInfo).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
-  //   for (let i = 0; i < user?.social_media?.length; i++) {
-  //     const element = user?.social_media[i];
-  //     if (element.includes("twitter.com")) {
-  //       values.twitter = element;
-  //     } else if (element?.includes("instagram.com")) {
-  //       values.instagram = element;
-  //     } else if (element?.includes("facebook.com")) {
-  //       values.facebook = element;
-  //     } else if (element?.includes("youtube.com")) {
-  //       values.youtube = element;
-  //     } else {
-  //       values.others = element;
-  //     }
-  //   }
+    console.log("playerInfo", playerInfo);
 
-  //   setSocialMedia(values);
-
-  //   console.log(values, "nnoso");
-  // }, [user, id]);
+    try {
+      const response = await addPlayer(formData);
+      if (response?.data?.success) {
+        setLoading(false);
+        return true;
+      }
+      if (response?.error?.data?.message) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${response?.error?.data?.message}`,
+        });
+        setLoading(false);
+        return false;
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error?.message}`,
+      });
+      setLoading(false);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="addplayer_modal">
@@ -151,9 +153,14 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             exp={playerData?.experience}
           />
         ) : step === 2 ? (
-          <PricingModal />
+          <PricingModal setSelectedPackages={setSelectedPackages} />
         ) : step === 3 ? (
-          <MakePaymenModal setMakePaymentClose={setAddPlayerModal} />
+          <MakePaymenModal
+            setMakePaymentClose={setAddPlayerModal}
+            handleSubmit={handleSubmit}
+            addPlayerLoading={addPlayerLoading}
+            selectedPackages={selectedPackages}
+          />
         ) : null}
 
         {step !== 3 && (

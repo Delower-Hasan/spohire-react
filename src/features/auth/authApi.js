@@ -118,6 +118,7 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    //player
     addPlayer: builder.mutation({
       query: (data) => ({
         url: "/api/v1/players/create",
