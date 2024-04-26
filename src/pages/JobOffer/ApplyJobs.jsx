@@ -98,12 +98,7 @@ const ApplyJobs = ({ selectedJob, user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if(!user){
-
-    // }
-
     setLoading(true);
-
     const form = e.target;
 
     if (selectedFile?.size > 5 * 1024 * 1024) {

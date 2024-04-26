@@ -5,6 +5,7 @@ import SubsCriptionPricing from "../../components/PricingPages/SubsCriptionPrici
 import AddToTrandfer from "./AddToTrandfer";
 import PriceRange from "./PriceRange";
 import PricingBanner from "./PricingBanner";
+
 const Pricing = () => {
   return (
     <div>

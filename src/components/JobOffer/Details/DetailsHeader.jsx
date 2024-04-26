@@ -3,8 +3,15 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { useState } from "react";
 import ApplyModal from "./ApplyModal";
+import bookmarkfill from "../../../assets/bookmark12.svg";
 
-const DetailsHeader = () => {
+const DetailsHeader = ({
+  data,
+  isBookmarked,
+  handleBookmark,
+  isApplied,
+  isCreator,
+}) => {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -12,27 +19,56 @@ const DetailsHeader = () => {
         <div className="container">
           <div className="inner d-flex align-items-center justify-content-between gap-4">
             <div className="d-flex align-items-center gap-4">
-              <img style={{width: "100px"}} src={google} alt="" />
+              <img style={{ width: "100px" }} src={google} alt="" />
               <div>
-                <h4>Senior UX Designer</h4>
+                <h4>{data?.job_title} </h4>
                 <div className="d-flex align-items-center gap-2">
-                  <p className="at">at Google </p>
-                  <button className="time_btn">FULL-TIME</button>
+                  <p className="at">at {data?.job_location} </p>
+                  <button className="time_btn text-uppercase">
+                    {data?.jobType}
+                  </button>
                 </div>
               </div>
             </div>
             <div className="d-flex align-items-center gap-4">
-              <button className="bookmark_btn">
-                <FaRegBookmark />
-              </button>
-              <button onClick={() => setShow(true)} className="applyNow_btn">
-                Apply Now <FaArrowRight />
-              </button>
+              {!isCreator && (
+                <button
+                  className="bookmark_btn"
+                  onClick={() => handleBookmark(data?._id)}
+                >
+                  {isBookmarked ? (
+                    <img
+                      style={{ height: "15px", width: "15px" }}
+                      src={bookmarkfill}
+                      alt=""
+                    />
+                  ) : (
+                    <FaRegBookmark />
+                  )}
+                </button>
+              )}
+
+              {!isCreator &&
+                (isApplied ? (
+                  <>
+                    <button className="applyNow_btn">Applied</button>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <button
+                      onClick={() => setShow(true)}
+                      className="applyNow_btn"
+                    >
+                      Apply Now <FaArrowRight />
+                    </button>
+                  </>
+                ))}
             </div>
           </div>
         </div>
       </div>
-      <ApplyModal show={show} setShow={setShow} />
+      <ApplyModal selectedJob={data} show={show} setShow={setShow} />
     </>
   );
 };

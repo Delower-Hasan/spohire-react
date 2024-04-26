@@ -2,32 +2,103 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
 import uploadImg from "../../../assets/upload_img.png";
+import { useDropzone } from "react-dropzone";
 
-const AddPlayerForm = () => {
+const AddPlayerForm = ({
+  fileInputRef,
+  handleInputChange,
+  handleFileChange,
+  image,
+  handleSocialLinkChange,
+  handleExperienceChange,
+  handleAddMore,
+  exp,
+  selectedProfileFile,
+  profileRootProps,
+  profileInputProps,
+  selectedGalleryFiles,
+  galleryRootProps,
+  galleryInputProps,
+  isProfileUploaded,
+}) => {
   const [countryNames, setCountryNames] = useState([]);
-    useEffect(() => {
-      axios
-        .get(
-          "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
-        )
-        .then(function (response) {
-          setCountryNames(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+
+  // const [isProfileUploaded, setIsProfileUploaded] = useState(false);
+  // const [selectedProfileFile, setSelectedProfileFile] = useState(null);
+  // const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+
+  // const onProfileDrop = (acceptedFiles) => {
+  //   // Set the selected profile file
+  //   setSelectedProfileFile(acceptedFiles[0]);
+  //   setIsProfileUploaded(true);
+  // };
+
+  // const onGalleryDrop = (acceptedFiles) => {
+  //   // Add the newly selected files to the existing selectedGalleryFiles state
+  //   setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
+  // };
+
+  // const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
+  //   useDropzone({ onDrop: onProfileDrop });
+  // const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+  //   useDropzone({ onDrop: onGalleryDrop });
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div>
       <div className="row">
         <div className="col-lg-4">
+          {/* this is for my upload profile images */}
           <div className="upload_photo">
-            <p className="mb-4 text-center">Upload Main Photo</p>
+            <div
+              className="position-relative text-start"
+              style={{ marginBottom: "32px" }}
+            >
+              {/* upload */}
+              <div
+                className={`${
+                  selectedProfileFile ? "d-block" : "d-none"
+                } upload_thumbnail border bg-transparent overflow-hidden`}
+                style={{ width: "230px", height: "230px" }}
+                {...profileRootProps()}
+              >
+                {selectedProfileFile ? (
+                  <img
+                    src={URL.createObjectURL(selectedProfileFile)}
+                    alt="Uploaded file"
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                ) : (
+                  <p>Drop your profile photo here or click to select</p>
+                )}
+              </div>
 
-            <div className="upload_thumbnail d-flex align-items-center justify-content-center">
-              <img src={uploadImg} alt="upload-img" />
+              {/* select image */}
+              <button
+                className={`upload_thumbnail border bg-transparent ${
+                  isProfileUploaded ? "d-none" : ""
+                }`}
+                style={{ width: "230px", height: "230px" }}
+                {...profileRootProps()}
+              >
+                <input {...profileInputProps()} />
+                Upload Profile Photo
+              </button>
             </div>
           </div>
+          {/* this is for my upload profile images -/end */}
         </div>
 
         <div className="col-lg-8">
@@ -41,6 +112,8 @@ const AddPlayerForm = () => {
                   required
                   id="name"
                   type="text"
+                  name="firstName"
+                  onChange={handleInputChange}
                   placeholder="Enter Your Name"
                 />
               </div>
@@ -53,6 +126,8 @@ const AddPlayerForm = () => {
                 <input
                   required
                   id="name"
+                  name="lastName"
+                  onChange={handleInputChange}
                   type="text"
                   placeholder="Enter Your Name"
                 />
@@ -64,7 +139,12 @@ const AddPlayerForm = () => {
                   Gender *
                 </label>
 
-                <select required className="select_form">
+                <select
+                  required
+                  className="select_form"
+                  name="gender"
+                  onChange={handleInputChange}
+                >
                   <option disabled>Select Here</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -79,7 +159,9 @@ const AddPlayerForm = () => {
                 <input
                   required
                   id="name"
-                  type="number"
+                  type="date"
+                  name="date_of_birth"
+                  onChange={handleInputChange}
                   placeholder="DD - MM - YYYY"
                 />
               </div>
@@ -89,14 +171,20 @@ const AddPlayerForm = () => {
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Nationality *
                 </label>
-                <select required className="select_form">
+                <select
+                  required
+                  className="select_form"
+                  name="nationality"
+                  onChange={handleInputChange}
+                >
                   <option>Select Here</option>
 
                   {countryNames?.map((country, index) => (
                     <option
                       defaultValue={country.name}
                       className=""
-                      key={index}>
+                      key={index}
+                    >
                       {country.name}
                     </option>
                   ))}
@@ -108,13 +196,19 @@ const AddPlayerForm = () => {
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Country of residence *
                 </label>
-                <select required className="select_form">
-                  <option>Select Here</option>
+                <select
+                  required
+                  className="select_form"
+                  name="country"
+                  onChange={handleInputChange}
+                >
+                  <option disabled>Select Here</option>
                   {countryNames?.map((country, index) => (
                     <option
                       defaultValue={country.name}
                       className=""
-                      key={index}>
+                      key={index}
+                    >
                       {country.name}
                     </option>
                   ))}
@@ -129,7 +223,14 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               E-mail *
             </label>
-            <input required id="name" type="email" placeholder="Type here" />
+            <input
+              required
+              id="name"
+              type="email"
+              name="email"
+              onChange={handleInputChange}
+              placeholder="Type here"
+            />
           </div>
         </div>
 
@@ -142,6 +243,8 @@ const AddPlayerForm = () => {
               required
               id="name"
               type="number"
+              name="phone_number"
+              onChange={handleInputChange}
               placeholder="Phone number"
             />
           </div>
@@ -155,6 +258,8 @@ const AddPlayerForm = () => {
               required
               id="name"
               type="text"
+              name="city"
+              onChange={handleInputChange}
               placeholder="City of residence "
             />
           </div>
@@ -165,7 +270,13 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Weight
             </label>
-            <input id="name" type="number" placeholder="Weight" />
+            <input
+              id="name"
+              name="weight"
+              onChange={handleInputChange}
+              type="number"
+              placeholder="Weight"
+            />
           </div>
         </div>
 
@@ -174,7 +285,13 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Height
             </label>
-            <input id="name" type="number" placeholder="Height" />
+            <input
+              id="name"
+              type="number"
+              name="height"
+              onChange={handleInputChange}
+              placeholder="Height"
+            />
           </div>
         </div>
 
@@ -183,7 +300,12 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Dominant Hand *
             </label>
-            <select required className="select_form">
+            <select
+              required
+              className="select_form"
+              name="dominantHand"
+              onChange={handleInputChange}
+            >
               <option>Select Here</option>
               <option>Left</option>
               <option>Right</option>
@@ -196,7 +318,14 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Main position *
             </label>
-            <input required id="name" type="text" placeholder="Select here" />
+            <input
+              required
+              id="name"
+              name="mainPosition"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Select here"
+            />
           </div>
         </div>
 
@@ -205,7 +334,13 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Alternative position
             </label>
-            <input id="name" type="text" placeholder="Select here" />
+            <input
+              id="name"
+              type="text"
+              name="alterPosition"
+              onChange={handleInputChange}
+              placeholder="Select here"
+            />
           </div>
         </div>
 
@@ -214,7 +349,13 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Additional passport
             </label>
-            <input id="name" type="text" placeholder="Select here" />
+            <input
+              id="name"
+              name="additional_passport"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Select here"
+            />
           </div>
         </div>
 
@@ -224,8 +365,25 @@ const AddPlayerForm = () => {
               Do you currently belong to a club? *
             </label>
             <div className="btn_group d-flex gap-3">
-              <button className="yes">Yes</button>
-              <button className="no">No</button>
+              <input
+                type="radio"
+                id="yes"
+                className="yes"
+                value={"yes"}
+                name="belong_to_the_club"
+                onChange={handleInputChange}
+              />{" "}
+              <label htmlFor="yes">YES</label>
+              <input
+                type="radio"
+                className="no"
+                value={"no"}
+                id="no"
+                name="belong_to_the_club"
+              />{" "}
+              <label htmlFor="no">NO</label>
+              {/* <button className="yes">Yes</button>
+              <button className="no">No</button> */}
             </div>
           </div>
         </div>
@@ -235,7 +393,13 @@ const AddPlayerForm = () => {
             <label htmlFor="name" className="d-block label_name mb-2">
               Club name
             </label>
-            <input id="name" type="text" placeholder="Club name" />
+            <input
+              id="name"
+              name="club_name"
+              onChange={handleInputChange}
+              type="text"
+              placeholder="Club name"
+            />
           </div>
         </div>
 
@@ -244,6 +408,14 @@ const AddPlayerForm = () => {
             <div className="experience_information">
               <div className="ei_left">
                 <p className="f_sfPro text_color_36 fs-4 mb-4">Experience</p>
+                <ul className="mb-4">
+                  {exp &&
+                    exp?.map((item, index) => (
+                      <li className="f_sfPro text_color_36 fs-6" key={index}>
+                        {item?.start_year}-{item?.end_year} {item?.club_name}
+                      </li>
+                    ))}
+                </ul>
 
                 <div className="d-flex flex-column align-items-start gap-3">
                   <div className="d-flex gap-4 pb-4">
@@ -251,25 +423,49 @@ const AddPlayerForm = () => {
                       <label htmlFor="name" className="d-block label_name mb-2">
                         From
                       </label>
-                      <input id="name" type="text" placeholder="Ex - 1997" />
+                      <input
+                        id="name"
+                        type="text"
+                        name="start_year"
+                        placeholder="2003"
+                        onChange={handleExperienceChange}
+                      />
                     </div>
 
                     <div className="input_form pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
                         To
                       </label>
-                      <input id="name" type="text" placeholder="Ex - 2005" />
+                      <input
+                        id="name"
+                        name="end_year"
+                        placeholder="2008"
+                        onChange={handleExperienceChange}
+                        type="text"
+                      />
                     </div>
 
                     <div className="input_form pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
+                      <label
+                        htmlFor="club_name"
+                        className="d-block label_name mb-2"
+                      >
                         Club Name
                       </label>
-                      <input id="name" type="text" placeholder="Type here" />
+                      <input
+                        id="name"
+                        name="club_name"
+                        placeholder="Cleveland Cavaliers"
+                        onChange={handleExperienceChange}
+                        type="text"
+                      />
                     </div>
                   </div>
 
-                  <button className="modal_btn py-3 px-4 d-flex gap-2 w-100 justify-content-center">
+                  <button
+                    className="modal_btn py-3 px-4 d-flex gap-2 w-100 justify-content-center"
+                    onClick={handleAddMore}
+                  >
                     Add more
                     <span>
                       <svg
@@ -277,12 +473,13 @@ const AddPlayerForm = () => {
                         width="21"
                         height="20"
                         viewBox="0 0 21 20"
-                        fill="none">
+                        fill="none"
+                      >
                         <path
                           d="M10.5 7.5V12.5M13 10H8M18 10C18 10.9849 17.806 11.9602 17.4291 12.8701C17.0522 13.7801 16.4997 14.6069 15.8033 15.3033C15.1069 15.9997 14.2801 16.5522 13.3701 16.9291C12.4602 17.306 11.4849 17.5 10.5 17.5C9.51509 17.5 8.53982 17.306 7.62987 16.9291C6.71993 16.5522 5.89314 15.9997 5.1967 15.3033C4.50026 14.6069 3.94781 13.7801 3.5709 12.8701C3.19399 11.9602 3 10.9849 3 10C3 8.01088 3.79018 6.10322 5.1967 4.6967C6.60322 3.29018 8.51088 2.5 10.5 2.5C12.4891 2.5 14.3968 3.29018 15.8033 4.6967C17.2098 6.10322 18 8.01088 18 10Z"
                           stroke="white"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                     </span>
@@ -309,8 +506,10 @@ const AddPlayerForm = () => {
                     <input
                       className="w-100"
                       id="name"
+                      name="instagram"
+                      onChange={handleSocialLinkChange}
                       type="text"
-                      placeholder="johnkawalski05"
+                      placeholder="Instagram"
                     />
                   </div>
 
@@ -322,7 +521,9 @@ const AddPlayerForm = () => {
                       className="w-100"
                       id="name"
                       type="text"
-                      placeholder="johnkawalski05"
+                      name="facebook"
+                      onChange={handleSocialLinkChange}
+                      placeholder="Facebook"
                     />
                   </div>
 
@@ -334,7 +535,9 @@ const AddPlayerForm = () => {
                       className="w-100"
                       id="name"
                       type="text"
-                      placeholder="johnkawalski05"
+                      name="twitter"
+                      onChange={handleSocialLinkChange}
+                      placeholder="Twitter"
                     />
                   </div>
 
@@ -346,7 +549,9 @@ const AddPlayerForm = () => {
                       className="w-100"
                       id="name"
                       type="text"
-                      placeholder="johnkawalski05"
+                      name="tiktok"
+                      onChange={handleSocialLinkChange}
+                      placeholder="Tiktok"
                     />
                   </div>
                 </div>
@@ -368,11 +573,13 @@ const AddPlayerForm = () => {
                 <h4>Strengths Advantages</h4>
               </div>
               <textarea
-                name=""
                 id=""
                 cols="30"
                 rows="10"
-                placeholder="Type here"></textarea>
+                name="strengths_advantage"
+                onChange={handleInputChange}
+                placeholder="Type here"
+              ></textarea>
             </div>
 
             <div className="col-lg-4">
@@ -380,41 +587,61 @@ const AddPlayerForm = () => {
                 <h4>About Me</h4>
               </div>
               <textarea
-                name=""
+                name="about_me"
+                onChange={handleInputChange}
                 id=""
                 cols="30"
                 rows="10"
-                placeholder="Type here"></textarea>
+                placeholder="Type here"
+              ></textarea>
             </div>
             <div className="col-lg-4">
               <div className="oi_title pb-2">
                 <h4>Expectations From a New Club</h4>
               </div>
               <textarea
-                name=""
+                name="expectations_from_new_club"
+                onChange={handleInputChange}
                 id=""
                 cols="30"
                 rows="10"
-                placeholder="Type here"></textarea>
+                placeholder="Type here"
+              ></textarea>
             </div>
           </div>
         </div>
 
         <div className="gallery mt-5 p-4">
+          {/* this is for my upload gallary images */}
           <div className="row">
             <div className="d-flex justify-content-between pb-5">
               <h2 className="fs-4">Gallery</h2>
               <button className="py-2 px-4 btn_save">Save</button>
             </div>
+            <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+              {selectedGalleryFiles.map((file, index) => (
+                <img
+                  style={{ width: "130px", height: "130px" }}
+                  key={index}
+                  src={URL.createObjectURL(file)}
+                  alt={`Uploaded file ${index}`}
+                />
+              ))}
+            </div>
             <div>
-              <button className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2">
+              <button
+                className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+                {...galleryRootProps()}
+              >
                 <div className="add_icon">
                   <img src={addIcon} alt="add-icon" />
                 </div>
+                <input {...galleryInputProps()} />
                 Add Photo or Video
               </button>
             </div>
           </div>
+          {/* this is for my upload gallary images -/end */}
         </div>
       </div>
     </div>

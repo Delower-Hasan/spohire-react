@@ -4,6 +4,8 @@ import gold from "../../assets/gold.svg";
 import check from "../../assets/indigo-check.svg";
 import silver from "../../assets/silver.svg";
 import checkActive from "../../assets/white-check.svg";
+import { setSubscription } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const priceOptions = [
   {
@@ -35,12 +37,14 @@ const options = [
 ];
 
 const PricingCard = () => {
+  const dispatch = useDispatch();
   const [activeCard, setActiveCard] = useState(1);
   const handleCardClick = (index) => {
     setActiveCard(index);
+    dispatch(setSubscription(index));
   };
 
-  console.log("activeCard", activeCard);
+  // console.log("activeCard", activeCard);
 
   return (
     <div>

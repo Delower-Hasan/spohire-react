@@ -1,12 +1,14 @@
 import React from "react";
 import Mendatory from "./Mendatory";
 
-const Description = () => {
+const Description = ({ data }) => {
   return (
     <div className="description_outline">
       <Mendatory />
       <div className="description">
-        <h5>Description of requirements</h5>
+        {data?.description}
+
+        {/* <h5>Description of requirements</h5>
         <p>
           Velstar is a Shopify Plus agency, and we partner with brands to help
           them grow, we also do the same with our people!
@@ -69,7 +71,7 @@ const Description = () => {
             £100 contribution for your own personal learning and development
           </li>
           <li>Free Breakfast on Mondays and free snacks in the office.</li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

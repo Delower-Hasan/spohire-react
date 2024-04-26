@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import PaymentProcess from "./PaymentProcess.jsx";
 import { useAddAnnouncementMutation } from "../../../features/announcement/announcementApi.js";
 import useClickOutside from "../../../hooks/useClickOutside.jsx";
+import { setExpireDate } from "../../../utils/setExpireDate.js";
 
 const options = [
   { value: "Full-time", label: "Full-time" },
@@ -72,14 +73,23 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
     const { name, value } = e.target;
     setAnnouncementData({ ...announcementData, [name]: value });
   };
+  const [selectedSubscription, setSelectedSubscription] = useState({
+    duration: 1,
+    price: 0,
+    month: 1,
+  });
 
-  console.log(announcementData, "jfskfj");
+  console.log(announcementData);
 
   const handleSubmit = async (e) => {
     setLoading(true);
+    const date = new Date();
 
     const jobDataInfo = {
       ...announcementData,
+      subscriptionDate: date,
+      expirationDate: setExpireDate(selectedSubscription?.month),
+      packagechoose: selectedSubscription?.month,
       creator: user?._id,
     };
 
@@ -94,6 +104,7 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
       if (response?.data?.success) {
         // closeModal();
         setLoading(false);
+        setAnnouncementIsModalOpen(false);
         return true;
       }
       if (response?.error?.data?.message) {
@@ -169,10 +180,12 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div
                 // onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0">
+                className="w-100 player_job_form_wrapper mt-0"
+              >
                 {step === 1 ? (
                   <CreateAnnouncemnetModal
                     fileInputRef={fileInputRef}
@@ -187,6 +200,8 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                   />
                 ) : step === 2 ? (
                   <PaymentProcess
+                    selectedSubscription={selectedSubscription}
+                    setSelectedSubscription={setSelectedSubscription}
                     handleSubmit={handleSubmit}
                     addingAnnounement={addingAnnounement}
                       setAnnouncementIsModalOpen={setAnnouncementIsModalOpen}

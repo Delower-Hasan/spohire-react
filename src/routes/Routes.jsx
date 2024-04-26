@@ -54,7 +54,6 @@ import SubscribedRoute from "./SubscribedRoute.jsx";
 import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
 import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -179,7 +178,6 @@ export const router = createBrowserRouter([
         element: (
           // <SubscribedRoute>
           <OverView />
-
           // </SubscribedRoute>
         ),
       },

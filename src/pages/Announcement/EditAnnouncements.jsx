@@ -10,6 +10,7 @@ import {
   useGetAnnouncementByIdQuery,
 } from "../../features/announcement/announcementApi";
 import Swal from "sweetalert2";
+
 const EditAnnouncements = () => {
   const fileInputRef = useRef(null);
   const { user } = useSelector((state) => state.auth);
@@ -142,7 +143,7 @@ const EditAnnouncements = () => {
                   />
                 </div>
               </div>
-              <div className="col-lg-6">
+              {/* <div className="col-lg-6">
                 <div className="mb-3">
                   <label
                     htmlFor="exampleFormControlInput1"
@@ -213,7 +214,7 @@ const EditAnnouncements = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="col-lg-6">
                 <div className="buttons1">
@@ -414,7 +415,7 @@ const EditAnnouncements = () => {
                   </p>
                 </div>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-12">
                 <div className="mb-3">
                   <label
                     htmlFor="exampleFormControlInput1"
@@ -428,6 +429,7 @@ const EditAnnouncements = () => {
                       className="form-control"
                       placeholder="We can't wait to share this milestone with our incredible sports community."
                       aria-label="Username"
+                      style={{ height: 200 }}
                       aria-describedby="basic-addon1"
                       required
                       name="description"
