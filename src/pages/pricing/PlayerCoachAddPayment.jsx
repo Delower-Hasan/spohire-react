@@ -126,8 +126,8 @@ const PlayerCoachAddPayment = ({
           amount: subscriptions?.price,
           purpose: "Successfully added",
         };
-        await createPayment(createPaymentData);
         await handleSubmit();
+        await createPayment(createPaymentData);
         // navigation
 
         setMakePaymentClose();

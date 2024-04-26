@@ -8,6 +8,8 @@ import MakePaymenModal from "./MakePaymenModal";
 import AddPlayerForm from "./AddPlayerForm";
 import { setExpireDate } from "../../../utils/setExpireDate";
 import { useAddPlayerMutation } from "../../../features/auth/authApi";
+import { useDropzone } from "react-dropzone";
+import Swal from "sweetalert2";
 
 const AddPlayerModal = ({ setAddPlayerModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
@@ -15,6 +17,31 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
   const [step, setStep] = useState(1);
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
+
+  //  my code
+
+  const [isProfileUploaded, setIsProfileUploaded] = useState(false);
+  const [selectedProfileFile, setSelectedProfileFile] = useState(null);
+  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+
+  const onProfileDrop = (acceptedFiles) => {
+    // Set the selected profile file
+    setSelectedProfileFile(acceptedFiles[0]);
+    setIsProfileUploaded(true);
+  };
+
+  const onGalleryDrop = (acceptedFiles) => {
+    // console.log("acceptedFiles", acceptedFiles[0]);
+    // Add the newly selected files to the existing selectedGalleryFiles state
+    setSelectedGalleryFiles([...selectedGalleryFiles, acceptedFiles[0]]);
+  };
+
+  const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
+    useDropzone({ onDrop: onProfileDrop });
+
+  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+    useDropzone({ onDrop: onGalleryDrop });
+  //  my code
 
   const [socialMedia, setSocialMedia] = useState({
     instagram: "",
@@ -71,7 +98,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     month: 1,
   });
 
-  console.log("user", user);
+  console.log("selectedGalleryFiles", selectedGalleryFiles);
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
@@ -86,6 +113,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
     const playerInfo = {
       ...playerData,
+      image: selectedProfileFile,
+      gallary: selectedGalleryFiles,
       social_media: socialMediaArray,
       subscriptionDate: date,
       subscriptionName: subscriptions.subscriptionName,
@@ -103,11 +132,14 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       formData.append(key, value);
     });
 
-    console.log("playerInfo", playerInfo);
-
     try {
       const response = await addPlayer(formData);
       if (response?.data?.success) {
+        Swal({
+          icon: "success",
+          title: "Succes",
+          text: `${response?.data?.message}`,
+        });
         setLoading(false);
         return true;
       }
@@ -151,6 +183,15 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             handleExperienceChange={handleExperienceChange}
             handleAddMore={handleAddMore}
             exp={playerData?.experience}
+            selectedProfileFile={selectedProfileFile}
+            setSelectedProfileFile={setSelectedProfileFile}
+            profileRootProps={profileRootProps}
+            profileInputProps={profileInputProps}
+            selectedGalleryFiles={selectedGalleryFiles}
+            galleryRootProps={galleryRootProps}
+            galleryInputProps={galleryInputProps}
+            isProfileUploaded={isProfileUploaded}
+            setIsProfileUploaded={setIsProfileUploaded}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />

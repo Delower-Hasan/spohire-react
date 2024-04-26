@@ -142,14 +142,7 @@ const MakePaymenModal = ({
                 </div>
 
                 <Elements stripe={stripePromise}>
-                  {/* <PaymentFormTwo
-                    handleSubmit={handleSubmit}
-                    addingJob={addingJob}
-                    selectedSubscription={selectedSubscription}
-                    closeModal={closeModal}
-                    setNextOption={setNextOption}
-                    setAddJobOfferClose={setAddJobOffer}
-                  /> */}
+        
                   <PlayerCoachAddPayment
                     handleSubmit={handleSubmit}
                     addPlayerLoading={addPlayerLoading}

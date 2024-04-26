@@ -8,6 +8,8 @@ import MakePaymenModal from "./MakePaymenModal";
 import AddPlayerForm from "./AddPlayerForm";
 import { setExpireDate } from "../../../utils/setExpireDate";
 import { useAddPlayerMutation } from "../../../features/auth/authApi";
+import { useDropzone } from "react-dropzone";
+import Swal from "sweetalert2";
 
 const AddCoachModal = ({ setAddCoachModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
@@ -22,6 +24,29 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     twitter: "",
     tiktok: "",
   });
+
+  //  my code
+
+  const [isProfileUploaded, setIsProfileUploaded] = useState(false);
+  const [selectedProfileFile, setSelectedProfileFile] = useState(null);
+  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+
+  const onProfileDrop = (acceptedFiles) => {
+    // Set the selected profile file
+    setSelectedProfileFile(acceptedFiles[0]);
+    setIsProfileUploaded(true);
+  };
+
+  const onGalleryDrop = (acceptedFiles) => {
+    // Add the newly selected files to the existing selectedGalleryFiles state
+    setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
+  };
+
+  const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
+    useDropzone({ onDrop: onProfileDrop });
+  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+    useDropzone({ onDrop: onGalleryDrop });
+  //  my code
 
   const handleSocialLinkChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +81,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setPlayerData({ ...playerData, [name]: value });
   };
 
@@ -85,6 +109,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
 
     const playerInfo = {
       ...playerData,
+      image: selectedProfileFile,
+      gallary: selectedGalleryFiles,
       social_media: socialMediaArray,
       subscriptionDate: date,
       subscriptionName: subscriptions.subscriptionName,
@@ -102,11 +128,16 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       formData.append(key, value);
     });
 
-    console.log("playerInfo", playerInfo);
+    console.log("coach Info", playerInfo);
 
     try {
       const response = await addPlayer(formData);
       if (response?.data?.success) {
+        Swal({
+          icon: "success",
+          title: "Succes",
+          text: `${response?.data?.message}`,
+        });
         setLoading(false);
         return true;
       }
@@ -150,6 +181,15 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             handleExperienceChange={handleExperienceChange}
             handleAddMore={handleAddMore}
             exp={playerData?.experience}
+            selectedProfileFile={selectedProfileFile}
+            setSelectedProfileFile={setSelectedProfileFile}
+            profileRootProps={profileRootProps}
+            profileInputProps={profileInputProps}
+            selectedGalleryFiles={selectedGalleryFiles}
+            galleryRootProps={galleryRootProps}
+            galleryInputProps={galleryInputProps}
+            isProfileUploaded={isProfileUploaded}
+            setIsProfileUploaded={setIsProfileUploaded}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />

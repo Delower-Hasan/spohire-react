@@ -13,28 +13,35 @@ const AddPlayerForm = ({
   handleExperienceChange,
   handleAddMore,
   exp,
+  selectedProfileFile,
+  profileRootProps,
+  profileInputProps,
+  selectedGalleryFiles,
+  galleryRootProps,
+  galleryInputProps,
+  isProfileUploaded,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
 
-  const [isProfileUploaded, setIsProfileUploaded] = useState(false);
-  const [selectedProfileFile, setSelectedProfileFile] = useState(null);
-  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+  // const [isProfileUploaded, setIsProfileUploaded] = useState(false);
+  // const [selectedProfileFile, setSelectedProfileFile] = useState(null);
+  // const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
 
-  const onProfileDrop = (acceptedFiles) => {
-    // Set the selected profile file
-    setSelectedProfileFile(acceptedFiles[0]);
-    setIsProfileUploaded(true);
-  };
+  // const onProfileDrop = (acceptedFiles) => {
+  //   // Set the selected profile file
+  //   setSelectedProfileFile(acceptedFiles[0]);
+  //   setIsProfileUploaded(true);
+  // };
 
-  const onGalleryDrop = (acceptedFiles) => {
-    // Add the newly selected files to the existing selectedGalleryFiles state
-    setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
-  };
+  // const onGalleryDrop = (acceptedFiles) => {
+  //   // Add the newly selected files to the existing selectedGalleryFiles state
+  //   setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
+  // };
 
-  const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
-    useDropzone({ onDrop: onProfileDrop });
-  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
-    useDropzone({ onDrop: onGalleryDrop });
+  // const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
+  //   useDropzone({ onDrop: onProfileDrop });
+  // const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+  //   useDropzone({ onDrop: onGalleryDrop });
 
   useEffect(() => {
     axios
@@ -48,6 +55,7 @@ const AddPlayerForm = ({
         console.log(error);
       });
   }, []);
+
   return (
     <div>
       <div className="row">
