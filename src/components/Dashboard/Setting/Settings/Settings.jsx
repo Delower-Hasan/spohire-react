@@ -13,11 +13,11 @@ const Settings = () => {
       <div className="row">
         <div className="col-lg-9">
           <General />
-          <Notification />
+          {/* <Notification /> */}
         </div>
         <div className="col-lg-3">
           <Subscription />
-          <SelectInfo />
+          {/* <SelectInfo /> */}
         </div>
       </div>
     </div>

@@ -226,11 +226,21 @@ const Topbar = ({ onClose }) => {
 
                   {/* view_details */}
                   {location.pathname.startsWith("/dashboard/viewDetails") && (
-                    <button className="view_details">Back</button>
+                    <button
+                      className="view_details"
+                      onClick={() => window.history.back()}
+                    >
+                      Back
+                    </button>
                   )}
 
                   {location.pathname.startsWith("/dashboard/coacheDetails") && (
-                    <button className="view_details">Back</button>
+                    <button
+                      className="view_details"
+                      onClick={() => window.history.back()}
+                    >
+                      Back
+                    </button>
                   )}
 
                   {location.pathname === "/dashboard" ||

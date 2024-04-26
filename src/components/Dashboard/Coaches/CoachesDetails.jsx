@@ -15,37 +15,118 @@ import ImageTwoMini from "../../../assets/imagesTwoMini.png";
 import ImageThreeMini from "../../../assets/imagesThreeMini.png";
 import ImageFourMini from "../../../assets/imagesFourMini.png";
 import ImageFiveMini from "../../../assets/imagesFiveMini.png";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { useGetPlayerDetailsQuery } from "../../../features/auth/authApi";
+import {
+  useGetMyObservationsQuery,
+  useToggleObservationMutation,
+} from "../../../features/observation/observationApi";
+import Swal from "sweetalert2";
+
 const CoachesDetails = () => {
+  const { id } = useParams();
+  const authUser = useSelector((item) => item.auth);
+  const { data: user, isLoading } = useGetPlayerDetailsQuery(id);
+  console.log("getPlayerDetails", user);
+  // console.log("authUser", authUser);
+
+  // if (isLoading) {
+  //   return <p>Loading ...</p>;
+  // }
+
+  const { data: observation, isSuccess } = useGetMyObservationsQuery();
+
+  const isBookmarked = observation?.data?.find(
+    (i) => i?.target_id?._id === user?._id
+  );
+
+  const [toggleObservation, { isLoading: observeLoading }] =
+    useToggleObservationMutation();
+
+  const handleBookmark = async (e, id) => {
+    e.stopPropagation();
+    const data = {
+      user_id: user?._id,
+      target_id: id,
+      // target_type: "User",
+      target_type: "Player",
+    };
+
+    // console.log(data, "jjjDD");
+
+    try {
+      const response = await toggleObservation(data);
+      if (response?.data?.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Successsful!",
+          // text: "Job bookmarked successfully!",
+        });
+      }
+      if (response?.error?.data?.message) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${response?.error?.data?.message}`,
+        });
+      }
+
+      // console.log(response, "ress");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error?.message}`,
+      });
+    }
+  };
+  console.log("isBookmarked", isBookmarked);
   return (
     <div className="details_information">
       <div className="profile_cover">
         <div className="cover_title">
           <h2>
-            <Marquee>Anderson Anderson</Marquee>
+            <Marquee>
+              {user?.fullName
+                ? user?.fullName
+                : `${user?.firstName} ${user?.lastName}`}
+            </Marquee>
           </h2>
         </div>
 
         <div className="personal_info d-flex align-items-center justify-content-between">
           <div className="bio_graphy">
-            <p className="surname">John</p>
-            <p className="nickname pb-3">Anderson</p>
+            <p className="surname">{user?.firstName}</p>
+            <p className="nickname pb-3">{user?.lastName}</p>
             <div className="country d-flex gap-2 align-items-center pb-3">
-              <img src={Germany} alt="" />
-              <p>Germany</p>
+              {/* <img src={Germany} alt="" /> */}
+              <p>{user?.country ? user?.country : user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
-              <button className="cm_message">
-                <AiOutlineMessage />
-                <p>Message</p>
-              </button>
+              <Link to={`/dashboard/messages/${authUser?.user._id}`}>
+                <button className="cm_message">
+                  <AiOutlineMessage />
+                  <p>Message</p>
+                </button>
+              </Link>
 
               <button className="cm_link d-flex gap-2 align-items-center justify-content-center">
                 <FaLink />
                 <p>Message</p>
               </button>
 
-              <button className="cm_favourite">
-                <FaRegBookmark style={{ color: "#FFF" }} />
+              <button
+                className="bg-none me-3"
+                onClick={(e) => handleBookmark(e, user?._id)}
+                style={{ width: "20px" }}
+                disabled={observeLoading}
+              >
+                {isBookmarked ? (
+                  <FaRegBookmark style={{ color: "#FFF" }} />
+                ) : (
+                  <FaRegBookmark style={{ color: "#333" }} />
+                )}
               </button>
             </div>
           </div>
@@ -65,7 +146,8 @@ const CoachesDetails = () => {
                       padding: "5px 10px",
                       borderRadius: "28px",
                       backgroundColor: "white",
-                    }}>
+                    }}
+                  >
                     <img src={silverIcon} alt="silver-icon" />
                     Silver
                   </p>
@@ -99,37 +181,37 @@ const CoachesDetails = () => {
           <div className="other_info_left">
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Main position</p>
-              <p className="info_des">Shooting guard</p>
+              <p className="info_des">{user?.mainPosition ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Alternative</p>
-              <p className="info_des">Point guard</p>
+              <p className="info_des">{user?.alterPosition ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Date of birth</p>
-              <p className="info_des">20.01.1991</p>
+              <p className="info_des">{user?.date_of_birth ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Gender</p>
-              <p className="info_des">Male</p>
+              <p className="info_des">{user?.gender ?? "N/A"}</p>
             </div>
           </div>
           <div className="other_info_right">
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Nationality </p>
-              <p className="info_des">Germany</p>
+              <p className="info_des">{user?.nationality}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">residence </p>
-              <p className="info_des">USA</p>
+              <p className="info_des">{user?.city ? user?.city : "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">sport </p>
-              <p className="info_des">Basketball</p>
+              <p className="info_des">{user?.sports}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Added by </p>
-              <p className="info_des">Jan Kowalski</p>
+              <p className="info_des">{user?.referral?.first_name}</p>
             </div>
           </div>
         </div>
@@ -168,8 +250,6 @@ const CoachesDetails = () => {
           <p className="follower_title">FOLLOWers</p>
         </div>
       </div>
-
-
 
       <div className="experience mb-4">
         <div className="section_title">

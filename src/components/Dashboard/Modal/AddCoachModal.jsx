@@ -101,7 +101,10 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     setImageFIle(selectedFile);
     setPlayerData({ ...playerData, image: selectedFile });
   };
+
   const [loading, setLoading] = useState(false);
+
+ 
 
   const handleSubmit = async () => {
     setLoading(true);

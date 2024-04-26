@@ -99,6 +99,11 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   });
 
   console.log("selectedGalleryFiles", selectedGalleryFiles);
+
+  // const abc = selectedGalleryFiles?.map((item) => item.path);
+
+  // console.log("abc", abc);
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
