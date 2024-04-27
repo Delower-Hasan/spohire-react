@@ -2,6 +2,7 @@ import PriceRange from "../../../pages/pricing/PriceRange";
 import BuySubscriptionModalContent from "../../PricingPages/BuySubscriptionModalContent";
 
 function BuySubscriptionModal({ user }) {
+  
   return (
     <>
       <div

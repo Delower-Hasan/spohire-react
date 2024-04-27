@@ -17,13 +17,9 @@ import RecentlyObserved from "./RecentlyObserved";
 
 const OverviewTransferMarket = () => {
   const { user } = useSelector((state) => state.auth);
-
   const [isAddPlayer, setIsAddPlayer] = useState(false);
-
   const [isAddCoach, setIsAddCoach] = useState(false);
-
   const [isJobOffer, setIsJobOffer] = useState(false);
-
   const [isAnnouncementModalOpen, setAnnouncementIsModalOpen] = useState(false);
 
   const handleAddPlayerModal = () => {

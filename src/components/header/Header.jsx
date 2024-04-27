@@ -20,6 +20,7 @@ const Header = () => {
   const handleFilterModal = () => {
     setIsDropdownActive(!isDropdownActive);
   };
+
   const handleButtonClick = (event) => {
     event.stopPropagation();
     handleFilterModal();
@@ -62,6 +63,7 @@ const Header = () => {
               <img className="d-block d-md-none" src={Logosm} alt="Logo" />
             </Link>
           </Navbar.Brand>
+          
           <div className=" nav_toggle d-flex align-items-center">
             <Navbar.Toggle aria-controls="basic-navbar-nav">
               <svg

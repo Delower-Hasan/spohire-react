@@ -5,6 +5,10 @@ import axios from "axios";
 
 const AddCoachForm = () => {
   const [countryNames, setCountryNames] = useState([]);
+    const [btnAction, setBtnAction] = useState("");
+    const handleBtnClick = (option) => {
+      setBtnAction(option);
+    };
   useEffect(() => {
     axios
       .get(
@@ -198,8 +202,17 @@ const AddCoachForm = () => {
             Do you currently belong to a club? *
           </label>
           <div className="btn_group d-flex gap-3">
-            <button className="yes">Yes</button>
-            <button className="no">No</button>
+            <button
+              onClick={() => handleBtnClick("yes")}
+              className={btnAction === "yes" ? "yes" : "no"}>
+              Yes
+            </button>
+
+            <button
+              onClick={() => handleBtnClick("no")}
+              className={btnAction === "no" ? "yes" : "no"}>
+              No
+            </button>
           </div>
         </div>
       </div>

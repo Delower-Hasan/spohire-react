@@ -20,8 +20,13 @@ import MobileButtons from "../players/MobileButtons";
 import MobilePlayers from "../players/MobilePlayers";
 const Coaches = () => {
   const { data: coachs, isLoading } = useGetFilteredUsersQuery("role=Coach");
-
   const { user, coachFilterParams } = useSelector((state) => state.auth);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
+
+
+
   const allowedPlans =
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
@@ -59,13 +64,20 @@ const Coaches = () => {
   const filteredData =
     coachs
       ?.filter(
-        (coach) =>
-          coach?.subscriptionName &&
-          allowedPlans.includes(coach?.subscriptionName) &&
-          user?.sports === coach?.sports &&
-          coach?.isActive
+        (coachs) =>
+          coachs?.subscriptionName &&
+          allowedPlans.includes(coachs?.subscriptionName) &&
+          user?.sports === coachs?.sports &&
+          coachs?.isActive
       )
       .filter(handleFilter) || [];
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const currentPageData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <>
       <div className="players">
@@ -86,7 +98,7 @@ const Coaches = () => {
             </tr>
           </thead>
           <tbody>
-            {coachs && filteredData?.length > 0 ? (
+            {/* {coachs && filteredData?.length > 0 ? (
               filteredData.sort(handleAgeFilter).map((coach, idx) => (
                 <>
                   <SingleCoach key={idx} coach={coach} />
@@ -94,14 +106,22 @@ const Coaches = () => {
               ))
             ) : (
               <tr className="mx-auto">No Coaches Found</tr>
-            )}
+            )} */}
+
+            {currentPageData.map((coach, idx) => (
+              <SingleCoach key={idx} coach={coach} />
+            ))}
           </tbody>
         </Table>
         <MobilePlayers></MobilePlayers>
         <MobileButtons />
       </div>
 
-      <Pagination/>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };

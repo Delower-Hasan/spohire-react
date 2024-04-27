@@ -1,68 +1,72 @@
 import { Table } from "react-bootstrap";
-import "./Players.css";
-import playerImgOne from "../../../assets/playerImg.svg";
-import messageIcon from "../../../assets/messageIcon.svg";
-import MobileButtons from "./MobileButtons";
-import MobilePlayers from "./MobilePlayers";
-import { Link, useNavigate } from "react-router-dom";
-import b1 from "../../../assets/bookmark.png";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import bookmark1 from "../../../assets/bookmark11.png";
 import bookmark2 from "../../../assets/bookmark12.svg";
-import bookmarkfill from "../../../assets/bookmark-fill.png";
-import { useState } from "react";
+import messageIcon from "../../../assets/messageIcon.svg";
+import playerImgOne from "../../../assets/playerImg.svg";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
-import { useSelector } from "react-redux";
-import {
-  useGetMyObservationsQuery,
-  useToggleObservationMutation,
-} from "../../../features/observation/observationApi";
-import Swal from "sweetalert2";
+import { useGetMyObservationsQuery, useToggleObservationMutation } from "../../../features/observation/observationApi";
 import { getCountryFlag } from "../../../utils/getFlag";
 import Pagination from "../../Pagination/Pagination";
+import MobileButtons from "./MobileButtons";
+import MobilePlayers from "./MobilePlayers";
+import "./Players.css";
+import { useState } from "react";
 
 const Players = () => {
-  const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
-  const { user, playerFilterParams } = useSelector((state) => state.auth);
-  const allowedPlans =
-    user?.subscriptionName === "Gold"
-      ? ["Gold", "Silver", "Bronze"]
-      : user?.subscriptionName === "Silver"
-      ? ["Silver", "Bronze"]
-      : user?.subscriptionName === "Bronze"
-      ? ["Bronze"]
-      : [];
+const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
+const { user, playerFilterParams } = useSelector((state) => state.auth);
+const [currentPage, setCurrentPage] = useState(1);
+const itemsPerPage = 2; 
 
-  const handleFilter = (value) => {
-    if (
-      playerFilterParams?.position ||
-      playerFilterParams?.country ||
-      playerFilterParams?.categories
-    ) {
-      return (
-        (playerFilterParams?.position &&
-          playerFilterParams?.position === value?.mainPosition) ||
-        (playerFilterParams?.country &&
-          playerFilterParams?.country === value?.nationality) ||
-        (playerFilterParams?.categories &&
-          playerFilterParams?.categories === value?.category)
-      );
-    } else {
-      return true;
-    }
-  };
+const allowedPlans =
+  user?.subscriptionName === "Gold"
+    ? ["Gold", "Silver", "Bronze"]
+    : user?.subscriptionName === "Silver"
+    ? ["Silver", "Bronze"]
+    : user?.subscriptionName === "Bronze"
+    ? ["Bronze"]
+    : [];
 
-  console.log(user, "user");
+const handleFilter = (value) => {
+  if (
+    playerFilterParams?.position ||
+    playerFilterParams?.country ||
+    playerFilterParams?.categories
+  ) {
+    return (
+      (playerFilterParams?.position &&
+        playerFilterParams?.position === value?.mainPosition) ||
+      (playerFilterParams?.country &&
+        playerFilterParams?.country === value?.nationality) ||
+      (playerFilterParams?.categories &&
+        playerFilterParams?.categories === value?.category)
+    );
+  } else {
+    return true;
+  }
+};
 
-  const filteredData =
-    players
-      ?.filter(
-        (player) =>
-          player?.subscriptionName &&
-          allowedPlans.includes(player?.subscriptionName) &&
-          user?.sports === player?.sports &&
-          player?.isActive
-      )
-      .filter(handleFilter) || [];
+const filteredData =
+  players
+    ?.filter(
+      (player) =>
+        player?.subscriptionName &&
+        allowedPlans.includes(player?.subscriptionName) &&
+        user?.sports === player?.sports &&
+        player?.isActive
+    )
+    .filter(handleFilter) || [];
+
+const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+const currentPageData = filteredData.slice(
+  (currentPage - 1) * itemsPerPage,
+  currentPage * itemsPerPage
+);
+
 
   return (
     <>
@@ -86,20 +90,20 @@ const Players = () => {
             </tr>
           </thead>
           <tbody>
-            {players && filteredData?.length > 0 ? (
-              filteredData?.map((player, idx) => (
-                <SinglePlayer key={idx} player={player} />
-              ))
-            ) : (
-              <tr className="mx-auto">No Players Found</tr>
-            )}
+            {currentPageData.map((player, idx) => (
+              <SinglePlayer key={idx} player={player} />
+            ))}
           </tbody>
         </Table>
 
         <MobilePlayers />
         <MobileButtons />
       </div>
-      <Pagination />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };
