@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import bronze from "../../assets/bronze.svg";
 import gold from "../../assets/gold.svg";
 import check from "../../assets/indigo-check.svg";
@@ -6,6 +6,7 @@ import silver from "../../assets/silver.svg";
 import checkActive from "../../assets/white-check.svg";
 import { setSubscription } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import MakePaymenModal from "../../components/Dashboard/Modal/MakePaymenModal";
 
 const priceOptions = [
   {
@@ -14,14 +15,12 @@ const priceOptions = [
     price: 10,
     color: "#CD7F32",
   },
-
   {
     pic: silver,
     title: "SILVER",
     price: 20,
     color: "#C5CDE7",
   },
-
   {
     pic: gold,
     title: "GOLD",
@@ -29,6 +28,7 @@ const priceOptions = [
     color: "#FFD029",
   },
 ];
+
 const options = [
   "All analytics features",
   "Up to 250,000 tracked visits",
@@ -39,12 +39,35 @@ const options = [
 const PricingCard = () => {
   const dispatch = useDispatch();
   const [activeCard, setActiveCard] = useState(1);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const modalRef = useRef(null);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   const handleCardClick = (index) => {
     setActiveCard(index);
     dispatch(setSubscription(index));
   };
-
-  // console.log("activeCard", activeCard);
 
   return (
     <div>
@@ -52,12 +75,10 @@ const PricingCard = () => {
         {priceOptions.map((data, index) => (
           <div
             key={index}
-            className={`col-lg-4`}
-            onClick={() => handleCardClick(index)}
-          >
+            className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
+            onClick={() => handleCardClick(index)}>
             <div
-              className={`price_card ${activeCard === index ? "active" : ""}`}
-            >
+              className={`price_card ${activeCard === index ? "active" : ""}`}>
               <div className="d-flex align-items-center gap-4 mb-5">
                 <div className="model">
                   <img className="mt-0" src={data.pic} alt="" />
@@ -70,32 +91,29 @@ const PricingCard = () => {
               <p
                 className={` mb-3 ${
                   activeCard === index ? "active_price" : "price"
-                }`}
-              >
+                }`}>
                 ${data.price} <span>/month</span>
               </p>
 
               <p
                 className={` ${
                   activeCard === index ? "active_include" : "include"
-                }`}
-              >
+                }`}>
                 What's included
               </p>
 
               <div className="d-flex flex-column gap-4 pb-4">
-                {options.map((option, index) => (
-                  <div className="d-flex align-items-center gap-2" key={index}>
+                {options.map((option, idx) => (
+                  <div className="d-flex align-items-center gap-2" key={idx}>
                     <img
                       className="mt-0"
-                      src={activeCard === index ? checkActive : check}
+                      src={activeCard === idx ? checkActive : check}
                       alt=""
                     />
                     <p
                       className={` ${
-                        activeCard === index ? "active_color" : "options"
-                      }`}
-                    >
+                        activeCard === idx ? "active_color" : "options"
+                      }`}>
                       {option}
                     </p>
                   </div>
@@ -104,6 +122,7 @@ const PricingCard = () => {
 
               <div className="d-flex">
                 <button
+                  onClick={openModal}
                   className="d-inline-flex"
                   style={{
                     padding: "17px 66px",
@@ -114,8 +133,7 @@ const PricingCard = () => {
                     color: `${activeCard === index ? "#2B3674" : "#FFFFFF"}`,
                     fontWeight: "500",
                     fontSize: "20px",
-                  }}
-                >
+                  }}>
                   Subscribe
                 </button>
               </div>
@@ -123,6 +141,11 @@ const PricingCard = () => {
           </div>
         ))}
       </div>
+      {modalOpen && (
+        <div className="model" ref={modalRef}>
+          <MakePaymenModal closeModal={closeModal} />
+        </div>
+      )}
     </div>
   );
 };
