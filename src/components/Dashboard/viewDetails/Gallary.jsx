@@ -44,8 +44,7 @@ function SamplePrevArrow(props) {
 }
 
 const Gallary = ({ gallary, user }) => {
-
-  console.log(user, "user from galllary")
+  console.log(user, "user from galllary");
 
   var settings = {
     dots: false,
@@ -68,7 +67,12 @@ const Gallary = ({ gallary, user }) => {
                 <div key={idx}>
                   <img
                     className="w-100"
-                    src={item.path}
+                    src={`${
+                      process.env.NODE_ENV !== "production"
+                        ? import.meta.env.VITE_LOCAL_API_URL
+                        : import.meta.env.VITE_LIVE_API_URL
+                    }/api/v1/uploads/${item.path}`}
+                    // src={item.path}
                     alt={`gallery-img-${idx}`}
                   />
                 </div>
@@ -83,12 +87,11 @@ const Gallary = ({ gallary, user }) => {
               color: "#4C4E52",
               fontWeight: "500",
               letterSpacing: "-0.48px",
-            }}>
+            }}
+          >
             About Me
           </h2>
-          <p style={{ color: "#8593BC", fontSize: "18px" }}>
-            {user?.about_me}
-          </p>
+          <p style={{ color: "#8593BC", fontSize: "18px" }}>{user?.about_me}</p>
         </div>
       </div>
     </div>

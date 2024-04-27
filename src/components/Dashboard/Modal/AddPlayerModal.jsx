@@ -140,7 +140,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     try {
       const response = await addPlayer(formData);
       if (response?.data?.success) {
-        Swal({
+        Swal.fire({
           icon: "success",
           title: "Succes",
           text: `${response?.data?.message}`,

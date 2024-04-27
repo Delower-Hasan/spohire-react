@@ -104,12 +104,9 @@ const AddCoachModal = ({ setAddCoachModal }) => {
 
   const [loading, setLoading] = useState(false);
 
- 
-
   const handleSubmit = async () => {
     setLoading(true);
     const date = new Date();
-
     const playerInfo = {
       ...playerData,
       image: selectedProfileFile,
@@ -136,7 +133,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     try {
       const response = await addPlayer(formData);
       if (response?.data?.success) {
-        Swal({
+        Swal.fire({
           icon: "success",
           title: "Succes",
           text: `${response?.data?.message}`,

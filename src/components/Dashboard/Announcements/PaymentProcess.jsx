@@ -17,6 +17,7 @@ const PaymentProcess = ({
   closeModal,
   setAnnouncementIsModalOpen,
   addingJob,
+  selectedSubscription,
   setSelectedSubscription,
 }) => {
   const stripePromise = loadStripe(STRIPE_PK);
