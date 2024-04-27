@@ -134,7 +134,10 @@ const CoachesDetails = () => {
           <div className="photograph z-1">
             <div className="photograph_border">
               <div className="photograph_img position-relative">
-                <img src={photographImg} alt="photograph" />
+                <img
+                  src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${user?.image}`}
+                  alt="photograph"
+                />
 
                 <div className="subscription_title d-flex align-items-center gap-2 position-absolute">
                   <p
@@ -159,19 +162,19 @@ const CoachesDetails = () => {
           <div className="bio_graphy2 d-flex gap-4">
             <div className="age text-center">
               <p className="bio_title">Age</p>
-              <p className="bio_info">35</p>
+              <p className="bio_info">{user?.age ?? "N/A"}</p>
               <p className="bio_footer_title">years</p>
             </div>
 
             <div className="height text-center">
               <p className="bio_title">height</p>
-              <p className="bio_info">160</p>
+              <p className="bio_info">{user?.height ?? "N/A"}</p>
               <p className="bio_footer_title">CM</p>
             </div>
 
             <div className="wight text-center">
               <p className="bio_title">Weight</p>
-              <p className="bio_info">67</p>
+              <p className="bio_info">{user?.weight ?? "N/A"}</p>
               <p className="bio_footer_title">Kgs</p>
             </div>
           </div>
@@ -199,15 +202,15 @@ const CoachesDetails = () => {
           <div className="other_info_right">
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Nationality </p>
-              <p className="info_des">{user?.nationality}</p>
+              <p className="info_des">{user?.nationality ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">residence </p>
-              <p className="info_des">{user?.city ? user?.city : "N/A"}</p>
+              <p className="info_des">{user?.city ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">sport </p>
-              <p className="info_des">{user?.sports}</p>
+              <p className="info_des">{user?.sports ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">Added by </p>
@@ -256,20 +259,29 @@ const CoachesDetails = () => {
           <h3>Experience</h3>
         </div>
         <div className="top d-flex justify-content-between py-4">
-          <div className="exerience_infomation">
+          {user?.experience.length > 0 ? (
+            user?.experience?.map((item, index) => (
+              <div className="exerience_infomation">
+                <p className="year">
+                  {item.start_year} –{item.end_year}
+                </p>
+                <p className="exprince_info">{item.club_name}</p>
+              </div>
+            ))
+          ) : (
+            <p className="exprince_info">No Item found</p>
+          )}
+
+          {/* <div className="exerience_infomation">
             <p className="year">2003 –2010</p>
             <p className="exprince_info">Cleveland</p>
           </div>
           <div className="exerience_infomation">
             <p className="year">2003 –2010</p>
             <p className="exprince_info">Cleveland</p>
-          </div>
-          <div className="exerience_infomation">
-            <p className="year">2003 –2010</p>
-            <p className="exprince_info">Cleveland</p>
-          </div>
+          </div> */}
         </div>
-        <div className="top d-flex justify-content-between py-4">
+        {/* <div className="top d-flex justify-content-between py-4">
           <div className="exerience_infomation">
             <p className="year">2003 –2010</p>
             <p className="exprince_info">Cleveland</p>
@@ -282,7 +294,7 @@ const CoachesDetails = () => {
             <p className="year">2003 –2010</p>
             <p className="exprince_info">Cleveland</p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="advantages mb-4">
@@ -295,6 +307,9 @@ const CoachesDetails = () => {
 
               <ul className="list-unstyled ">
                 <li className="d-flex align-items-center gap-2 py-3">
+                  {user?.strengths_advantage ?? "N/A"}
+                </li>
+                {/* <li className="d-flex align-items-center gap-2 py-3">
                   <GoDotFill style={{ width: "10px", height: "10px" }} />
                   When we talk about Virtual Reality (VR), many of us think of
                   science fiction films.
@@ -303,12 +318,7 @@ const CoachesDetails = () => {
                   <GoDotFill style={{ width: "10px", height: "10px" }} />
                   When we talk about Virtual Reality (VR), many of us think of
                   science fiction films.
-                </li>
-                <li className="d-flex align-items-center gap-2 py-3">
-                  <GoDotFill style={{ width: "10px", height: "10px" }} />
-                  When we talk about Virtual Reality (VR), many of us think of
-                  science fiction films.
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
@@ -319,17 +329,14 @@ const CoachesDetails = () => {
               </div>
 
               <p className="advantages_content py-4">
+                {user?.expectations_from_new_club ?? "N/A"}
+              </p>
+              {/* <p className="advantages_content">
                 When we talk about Virtual Reality (VR), many of us think of
                 science fiction films like “Minority Report”. However, the truth
                 is that nowadays, this technology completely blends in with our
                 daily lives.
-              </p>
-              <p className="advantages_content">
-                When we talk about Virtual Reality (VR), many of us think of
-                science fiction films like “Minority Report”. However, the truth
-                is that nowadays, this technology completely blends in with our
-                daily lives.
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
@@ -340,11 +347,7 @@ const CoachesDetails = () => {
           <h3>About Me</h3>
         </div>
 
-        <p className="about_me_des py-4">
-          When we talk about Virtual Reality (VR), many of us think of science
-          fiction films like “Minority Report”. However, the truth is that
-          nowadays, this technology completely blends in with our daily lives.
-        </p>
+        <p className="about_me_des py-4">{user?.about_me ?? "N/A"}</p>
       </div>
 
       <div className="gallery">
@@ -352,10 +355,24 @@ const CoachesDetails = () => {
           <h3>Gallery</h3>
         </div>
         <div className="images_wrapper py-4 d-flex align-items-center justify-content-between">
-          <div className="largeImg">
-            <img src={ImageOne} alt="" />
+          <div className="largeImg d-flex flex-wrap align-items-center gap-3">
+            {user?.gallary?.length > 0 ? (
+              user?.gallary?.map((item, index) => (
+                <>
+                  <img
+                    src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${item}`}
+                    alt=""
+                    style={{ maxWidth: "150px" }}
+                  />
+                </>
+              ))
+            ) : (
+              <>
+                <p>N/A</p>
+              </>
+            )}
           </div>
-          <div className="miniImg">
+          {/* <div className="miniImg">
             <div className="d-flex gap-2 mb-2">
               <img src={ImageTwoMini} alt="" />
               <img src={ImageThreeMini} alt="" />
@@ -377,7 +394,7 @@ const CoachesDetails = () => {
               <img src={ImageFourMini} alt="" />
               <img src={ImageFiveMini} alt="" />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

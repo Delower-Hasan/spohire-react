@@ -193,14 +193,13 @@ const SinglePlayer = ({ player }) => {
               <div className="player_img">
                 <img
                   src={
-                    // player?.image
-                    //   ? `${
-                    //       process.env.NODE_ENV !== "production"
-                    //         ? import.meta.env.VITE_LOCAL_API_URL
-                    //         : import.meta.env.VITE_LIVE_API_URL
-                    //     }/api/v1/uploads/${player?.image}`
-                    //   :
-                    playerImgOne
+                    player?.image
+                      ? `${
+                          process.env.NODE_ENV !== "production"
+                            ? import.meta.env.VITE_LOCAL_API_URL
+                            : import.meta.env.VITE_LIVE_API_URL
+                        }/api/v1/uploads/${player?.image}`
+                      : playerImgOne
                   }
                   alt="player-img"
                   style={{
