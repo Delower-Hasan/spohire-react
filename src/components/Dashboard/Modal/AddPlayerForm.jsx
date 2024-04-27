@@ -1,14 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
-import uploadImg from "../../../assets/upload_img.png";
-import { useDropzone } from "react-dropzone";
 
 const AddPlayerForm = ({
-  fileInputRef,
   handleInputChange,
-  handleFileChange,
-  image,
   handleSocialLinkChange,
   handleExperienceChange,
   handleAddMore,
@@ -21,28 +16,8 @@ const AddPlayerForm = ({
   galleryInputProps,
   isProfileUploaded,
 }) => {
+
   const [countryNames, setCountryNames] = useState([]);
-
-  // const [isProfileUploaded, setIsProfileUploaded] = useState(false);
-  // const [selectedProfileFile, setSelectedProfileFile] = useState(null);
-  // const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
-
-  // const onProfileDrop = (acceptedFiles) => {
-  //   // Set the selected profile file
-  //   setSelectedProfileFile(acceptedFiles[0]);
-  //   setIsProfileUploaded(true);
-  // };
-
-  // const onGalleryDrop = (acceptedFiles) => {
-  //   // Add the newly selected files to the existing selectedGalleryFiles state
-  //   setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
-  // };
-
-  // const { getRootProps: profileRootProps, getInputProps: profileInputProps } =
-  //   useDropzone({ onDrop: onProfileDrop });
-  // const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
-  //   useDropzone({ onDrop: onGalleryDrop });
-
   useEffect(() => {
     axios
       .get(
@@ -60,7 +35,6 @@ const AddPlayerForm = ({
     <div>
       <div className="row">
         <div className="col-lg-4">
-          {/* this is for my upload profile images */}
           <div className="upload_photo">
             <div
               className="position-relative text-start"

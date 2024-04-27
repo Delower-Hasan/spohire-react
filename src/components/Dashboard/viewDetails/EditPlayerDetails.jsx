@@ -16,11 +16,13 @@ import { Link } from "react-router-dom";
 import { PiPencilSimpleLineDuotone } from "react-icons/pi";
 import coverImg from "../../../assets/cover_img.png";
 import addNewPhoto from "../../../assets/addNewPhoto.svg";
+import { useDropzone } from "react-dropzone";
+import addIcon from "../../../assets/addIcon.svg";
 
 // data
 const inputFieldData = [
   {
-    label: "Name",
+    label: "First Name",
     placeholderText: "Jhon",
     type: "text",
     name: "first_name",
@@ -64,9 +66,11 @@ const inputFieldData = [
 
 const EditPlayerDetails = () => {
   const { user } = useSelector((state) => state.auth);
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [updatePlayerDetails] = useUpdateUserMutation();
+  // const [updateUser, { isLoading }] = useUpdateUserMutation();
   // gallary
   const [selectedImages, setSelectedImages] = useState([]);
+  // const [userExperience, setUserExperience] = useState([...exp]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
@@ -104,38 +108,84 @@ const EditPlayerDetails = () => {
   });
   const [userInfo, setUserInfo] = useState({
     first_name: "",
+    last_name: "",
+    sports: "",
     date_of_birth: "",
     nationality: "",
     image: "",
     experience: [],
     about_me: "",
-    sports: "",
   });
+  const [aboutMe, setAboutMe] = useState(userInfo?.about_me || "");
 
+  // Inside handleInputChange function
+  const handleAboutInputChange = (fieldName, value) => {
+    if (fieldName === "about_me") {
+      setAboutMe(value); // Update aboutMe state
+    } else {
+      setUserInfo((prevData) => ({
+        ...prevData,
+        [fieldName]: value,
+      }));
+      setEditedInfo((prevData) => ({
+        ...prevData,
+        [fieldName]: value,
+      }));
+    }
+  };
   const [editedInfo, setEditedInfo] = useState({});
 
   const navigate = useNavigate();
 
-  const handleGallaryImageChange = (e) => {
-    const files = e.target.files;
-    setGallaryImage(Array.from(files));
-    const newImages = [];
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
+  const [experienceFormData, setExperienceFormData] = useState({});
+  const [userExperience, setUserExperience] =
+    useState([...userInfo["experience"]]);
 
-      reader.onload = (e) => {
-        newImages.push(e.target.result);
-        if (newImages.length === files.length) {
-          setSelectedImages((prevImages) => [...prevImages, ...newImages]);
-        }
-        setFormData((prevData) => ({
-          ...prevData,
-          gallary: newImages,
-        }));
-      };
-      reader.readAsDataURL(files[i]);
+
+  const handleExperienceChange = (e) => {
+    console.log('experience', e.target.value)
+
+    const { name, value } = e.target;
+    setExperienceFormData({ ...experienceFormData, [name]: value });
+  };
+  const handleAddMore = () => {
+    if (
+      experienceFormData.start_year &&
+      experienceFormData.end_year &&
+      experienceFormData.club_name
+    ) {
+      const newData = [...userExperience, experienceFormData]; // Add new experience to userExperience state
+      setUserExperience(newData); // Update local state for immediate UI feedback
+      setEditedInfo((prevInfo) => ({
+        ...prevInfo,
+        experience: newData, // Update editedInfo with new experience data
+      }));
+    } else {
+      alert("Please fill up the experience data properly");
     }
   };
+  console.log('experienceFormData', experienceFormData)
+
+  // const handleGallaryImageChange = (e) => {
+  //   const files = e.target.files;
+  //   setGallaryImage(Array.from(files));
+  //   const newImages = [];
+  //   for (let i = 0; i < files.length; i++) {
+  //     const reader = new FileReader();
+
+  //     reader.onload = (e) => {
+  //       newImages.push(e.target.result);
+  //       if (newImages.length === files.length) {
+  //         setSelectedImages((prevImages) => [...prevImages, ...newImages]);
+  //       }
+  //       setFormData((prevData) => ({
+  //         ...prevData,
+  //         gallary: newImages,
+  //       }));
+  //     };
+  //     reader.readAsDataURL(files[i]);
+  //   }
+  // };
   // handle profile image upload
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -161,6 +211,18 @@ const EditPlayerDetails = () => {
       [fieldName]: value,
     }));
   };
+  // handle gallary change 
+
+  const onGalleryDrop = (acceptedFiles) => {
+    // Add the newly selected files to the existing selectedGalleryFiles state
+    setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
+  };
+
+
+  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } = useDropzone({ onDrop: onGalleryDrop });
+
+  console.log(selectedGalleryFiles, "selectedGalleryFiles from editplayerdetails")
 
   // form submit data
   const handleUpdate = async (e) => {
@@ -168,8 +230,7 @@ const EditPlayerDetails = () => {
 
     const socialMediaArray = Object.values(socialMedia);
 
-    const infoData = { ...editedInfo, social_media: socialMediaArray };
-
+    const infoData = { ...editedInfo, social_media: socialMediaArray, experience: userExperience, about_me: aboutMe, gallary: selectedGalleryFiles };
     const formData = new FormData();
 
     Object.keys(infoData).forEach((key) => {
@@ -195,7 +256,7 @@ const EditPlayerDetails = () => {
     });
 
     try {
-      const response = await updateUser({
+      const response = await updatePlayerDetails({
         userId: user?._id,
         data: formData,
       });
@@ -320,21 +381,21 @@ const EditPlayerDetails = () => {
                 onClick={handleButtonClick}
               >
                 {/* <img
-                  className="img-fluid profiles"
-                  src={
-                    selectedImage
-                      ? URL.createObjectURL(selectedImage)
-                      : userInfo?.image
-                      ? `${
-                          process.env.NODE_ENV !== "production"
-                            ? import.meta.env.VITE_LOCAL_API_URL
-                            : import.meta.env.VITE_LIVE_API_URL
-                        }/api/v1/uploads/${userInfo?.image}`
-                      : profileImage
-                  }
-                  alt="Profile"
-                  style={{ objectFit: "cover" }}
-                /> */}
+                    className="img-fluid profiles"
+                    src={
+                      selectedImage
+                        ? URL.createObjectURL(selectedImage)
+                        : userInfo?.image
+                        ? `${
+                            process.env.NODE_ENV !== "production"
+                              ? import.meta.env.VITE_LOCAL_API_URL
+                              : import.meta.env.VITE_LIVE_API_URL
+                          }/api/v1/uploads/${userInfo?.image}`
+                        : profileImage
+                    }
+                    alt="Profile"
+                    style={{ objectFit: "cover" }}
+                  /> */}
                 <div className="profile_img position-relative">
                   <img
                     className="img-fluid profiles pointer"
@@ -348,7 +409,7 @@ const EditPlayerDetails = () => {
                       <button
                         type="button"
                         className="profile_upload_btn"
-                        // onClick={handleButtonClick}
+                      // onClick={handleButtonClick}
                       >
                         {/* photo here */}
                         {/* <img src={upload} alt="" /> */}
@@ -373,20 +434,20 @@ const EditPlayerDetails = () => {
               <div className="edit_profile_input">
                 <div className="mb-4 position-relative">
                   {/* <label
-                      htmlFor="exampleFormControlInput1"
-                      className="form-label">
-                      Sports Type
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="sportsTypeInput"
-                      placeholder="Basketball"
-                      value={userInfo?.sports}
-                      onChange={(e) =>
-                        handleInputChange("sports", e.target.value)
-                      }
-                    /> */}
+                        htmlFor="exampleFormControlInput1"
+                        className="form-label">
+                        Sports Type
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="sportsTypeInput"
+                        placeholder="Basketball"
+                        value={userInfo?.sports}
+                        onChange={(e) =>
+                          handleInputChange("sports", e.target.value)
+                        }
+                      /> */}
                 </div>
               </div>
 
@@ -440,6 +501,9 @@ const EditPlayerDetails = () => {
           editedInfo={editedInfo}
           setEditedInfo={setEditedInfo}
           exp={userInfo["experience"]}
+          handleAddMore={handleAddMore}
+          handleExperienceChange={handleExperienceChange}
+          userExperience={userExperience}
         />
 
         <div className="mb_60 experience_wrapper">
@@ -449,29 +513,41 @@ const EditPlayerDetails = () => {
                 <img className="img-fluid" src={coverImg} alt="" />
               </div>
               <div className="d-flex justify-content-center align-items-center">
-                <button className="addNewPhoto">
-                  <img src={addNewPhoto} alt="" />
-                  Add New Photo or Video
+                <button
+                  type="button"
+                  className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+                  {...galleryRootProps()}
+                >
+                  <div className="add_icon">
+                    <img src={addIcon} alt="add-icon" />
+                  </div>
+                  <input {...galleryInputProps()} />
+                  Add Photo or Video
                 </button>
               </div>
+              {/* <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+                {selectedGalleryFiles.map((file, index) => (
+                  <img
+                    style={{ width: "130px", height: "130px" }}
+                    key={index}
+                    src={URL.createObjectURL(file)}
+                    alt={`Uploaded file ${index}`}
+                  />
+                ))}
+              </div> */}
             </div>
             <div className="col-lg-6 p-0">
               <div className="about_me">
                 <h2 className="mb-4">About Me</h2>
-                <p>
-                  |Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. standard dummy text ever since the
-                  1500s, when an unknown printer took a galley of type and
-                  scrambled standard dummy Ipsum is simply dummy text of the
-                  printing and type setting industry. standard text ever since
-                  the 1500s, printer took a galley it to make a type specimen
-                  book.
-                </p>
+                <textarea value={aboutMe}
+                  onChange={(e) => handleAboutInputChange("about_me", e.target.value)}
+                  rows={4} cols={50} placeholder="|Lorem Ipsum is simply dummy text of the " />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <button type="submit">Update</button>
     </form>
   );
 };
