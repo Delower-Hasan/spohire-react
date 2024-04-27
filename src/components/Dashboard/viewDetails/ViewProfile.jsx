@@ -22,7 +22,7 @@ const ViewProfile = () => {
     const age = Math.floor(timeDiff / (365.25 * 24 * 60 * 60 * 1000));
     return age;
   };
-
+console.log(user,"viewprofile user info")
   return (
     <>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
@@ -41,17 +41,19 @@ const ViewProfile = () => {
             <div className="user_img">
               <img
                 className="img-fluid img-fluid profiles"
-                // src={
-                //   user?.image
-                //     ? `${
-                //         process.env.NODE_ENV !== "production"
-                //           ? import.meta.env.VITE_LOCAL_API_URL
-                //           : import.meta.env.VITE_LIVE_API_URL
-                //       }/api/v1/uploads/${user?.image}`
-                //     : profileImage
-                // }
-                src={profileImage}
-                style={{ objectFit: "cover" }}
+                src={
+                  user?.image
+                    ? `${
+                        process.env.NODE_ENV !== "production"
+                          ? import.meta.env.VITE_LOCAL_API_URL
+                          : import.meta.env.VITE_LIVE_API_URL
+                      }/api/v1/uploads/${user?.image}`
+                    : profileImage
+                }
+                // src={profileImage}
+                style={{ objectFit: "cover" ,width:"40px",height:"40px",
+              borderRadius:"50%"
+              }}
                 alt="Profile"
               />
             </div>
@@ -161,7 +163,7 @@ const ViewProfile = () => {
           </div>
         </div>
         <ViewDetailsMobile user={user} />
-        <Gallary gallary={user?.gallary} />
+        <Gallary user={user} gallary={user?.gallary} />
       </div>
     </>
   );
