@@ -9,9 +9,15 @@ import editIcon from "../../../assets/editIcon.png";
 import MobileButtons from "../players/MobileButtons";
 import AddJobOffer from "../AddJobOffer/AddJobOffer";
 import { useState } from "react";
-import { useDeleteJobMutation, useGetAllJobsQuery } from "../../../features/job/jobApi";
+import {
+  useDeleteJobMutation,
+  useGetAllJobsQuery,
+} from "../../../features/job/jobApi";
 import { useSelector } from "react-redux";
-import { useGetMyObservationsQuery, useToggleObservationMutation } from "../../../features/observation/observationApi";
+import {
+  useGetMyObservationsQuery,
+  useToggleObservationMutation,
+} from "../../../features/observation/observationApi";
 import Swal from "sweetalert2";
 import EditJobOffer from "../AddJobOffer/EditJobOffer";
 import { useNavigate } from "react-router-dom";
@@ -20,13 +26,15 @@ import Pagination from "../../Pagination/Pagination";
 const JobOffers = () => {
   const { data: allJobs } = useGetAllJobsQuery();
   const { user } = useSelector((state) => state.auth);
-  const { jobType, JobLocation, jobCategory } = useSelector((state) => state.job);
+  const { jobType, JobLocation, jobCategory } = useSelector(
+    (state) => state.job
+  );
 
   const [deleteJob, { isLoading }] = useDeleteJobMutation();
 
   const [jobOffersType, setJobOffersType] = useState("All");
 
-  console.log(allJobs?.data, "dfasfkljfd");
+  // console.log(allJobs?.data, "allJobs?.data");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
@@ -49,8 +57,6 @@ const JobOffers = () => {
   };
 
   const handleDelete = async (item) => {
-    console.log(item, "djkf");
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -84,7 +90,6 @@ const JobOffers = () => {
     } else {
       return true;
     }
-    // return true;
   });
 
   // pagination
@@ -104,7 +109,8 @@ const JobOffers = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "All" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("All")}>
+            onClick={() => setJobOffersType("All")}
+          >
             All
           </button>
 
@@ -112,7 +118,8 @@ const JobOffers = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "My" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("My")}>
+            onClick={() => setJobOffersType("My")}
+          >
             My Job Offers
           </button>
         </div>
@@ -133,7 +140,8 @@ const JobOffers = () => {
         ) : (
           <div
             className="d-flex justify-content-center align-items-center fs-4"
-            style={{ height: "70vh" }}>
+            style={{ height: "70vh" }}
+          >
             No job offer
           </div>
         )}
@@ -166,16 +174,11 @@ export default JobOffers;
 function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
   const [bookmark, setBookmark] = useState(false);
 
-  // const handleBookmark = () => {
-  //   setBookmark(!bookmark);
-  // };
-
-  console.log(item, "jkj");
   const { user } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
+  
   const handleCLick = (value) => {
-    // if (value.creator !== user?._id)
     navigate(`/dashboard/jobDetails/${value?._id}`);
   };
 
@@ -191,8 +194,6 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
       target_id: id,
       target_type: "Job",
     };
-
-    // console.log(data, "jjjDD");
 
     try {
       const response = await toggleObservation(data);
@@ -210,8 +211,6 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
           text: `${response?.error?.data?.message}`,
         });
       }
-
-      console.log(response, "ress");
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -220,25 +219,26 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
       });
     }
   };
+
   return (
     <div>
       <div
         className="job_offers_item p-3"
         onClick={() => handleCLick(item)}
-        style={{ cursor: "pointer" }}>
+        style={{ cursor: "pointer" }}
+      >
         <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className="left d-flex align-items-center gap-3">
             <div className="job_offer_item_img">
               <img
                 src={
-                  // item?.club_logo
-                  //   ? `${process.env.NODE_ENV !== "production"
-                  //     ? import.meta.env.VITE_LOCAL_API_URL
-                  //     : import.meta.env.VITE_LIVE_API_URL
-                  //   }/api/v1/uploads/${item?.club_logo}`
-                  //   :
-
-                  footBallCoachImg
+                  item?.club_logo
+                    ? `${
+                        process.env.NODE_ENV !== "production"
+                          ? import.meta.env.VITE_LOCAL_API_URL
+                          : import.meta.env.VITE_LIVE_API_URL
+                      }/api/v1/uploads/${item?.club_logo}`
+                    : footBallCoachImg
                 }
                 alt="img"
                 style={{
@@ -254,7 +254,8 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
               <div className="job_offer_nameDesignation">
                 <h5
                   className="fw-medium fs-6 text_color_36 mb-1"
-                  style={{ cursor: "pointer" }}>
+                  style={{ cursor: "pointer" }}
+                >
                   {item?.job_title}
                 </h5>
 
@@ -286,6 +287,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
               </div>
             </div>
           </div>
+
           <div className="right d-flex gap-2">
             {item?.creator !== user?._id && (
               <button
@@ -295,29 +297,32 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                   handleBookmark(item?._id);
                 }}
                 style={{ width: "20px" }}
-                disabled={isLoading}>
+                disabled={isLoading}
+              >
                 {isBookmarked ? (
                   <img
-                    style={{ height: "24px", width: "24px" }}
+                    style={{ height: "20px", width: "20px" }}
                     src={bookmarkfill}
                     alt=""
                   />
                 ) : (
                   <img
-                    style={{ height: "24px", width: "24px" }}
+                    style={{ height: "18px", width: "16px" }}
                     src={b1}
                     alt=""
                   />
                 )}
               </button>
             )}
+
             {item?.creator === user?._id && (
               <button
                 className="bg-none"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleEditJobOfferClick(item);
-                }}>
+                }}
+              >
                 <img src={editIcon} alt="" />
               </button>
             )}
@@ -327,7 +332,8 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDelete(item);
-                }}>
+                }}
+              >
                 <img src={deleteIcon} alt="" />
               </button>
             )}

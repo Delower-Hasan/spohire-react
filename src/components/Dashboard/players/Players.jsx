@@ -19,7 +19,7 @@ const Players = () => {
 const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
 const { user, playerFilterParams } = useSelector((state) => state.auth);
 const [currentPage, setCurrentPage] = useState(1);
-const itemsPerPage = 2; 
+const itemsPerPage = 2;
 
 const allowedPlans =
   user?.subscriptionName === "Gold"
@@ -109,7 +109,6 @@ const currentPageData = filteredData.slice(
 };
 
 export default Players;
-
 
 const SinglePlayer = ({ player }) => {
   const navigate = useNavigate();

@@ -14,6 +14,7 @@ const initialState = {
     categories: null,
   },
   addPlayerInfo: undefined,
+  subscriptions: {},
 };
 
 const authSlice = createSlice({
@@ -67,6 +68,23 @@ const authSlice = createSlice({
     setAddPlayerProfileInfo: (state, action) => {
       state.addPlayerInfo = action.payload;
     },
+    setSubscription: (state, action) => {
+      const subscription = [
+        {
+          subscriptionName: "Bronze",
+          price: 10,
+        },
+        {
+          subscriptionName: "Silver",
+          price: 20,
+        },
+        {
+          subscriptionName: "Gold",
+          price: 30,
+        },
+      ];
+      state.subscriptions = subscription[action.payload];
+    },
   },
 });
 
@@ -76,5 +94,6 @@ export const {
   setPlayerFilterParams,
   setCoachFilterParams,
   setAddPlayerProfileInfo,
+  setSubscription,
 } = authSlice.actions;
 export default authSlice.reducer;

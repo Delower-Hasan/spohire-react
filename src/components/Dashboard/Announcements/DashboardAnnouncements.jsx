@@ -15,10 +15,12 @@ import {
   useDeleteAnnouncementMutation,
   useGetAllAnnouncementQuery,
 } from "../../../features/announcement/announcementApi";
+
 import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
+
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
@@ -59,7 +61,6 @@ const DashboardAnnouncements = () => {
     });
   };
 
-  // console.log(allAnnouncements, "sss");
   const announcementTypeFilter = (data) => {
     if (announcementType === "My") {
       return data?.creator === user?._id;
@@ -104,14 +105,16 @@ const DashboardAnnouncements = () => {
     <>
       <div
         className="announcement bg-white rounded-2"
-        style={{ margin: "30px", padding: "30px" }}>
+        style={{ margin: "30px", padding: "30px" }}
+      >
         <div className="job_offers_topBtn d-flex align-items-center justify-content-between mb-3">
           <div className="job_offers_topBtn_left d-flex gap-4">
             <button
               className={`fs-6 fw-medium text_color_80 ${
                 announcementType === "All" && "activeBtn"
               }`}
-              onClick={() => setAnnouncementType("All")}>
+              onClick={() => setAnnouncementType("All")}
+            >
               All
             </button>
 
@@ -127,7 +130,8 @@ const DashboardAnnouncements = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 announcementType === "My" && "activeBtn"
               }`}
-              onClick={() => setAnnouncementType("My")}>
+              onClick={() => setAnnouncementType("My")}
+            >
               My Announcement
             </button>
           </div>
@@ -152,7 +156,8 @@ const DashboardAnnouncements = () => {
           ) : (
             <div
               className="d-flex justify-content-center align-items-center fs-4"
-              style={{ height: "70vh" }}>
+              style={{ height: "70vh" }}
+            >
               No Announcements
             </div>
           )}
@@ -163,7 +168,6 @@ const DashboardAnnouncements = () => {
             currentPage={currentPage}
             totalPages={totalPages}
           />
-          // <div>fsjkjfsk</div>
         )}
       </div>
 
@@ -195,8 +199,6 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
       target_id: id,
       target_type: "Announcement",
     };
-
-    // console.log(data, "jjjDD");
 
     try {
       const response = await toggleObservation(data);
@@ -252,7 +254,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
               <div className="d-flex gap-3 flex-wrap">
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}>
+                  style={{ gap: "6px" }}
+                >
                   <img src={location} alt="" />
                   <span>{announcement?.location}</span>
                 </div>
@@ -265,7 +268,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
                 </div> */}
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}>
+                  style={{ gap: "6px" }}
+                >
                   <img src={dollar} alt="" />
                   <span>USD {announcement?.budget}</span>
                 </div>
@@ -280,7 +284,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
                   className="bg-none"
                   style={{ width: "20px" }}
                   onClick={() => handleBookmark(announcement?._id)}
-                  disabled={isLoading}>
+                  disabled={isLoading}
+                >
                   {isBookmarked ? (
                     <img src={bookmarkfill} alt="" />
                   ) : (
@@ -299,7 +304,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
                   className="bg-none"
                   // data-bs-target="#exampleModalToggle2"
                   // data-bs-toggle="modal"
-                  onClick={() => handleDelete(announcement)}>
+                  onClick={() => handleDelete(announcement)}
+                >
                   <img src={delet} alt="" />
                 </button>
               )}
@@ -318,7 +324,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
               <span
                 className="text-primary"
                 onClick={() => setSeeMore(announcement?.description.length)}
-                style={{ cursor: "pointer" }}>
+                style={{ cursor: "pointer" }}
+              >
                 See More
               </span>
             </>
@@ -328,7 +335,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
           <button
             className="bg-none"
             style={{ width: "20px" }}
-            onClick={handleBookmark}>
+            onClick={handleBookmark}
+          >
             {bookmark ? (
               <img src={bookmarkfill} alt="" />
             ) : (
@@ -339,7 +347,8 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
           <button
             className="bg-none"
             data-bs-target="#exampleModalToggle2"
-            data-bs-toggle="modal">
+            data-bs-toggle="modal"
+          >
             <img src={delet} alt="" />
           </button>
         </div>

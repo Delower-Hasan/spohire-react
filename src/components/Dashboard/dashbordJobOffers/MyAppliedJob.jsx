@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
-    useDeleteJobApplyMutation,
-    useGetMyAppliedJobsQuery,
+  useDeleteJobApplyMutation,
+  useGetMyAppliedJobsQuery,
 } from "../../../features/job/jobApi";
 import MobileButtons from "../players/MobileButtons";
 
@@ -13,7 +13,6 @@ import Pagination from "../../Pagination/Pagination";
 
 const MyAppliedJob = () => {
   const { data, isLoading, isSuccess } = useGetMyAppliedJobsQuery();
-  const [deleteJobApply, { isLoading: deleting }] = useDeleteJobApplyMutation();
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,6 +22,52 @@ const MyAppliedJob = () => {
   const totalPages = Math.ceil(data?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+
+  if (isLoading) {
+    return (
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style={{ height: "70vh" }}
+      >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="job_offers_wrapper">
+      <div className="job_offer_items_wrapper">
+        {data && isSuccess && data?.length > 0 ? (
+          data
+            .slice(startIndex, endIndex)
+            .map((item, index) => <SingleJob key={index} item={item} />)
+        ) : (
+          <div
+            className="d-flex justify-content-center align-items-center fs-4"
+            style={{ height: "70vh" }}
+          >
+            No Applied Jobs
+          </div>
+        )}
+      </div>
+      <MobileButtons />
+      {data?.length > itemsPerPage && (
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+        />
+      )}
+    </div>
+  );
+};
+
+export default MyAppliedJob;
+
+function SingleJob({ item }) {
+  const [deleteJobApply, { isLoading: deleting }] = useDeleteJobApplyMutation();
 
   const handleCancleJob = async (job) => {
     try {
@@ -50,62 +95,6 @@ const MyAppliedJob = () => {
       });
     }
   };
-
-  if (isLoading) {
-    return (
-      <div
-        class="d-flex justify-content-center align-items-center"
-        style={{ height: "70vh" }}
-      >
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="job_offers_wrapper">
-      <div className="job_offer_items_wrapper">
-        {data && isSuccess && data?.length > 0 ? (
-          data
-            .slice(startIndex, endIndex)
-            .map((item, index) => (
-              <SingleJob
-                key={index}
-                item={item}
-                handleCancleJob={handleCancleJob}
-                deleting={deleting}
-              />
-            ))
-        ) : (
-          <div
-            className="d-flex justify-content-center align-items-center fs-4"
-            style={{ height: "70vh" }}
-          >
-            No Applied Jobs
-          </div>
-        )}
-      </div>
-      <MobileButtons />
-      {data?.length > itemsPerPage && (
-        <Pagination
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-          totalPages={totalPages}
-        />
-        // <div>fsjkjfsk</div>
-      )}
-    </div>
-  );
-};
-
-export default MyAppliedJob;
-
-function SingleJob({ item, handleCancleJob, deleting }) {
-  // const handleBookmark = () => {
-  //   setBookmark(!bookmark);
-  // };
 
   const navigate = useNavigate();
   const [pdfLoading, setPdfLoading] = useState(false);
@@ -148,7 +137,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
       <div
         className="job_offers_item p-3"
         onClick={() => navigate(`/dashboard/jobDetails/${item?.job?._id}`)}
-        style={{ cursor: "pointer" }}>
+        style={{ cursor: "pointer" }}
+      >
         <div className="job_offers_item_content d-flex flex-wrap justify-content-between align-items-center">
           <div className=" ">
             <h2 className="mb-2">{item?.job?.job_title}</h2>
@@ -161,7 +151,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   Job Type
                 </p>
                 <p
@@ -169,7 +160,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   {/* {convertDate(item?.birth_date)} */}
                   {item?.job?.jobType}
                 </p>
@@ -180,7 +172,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   Location
                 </p>
                 <p
@@ -188,7 +181,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   {item?.job?.job_location}
                 </p>
               </div>
@@ -198,7 +192,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   Salary
                 </p>
                 <p
@@ -206,7 +201,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   $ {item?.job?.salary}
                 </p>
               </div>
@@ -216,7 +212,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#0177FB",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   Role
                 </p>
                 <p
@@ -224,7 +221,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                     color: "#222222",
                     fontWeight: "400",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   {item?.job?.role}
                 </p>
               </div>
@@ -257,7 +255,8 @@ function SingleJob({ item, handleCancleJob, deleting }) {
                   e.stopPropagation();
                   handleCancleJob(item);
                 }}
-                disabled={deleting}>
+                disabled={deleting}
+              >
                 {deleting ? "Cancling..." : "Cancle"}
               </button>
             </div>

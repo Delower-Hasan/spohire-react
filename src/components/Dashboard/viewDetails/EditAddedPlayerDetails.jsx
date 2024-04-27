@@ -126,8 +126,6 @@ const EditAddedPlayerDetails = () => {
   });
   const [editedInfo, setEditedInfo] = useState({});
 
-  console.log(editedInfo, "editinfo");
-
   const navigate = useNavigate();
 
   const handleGallaryImageChange = (e) => {

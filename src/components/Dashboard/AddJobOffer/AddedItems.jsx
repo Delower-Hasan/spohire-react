@@ -72,7 +72,8 @@ const AddedItems = () => {
             className={`fs-6 fw-medium text_color_80 ${
               active === "active" && "activeBtn2"
             }`}
-            onClick={() => setActive("active")}>
+            onClick={() => setActive("active")}
+          >
             {/* {user?.role === "Coach" ? "Players" : "Player"} */}
             Active
           </button>
@@ -82,7 +83,8 @@ const AddedItems = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 active === "expired" && "activeBtn2"
               }`}
-              onClick={() => setActive("expired")}>
+              onClick={() => setActive("expired")}
+            >
               {/* {user?.role === "Coach" ? "Players" : "Player"} */}
               expired
             </button>
@@ -94,7 +96,8 @@ const AddedItems = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "player" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("player")}>
+            onClick={() => setJobOffersType("player")}
+          >
             {/* {user?.role === "Coach" ? "Players" : "Player"} */}
             Players
           </button>
@@ -104,7 +107,8 @@ const AddedItems = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "coach" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("coach")}>
+              onClick={() => setJobOffersType("coach")}
+            >
               {/* {user?.role === "Coach" ? "Players" : "Player"} */}
               Coaches
             </button>
@@ -115,7 +119,8 @@ const AddedItems = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "coach" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("coach")}>
+              onClick={() => setJobOffersType("coach")}
+            >
               {/* {user?.role === "Coach" ? "Players" : "Player"} */}
               Coaches
             </button>
@@ -125,14 +130,16 @@ const AddedItems = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "job" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("job")}>
+            onClick={() => setJobOffersType("job")}
+          >
             Job Offers
           </button>
           <button
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "announcement" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("announcement")}>
+            onClick={() => setJobOffersType("announcement")}
+          >
             Announcements
           </button>
         </div>

@@ -3,14 +3,27 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import bronze from "../../../assets/bronze.svg";
 import checkActive from "../../../assets/white-check.svg";
+import PlayerCoachAddPayment from "../../../pages/pricing/PlayerCoachAddPayment";
+import { loadStripe } from "@stripe/stripe-js";
+import { STRIPE_PK } from "../../../config/config";
+import { Elements } from "@stripe/react-stripe-js";
+import { useSelector } from "react-redux";
 
-const MakePaymenModal = ({ setMakePaymentClose }) => {
+const MakePaymenModal = ({
+  setMakePaymentClose,
+  handleSubmit,
+  selectedPackages,
+  addPlayerLoading,
+}) => {
   const options = [
     "All analytics features",
     "Up to 250,000 tracked visits",
     "Normal support",
     "Up to 3 team members",
   ];
+  const stripePromise = loadStripe(STRIPE_PK);
+  const { subscriptions } = useSelector((state) => state.auth);
+
   return (
     <div className="">
       <div className="">
@@ -42,8 +55,9 @@ const MakePaymenModal = ({ setMakePaymentClose }) => {
                     <p className={`active_include`}>What's included</p>
 
                     <div className="d-flex flex-column gap-4 pt-3 pb-5">
-                      {options.map((option) => (
+                      {options.map((option, index) => (
                         <div
+                          key={index}
                           className="d-flex align-items-center gap-2"
                           // key={index}
                         >
@@ -83,7 +97,7 @@ const MakePaymenModal = ({ setMakePaymentClose }) => {
 
                 <div className="sub_total py-4">
                   <p>Sub total</p>
-                  <p>$20.00</p>
+                  <p>${subscriptions?.price + selectedPackages?.price}</p>
                 </div>
 
                 <div className="gift_voucher d-flex align-items-center gap-4">
@@ -108,15 +122,15 @@ const MakePaymenModal = ({ setMakePaymentClose }) => {
 
                 <div className="total d-flex justify-content-between">
                   <p>Total</p>
-                  <p>$20.00</p>
+                  <p>${subscriptions?.price + selectedPackages?.price}</p>
                 </div>
 
                 <div className="payment_details pt-5">
-                  <div className="heading pb-4">
+                  {/* <div className="heading pb-4">
                     <h4>Payment Details</h4>
-                  </div>
+                  </div> */}
 
-                  <div className="saved_card d-flex align-items-center justify-content-between pb-4">
+                  {/* <div className="saved_card d-flex align-items-center justify-content-between pb-4">
                     <p>Use saved card</p>
                     <select class="form-select w-50">
                       <option selected>Select</option>
@@ -124,19 +138,20 @@ const MakePaymenModal = ({ setMakePaymentClose }) => {
                       <option value="2">Two</option>
                       <option value="3">Three</option>
                     </select>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div className="card_name">
-                  <div className="input_form pb-4">
-                    <label htmlFor="name" className="d-block label_name mb-2">
-                      Name on card
-                    </label>
-                    <input id="name" type="text" placeholder="Card name" />
-                  </div>
-                </div>
+                <Elements stripe={stripePromise}>
+        
+                  <PlayerCoachAddPayment
+                    handleSubmit={handleSubmit}
+                    addPlayerLoading={addPlayerLoading}
+                    selectedPackages={selectedPackages}
+                    setMakePaymentClose={setMakePaymentClose}
+                  />
+                </Elements>
 
-                <div className="card_number">
+                {/* <div className="card_number">
                   <div className="input_form pb-4">
                     <label htmlFor="name" className="d-block label_name mb-2">
                       Card number
@@ -193,17 +208,17 @@ const MakePaymenModal = ({ setMakePaymentClose }) => {
                       <input id="name" type="text" placeholder="Zip code" />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
-              <div className="d-flex justify-content-end py-4">
+              {/* <div className="d-flex justify-content-end py-4">
                 <div className="action_btn d-flex gap-4">
                   <button onClick={() => setMakePaymentClose(false)}>
                     Cancel
                   </button>
                   <button className="addplayer_btn">Pay now</button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

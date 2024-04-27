@@ -21,13 +21,11 @@ import v4 from "../../assets/v4.png";
 import { STRIPE_SK } from "../../config/config";
 import { useCreatePaymentMutation } from "../../features/payment/paymentApi";
 
-const PaymentFormTwo = ({
+const PlayerCoachAddPayment = ({
   handleSubmit,
-  addingJob,
-  selectedSubscription,
-  closeModal,
-  setAddJobOfferClose,
-  setNextOption,
+  selectedPackages,
+  setMakePaymentClose,
+  addPlayerLoading,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -50,7 +48,7 @@ const PaymentFormTwo = ({
   const [selectedOption, setSelectedOption] = useState("card");
 
   const { packageInfo } = useSelector((state) => state.payment);
-  const { user } = useSelector((state) => state.auth);
+  const { user, subscriptions } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
 
   const [createPayment, { isLoading: paymentCreating }] =
@@ -79,8 +77,6 @@ const PaymentFormTwo = ({
       return;
     }
 
-    // const adding = await handleSubmit();
-
     // if (!adding) {
     //   setIsLoading(false);
     //   return;
@@ -88,7 +84,7 @@ const PaymentFormTwo = ({
 
     try {
       const clientSecret = await createPaymentIntent(
-        selectedSubscription?.price * 100,
+        (selectedPackages?.price + subscriptions?.price) * 100,
         "usd"
       );
 
@@ -127,14 +123,14 @@ const PaymentFormTwo = ({
         const createPaymentData = {
           transactionId: paymentIntent?.id,
           userId: user?._id,
-          amount: selectedSubscription?.price,
-          purpose: "Add Job",
+          amount: subscriptions?.price,
+          purpose: "Successfully added",
         };
-        await createPayment(createPaymentData);
         await handleSubmit();
+        await createPayment(createPaymentData);
         // navigation
 
-        closeModal();
+        setMakePaymentClose();
         navigate("/dashboard");
       }
     } catch (error) {
@@ -166,8 +162,8 @@ const PaymentFormTwo = ({
   return (
     <>
       <div className="container mb-2 pb-5">
-        <div className="payment_process_wrapper">
-          <div className="payment_card">
+        <div className="payment_process_wrappers">
+          <div className="payment_cards">
             <p className="text-start text-black fs-5 fw-normal pb-4">
               Payment Details
             </p>
@@ -297,7 +293,7 @@ const PaymentFormTwo = ({
 
       <div className="d-flex gap-4 justify-content-end">
         <button
-          onClick={() => setAddJobOfferClose(false)}
+          onClick={() => setMakePaymentClose(false)}
           className="bg-none mt-0 text_clr_bc"
         >
           Cancel order
@@ -306,9 +302,9 @@ const PaymentFormTwo = ({
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={isLoading || paymentCreating || !stripe || addingJob}
+          disabled={isLoading || paymentCreating || !stripe || addPlayerLoading}
         >
-          {isLoading || addingJob ? (
+          {isLoading || addPlayerLoading ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
@@ -327,7 +323,7 @@ const PaymentFormTwo = ({
   );
 };
 
-export default PaymentFormTwo;
+export default PlayerCoachAddPayment;
 
 const createPaymentIntent = async (amountInCents, currency) => {
   const stripe = Stripe(STRIPE_SK);

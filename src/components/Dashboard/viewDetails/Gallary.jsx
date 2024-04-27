@@ -43,7 +43,10 @@ function SamplePrevArrow(props) {
   );
 }
 
-const Gallary = ({ gallary }) => {
+const Gallary = ({ gallary, user }) => {
+
+  console.log(user, "user from galllary")
+
   var settings = {
     dots: false,
     infinite: true,
@@ -53,16 +56,21 @@ const Gallary = ({ gallary }) => {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
+
   return (
     <div className="container">
       <div className="d-flex align-items-center gap-5">
         <div className="w-50">
           <Slider {...settings}>
-            {gallary &&
-              gallary.length > 0 &&
-              gallary?.map((item, idx) => (
+            {user?.gallary &&
+              user?.gallary.length > 0 &&
+              user?.gallary.map((item, idx) => (
                 <div key={idx}>
-                  <img className="w-100" src={gralleryImg} alt="gallery-img" />
+                  <img
+                    className="w-100"
+                    src={item.path}
+                    alt={`gallery-img-${idx}`}
+                  />
                 </div>
               ))}
           </Slider>
@@ -79,17 +87,7 @@ const Gallary = ({ gallary }) => {
             About Me
           </h2>
           <p style={{ color: "#8593BC", fontSize: "18px" }}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum
-            fugit doloremque vero, ab impedit illo dolor debitis repudiandae
-            possimus aut ut laboriosam! Reprehenderit dolorum molestias a
-            temporibus ipsa sed, sit quos, quidem eum commodi esse voluptatem
-            laudantium. Fugit, dolorem. Quia at, commodi vel, magni rem itaque
-            amet nobis est in qui dolorum nam quisquam asperiores impedit.
-            Veniam esse suscipit iste? Autem voluptates possimus eveniet quas
-            eum saepe fugit perferendis sequi, numquam fuga esse dolorem ad
-            accusantium, praesentium maxime aliquam totam? Libero sint debitis
-            iusto quasi vel natus aut eveniet quo, voluptatibus deserunt, beatae
-            dignissimos consequuntur? Deleniti deserunt aspernatur quia! Earum!
+            {user?.about_me}
           </p>
         </div>
       </div>

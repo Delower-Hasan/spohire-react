@@ -4,6 +4,8 @@ import gold from "../../assets/gold.svg";
 import check from "../../assets/indigo-check.svg";
 import silver from "../../assets/silver.svg";
 import checkActive from "../../assets/white-check.svg";
+import { setSubscription } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 import MakePaymenModal from "../../components/Dashboard/Modal/MakePaymenModal";
 
 const priceOptions = [
@@ -34,31 +36,27 @@ const options = [
   "Up to 3 team members",
 ];
 
-const PricingCard = ({ openModal }) => {
+const PricingCard = () => {
+  const dispatch = useDispatch();
   const [activeCard, setActiveCard] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Ref for the modal container
   const modalRef = useRef(null);
 
-  // Function to open the modal
   const openModal = () => {
     setModalOpen(true);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  // Function to handle clicks outside the modal
   const handleOutsideClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeModal();
     }
   };
 
-  // Attach event listener to detect clicks outside the modal
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -66,14 +64,19 @@ const PricingCard = ({ openModal }) => {
     };
   }, []);
 
+  const handleCardClick = (index) => {
+    setActiveCard(index);
+    dispatch(setSubscription(index));
+  };
+
   return (
     <div>
       <div className="row g-4">
         {priceOptions.map((data, index) => (
           <div
             key={index}
-            className={`col-lg-4 ${modalOpen === true ? "d-none" : null}`}
-            onClick={() => setActiveCard(index)}>
+            className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
+            onClick={() => handleCardClick(index)}>
             <div
               className={`price_card ${activeCard === index ? "active" : ""}`}>
               <div className="d-flex align-items-center gap-4 mb-5">
@@ -100,16 +103,16 @@ const PricingCard = ({ openModal }) => {
               </p>
 
               <div className="d-flex flex-column gap-4 pb-4">
-                {options.map((option, index) => (
-                  <div className="d-flex align-items-center gap-2" key={index}>
+                {options.map((option, idx) => (
+                  <div className="d-flex align-items-center gap-2" key={idx}>
                     <img
                       className="mt-0"
-                      src={activeCard === index ? checkActive : check}
+                      src={activeCard === idx ? checkActive : check}
                       alt=""
                     />
                     <p
                       className={` ${
-                        activeCard === index ? "active_color" : "options"
+                        activeCard === idx ? "active_color" : "options"
                       }`}>
                       {option}
                     </p>
@@ -138,7 +141,6 @@ const PricingCard = ({ openModal }) => {
           </div>
         ))}
       </div>
-      {/* Render modal only if modalOpen state is true */}
       {modalOpen && (
         <div className="model" ref={modalRef}>
           <MakePaymenModal closeModal={closeModal} />

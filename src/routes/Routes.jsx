@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+ import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
 import Layout from "../Layout/Layout.jsx";
@@ -53,7 +53,6 @@ import PrivateRoute from "./PrivateRoute.jsx";
 import SubscribedRoute from "./SubscribedRoute.jsx";
 import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
 import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
-
 
 export const router = createBrowserRouter([
   {
@@ -179,7 +178,6 @@ export const router = createBrowserRouter([
         element: (
           // <SubscribedRoute>
           <OverView />
-
           // </SubscribedRoute>
         ),
       },

@@ -21,7 +21,8 @@ const CreateAnnouncemnetModal = ({
           {/*title*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}>
+            style={{ marginBottom: "32px" }}
+          >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Title
             </label>
@@ -45,7 +46,8 @@ const CreateAnnouncemnetModal = ({
           {/*category type*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}>
+            style={{ marginBottom: "32px" }}
+          >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Category
             </label>
@@ -60,14 +62,14 @@ const CreateAnnouncemnetModal = ({
                 padding: "0 14px",
               }}
               name="category"
-              // value={jobType}
-              onChange={handleInputChange}>
+              onChange={handleInputChange}
+            >
               <option selected disabled>
                 Select here
               </option>
-              {options.map((country, index) => (
-                <option value={country.value} className="" key={index}>
-                  {country.value}
+              {options.map((cat, index) => (
+                <option value={cat.value} className="" key={index}>
+                  {cat.value}
                 </option>
               ))}
             </select>
@@ -80,7 +82,8 @@ const CreateAnnouncemnetModal = ({
               <div className="col-lg-6 job_location_select">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label">
+                  className="form-label"
+                >
                   Country
                 </label>
 
@@ -94,7 +97,8 @@ const CreateAnnouncemnetModal = ({
                     padding: "0 14px",
                   }}
                   name="country"
-                  onChange={handleInputChange}>
+                  onChange={handleInputChange}
+                >
                   <option selected disabled>
                     Select here
                   </option>
@@ -108,10 +112,12 @@ const CreateAnnouncemnetModal = ({
               <div className="col-lg-6">
                 <div
                   className="position-relative text-start "
-                  style={{ marginBottom: "32px" }}>
+                  style={{ marginBottom: "32px" }}
+                >
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     City
                   </label>
 
@@ -147,7 +153,8 @@ const CreateAnnouncemnetModal = ({
           {/*category type*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}>
+            style={{ marginBottom: "32px" }}
+          >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Sports
             </label>
@@ -163,7 +170,8 @@ const CreateAnnouncemnetModal = ({
               }}
               name="sports"
               // value={jobType}
-              onChange={handleInputChange}>
+              onChange={handleInputChange}
+            >
               <option selected disabled>
                 Select here
               </option>
@@ -181,7 +189,8 @@ const CreateAnnouncemnetModal = ({
           {/*    budget */}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}>
+            style={{ marginBottom: "32px" }}
+          >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Budget
             </label>
@@ -218,7 +227,8 @@ const CreateAnnouncemnetModal = ({
           {/*image*/}
           <div
             className="position-relative text-start"
-            style={{ marginBottom: "32px" }}>
+            style={{ marginBottom: "32px" }}
+          >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Image
             </label>
