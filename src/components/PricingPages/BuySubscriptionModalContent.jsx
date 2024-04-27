@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../pages/pricing/Pricing.css";
 import OptionDropdown from "../../pages/pricing/OptionDropdown";
 
-const BuySubscriptionModalContent = ({ user }) => {
+const BuySubscriptionModalContent = ({ user, openModal }) => {
   const [activeButton, setActiveButton] = useState("MONTHLY");
 
   const handleButtonClick = (buttonType) => {
@@ -10,7 +10,7 @@ const BuySubscriptionModalContent = ({ user }) => {
   };
 
   const manager = user?.role == "Manager";
-
+  
   return (
     <div>
       <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
@@ -30,6 +30,7 @@ const BuySubscriptionModalContent = ({ user }) => {
         )}
         <h6>Transfer Market LIST</h6>
       </div>
+
       <div className="pricing_buttons">
         <button
           className={activeButton === "MONTHLY" ? "active" : "inactive"}

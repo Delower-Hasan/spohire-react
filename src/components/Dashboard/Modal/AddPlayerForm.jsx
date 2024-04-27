@@ -18,6 +18,10 @@ const AddPlayerForm = ({
   isProfileUploaded,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
+  const [btnAction, setBtnAction] = useState("");
+  const handleBtnClick = (option) => {
+    setBtnAction(option);
+  };
   useEffect(() => {
     axios
       .get(
@@ -356,6 +360,7 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Do you currently belong to a club? *
             </label>
+
             <div className="btn_group d-flex gap-3">
               <input
                 type="radio"
