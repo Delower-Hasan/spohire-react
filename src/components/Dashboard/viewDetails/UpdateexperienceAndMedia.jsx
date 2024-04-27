@@ -14,21 +14,26 @@ const UpdateexperienceAndMedia = ({
   editedInfo,
   setEditedInfo,
   exp,
+  handleAddMore,
+  handleExperienceChange,userExperience
 }) => {
   console.log("exp", exp);
-  const [experienceFormData, setExperienceFormData] = useState({});
-  const [userExperience, setUserExperience] = useState([...exp]);
+  // const [experienceFormData, setExperienceFormData] = useState({});
+  // const [userExperience, setUserExperience] = useState([...exp]);
 
   const handleSocialLinkChange = (e) => {
     const { name, value } = e.target;
     setSocialMedia({ ...socialMedia, [name]: value });
   };
-  const handleExperienceChange = (e) => {
-    const { name, value } = e.target;
-    setExperienceFormData({ ...experienceFormData, [name]: value });
-  };
+  // const handleExperienceChange = (e) => {
+  //   console.log('experience',e.target.value)
+    
+  //   const { name, value } = e.target;
+  //   setExperienceFormData({ ...experienceFormData, [name]: value });
+  // };
+  // console.log(experienceFormData)
 
-  console.log(userInfo?.experience, "userInfo");
+  // console.log(userInfo?.experience, "userInfo");
 
   //   const handleSubmit = (e) => {
   //     e.preventDefault();
@@ -55,15 +60,16 @@ const UpdateexperienceAndMedia = ({
   //     // setUserInfo({ ...userInfo, experience: [...userInfo[experience], data] });
   //   };
 
-  const handleAddMore = () => {
-    const newData = [...userInfo?.experience, experienceFormData];
+  // const handleAddMore = () => {
+  //   const newData = [...userInfo?.experience, experienceFormData];
 
-    setEditedInfo({ ...editedInfo, ["experience"]: newData });
-    setUserExperience(newData);
-  };
+  //   setEditedInfo({ ...editedInfo, ["experience"]: newData });
+  //   setUserExperience(newData);
+  // };
+  // console.log(userExperience,'userExperience')
 
 
-  return (
+  return ( 
     <>
       <div className="container">
         <div className="experience_wrapper">
