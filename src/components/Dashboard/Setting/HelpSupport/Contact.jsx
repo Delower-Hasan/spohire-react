@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HelpSupport.css";
 import contact from "../../../../assets/contact.png";
 import call from "../../../../assets/call.png";
 import email from "../../../../assets/email.png";
 import location from "../../../../assets/location-contact.png";
+import { useAddContactMutation } from "../../../../features/contact/contactApi";
 
 const Contact = () => {
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    emailAddress: "",
+    message: ""
+  });
+
+  const [addContact, { isLoading }] = useAddContactMutation();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await addContact(formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="contact">
       <div className="row">
@@ -37,28 +61,42 @@ const Contact = () => {
           </div>
         </div>
         <div className="col-md-6 form">
-          <form>
+        <form onSubmit={handleSubmit}>
             <div className="mb-5">
               <label>Full Name</label>
-              <input type="text" placeholder="Input your full name in here" />
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                placeholder="Input your full name in here"
+                onChange={handleChange}
+              />
             </div>
             <div className="mb-5">
               <label>Email Address</label>
               <input
                 type="email"
+                name="emailAddress"
+                value={formData.emailAddress}
                 placeholder="Input your email address in here"
+                onChange={handleChange}
               />
             </div>
             <div className="mb-5">
               <label>Messages</label>
               <textarea
+                name="message"
                 cols="30"
                 rows="10"
+                value={formData.message}
                 placeholder="Write your messages in here"
+                onChange={handleChange}
               ></textarea>
             </div>
             <div className="text-end">
-              <button className="btn btn-primary">Send Messages</button>
+              <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                {isLoading ? "Sending..." : "Send Messages"}
+              </button>
             </div>
           </form>
         </div>
