@@ -5,6 +5,8 @@ import n1 from '../../assets/news/n1.png'
 import n2 from '../../assets/news/n2.png'
 import n4 from '../../assets/news/n4.png'
 import Pagination from "../../components/Pagination/Pagination";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const newsData = [
     {
@@ -34,11 +36,31 @@ const newsData = [
 
 ]
 
+
 const News = () => {
+
+
+
+    const [news, setNews] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/v1/blogs/all');
+                setNews(response.data.data.blogs)
+                console.log(response.data.data.blogs, "news data get thgeheirleijrlskflksdfhsdhf")
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+        fetchUsers();
+    }, []);
+
+
     return (
         <div className="container">
             <NewsHeader />
-            {newsData.map((data) => (
+            {news.map((data) => (
                 <>
                     <NewsCard data={data} />
                 </>
