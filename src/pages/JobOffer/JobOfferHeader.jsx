@@ -11,14 +11,12 @@ const jobTypeOptions = [
 ];
 
 const JobOfferHeader = ({
-  filterItems,
-  setFilterItems,
-  setSearchParams,
-  searchParams,
+  // searchInput,
+  // handleSearchInputChange,
+  searchText,
+  handleSearch,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedJobType, setSelectedJobType] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -35,79 +33,15 @@ const JobOfferHeader = ({
     { value: "Referee", label: "Referee" },
   ];
 
-  const allOptions = [
-    "Coach",
-    "Administration",
-    "Marketing",
-    "Betting",
-    "Customer service",
-    "Manager",
-    "Agent",
-    "Journalist",
-    "Scout",
-    "Referee",
-  ];
-
-  // handle function
-  const handleSearch = (event) => {
-    setSearchParams(event.target.value);
-  };
-
-  const handleClear = () => {
-    setSearchParams({});
-  };
-
-  const handleCheckboxChange = (event, name) => {
-    event.preventDefault(); // Prevent the default behavior to keep the dropdown open
-
-    if (searchParams?.jobLocation?.includes(name)) {
-      const newSelectedCountries = searchParams?.jobLocation?.filter(
-        (i) => i !== name
-      );
-      setSearchParams({ ...searchParams, jobLocation: newSelectedCountries });
-    } else {
-      const previousjobLocation = searchParams?.jobLocation || [];
-      setSearchParams({
-        ...searchParams,
-        jobLocation: [...previousjobLocation, name],
-      });
-    }
-  };
-
   const handleDocumentClick = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setShowDropdown(false);
     }
   };
 
-  const handleChange = (e) => {
-    // setSelectedCountry(selectedOption);
-    setFilterItems({
-      ...filterItems,
-      jobLocation: [e.target.value],
-    });
-  };
-
-  const handleChangeJobType = (e) => {
-    if (e.target.value === "All") {
-      setFilterItems({
-        ...filterItems,
-        jobType: [...allOptions],
-      });
-    } else {
-      setFilterItems({
-        ...filterItems,
-        jobType: [e.target.value],
-      });
-    }
-  };
-
-  // handle function end
-
   // useEffect
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
-
     return () => {
       document.removeEventListener("mousedown", handleDocumentClick);
     };
@@ -156,12 +90,14 @@ const JobOfferHeader = ({
                 />
               </svg>
             </div>
+            {/* search filter */}
             <input
               type="text"
               placeholder="Keywords e.g ( job Title, description)"
-              value={searchParams}
+              value={searchText}
               onChange={handleSearch}
             />
+            {/* search filter -/END */}
           </div>
         </div>
         {/* filters */}
@@ -177,8 +113,7 @@ const JobOfferHeader = ({
                 // border: "1px solid #F0F0F0",
                 // width: "268px",
               }}
-              name="country"
-              onChange={handleChangeJobType}>
+              name="country">
               <option value="All" className="">
                 Select here
               </option>
@@ -197,8 +132,7 @@ const JobOfferHeader = ({
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
-              name="country"
-              onChange={handleChangeJobType}>
+              name="country">
               <option value="All" className="">
                 Select here
               </option>
@@ -217,8 +151,7 @@ const JobOfferHeader = ({
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
-              name="country"
-              onChange={handleChangeJobType}>
+              name="country">
               <option value="All" className="">
                 Select here
               </option>
