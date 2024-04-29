@@ -2,20 +2,13 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import CustomSelect from "./CustomSelect";
-import DatePosted from "./DatePosted";
 const jobTypeOptions = [
   { value: "Full-time", label: "Full-time" },
   { value: "Part-time", label: "Part-time" },
   { value: "Other", label: "Other" },
 ];
 
-const JobOfferHeader = ({
-  // searchInput,
-  // handleSearchInputChange,
-  searchText,
-  handleSearch,
-}) => {
+const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
   const [countryNames, setCountryNames] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -31,6 +24,12 @@ const JobOfferHeader = ({
     { value: "Journalist", label: "Journalist" },
     { value: "Scout", label: "Scout" },
     { value: "Referee", label: "Referee" },
+  ];
+
+    const dateOptions = [
+      { value: "Past 24 hours", label: "Past 24 hours" },
+      { value: "Last week", label: "Last week" },
+      { value: "Last month", label: "Last month" },
   ];
 
   const handleDocumentClick = (event) => {
@@ -107,14 +106,15 @@ const JobOfferHeader = ({
             <select
               className="form-select"
               aria-label="Default select example"
+              name="category"
+              onChange={handleInputChange}
               style={{
                 // height: "50px",
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
                 // border: "1px solid #F0F0F0",
                 // width: "268px",
-              }}
-              name="country">
-              <option value="All" className="">
+              }}>
+              <option disabled selected className="">
                 Select here
               </option>
               {options.map((name, index) => (
@@ -129,10 +129,11 @@ const JobOfferHeader = ({
             <select
               className="form-select"
               aria-label="Default select example"
+              name="location"
+              onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}
-              name="country">
+              }}>
               <option value="All" className="">
                 Select here
               </option>
@@ -144,30 +145,60 @@ const JobOfferHeader = ({
             </select>
           </div>
           <div className="col">
-            <label htmlFor="">Remote</label>
+            <label htmlFor="">Job Type</label>
             <select
               className="form-select"
               aria-label="Default select example"
+              name="jobType"
+              onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}
-              name="country">
+              }}>
               <option value="All" className="">
                 Select here
               </option>
-              <option value="All" className="">
-                Select here
-              </option>
+
+              {jobTypeOptions.map((item, index) => (
+                <option key={index} value={item.value} className="">
+                  {item.value}
+                </option>
+              ))}
             </select>
           </div>
-          <div className="col">
-            <label htmlFor="">Job type</label>
-            <CustomSelect options={jobTypeOptions} />
-          </div>
+
           <div className="col">
             <label htmlFor="">Date posted</label>
-            <DatePosted />
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              name="postedAt"
+              onChange={handleInputChange}
+              style={{
+                backgroundColor: "rgba(245, 245, 245, 0.70)",
+              }}>
+              <option disabled selected className="">
+                Select here
+              </option>
+
+              {dateOptions.map((item, index) => (
+                <option key={index} value={item.value} className="">
+                  {item.value}
+                </option>
+              ))}
+            </select>
           </div>
+
+          {/* <div className="col">
+            <label htmlFor="">Job type</label>
+            <CustomSelect
+              handleInputChange={handleInputChange}
+              options={jobTypeOptions}
+            />
+          </div> */}
+          {/* <div className="col">
+            <label htmlFor="">Date posted</label>
+            <DatePosted />
+          </div> */}
         </div>
       </div>
     </>

@@ -1,4 +1,4 @@
-import {  useState } from 'react'
+import { useState } from 'react';
 
 const DatePosted = () => {
 
@@ -52,10 +52,6 @@ const DatePosted = () => {
                                     {option.label}
                                 </div>
                             ))}
-
-
-
-                         
 
 
                         </div>

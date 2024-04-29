@@ -43,7 +43,7 @@ const SingleJobs = ({ handleDetails, item }) => {
                 src={location}
                 alt=""
               />
-              <span>{item.job_location}</span>
+              <span>{item.country}</span>
             </div>
             <div className="d-flex align-items-center" style={{ gap: "6px" }}>
               <img
