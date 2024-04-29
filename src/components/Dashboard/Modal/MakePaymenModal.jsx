@@ -14,6 +14,7 @@ const MakePaymenModal = ({
   handleSubmit,
   selectedPackages,
   addPlayerLoading,
+  modalRef,
 }) => {
   const options = [
     "All analytics features",
@@ -142,7 +143,6 @@ const MakePaymenModal = ({
                 </div>
 
                 <Elements stripe={stripePromise}>
-        
                   <PlayerCoachAddPayment
                     handleSubmit={handleSubmit}
                     addPlayerLoading={addPlayerLoading}

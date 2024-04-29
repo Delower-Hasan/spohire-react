@@ -143,7 +143,7 @@ const PricingCard = () => {
       </div>
       {modalOpen && (
         <div className="model" ref={modalRef}>
-          <MakePaymenModal closeModal={closeModal} />
+          <MakePaymenModal modalRef={modalRef} closeModal={closeModal} />
         </div>
       )}
     </div>
