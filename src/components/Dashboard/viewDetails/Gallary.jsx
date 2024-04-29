@@ -66,12 +66,13 @@ const Gallary = ({ gallary, user }) => {
               user?.gallary.map((item, idx) => (
                 <div key={idx}>
                   <img
-                    className="w-100"
+                    style={{ height: "100px" }}
+                    className="w-50"
                     src={`${
                       process.env.NODE_ENV !== "production"
                         ? import.meta.env.VITE_LOCAL_API_URL
                         : import.meta.env.VITE_LIVE_API_URL
-                    }/api/v1/uploads/${item.path}`}
+                    }/api/v1/uploads/${item}`}
                     // src={item.path}
                     alt={`gallery-img-${idx}`}
                   />

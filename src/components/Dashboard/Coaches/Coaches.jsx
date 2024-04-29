@@ -25,8 +25,6 @@ const Coaches = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
 
-
-
   const allowedPlans =
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
@@ -235,8 +233,7 @@ const SingleCoach = ({ coach }) => {
               </div>
               <div className="player_name">
                 <p className="text_color_36 fw-medium fs_14">
-                  {/* {coach?.first_name} <br /> {coach?.last_name} */}
-                  {coach?.fullName}
+                  {coach?.firstName} <br /> {coach?.lastName}
                 </p>
                 {/* <Link
                   to={`/dashboard/messages/${coach?.referral}`}

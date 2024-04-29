@@ -116,7 +116,7 @@ const EditPlayerDetails = () => {
     experience: [],
     about_me: "",
   });
-  const [aboutMe, setAboutMe] = useState(userInfo?.about_me || "");
+  const [aboutMe, setAboutMe] = useState("");
 
   // Inside handleInputChange function
   const handleAboutInputChange = (fieldName, value) => {
@@ -138,12 +138,12 @@ const EditPlayerDetails = () => {
   const navigate = useNavigate();
 
   const [experienceFormData, setExperienceFormData] = useState({});
-  const [userExperience, setUserExperience] =
-    useState([...userInfo["experience"]]);
-
+  const [userExperience, setUserExperience] = useState([
+    ...userInfo["experience"],
+  ]);
 
   const handleExperienceChange = (e) => {
-    console.log('experience', e.target.value)
+    console.log("experience", e.target.value);
 
     const { name, value } = e.target;
     setExperienceFormData({ ...experienceFormData, [name]: value });
@@ -164,7 +164,6 @@ const EditPlayerDetails = () => {
       alert("Please fill up the experience data properly");
     }
   };
-  console.log('experienceFormData', experienceFormData)
 
   // const handleGallaryImageChange = (e) => {
   //   const files = e.target.files;
@@ -211,26 +210,31 @@ const EditPlayerDetails = () => {
       [fieldName]: value,
     }));
   };
-  // handle gallary change 
+  // handle gallary change
 
   const onGalleryDrop = (acceptedFiles) => {
     // Add the newly selected files to the existing selectedGalleryFiles state
     setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
   };
 
-
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
-  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } = useDropzone({ onDrop: onGalleryDrop });
+  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+    useDropzone({ onDrop: onGalleryDrop });
 
-  console.log(selectedGalleryFiles, "selectedGalleryFiles from editplayerdetails")
-
+  console.log("selectedGalleryFiles", selectedGalleryFiles);
+  console.log("gallaryImage", gallaryImage);
   // form submit data
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     const socialMediaArray = Object.values(socialMedia);
 
-    const infoData = { ...editedInfo, social_media: socialMediaArray, experience: userExperience, about_me: aboutMe, gallary: selectedGalleryFiles };
+    const infoData = {
+      ...editedInfo,
+      social_media: socialMediaArray,
+      experience: userExperience,
+      about_me: aboutMe,
+    };
     const formData = new FormData();
 
     Object.keys(infoData).forEach((key) => {
@@ -251,8 +255,8 @@ const EditPlayerDetails = () => {
       }
     });
 
-    gallaryImage?.forEach((img, index) => {
-      formData.append(`gallery`, img);
+    selectedGalleryFiles?.forEach((img, index) => {
+      formData.append(`gallary`, img);
     });
 
     try {
@@ -310,7 +314,7 @@ const EditPlayerDetails = () => {
       sports: user?.sports,
       role: user?.role,
     };
-
+    setAboutMe(user?.about_me);
     setUserInfo(newData);
 
     let values = {};
@@ -331,28 +335,7 @@ const EditPlayerDetails = () => {
     }
 
     setSocialMedia(values);
-
-    // const newSocials = user?.social_media?.map((i) => {
-    //   const values = {};
-    //   if (i?.includes("twitter.com")) {
-    //     values.twitter = i;
-    //   } else if (i?.includes("instagram.com")) {
-    //     values.instagram = i;
-    //   } else if (i?.includes("facebook.com")) {
-    //     values.facebook = i;
-    //   } else if (i?.includes("youtube.com")) {
-    //     values.youtube = i;
-    //   } else {
-    //     values.others = i;
-    //   }
-    //   return values;
-    // });
-
-    console.log(values, "nnoso");
   }, [user]);
-
-  console.log(socialMedia, "socialMedia");
-  console.log("userInfo", userInfo);
 
   return (
     <form
@@ -363,9 +346,9 @@ const EditPlayerDetails = () => {
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
-          <button className="cancel"> Cancel </button>
-          <Link to={"/dashboard/editPlayerDetals"} className="edit d-block">
-            Edit
+          <Link to={"/dashboard/viewProfile"} className="cancel">
+            {" "}
+            Cancel{" "}
           </Link>
         </div>
       </div>
@@ -409,7 +392,7 @@ const EditPlayerDetails = () => {
                       <button
                         type="button"
                         className="profile_upload_btn"
-                      // onClick={handleButtonClick}
+                        // onClick={handleButtonClick}
                       >
                         {/* photo here */}
                         {/* <img src={upload} alt="" /> */}
@@ -525,7 +508,7 @@ const EditPlayerDetails = () => {
                   Add Photo or Video
                 </button>
               </div>
-              {/* <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+              <div className="upload-images d-flex gap-4 flex-wrap mb-4">
                 {selectedGalleryFiles.map((file, index) => (
                   <img
                     style={{ width: "130px", height: "130px" }}
@@ -534,20 +517,28 @@ const EditPlayerDetails = () => {
                     alt={`Uploaded file ${index}`}
                   />
                 ))}
-              </div> */}
+              </div>
             </div>
             <div className="col-lg-6 p-0">
               <div className="about_me">
                 <h2 className="mb-4">About Me</h2>
-                <textarea value={aboutMe}
-                  onChange={(e) => handleAboutInputChange("about_me", e.target.value)}
-                  rows={4} cols={50} placeholder="|Lorem Ipsum is simply dummy text of the " />
+                <textarea
+                  value={aboutMe}
+                  onChange={(e) =>
+                    handleAboutInputChange("about_me", e.target.value)
+                  }
+                  rows={10}
+                  cols={50}
+                  placeholder="Lorem Ipsum is simply dummy text of the "
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button type="submit">Update</button>
+      <button className="btn btn-info" type="submit">
+        Update
+      </button>
     </form>
   );
 };

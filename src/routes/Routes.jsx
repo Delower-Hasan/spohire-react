@@ -1,4 +1,4 @@
- import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
 import Layout from "../Layout/Layout.jsx";
@@ -176,9 +176,9 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          // <SubscribedRoute>
-          <OverView />
-          // </SubscribedRoute>
+          <SubscribedRoute>
+            <OverView />
+          </SubscribedRoute>
         ),
       },
       {

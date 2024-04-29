@@ -7,7 +7,10 @@ import bookmark2 from "../../../assets/bookmark12.svg";
 import messageIcon from "../../../assets/messageIcon.svg";
 import playerImgOne from "../../../assets/playerImg.svg";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
-import { useGetMyObservationsQuery, useToggleObservationMutation } from "../../../features/observation/observationApi";
+import {
+  useGetMyObservationsQuery,
+  useToggleObservationMutation,
+} from "../../../features/observation/observationApi";
 import { getCountryFlag } from "../../../utils/getFlag";
 import Pagination from "../../Pagination/Pagination";
 import MobileButtons from "./MobileButtons";
@@ -16,57 +19,58 @@ import "./Players.css";
 import { useState } from "react";
 
 const Players = () => {
-const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
-const { user, playerFilterParams } = useSelector((state) => state.auth);
-const [currentPage, setCurrentPage] = useState(1);
-const itemsPerPage = 2;
+  const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
+  const { user, playerFilterParams } = useSelector((state) => state.auth);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
 
-const allowedPlans =
-  user?.subscriptionName === "Gold"
-    ? ["Gold", "Silver", "Bronze"]
-    : user?.subscriptionName === "Silver"
-    ? ["Silver", "Bronze"]
-    : user?.subscriptionName === "Bronze"
-    ? ["Bronze"]
-    : [];
+  console.log("players", players);
 
-const handleFilter = (value) => {
-  if (
-    playerFilterParams?.position ||
-    playerFilterParams?.country ||
-    playerFilterParams?.categories
-  ) {
-    return (
-      (playerFilterParams?.position &&
-        playerFilterParams?.position === value?.mainPosition) ||
-      (playerFilterParams?.country &&
-        playerFilterParams?.country === value?.nationality) ||
-      (playerFilterParams?.categories &&
-        playerFilterParams?.categories === value?.category)
-    );
-  } else {
-    return true;
-  }
-};
+  const allowedPlans =
+    user?.subscriptionName === "Gold"
+      ? ["Gold", "Silver", "Bronze"]
+      : user?.subscriptionName === "Silver"
+      ? ["Silver", "Bronze"]
+      : user?.subscriptionName === "Bronze"
+      ? ["Bronze"]
+      : [];
 
-const filteredData =
-  players
-    ?.filter(
-      (player) =>
-        player?.subscriptionName &&
-        allowedPlans.includes(player?.subscriptionName) &&
-        user?.sports === player?.sports &&
-        player?.isActive
-    )
-    .filter(handleFilter) || [];
+  const handleFilter = (value) => {
+    if (
+      playerFilterParams?.position ||
+      playerFilterParams?.country ||
+      playerFilterParams?.categories
+    ) {
+      return (
+        (playerFilterParams?.position &&
+          playerFilterParams?.position === value?.mainPosition) ||
+        (playerFilterParams?.country &&
+          playerFilterParams?.country === value?.nationality) ||
+        (playerFilterParams?.categories &&
+          playerFilterParams?.categories === value?.category)
+      );
+    } else {
+      return true;
+    }
+  };
 
-const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const filteredData =
+    players
+      ?.filter(
+        (player) =>
+          player?.subscriptionName &&
+          allowedPlans.includes(player?.subscriptionName) &&
+          user?.sports === player?.sports &&
+          player?.isActive
+      )
+      .filter(handleFilter) || [];
 
-const currentPageData = filteredData.slice(
-  (currentPage - 1) * itemsPerPage,
-  currentPage * itemsPerPage
-);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+  const currentPageData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <>
@@ -218,8 +222,7 @@ const SinglePlayer = ({ player }) => {
               </div>
               <div className="player_name">
                 <p className="text_color_36 fw-medium fs_14">
-                  {/* {player?.first_name} <br /> {player?.last_name} */}
-                  {player?.fullName}
+                  {player?.firstName} <br /> {player?.lastName}
                 </p>
                 {/* <Link
                   to={`/dashboard/messages/${player?.referral}`}

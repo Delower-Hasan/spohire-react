@@ -104,7 +104,7 @@ const CoachesDetails = () => {
               <p>{user?.country ? user?.country : user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
-              <Link to={`/dashboard/messages/${authUser?.user._id}`}>
+              <Link to={`/dashboard/messages/${user?._id}`}>
                 <button className="cm_message">
                   <AiOutlineMessage />
                   <p>Message</p>
@@ -219,7 +219,7 @@ const CoachesDetails = () => {
           </div>
         </div>
       </div>
-
+      {/* 
       <div className="social_media d-flex justify-content-between mb-4">
         <div className="media text-center">
           <FaInstagram
@@ -252,7 +252,7 @@ const CoachesDetails = () => {
           <p className="follower_count">26M</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
-      </div>
+      </div> */}
 
       <div className="experience mb-4">
         <div className="section_title">

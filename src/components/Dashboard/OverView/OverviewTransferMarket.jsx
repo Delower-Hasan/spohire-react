@@ -14,6 +14,7 @@ import JobOfferOverview from "./JobOfferOverview";
 import MessagesOverview from "./MessagesOverview";
 import PlayerOverview from "./PlayerOverview";
 import RecentlyObserved from "./RecentlyObserved";
+import moment from "moment";
 
 const OverviewTransferMarket = () => {
   const { user } = useSelector((state) => state.auth);
@@ -38,10 +39,12 @@ const OverviewTransferMarket = () => {
     setAnnouncementIsModalOpen(!isAnnouncementModalOpen);
   };
 
+  const today = moment().format("dddd, MMMM D, YYYY");
+
   return (
     <>
       <div className="over_tm_wrapper">
-        <p className="transfer_title text-end">Monday, February 26, 2024</p>
+        <p className="transfer_title text-end">{today}</p>
         <p className="transfer_title">Transfer Market</p>
 
         <div className="buttons_design">
