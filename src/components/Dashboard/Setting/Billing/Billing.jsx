@@ -9,9 +9,10 @@ import Pagination from "../../../Pagination/Pagination";
 const Billing = () => {
   const { user } = useSelector((state) => state.auth);
   const { data, isLoading } = useGetUserPaymentsQuery(user?._id);
-  const [jobOffersType, setJobOffersType] = useState("All");
-  console.log(data?.data, "duser");
-  
+
+  const [jobOffersType, setJobOffersType] = useState("Paid");
+  // console.log(data?.data, "duser");
+
   return (
     <>
       <div className="billing_table">
@@ -22,7 +23,8 @@ const Billing = () => {
                 className={`fs-6 fw-medium text_color_80 ${
                   jobOffersType === "All" && "activeBtn"
                 }`}
-                onClick={() => setJobOffersType("All")}>
+                onClick={() => setJobOffersType("All")}
+              >
                 All
               </button>
 
@@ -30,16 +32,18 @@ const Billing = () => {
                 className={`fs-6 fw-medium text_color_80 ${
                   jobOffersType === "Paid" && "activeBtn"
                 }`}
-                onClick={() => setJobOffersType("Paid")}>
+                onClick={() => setJobOffersType("Paid")}
+              >
                 Paid
               </button>
-              <button
+              {/* <button
                 className={`fs-6 fw-medium text_color_80 ${
                   jobOffersType === "Pending" && "activeBtn"
                 }`}
-                onClick={() => setJobOffersType("Pending")}>
+                onClick={() => setJobOffersType("Pending")}
+              >
                 Pending
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -115,7 +119,8 @@ const Billing = () => {
                             : "Bronze"
                             ? "#C78A4E"
                             : null,
-                      }}>
+                      }}
+                    >
                       {item?.planName}
                     </p>
                   </div>
@@ -138,14 +143,15 @@ const Billing = () => {
                         color: item?.status === "Paid" && "#05CD99",
                         backgroundColor:
                           item?.status === "Paid" ? "#F0FFFB" : "#FFF9E7",
-                      }}>
+                      }}
+                    >
                       Paid
                     </button>
                   </div>
                 </div>
               </>
             ))}
-          <Pagination/>
+          <Pagination />
         </div>
       </div>
     </>

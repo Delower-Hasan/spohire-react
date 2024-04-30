@@ -181,9 +181,9 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          // <SubscribedRoute>
-          <OverView />
-          // </SubscribedRoute>
+          <SubscribedRoute>
+            <OverView />
+          </SubscribedRoute>
         ),
       },
       {

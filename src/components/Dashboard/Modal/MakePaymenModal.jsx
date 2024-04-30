@@ -93,7 +93,7 @@ const MakePaymenModal = ({
             <div className="col-lg-6">
               <div className="make_payment_right">
                 <div className="heading">
-                  <h3>Make the payment</h3>
+                  <h3>Make the payment </h3>
                 </div>
 
                 <div className="sub_total py-4">

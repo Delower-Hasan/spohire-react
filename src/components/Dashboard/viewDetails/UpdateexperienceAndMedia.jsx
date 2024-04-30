@@ -15,9 +15,10 @@ const UpdateexperienceAndMedia = ({
   setEditedInfo,
   exp,
   handleAddMore,
-  handleExperienceChange,userExperience
+  handleExperienceChange,
+  userExperience,
 }) => {
-  console.log("exp", exp);
+  // console.log("exp", exp);
   // const [experienceFormData, setExperienceFormData] = useState({});
   // const [userExperience, setUserExperience] = useState([...exp]);
 
@@ -27,7 +28,7 @@ const UpdateexperienceAndMedia = ({
   };
   // const handleExperienceChange = (e) => {
   //   console.log('experience',e.target.value)
-    
+
   //   const { name, value } = e.target;
   //   setExperienceFormData({ ...experienceFormData, [name]: value });
   // };
@@ -68,8 +69,7 @@ const UpdateexperienceAndMedia = ({
   // };
   // console.log(userExperience,'userExperience')
 
-
-  return ( 
+  return (
     <>
       <div className="container">
         <div className="experience_wrapper">

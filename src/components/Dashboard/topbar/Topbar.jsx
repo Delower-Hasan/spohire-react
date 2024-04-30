@@ -26,6 +26,7 @@ import AddAnnouncement from "../Announcements/AddAnnouncement";
 import AddCoachModal from "../Modal/AddCoachModal";
 import AddPlayerModal from "../Modal/AddPlayerModal";
 import "./Topbar.css";
+import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
 
 const Topbar = ({ onClose }) => {
   let location = useLocation();
@@ -48,6 +49,63 @@ const Topbar = ({ onClose }) => {
   const navigate = useNavigate();
   const wrapperRef = useClickOutside(() => setIsDropDownOpen(false));
   const filterRef = useClickOutside(() => setFilter(false));
+
+  const { data: players } = useGetFilteredUsersQuery("");
+
+  const allowedPlans =
+    user?.subscriptionName === "Gold"
+      ? ["Gold", "Silver", "Bronze"]
+      : user?.subscriptionName === "Silver"
+      ? ["Silver", "Bronze"]
+      : user?.subscriptionName === "Bronze"
+      ? ["Bronze"]
+      : [];
+
+  const filteredDataForSearchs =
+    players?.filter(
+      (player) =>
+        player?.subscriptionName &&
+        allowedPlans.includes(player?.subscriptionName) &&
+        user?.sports === player?.sports &&
+        player?.isActive
+    ) || [];
+
+  // function searchByName(data, query) {
+  //   const results = [];
+  //   for (let i = 0; i < data.length; i++) {
+  //     const fullName = `${data[i].firstName} ${data[i].lastName}`;
+  //     if (fullName.toLowerCase().includes(query.toLowerCase())) {
+  //       results.push(data[i]);
+  //     }
+  //   }
+  //   return results;
+  // }
+
+  function searchByName(data, query) {
+    if (!query.trim()) {
+      return [];
+    }
+
+    const results = [];
+    for (let i = 0; i < data.length; i++) {
+      const fullName = `${data[i].firstName} ${data[i].lastName}`;
+      if (fullName.toLowerCase().includes(query.toLowerCase())) {
+        results.push(data[i]);
+      }
+    }
+    return results;
+  }
+
+  // Example usage:
+  const [searchResultDatas, setSearchResults] = useState([]);
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    const searchResults = searchByName(filteredDataForSearchs, query);
+    setSearchResults(searchResults);
+  };
+
+  console.log("Search results:", searchResultDatas);
 
   const handleAddPlayerModal = () => {
     setAddPlayerModal(true);
@@ -226,11 +284,21 @@ const Topbar = ({ onClose }) => {
 
                   {/* view_details */}
                   {location.pathname.startsWith("/dashboard/viewDetails") && (
-                    <button className="view_details">Back</button>
+                    <button
+                      className="view_details"
+                      onClick={() => window.history.back()}
+                    >
+                      Back
+                    </button>
                   )}
 
                   {location.pathname.startsWith("/dashboard/coacheDetails") && (
-                    <button className="view_details">Back</button>
+                    <button
+                      className="view_details"
+                      onClick={() => window.history.back()}
+                    >
+                      Back
+                    </button>
                   )}
 
                   {location.pathname === "/dashboard" ||
@@ -332,8 +400,36 @@ const Topbar = ({ onClose }) => {
             location.pathname === "/dashboard/viewProfile" ||
             location.pathname === "/dashboard/editPlayerDetals" ? (
               <div className="right_searchItem d-flex justify-content-between align-items-center gap-4">
-                <div className="search_item">
-                  <input id="search_input" type="text" placeholder="Search" />
+                <div className="search_item position-relative">
+                  <input
+                    id="search_input"
+                    onChange={handleSearch}
+                    type="text"
+                    placeholder="Search d"
+                  />
+                  {searchResultDatas?.length > 0 && (
+                    <ul
+                      className="position-absolute bg-dark-subtle p-3 rounded-1 overflow-scrool"
+                      style={{
+                        listStyle: "none",
+                        left: "10px",
+                        top: "100%",
+                        width: "90%",
+                      }}
+                    >
+                      {searchResultDatas?.map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to={`${
+                              item.role === "Coach"
+                                ? `/dashboard/coacheDetails/${item._id}`
+                                : `/dashboard/viewDetails/${item._id}`
+                            }`}
+                          >{`${item?.firstName} ${item?.lastName}`}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
 
                 {/* Message Icon */}
@@ -353,7 +449,19 @@ const Topbar = ({ onClose }) => {
 
                 <div className="userprofile d-flex gap-3 align-items-center position-relative">
                   <div className="userImg">
-                    <img src={AvatarImg} alt="" />
+                    <img
+                      style={{
+                        height: "50px",
+                        width: "50px",
+                        borderRadius: "100%",
+                      }}
+                      src={`${
+                        process.env.NODE_ENV !== "production"
+                          ? import.meta.env.VITE_LOCAL_API_URL
+                          : import.meta.env.VITE_LIVE_API_URL
+                      }/api/v1/uploads/${user?.image}`}
+                      alt=""
+                    />
                   </div>
                   <div className="user_info">
                     {/* drop down here */}

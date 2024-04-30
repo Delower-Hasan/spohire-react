@@ -654,7 +654,7 @@
 
 .View_details .update_plan {
     color: #0095FF;
-    font-feature-settings: 'clig' off, 'liga' off;
+    font-feature-settings: 'clig'off, 'liga'off;
     background-color: transparent;
     font-size: 16px;
     font-style: normal;

@@ -295,7 +295,11 @@ const ApplyModal = ({ show, setShow, selectedJob }) => {
           </div>
         </Modal.Body>
         <Modal.Footer className="d-flex align-items-center gap-5 border-top-0">
-          <button className="cancel_btn" onClick={() => setShow(false)}>
+          <button
+            className="cancel_btn"
+            type="button"
+            onClick={() => setShow(false)}
+          >
             Cancel
           </button>
           <button type="submit" className="submit_btn" disabled={isLoading}>
