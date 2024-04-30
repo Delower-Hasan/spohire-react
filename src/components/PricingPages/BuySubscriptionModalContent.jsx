@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import "../../pages/pricing/Pricing.css";
 import OptionDropdown from "../../pages/pricing/OptionDropdown";
+import { useDispatch } from "react-redux";
+import { setSubscriptionTimeline } from "../../features/auth/authSlice";
 
 const BuySubscriptionModalContent = ({ user, openModal }) => {
+  const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState("MONTHLY");
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
+    dispatch(setSubscriptionTimeline(buttonType));
   };
 
   const manager = user?.role == "Manager";

@@ -7,6 +7,7 @@ import checkActive from "../../assets/white-check.svg";
 import { setSubscription } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import MakePaymenModal from "../../components/Dashboard/Modal/MakePaymenModal";
+import MakePaymenModalForUpgradeSubscription from "../../components/Dashboard/Modal/MakePaymenModalForUpgradeSubscription";
 
 const priceOptions = [
   {
@@ -152,7 +153,10 @@ const PricingCard = () => {
 
       {modalOpen && (
         <div className="model" ref={modalRef}>
-          <MakePaymenModal modalRef={modalRef} closeModal={closeModal} />
+          <MakePaymenModalForUpgradeSubscription
+            modalRef={modalRef}
+            closeModal={closeModal}
+          />
         </div>
       )}
     </div>

@@ -199,6 +199,8 @@ const Topbar = ({ onClose }) => {
     navigate("/login");
   };
 
+  console.log("user?.subscriptionName", user?.subscriptionName);
+
   return (
     <>
       <div
@@ -320,7 +322,7 @@ const Topbar = ({ onClose }) => {
                                 }}
                               >
                                 <img src={silverIcon} alt="silver-icon" />
-                                Silver
+                                {user?.subscriptionName}
                               </p>
                               <span
                                 style={{
@@ -347,7 +349,7 @@ const Topbar = ({ onClose }) => {
                                 }}
                               >
                                 <img src={silverIcon} alt="silver-icon" />
-                                Silver
+                                {user?.subscriptionName}
                               </p>
                               <span
                                 style={{
@@ -374,7 +376,7 @@ const Topbar = ({ onClose }) => {
                                 }}
                               >
                                 <img src={silverIcon} alt="silver-icon" />
-                                Silver
+                                {user?.subscriptionName}
                               </p>
                               <span
                                 style={{
