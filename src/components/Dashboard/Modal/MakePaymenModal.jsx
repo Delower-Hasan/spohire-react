@@ -14,6 +14,7 @@ const MakePaymenModal = ({
   handleSubmit,
   selectedPackages,
   addPlayerLoading,
+  modalRef,
 }) => {
   const options = [
     "All analytics features",

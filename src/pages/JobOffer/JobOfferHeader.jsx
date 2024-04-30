@@ -2,23 +2,14 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import CustomSelect from "./CustomSelect";
-import DatePosted from "./DatePosted";
 const jobTypeOptions = [
   { value: "Full-time", label: "Full-time" },
   { value: "Part-time", label: "Part-time" },
   { value: "Other", label: "Other" },
 ];
 
-const JobOfferHeader = ({
-  filterItems,
-  setFilterItems,
-  setSearchParams,
-  searchParams,
-}) => {
+const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
   const [countryNames, setCountryNames] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedJobType, setSelectedJobType] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -35,44 +26,11 @@ const JobOfferHeader = ({
     { value: "Referee", label: "Referee" },
   ];
 
-  const allOptions = [
-    "Coach",
-    "Administration",
-    "Marketing",
-    "Betting",
-    "Customer service",
-    "Manager",
-    "Agent",
-    "Journalist",
-    "Scout",
-    "Referee",
+    const dateOptions = [
+      { value: "Past 24 hours", label: "Past 24 hours" },
+      { value: "Last week", label: "Last week" },
+      { value: "Last month", label: "Last month" },
   ];
-
-  // handle function
-  const handleSearch = (event) => {
-    setSearchParams(event.target.value);
-  };
-
-  const handleClear = () => {
-    setSearchParams({});
-  };
-
-  const handleCheckboxChange = (event, name) => {
-    event.preventDefault(); // Prevent the default behavior to keep the dropdown open
-
-    if (searchParams?.jobLocation?.includes(name)) {
-      const newSelectedCountries = searchParams?.jobLocation?.filter(
-        (i) => i !== name
-      );
-      setSearchParams({ ...searchParams, jobLocation: newSelectedCountries });
-    } else {
-      const previousjobLocation = searchParams?.jobLocation || [];
-      setSearchParams({
-        ...searchParams,
-        jobLocation: [...previousjobLocation, name],
-      });
-    }
-  };
 
   const handleDocumentClick = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -80,34 +38,9 @@ const JobOfferHeader = ({
     }
   };
 
-  const handleChange = (e) => {
-    // setSelectedCountry(selectedOption);
-    setFilterItems({
-      ...filterItems,
-      jobLocation: [e.target.value],
-    });
-  };
-
-  const handleChangeJobType = (e) => {
-    if (e.target.value === "All") {
-      setFilterItems({
-        ...filterItems,
-        jobType: [...allOptions],
-      });
-    } else {
-      setFilterItems({
-        ...filterItems,
-        jobType: [e.target.value],
-      });
-    }
-  };
-
-  // handle function end
-
   // useEffect
   useEffect(() => {
     document.addEventListener("mousedown", handleDocumentClick);
-
     return () => {
       document.removeEventListener("mousedown", handleDocumentClick);
     };
@@ -156,12 +89,14 @@ const JobOfferHeader = ({
                 />
               </svg>
             </div>
+            {/* search filter */}
             <input
               type="text"
               placeholder="Keywords e.g ( job Title, description)"
-              value={searchParams}
+              value={searchText}
               onChange={handleSearch}
             />
+            {/* search filter -/END */}
           </div>
         </div>
         {/* filters */}
@@ -171,15 +106,15 @@ const JobOfferHeader = ({
             <select
               className="form-select"
               aria-label="Default select example"
+              name="category"
+              onChange={handleInputChange}
               style={{
                 // height: "50px",
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
                 // border: "1px solid #F0F0F0",
                 // width: "268px",
-              }}
-              name="country"
-              onChange={handleChangeJobType}>
-              <option value="All" className="">
+              }}>
+              <option disabled selected className="">
                 Select here
               </option>
               {options.map((name, index) => (
@@ -194,11 +129,11 @@ const JobOfferHeader = ({
             <select
               className="form-select"
               aria-label="Default select example"
+              name="location"
+              onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}
-              name="country"
-              onChange={handleChangeJobType}>
+              }}>
               <option value="All" className="">
                 Select here
               </option>
@@ -210,31 +145,60 @@ const JobOfferHeader = ({
             </select>
           </div>
           <div className="col">
-            <label htmlFor="">Remote</label>
+            <label htmlFor="">Job Type</label>
             <select
               className="form-select"
               aria-label="Default select example"
+              name="jobType"
+              onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}
-              name="country"
-              onChange={handleChangeJobType}>
+              }}>
               <option value="All" className="">
                 Select here
               </option>
-              <option value="All" className="">
-                Select here
-              </option>
+
+              {jobTypeOptions.map((item, index) => (
+                <option key={index} value={item.value} className="">
+                  {item.value}
+                </option>
+              ))}
             </select>
           </div>
-          <div className="col">
-            <label htmlFor="">Job type</label>
-            <CustomSelect options={jobTypeOptions} />
-          </div>
+
           <div className="col">
             <label htmlFor="">Date posted</label>
-            <DatePosted />
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              name="postedAt"
+              onChange={handleInputChange}
+              style={{
+                backgroundColor: "rgba(245, 245, 245, 0.70)",
+              }}>
+              <option disabled selected className="">
+                Select here
+              </option>
+
+              {dateOptions.map((item, index) => (
+                <option key={index} value={item.value} className="">
+                  {item.value}
+                </option>
+              ))}
+            </select>
           </div>
+
+          {/* <div className="col">
+            <label htmlFor="">Job type</label>
+            <CustomSelect
+              handleInputChange={handleInputChange}
+              options={jobTypeOptions}
+            />
+          </div> */}
+          {/* <div className="col">
+            <label htmlFor="">Date posted</label>
+            <DatePosted />
+          </div> */}
         </div>
       </div>
     </>

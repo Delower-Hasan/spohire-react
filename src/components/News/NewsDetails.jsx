@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import insta from "../../assets/ninsta.png";
 import fb from "../../assets/nfb.png";
 import ntwitter from "../../assets/ntwitter.png";
 import nlinkdin from "../../assets/nlinkdin.png";
 import n1 from "../../assets/news/n1.png";
 import NewsSlider from "./NewsSlider";
+import { Link, useParams } from 'react-router-dom';
+import axios from "axios";
+
 const NewsDetails = () => {
+
+  const { id } = useParams();
+
+  const [blog, setBlog] = useState(null);
+
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/v1/blogs/${id}`);
+        setBlog(response.data.data);
+      } catch (error) {
+        console.error('Error fetching blog:', error);
+      }
+    };
+
+    fetchBlog();
+    return () => {
+    };
+  }, [id]);
+
   return (
     <>
       <div className="container">
@@ -14,74 +37,14 @@ const NewsDetails = () => {
           <div className="d-flex flex-wrap align-items-center date">
             <p className="">March 21, 2024 17:00 IST</p>
             <div className="d-flex flex-wrap gap-4">
-              <img src={insta} alt="" />
-              <img src={fb} alt="" />
-              <img src={ntwitter} alt="" />
-              <img src={nlinkdin} alt="" />
+              <Link to={`${blog?.fb && blog?.fb}`}><img src={fb} alt="" /></Link>
+              <Link to={`${blog?.instagram && blog?.instagram}`}>  <img src={insta} alt="" /></Link>
+              <Link to={`${blog?.twitter && blog?.twitter}`}><img src={ntwitter} alt="" /></Link>
+              <Link to={`${blog?.linkedin && blog?.linkedin}`}><img src={nlinkdin} alt="" /></Link>
             </div>
           </div>
           <div className="line_design"></div>
 
-          <p>
-            Lorem is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose
-          </p>
-
-          <div className="d-flex flex-wrap" style={{ gap: "50px" }}>
-            <div className="">
-              <img style={{ height: "400px" }} src={n1} alt="n1" />
-            </div>
-            <div className="">
-              <p>
-                Lorem is a long established fact that a reader will be
-                distracted by the readable content of a page when looking at its
-                layout. The point of using Lorem Ipsum is that it has a
-                more-or-less normal distribution of <br /> letters, as opposed
-                to using 'Content here, content here', making it look like
-                readable English. Many desktop publishing packages and web page
-                editors now use Lorem Ipsum as their default model text, and a
-                search for 'lorem ipsum' will uncover many web sites still in
-                their infancy. Various versions have evolved over the years,
-                sometimes by accident, sometimes on purpose and a search for{" "}
-                <br /> 'lorem ipsum' will uncover many web sites still in their
-                infancy. Various versions have evolved over the years, sometimes
-                by accident, sometimes on purpose
-              </p>
-            </div>
-          </div>
-
-          <p>
-            Lorem is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default{" "}
-          </p>
-          <p>
-            Lorem is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose Lorem is a long
-            established fact that a reader will be distracted by the readable
-            content of a page when looking at its layout. The point of using
-            Lorem Ipsum is that it has a more-or-less normal distribution of
-            letters, as opposed to using 'Content here, content here', making it
-            look like readable English. Many desktop publishing packages and web
-            page editors now use Lorem Ipsum as their default{" "}
-          </p>
 
           <div className="">
             <img
@@ -91,36 +54,22 @@ const NewsDetails = () => {
                 objectFit: "cover",
                 marginBottom: "40px",
               }}
-              src={n1}
+              src={
+                blog?.image
+                  ? `${process.env.NODE_ENV !== "production"
+                    ? import.meta.env.VITE_LOCAL_API_URL
+                    : import.meta.env.VITE_LIVE_API_URL
+                  }/api/v1/uploads/${blog?.image}`
+                  : n1
+              }
               alt="n1"
             />
           </div>
-          <p>
-            Lorem is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default{" "}
-          </p>
+          
+            <div
+              dangerouslySetInnerHTML={{ __html: blog?.description }}
+            />
 
-          <p>
-            Lorem is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose Lorem is a long
-            established fact that a reader will be distracted by the readable
-            content of a page when looking at its layout. The point of using
-            Lorem Ipsum is that it has a more-or-less normal distribution of
-            letters, as opposed to using 'Content here, content here', making it
-            look like readable English. Many desktop publishing packages and web
-            page editors now use Lorem Ipsum as their default{" "}
-          </p>
         </div>
         <NewsSlider />
       </div>

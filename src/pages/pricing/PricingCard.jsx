@@ -69,6 +69,8 @@ const PricingCard = () => {
     dispatch(setSubscription(index));
   };
 
+  const isPricingPage = location.pathname === "/pricing";
+
   return (
     <div>
       <div className="row g-4">
@@ -127,7 +129,7 @@ const PricingCard = () => {
 
               <div className="d-flex">
                 <button
-                  onClick={openModal}
+                  onClick={isPricingPage ? null : openModal}
                   className="d-inline-flex"
                   style={{
                     padding: "17px 66px",
@@ -147,9 +149,10 @@ const PricingCard = () => {
           </div>
         ))}
       </div>
+
       {modalOpen && (
         <div className="model" ref={modalRef}>
-          <MakePaymenModal closeModal={closeModal} />
+          <MakePaymenModal modalRef={modalRef} closeModal={closeModal} />
         </div>
       )}
     </div>
