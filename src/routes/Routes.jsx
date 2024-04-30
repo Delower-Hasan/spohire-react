@@ -1,4 +1,4 @@
- import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "../Authentication/Login/Login";
 import SignUp from "../Authentication/SignUp/SignUp";
 import Layout from "../Layout/Layout.jsx";
@@ -53,6 +53,7 @@ import PrivateRoute from "./PrivateRoute.jsx";
 import SubscribedRoute from "./SubscribedRoute.jsx";
 import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
 import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
+import Articles from "../pages/Articles/Articles.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: "/news",
         element: <News />,
+      },
+      {
+        path: "/articles",
+        element: <Articles />,
       },
       {
         path: "/newsDetails/:id",
