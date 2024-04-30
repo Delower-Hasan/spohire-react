@@ -8,8 +8,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PK } from "../../../config/config";
 import { Elements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
+import BuySubscriptionAddPayment from "../../../pages/pricing/BuySubscriptionAddPayment";
 
-const MakePaymenModal = ({
+const MakePaymenModalForUpgradeSubscription = ({
   setMakePaymentClose,
   handleSubmit,
   selectedPackages,
@@ -23,8 +24,12 @@ const MakePaymenModal = ({
     "Up to 3 team members",
   ];
   const stripePromise = loadStripe(STRIPE_PK);
-  const { subscriptions } = useSelector((state) => state.auth);
+
+  const { subscriptions, subscriptionTimeline } = useSelector(
+    (state) => state.auth
+  );
   console.log("subscriptions", subscriptions);
+  console.log("subscriptionTimeline", subscriptionTimeline);
 
   return (
     <div className="">
@@ -51,9 +56,11 @@ const MakePaymenModal = ({
                       </p>
                     </div>
 
-                    <p className={` mb-3 mpl_price_length`}>1 months</p>
+                    <p className={` mb-3 mpl_price_length`}>
+                      {subscriptionTimeline}
+                    </p>
                     <h3 className="text-start mpl_price mb-3">
-                      ${subscriptions?.price + selectedPackages?.price}
+                      ${subscriptions?.price}
                     </h3>
 
                     <p className={`active_include`}>What's included</p>
@@ -146,12 +153,7 @@ const MakePaymenModal = ({
                 </div>
 
                 <Elements stripe={stripePromise}>
-                  <PlayerCoachAddPayment
-                    handleSubmit={handleSubmit}
-                    addPlayerLoading={addPlayerLoading}
-                    selectedPackages={selectedPackages}
-                    setMakePaymentClose={setMakePaymentClose}
-                  />
+                  <BuySubscriptionAddPayment />
                 </Elements>
 
                 {/* <div className="card_number">
@@ -230,4 +232,4 @@ const MakePaymenModal = ({
   );
 };
 
-export default MakePaymenModal;
+export default MakePaymenModalForUpgradeSubscription;

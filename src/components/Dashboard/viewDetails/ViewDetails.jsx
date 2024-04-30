@@ -28,7 +28,7 @@ const ViewDetails = () => {
   const { id } = useParams();
   const authUser = useSelector((item) => item.auth);
   const { data: user, isLoading } = useGetPlayerDetailsQuery(id);
-  console.log("getPlayerDetails", user);
+
   // console.log("authUser", authUser);
 
   // if (isLoading) {
@@ -151,7 +151,7 @@ const ViewDetails = () => {
                     }}
                   >
                     <img src={silverIcon} alt="silver-icon" />
-                    Silver
+                    {user?.subscriptionName}
                   </p>
                 </div>
               </div>

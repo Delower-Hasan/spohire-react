@@ -12,6 +12,7 @@ import Gallary from "./Gallary";
 import "./ViewDetails.css";
 import ViewDetailsMobile from "./ViewDetailsMobile";
 import { useEffect, useState } from "react";
+import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
 
 const ViewProfile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -119,7 +120,17 @@ const ViewProfile = () => {
               )}
             </div>
 
-            <button className="update_plan">Upgrade</button>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              className="update_plan"
+            >
+              Upgrade
+            </button>
+
+            {/* buy subscription coatch */}
+            <BuySubscriptionModal user={user} />
+            {/* buy subscription coatch */}
 
             <div className="social_media_icon d-flex items-center gap-3">
               <Link className="link_btn" to="#">
