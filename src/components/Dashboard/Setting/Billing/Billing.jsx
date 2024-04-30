@@ -9,8 +9,10 @@ import Pagination from "../../../Pagination/Pagination";
 const Billing = () => {
   const { user } = useSelector((state) => state.auth);
   const { data, isLoading } = useGetUserPaymentsQuery(user?._id);
+
   const [jobOffersType, setJobOffersType] = useState("Paid");
   // console.log(data?.data, "duser");
+
   return (
     <>
       <div className="billing_table">
