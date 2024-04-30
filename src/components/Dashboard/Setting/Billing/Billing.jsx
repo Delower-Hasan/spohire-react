@@ -11,6 +11,7 @@ const Billing = () => {
   const { data, isLoading } = useGetUserPaymentsQuery(user?._id);
   const [jobOffersType, setJobOffersType] = useState("All");
   console.log(data?.data, "duser");
+  
   return (
     <>
       <div className="billing_table">

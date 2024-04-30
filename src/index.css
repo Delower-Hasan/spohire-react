@@ -1303,3 +1303,7 @@ a {
   line-height: normal;
   letter-spacing: 0.26px;
 }
+
+.react-multi-carousel-track{
+  gap: 40px;
+}

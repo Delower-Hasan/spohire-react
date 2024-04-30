@@ -1,111 +1,16 @@
-// import React, { useRef, useState } from 'react';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import { Navigation } from 'swiper/modules';
-// import RightButton from '../../assets/RightButton1.png';
-
-// import n1 from '../../assets/lnews.png'
-// import { Link } from 'react-router-dom';
-
-// const NewsSlider = () => {
-
-//     return (
-//         <>
-//             <div className='news_slider_wrapper row' >
-//             <Swiper
-//                 navigation={true}
-//                 modules={[Navigation]}
-//                 className="mySwiper"
-//                 slidesPerView={3}
-//                 spaceBetween={30}
-//             >
-//                 <SwiperSlide>
-//                     <div className='col-lg-4 col-12 w-100'>
-//                         <div className='text-start bg-transparent'>
-//                             <img className='banner' src={n1} alt="" />
-//                             <div className='details'>
-//                                 <p>Baku 2024 world best basketball Championships</p>
-//                                 <span>4 hours ago</span>
-//                                 <div className='view_morebtn1'>
-//                                     <Link to="/newsDetails">
-//                                         <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-//                                     </Link>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </SwiperSlide>
-//                 <SwiperSlide>
-//                     <div className='col-lg-4 col-12 w-100'>
-//                         <div className='text-start bg-transparent'>
-//                             <img className='banner' src={n1} alt="" />
-//                             <div className='details'>
-//                                 <p>Baku 2024 world best basketball Championships</p>
-//                                 <span>4 hours ago</span>
-//                                 <div className='view_morebtn1'>
-//                                     <Link to="/newsDetails">
-//                                         <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-//                                     </Link>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </SwiperSlide>
-//                 <SwiperSlide>
-//                     <div className='col-lg-4 col-12 w-100'>
-//                         <div className='text-start bg-transparent'>
-//                             <img className='banner' src={n1} alt="" />
-//                             <div className='details'>
-//                                 <p>Baku 2024 world best basketball Championships</p>
-//                                 <span>4 hours ago</span>
-//                                 <div className='view_morebtn1'>
-//                                     <Link to="/newsDetails">
-//                                         <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-//                                     </Link>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </SwiperSlide>
-//                 <SwiperSlide>
-//                     <div className='col-lg-4 col-12 w-100'>
-//                         <div className='text-start bg-transparent'>
-//                             <img className='banner' src={n1} alt="" />
-//                             <div className='details'>
-//                                 <p>Baku 2024 world best basketball Championships</p>
-//                                 <span>4 hours ago</span>
-//                                 <div className='view_morebtn1'>
-//                                     <Link to="/newsDetails">
-//                                         <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-//                                     </Link>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </SwiperSlide>
-
-//             </Swiper>
-//             </div>
 
 
-//         </>
-//     )
-// }
-
-// export default NewsSlider
-
-
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import Carousel from "react-multi-carousel";
 import RightButton from '../../assets/RightButton1.png';
 import n1 from '../../assets/lnews.png'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
-const NewsSlider = () => {
+const NewsSlider = ({type}) => {
+
 
     const responsive = {
         superLargeDesktop: {
@@ -126,94 +31,51 @@ const NewsSlider = () => {
         }
     };
 
-    return (
-        <div className='news_slider_wrapper' style={{padding:"82px 78px"}}>
-            <Carousel responsive={responsive}>
-                <div className='col-lg-4 col-12 w-100'>
-                    <div className='text-start bg-transparent'>
-                        <img className='banner' src={n1} alt="" />
-                        <div className='details'>
-                            <p>Baku 2024 world best basketball Championships</p>
-                            <span>4 hours ago</span>
-                            <div className='view_morebtn1'>
-                                <Link to="/newsDetails">
-                                    <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='col-lg-4 col-12 w-100'>
-                    <div className='text-start bg-transparent'>
-                        <img className='banner' src={n1} alt="" />
-                        <div className='details'>
-                            <p>Baku 2024 world best basketball Championships</p>
-                            <span>4 hours ago</span>
-                            <div className='view_morebtn1'>
-                                <Link to="/newsDetails">
-                                    <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='col-lg-4 col-12 w-100'>
-                    <div className='text-start bg-transparent'>
-                        <img className='banner' src={n1} alt="" />
-                        <div className='details'>
-                            <p>Baku 2024 world best basketball Championships</p>
-                            <span>4 hours ago</span>
-                            <div className='view_morebtn1'>
-                                <Link to="/newsDetails">
-                                    <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='col-lg-4 col-12 w-100'>
-                    <div className='text-start bg-transparent'>
-                        <img className='banner' src={n1} alt="" />
-                        <div className='details'>
-                            <p>Baku 2024 world best basketball Championships</p>
-                            <span>4 hours ago</span>
-                            <div className='view_morebtn1'>
-                                <Link to="/newsDetails">
-                                    <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='col-lg-4 col-12 w-100'>
-                    <div className='text-start bg-transparent'>
-                        <img className='banner' src={n1} alt="" />
-                        <div className='details'>
-                            <p>Baku 2024 world best basketball Championships</p>
-                            <span>4 hours ago</span>
-                            <div className='view_morebtn1'>
-                                <Link to="/newsDetails">
-                                    <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='col-lg-4 col-12 w-100'>
-                    <div className='text-start bg-transparent'>
-                        <img className='banner' src={n1} alt="" />
-                        <div className='details'>
-                            <p>Baku 2024 world best basketball Championships</p>
-                            <span>4 hours ago</span>
-                            <div className='view_morebtn1'>
-                                <Link to="/newsDetails">
-                                    <button>View More  <img style={{ height: "37px", width: "27px" }} src={RightButton} alt="RightButton" />  </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+    const [news, setNews] = useState([]);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/v1/blogs/all');
+                const allBlogs = response.data.data.blogs;
+                const articles = allBlogs.filter(blog => blog.type === type);
+                setNews(articles);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+        fetchUsers();
+    }, [type]);
+
+    
+
+    return (
+        <div className='news_slider_wrapper gap-5' style={{ padding: "80px 80px" }}>
+            <Carousel responsive={responsive}>
+
+                {news.map((item, index) => (
+                    <div key={index} className='col-lg-4 col-12 w-100'>
+                        <div className='text-start bg-transparent'>
+                            <img className='w-100' src={
+                                item?.image
+                                    ? `${process.env.NODE_ENV !== "production"
+                                        ? import.meta.env.VITE_LOCAL_API_URL
+                                        : import.meta.env.VITE_LIVE_API_URL
+                                    }/api/v1/uploads/${item?.image}`
+                                    : n1
+                            } alt={item.title} />
+                            <div className='details'>
+                                <p>{item.title}</p>
+                                <div className='view_morebtn1'>
+                                    <Link to={`/newsDetails/${item._id}`}>
+                                        <button>View More <img  src={RightButton} alt="RightButton" /> </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
 
             </Carousel>
         </div>

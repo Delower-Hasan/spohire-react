@@ -29,22 +29,23 @@ const NewsDetails = () => {
     };
   }, [id]);
 
+  console.log('blog',blog)
+
   return (
     <>
       <div className="container">
         <div className="news_details_wrapper">
-          <h2>Baku 2024 world best basketball Championships </h2>
+          <h2>{blog?.title}</h2>
           <div className="d-flex flex-wrap align-items-center date">
             <p className="">March 21, 2024 17:00 IST</p>
             <div className="d-flex flex-wrap gap-4">
-              <Link to={`${blog?.fb && blog?.fb}`}><img src={fb} alt="" /></Link>
-              <Link to={`${blog?.instagram && blog?.instagram}`}>  <img src={insta} alt="" /></Link>
-              <Link to={`${blog?.twitter && blog?.twitter}`}><img src={ntwitter} alt="" /></Link>
-              <Link to={`${blog?.linkedin && blog?.linkedin}`}><img src={nlinkdin} alt="" /></Link>
+              {blog?.fb && <Link to={`${blog?.fb && blog?.fb}`}><img src={fb} alt="" /></Link>}
+              {blog?.instagram && <Link to={`${blog?.instagram && blog?.instagram}`}>  <img src={insta} alt="" /></Link>}
+              {blog?.twitter && <Link to={`${blog?.twitter && blog?.twitter}`}><img src={ntwitter} alt="" /></Link>}
+              {blog?.linkedin && <Link to={`${blog?.linkedin && blog?.linkedin}`}><img src={nlinkdin} alt="" /></Link>}
             </div>
           </div>
           <div className="line_design"></div>
-
 
           <div className="">
             <img
@@ -65,13 +66,16 @@ const NewsDetails = () => {
               alt="n1"
             />
           </div>
-          
-            <div
-              dangerouslySetInnerHTML={{ __html: blog?.description }}
-            />
+
+          <div
+            dangerouslySetInnerHTML={{ __html: blog?.description }}
+          />
 
         </div>
-        <NewsSlider />
+
+
+        <NewsSlider type= {blog?.type}/>
+        
       </div>
     </>
   );
