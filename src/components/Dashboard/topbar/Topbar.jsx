@@ -167,12 +167,12 @@ const Topbar = ({ onClose }) => {
       menuName: "profile",
       link: "/dashboard/viewProfile",
     },
-    {
-      icon: subscriptionIcon,
-      onHover: hoverBuy,
-      menuName: "Buy Subscription",
-      link: "#",
-    },
+    // {
+    //   icon: subscriptionIcon,
+    //   onHover: hoverBuy,
+    //   menuName: "Buy Subscription",
+    //   link: "#",
+    // },
     {
       icon: settingsIcon,
       onHover: hoverSettings,
