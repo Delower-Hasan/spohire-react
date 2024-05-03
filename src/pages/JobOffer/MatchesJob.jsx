@@ -13,9 +13,13 @@ const MatchesJob = ({ filteredData }) => {
   const { user } = useSelector((state) => state.auth);
 
   const handleDetails = (jobId) => {
-    navigate(`/dashboard/jobDetails/${jobId}`);
-    console.log("details page for job ID:", jobId);
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    if (user) {
+      navigate(`/dashboard/jobDetails/${jobId}`);
+      console.log("details page for job ID:", jobId);
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

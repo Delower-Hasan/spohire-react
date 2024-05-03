@@ -52,7 +52,7 @@ const WhyWe = () => {
               </ul>
 
               <div className="common_btn">
-                <Link to="#" className="text-decoration-none">
+                <Link to="/signup" className="text-decoration-none">
                   Get Started Now
                 </Link>
               </div>
