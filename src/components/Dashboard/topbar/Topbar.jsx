@@ -105,8 +105,6 @@ const Topbar = ({ onClose }) => {
     setSearchResults(searchResults);
   };
 
-  console.log("Search results:", searchResultDatas);
-
   const handleAddPlayerModal = () => {
     setAddPlayerModal(true);
   };
@@ -472,19 +470,13 @@ const Topbar = ({ onClose }) => {
                       className="user_name bg-none d-flex align-items-center gap-2 "
                     >
                       <h2 className="">
-                        {user?.isSubsCribed
-                          ? `${user?.first_name} ${user?.last_name}`
-                          : "Jhon Doe"}
+                        {`${user?.first_name} ${user?.last_name}`}
                       </h2>
                       <img src={arrowDown} alt="arrow-down" />
                     </button>
 
                     <div className="user_designation">
-                      <p>
-                        {user?.isSubsCribed
-                          ? `${user?.role}`
-                          : "Basketball / Manager"}
-                      </p>
+                      <p>{`${user?.role}`}</p>
                     </div>
                   </div>
                   {/* Dropdown here */}

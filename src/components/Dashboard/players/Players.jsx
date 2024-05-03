@@ -24,8 +24,6 @@ const Players = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
 
-  console.log("players", players);
-
   const allowedPlans =
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
@@ -34,6 +32,14 @@ const Players = () => {
       : user?.subscriptionName === "Bronze"
       ? ["Bronze"]
       : [];
+
+  if (user?.role === "Player") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "You are not allowed to view this Page!",
+    });
+  }
 
   const handleFilter = (value) => {
     if (
@@ -94,9 +100,10 @@ const Players = () => {
             </tr>
           </thead>
           <tbody>
-            {currentPageData.map((player, idx) => (
-              <SinglePlayer key={idx} player={player} />
-            ))}
+            {user?.role !== "Player" &&
+              currentPageData.map((player, idx) => (
+                <SinglePlayer key={idx} player={player} />
+              ))}
           </tbody>
         </Table>
 
@@ -146,7 +153,7 @@ const SinglePlayer = ({ player }) => {
         Swal.fire({
           icon: "success",
           title: "Successsful!",
-          // text: "Job bookmarked successfully!",
+          text: "Bookmarked successfully!",
         });
       }
       if (response?.error?.data?.message) {
@@ -156,7 +163,6 @@ const SinglePlayer = ({ player }) => {
           text: `${response?.error?.data?.message}`,
         });
       }
-
       // console.log(response, "ress");
     } catch (error) {
       Swal.fire({
@@ -166,13 +172,6 @@ const SinglePlayer = ({ player }) => {
       });
     }
   };
-
-  // const handlePath = (id) => {
-  //   navigate(`/dashboard/viewDetails/${id}`);
-  // };
-
-  const gg = getCountryFlag("Afghanistan");
-  // console.log(gg, "gg");
 
   const handlePath = (player) => {
     const allowedPlans =
@@ -224,14 +223,6 @@ const SinglePlayer = ({ player }) => {
                 <p className="text_color_36 fw-medium fs_14">
                   {player?.firstName} <br /> {player?.lastName}
                 </p>
-                {/* <Link
-                  to={`/dashboard/messages/${player?.referral}`}
-                  onClick={(e) => e.stopPropagation()}
-                  style={{ fontSize: "12px", textDecoration: "underline" }}
-                  className="text-primary"
-                >
-                  Contact with Owner
-                </Link> */}
               </div>
             </div>
           </div>
@@ -256,13 +247,13 @@ const SinglePlayer = ({ player }) => {
 
         <td>
           <p className="text_color_55 fw-normal fs_14">
-            {player.mainPosition ? player.mainPosition : "N/A"}
+            {player.mainPosition ?? "N/A"}
           </p>
         </td>
 
         <td>
           <p className="text_color_55 fw-normal fs_14">
-            {player.club_name ? player.club_name : "N/A"}
+            {player.club_name ?? "N/A"}
           </p>
         </td>
 
@@ -280,7 +271,7 @@ const SinglePlayer = ({ player }) => {
                   : "inherit",
             }}
           >
-            {player?.subscriptionName ? player?.subscriptionName : "N/A"}
+            {player?.subscriptionName ?? "N/A"}
           </p>
         </td>
 

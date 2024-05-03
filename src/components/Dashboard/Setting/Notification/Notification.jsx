@@ -3,16 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import deleteIcon from "../../../../assets/deleteIcon.png";
 import {
-    useDeleteNotificationMutation,
-    useGetMyNotificationsQuery,
+  useDeleteNotificationMutation,
+  useGetMyNotificationsQuery,
 } from "../../../../features/notification/notificationApi";
-import Pagination from './../../../Pagination/Pagination';
+import Pagination from "./../../../Pagination/Pagination";
 import "./Notification.css";
-
 
 const Notification = () => {
   const { data } = useGetMyNotificationsQuery();
-  const [deleteNotification] = useDeleteNotificationMutation();
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,31 +20,7 @@ const Notification = () => {
   const totalPages = Math.ceil(data?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-    const [jobOffersType, setJobOffersType] = useState("All");
-
-  const handleDelete = (item) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const res = await deleteNotification(item?._id);
-        console.log(res, "ddd");
-        if (res?.data?.success) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success",
-          });
-        }
-      }
-    });
-  };
+  const [jobOffersType, setJobOffersType] = useState("All");
 
   return (
     // <div style={{ paddingTop: "76px" }}>
@@ -126,7 +100,7 @@ const Notification = () => {
 
     <div className="job_offers_wrapper">
       <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
-        <div className="job_offers_topBtn_left d-flex gap-4">
+        {/* <div className="job_offers_topBtn_left d-flex gap-4">
           <button
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "All" && "activeBtn"
@@ -142,7 +116,7 @@ const Notification = () => {
             onClick={() => setJobOffersType("My")}>
             My Job Offers
           </button>
-        </div>
+        </div> */}
 
         {/* <div className="job_offers_topBtn_right">
           <button className="bg-transparent border-0 text_color_fb">
@@ -156,17 +130,14 @@ const Notification = () => {
           data
             .slice(startIndex, endIndex)
             .map((item, index) => (
-              <SingleNotification
-                key={index}
-                item={item}
-                handleDelete={handleDelete}
-              />
+              <SingleNotification key={index} item={item} />
             ))
         ) : (
           <div
             className="d-flex justify-content-center align-items-center fs-4"
-            style={{ height: "70vh" }}>
-            No job offer
+            style={{ height: "70vh" }}
+          >
+            No Notifications Found
           </div>
         )}
       </div>
@@ -179,14 +150,16 @@ const Notification = () => {
         // <div>fsjkjfsk</div>
       )}
 
-      <Pagination/>
+      <Pagination />
     </div>
   );
 };
 
 export default Notification;
 
-function SingleNotification({ item, handleDelete }) {
+function SingleNotification({ item }) {
+  const [deleteNotification] = useDeleteNotificationMutation();
+
   const navigate = useNavigate();
   const handleCLick = (value) => {
     // if (value.creator !== user?._id)
@@ -196,6 +169,30 @@ function SingleNotification({ item, handleDelete }) {
     } else {
       navigate(`/dashboard/messages/${value?.senderId}`);
     }
+  };
+
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await deleteNotification(item?._id);
+        console.log(res, "ddd");
+        if (res?.data?.success) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -208,13 +205,15 @@ function SingleNotification({ item, handleDelete }) {
                 <h5
                   className="fw-medium fs-5 text_clr_e7 mb-1"
                   onClick={() => handleCLick(item)}
-                  style={{ cursor: "pointer" }}>
+                  style={{ cursor: "pointer" }}
+                >
                   {item?.type}
                 </h5>
 
                 <p
                   className="fs-14 fw-normal text_color_80 mb-1"
-                  style={{ color: "#8593BC" }}>
+                  style={{ color: "#8593BC" }}
+                >
                   {item?.message}
                 </p>
               </div>

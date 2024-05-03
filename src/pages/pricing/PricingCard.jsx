@@ -79,7 +79,10 @@ const PricingCard = () => {
           <div
             key={index}
             className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
-            onClick={() => handleCardClick(index)}
+            onClick={() => {
+              isPricingPage ? null : openModal();
+              handleCardClick(index);
+            }}
           >
             <div
               className={`price_card ${activeCard === index ? "active" : ""}`}
@@ -130,7 +133,6 @@ const PricingCard = () => {
 
               <div className="d-flex">
                 <button
-                  onClick={isPricingPage ? null : openModal}
                   className="d-inline-flex"
                   style={{
                     padding: "17px 66px",

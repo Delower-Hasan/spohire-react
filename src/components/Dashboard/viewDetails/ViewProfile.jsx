@@ -45,9 +45,7 @@ const ViewProfile = () => {
     }
     setSocialMedia(values);
   }, [user]);
-  console.log("user", user);
-
-  console.log("socialMedia", socialMedia);
+ 
   return (
     <>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">

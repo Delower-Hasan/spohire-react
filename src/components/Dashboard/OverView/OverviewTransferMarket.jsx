@@ -117,11 +117,7 @@ const OverviewTransferMarket = () => {
         <BuySubscriptionModal user={user} />
         {/* buy subscription coatch */}
 
-        {user?.role === "Manager" ? (
-          <PlayerOverview user={user} />
-        ) : (
-          <PlayerOverview />
-        )}
+        {user?.role !== "Player" && <PlayerOverview user={user} />}
 
         <div className="container">
           <div className="row mt-4 ps-0">

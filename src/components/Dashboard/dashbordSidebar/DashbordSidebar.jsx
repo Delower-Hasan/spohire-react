@@ -85,78 +85,78 @@ const DashbordSidebar = ({ user }) => {
 
               <Accordion className="nav_item">
                 <Accordion.Item eventKey="0" className="border-0">
-                  <Accordion.Header
-                    className="p-0"
-                    onClick={handleAccordionToggle1}
-                  >
-                    <li
-                      className="d-flex align-items-center"
-                      style={{ gap: "12px" }}
+                  {user?.role !== "Player" && (
+                    <Accordion.Header
+                      className="p-0"
+                      onClick={handleAccordionToggle1}
                     >
-                      <Link
-                        to={"#"}
-                        className="text-decoration-none d-flex align-items-center gap-4"
+                      <li
+                        className="d-flex align-items-center"
+                        style={{ gap: "12px" }}
                       >
-                        <img src={transfarIcon} alt="icon" />
-                        <span
+                        <Link
                           to={"#"}
-                          className="text_color_E3 text-capitalize fs-6"
+                          className="text-decoration-none d-flex align-items-center gap-4"
                         >
-                          Transfer Market
-                        </span>
-                      </Link>
-                      <img
-                        className="mt-1"
-                        src={
-                          isAccordionOpen1
-                            ? activesidebarbottomshape
-                            : rightArrow
-                        }
-                        alt="rightArrow"
-                      />
-                    </li>
-                  </Accordion.Header>
+                          <img src={transfarIcon} alt="icon" />
+                          <span
+                            to={"#"}
+                            className="text_color_E3 text-capitalize fs-6"
+                          >
+                            Transfer Market
+                          </span>
+                        </Link>
+                        <img
+                          className="mt-1"
+                          src={
+                            isAccordionOpen1
+                              ? activesidebarbottomshape
+                              : rightArrow
+                          }
+                          alt="rightArrow"
+                        />
+                      </li>
+                    </Accordion.Header>
+                  )}
 
                   <Accordion.Body className="pb-0">
                     <ul
                       className="list-unstyled"
                       style={{ paddingLeft: "30px" }}
                     >
-                      {/* {(user?.role === "Manager" ||
-                          user?.role === "Coach") && ( */}
-                      <li className="nav_item">
-                        <Link
-                          to={"/dashboard/players"}
-                          className="text-decoration-none d-flex align-items-center gap-3"
-                        >
-                          <img src={basketBallIcon} alt="icon" />
-                          <span
-                            to={"#"}
-                            className="text_color_E3 text-capitalize fs-6"
+                      {user?.role !== "Player" && (
+                        <li className="nav_item">
+                          <Link
+                            to={"/dashboard/players"}
+                            className="text-decoration-none d-flex align-items-center gap-3"
                           >
-                            Players
-                          </span>
-                        </Link>
-                      </li>
-                      {/* )} */}
+                            <img src={basketBallIcon} alt="icon" />
+                            <span
+                              to={"#"}
+                              className="text_color_E3 text-capitalize fs-6"
+                            >
+                              Players
+                            </span>
+                          </Link>
+                        </li>
+                      )}
 
-                      {/* {(user?.role === "Manager" ||
-                          user?.role === "Player") && ( */}
-                      <li className="">
-                        <Link
-                          to="/dashboard/coaches"
-                          className="text-decoration-none d-flex align-items-center gap-3"
-                        >
-                          <img src={coachesIcon} alt="icon" />
-                          <span
-                            to={"#"}
-                            className="text_color_E3 text-capitalize fs-6"
+                      {user?.role !== "Coach" && user?.role !== "Player" && (
+                        <li className="">
+                          <Link
+                            to="/dashboard/coaches"
+                            className="text-decoration-none d-flex align-items-center gap-3"
                           >
-                            Coaches
-                          </span>
-                        </Link>
-                      </li>
-                      {/* )} */}
+                            <img src={coachesIcon} alt="icon" />
+                            <span
+                              to={"#"}
+                              className="text_color_E3 text-capitalize fs-6"
+                            >
+                              Coaches
+                            </span>
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                   </Accordion.Body>
                 </Accordion.Item>
