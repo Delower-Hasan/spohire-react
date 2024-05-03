@@ -25,7 +25,7 @@ import {
 } from "../../features/payment/paymentApi";
 import { setExpireDate } from "../../utils/setExpireDate";
 
-const BuySubscriptionAddPayment = () => {
+const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
   const stripe = useStripe();
   const elements = useElements();
   const CARD_OPTIONS = {
@@ -155,8 +155,7 @@ const BuySubscriptionAddPayment = () => {
         // createing payment
 
         const createPaymentRes = await createPayment(createPaymentData);
-
-        // setMakePaymentClose();
+        window.location.reload();
         navigate("/dashboard");
       }
     } catch (error) {

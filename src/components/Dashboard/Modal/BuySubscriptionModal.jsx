@@ -6,11 +6,10 @@ function BuySubscriptionModal({ user }) {
   return (
     <>
       <div
-        className="modal fade"
+        class="modal fade"
         id="staticBackdrop"
-        data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabIndex="-1"
+        tabindex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >

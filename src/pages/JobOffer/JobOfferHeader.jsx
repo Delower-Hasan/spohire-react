@@ -26,10 +26,10 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
     { value: "Referee", label: "Referee" },
   ];
 
-    const dateOptions = [
-      { value: "Past 24 hours", label: "Past 24 hours" },
-      { value: "Last week", label: "Last week" },
-      { value: "Last month", label: "Last month" },
+  const dateOptions = [
+    { value: "Past 24 hours", label: "Past 24 hours" },
+    { value: "Last week", label: "Last week" },
+    { value: "Last month", label: "Last month" },
   ];
 
   const handleDocumentClick = (event) => {
@@ -70,7 +70,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 width="14"
                 height="15"
                 viewBox="0  0 14 15"
-                fill="none">
+                fill="none"
+              >
                 <circle
                   cx="6.36364"
                   cy="6.36364"
@@ -113,7 +114,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
                 // border: "1px solid #F0F0F0",
                 // width: "268px",
-              }}>
+              }}
+            >
               <option disabled selected className="">
                 Select here
               </option>
@@ -133,7 +135,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
               onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}>
+              }}
+            >
               <option value="All" className="">
                 Select here
               </option>
@@ -153,7 +156,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
               onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}>
+              }}
+            >
               <option value="All" className="">
                 Select here
               </option>
@@ -175,7 +179,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
               onChange={handleInputChange}
               style={{
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
-              }}>
+              }}
+            >
               <option disabled selected className="">
                 Select here
               </option>

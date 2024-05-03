@@ -167,12 +167,12 @@ const Topbar = ({ onClose }) => {
       menuName: "profile",
       link: "/dashboard/viewProfile",
     },
-    {
-      icon: subscriptionIcon,
-      onHover: hoverBuy,
-      menuName: "Buy Subscription",
-      link: "#",
-    },
+    // {
+    //   icon: subscriptionIcon,
+    //   onHover: hoverBuy,
+    //   menuName: "Buy Subscription",
+    //   link: "#",
+    // },
     {
       icon: settingsIcon,
       onHover: hoverSettings,
@@ -553,7 +553,7 @@ const Topbar = ({ onClose }) => {
                 </button>
 
                 {/* add player -/ end */}
-
+                {/* 
                 <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
@@ -565,7 +565,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button>
+                </button> */}
               </div>
             ) : location.pathname === "/dashboard/jobOffers" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -579,7 +579,7 @@ const Topbar = ({ onClose }) => {
                   Add Job Offer
                 </button>
 
-                <button
+                {/* <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
                 >
@@ -590,7 +590,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button>
+                </button> */}
               </div>
             ) : location.pathname === "/dashboard/announcements" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -604,7 +604,7 @@ const Topbar = ({ onClose }) => {
                   Create Announcement
                 </button>
 
-                <button
+                {/* <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
                 >
@@ -615,7 +615,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button>
+                </button> */}
               </div>
             ) : location.pathname === "/dashboard/coaches" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -637,7 +637,7 @@ const Topbar = ({ onClose }) => {
 
                 {/* add player -/ end */}
 
-                <button
+                {/* <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
                 >
@@ -648,7 +648,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button>
+                </button> */}
               </div>
             ) : null}
           </div>

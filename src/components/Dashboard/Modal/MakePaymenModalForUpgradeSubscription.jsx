@@ -10,13 +10,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
 import BuySubscriptionAddPayment from "../../../pages/pricing/BuySubscriptionAddPayment";
 
-const MakePaymenModalForUpgradeSubscription = ({
-  setMakePaymentClose,
-  handleSubmit,
-  selectedPackages,
-  addPlayerLoading,
-  modalRef,
-}) => {
+const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
   const options = [
     "All analytics features",
     "Up to 250,000 tracked visits",
@@ -28,8 +22,6 @@ const MakePaymenModalForUpgradeSubscription = ({
   const { subscriptions, subscriptionTimeline } = useSelector(
     (state) => state.auth
   );
-  console.log("subscriptions", subscriptions);
-  console.log("subscriptionTimeline", subscriptionTimeline);
 
   return (
     <div className="">
@@ -153,7 +145,10 @@ const MakePaymenModalForUpgradeSubscription = ({
                 </div>
 
                 <Elements stripe={stripePromise}>
-                  <BuySubscriptionAddPayment />
+                  <BuySubscriptionAddPayment
+                    modalRef={modalRef}
+                    closeModal={closeModal}
+                  />
                 </Elements>
 
                 {/* <div className="card_number">
