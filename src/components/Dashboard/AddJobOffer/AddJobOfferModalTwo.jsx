@@ -49,7 +49,8 @@ const AddJobOfferModalTwo = ({
             <div
               className={
                 "subscription_wrapper d-flex flex-wrap justify-content-between mb-4 gap-4"
-              }>
+              }
+            >
               {subscriptions.map((sub, index) => (
                 <div
                   key={index}
@@ -59,14 +60,16 @@ const AddJobOfferModalTwo = ({
                       ? "bg_clr_99"
                       : "border bg-white")
                   }
-                  onClick={() => setSelectedSubscription(sub)}>
+                  onClick={() => setSelectedSubscription(sub)}
+                >
                   <h4
                     className={
                       "fs-6 fw-bold " +
                       (selectedSubscription?.price === sub?.price
                         ? "text-white"
                         : "text-black")
-                    }>
+                    }
+                  >
                     {" "}
                     {sub.duration}
                   </h4>
@@ -76,7 +79,8 @@ const AddJobOfferModalTwo = ({
                       (selectedSubscription?.price === sub?.price
                         ? " text-white"
                         : "")
-                    }>
+                    }
+                  >
                     ${sub.price}
                   </p>
                 </div>
@@ -107,12 +111,14 @@ const AddJobOfferModalTwo = ({
                         ? "bg_clr_ff border-transparant"
                         : null
                     } card_btn`}
-                    onClick={() => setSelectedOption("card")}>
+                    onClick={() => setSelectedOption("card")}
+                  >
                     <img className={"mt-0"} src={credit} alt="credit card" />
                     <span
                       className={`${
                         selectedOption === "card" ? "text-white" : "text-black"
-                      }`}>
+                      }`}
+                    >
                       Card
                     </span>
                   </button>
@@ -123,36 +129,38 @@ const AddJobOfferModalTwo = ({
                   {/* <input className="" type="radio" name="card" id="card" checked={selectedOption === "paypal"}
                   /> */}
                   {/* </div> */}
-                  <button
+                  {/* <button
                     className={`${
                       selectedOption === "paypal"
                         ? "bg_clr_ff border-transparant"
                         : null
                     } card_btn`}
-                    onClick={() => setSelectedOption("paypal")}>
+                    onClick={() => setSelectedOption("paypal")}
+                  >
                     <img className={"mt-0"} src={paypal} alt="credit card" />{" "}
                     <span
                       className={`${
                         selectedOption === "paypal"
                           ? "text-white"
                           : "text-black"
-                      }`}>
+                      }`}
+                    >
                       Pay pal
                     </span>
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
           </div>
 
           <div className={"selected_subs"}>
-            <div className="sub_total d-flex justify-content-between mb-4">
+            {/* <div className="sub_total d-flex justify-content-between mb-4">
               <p className="fs-6 text-black fw-normal mb-0">Sub Total</p>
               <p className={"fs-6 text-black fw-normal mb-0"}>
                 ${selectedSubscription?.price}
               </p>
-            </div>
-
+            </div> */}
+            {/* 
             <div className="sub_total mb-4">
               <p className="fs-6 text-black text-start fw-normal mb-2">
                 Gift Card / Voucher code
@@ -169,16 +177,16 @@ const AddJobOfferModalTwo = ({
                   Apply
                 </button>
               </div>
-            </div>
+            </div> */}
 
-            <div className="sub_total d-flex justify-content-between mb-4">
+            {/* <div className="sub_total d-flex justify-content-between mb-4">
               <p className="fs-6 text-black fw-normal mb-0 text_clr_99">
                 Voucher
               </p>
               <p className={"fs-6 text-black fw-normal mb-0 text_clr_99"}>
                 ${selectedSubscription?.price}
               </p>
-            </div>
+            </div> */}
 
             <div className="sub_total d-flex justify-content-between">
               <p className="fs-5 text-black fw-normal mb-0">Total</p>

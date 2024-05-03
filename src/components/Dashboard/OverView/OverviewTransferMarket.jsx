@@ -55,10 +55,12 @@ const OverviewTransferMarket = () => {
                 <span>Add Player</span>
               </button>
 
-              <button onClick={handleAddCoach}>
-                <img src={addpicon} alt="addpicon" />
-                <span>Add Coach</span>
-              </button>
+              {user?.role !== "Player" && (
+                <button onClick={handleAddCoach}>
+                  <img src={addpicon} alt="addpicon" />
+                  <span>Add Coach</span>
+                </button>
+              )}
 
               <button onClick={handleJobOffer}>
                 <img src={add2icon} alt="addpicon" />
@@ -117,7 +119,9 @@ const OverviewTransferMarket = () => {
         <BuySubscriptionModal user={user} />
         {/* buy subscription coatch */}
 
-        {user?.role !== "Player" && <PlayerOverview user={user} />}
+        {user?.role !== "Player" && user?.isActive && (
+          <PlayerOverview user={user} />
+        )}
 
         <div className="container">
           <div className="row mt-4 ps-0">

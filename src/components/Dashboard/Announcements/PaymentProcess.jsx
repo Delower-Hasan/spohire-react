@@ -92,7 +92,7 @@ const PaymentProcess = ({
               </div>
             </div>
 
-            <div className="sub_total mb-4">
+            {/* <div className="sub_total mb-4">
               <p className="fs-6 text-black text-start fw-normal mb-2">
                 Gift Card / Voucher code
               </p>
@@ -108,7 +108,7 @@ const PaymentProcess = ({
                   Apply
                 </button>
               </div>
-            </div>
+            </div> */}
 
             <div className="sub_total d-flex justify-content-between mb-4">
               <p className="fs-6 text-black fw-normal mb-0 text_clr_99">
