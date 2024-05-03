@@ -3,19 +3,18 @@ import playerImgOne from "../../../assets/playerImg.svg";
 import messageIcon from "../../../assets/messageIcon.svg";
 import more from "../../../assets/More.png";
 import nation from "../../../assets/nation.png";
-import nosubplayer from '../../../assets/nosubplayer.png'
+import nosubplayer from "../../../assets/nosubplayer.png";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
-
 
 const PlayerOverview = ({ user }) => {
   const { data, isLoading } = useGetFilteredUsersQuery(
     user?.role === "Manager"
       ? ""
       : user?.role === "Player"
-        ? "role=Coach"
-        : "role=Player"
+      ? "role=Coach"
+      : "role=Player"
   );
   // console.log(data, "duser");
 
@@ -23,27 +22,27 @@ const PlayerOverview = ({ user }) => {
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
       : user?.subscriptionName === "Silver"
-        ? ["Silver", "Bronze"]
-        : user?.subscriptionName === "Bronze"
-          ? ["Bronze"]
-          : [];
+      ? ["Silver", "Bronze"]
+      : user?.subscriptionName === "Bronze"
+      ? ["Bronze"]
+      : [];
+
   return (
     <>
       <div className="overview player_overview">
         <div className="d-flex justify-content-between mt-lg-0 mb-lg-0 mb-3">
           {/* {(user?.role === "Manager" || user?.role === "Coach") && ( */}
-            <h4 className="players_title"> Players</h4>
-          {/* )} */}
-          {user?.role === "Player" && <h4> Coachs</h4>}
+          <h4 className="players_title"> Players</h4>
+
           {data && data?.length > 0 && (
             <Link
-              to={`${user?.role === "Manager" || user?.role === "Coach"
-                ? "/dashboard/players"
-                : "/dashboard/coaches"
-                }`}
+              to={`${
+                user?.role === "Manager" || user?.role === "Coach"
+                  ? "/dashboard/players"
+                  : "/dashboard/coaches"
+              }`}
             >
               <img src={more} alt="more" />
-
             </Link>
           )}
         </div>
@@ -54,7 +53,6 @@ const PlayerOverview = ({ user }) => {
             background: "#FFFDFD",
           }}
         >
-
           <thead>
             <tr className="players_table_head">
               <th scope="col">Name</th>
@@ -87,10 +85,11 @@ const PlayerOverview = ({ user }) => {
                                 <img
                                   src={
                                     data?.image
-                                      ? `${process.env.NODE_ENV !== "production"
-                                        ? import.meta.env.VITE_LOCAL_API_URL
-                                        : import.meta.env.VITE_LIVE_API_URL
-                                      }/api/v1/uploads/${data?.image}`
+                                      ? `${
+                                          process.env.NODE_ENV !== "production"
+                                            ? import.meta.env.VITE_LOCAL_API_URL
+                                            : import.meta.env.VITE_LIVE_API_URL
+                                        }/api/v1/uploads/${data?.image}`
                                       : playerImgOne
                                   }
                                   alt="player-img"
@@ -143,18 +142,22 @@ const PlayerOverview = ({ user }) => {
                                 item?.subscriptionName === "Silver"
                                   ? "#AEAEAE"
                                   : item?.subscriptionName === "Bronze"
-                                    ? "#CD7F32"
-                                    : "inherit",
+                                  ? "#CD7F32"
+                                  : "inherit",
                             }}
                           >
-                            {item?.subscriptionName ? item?.subscriptionName : "N/A"}
+                            {item?.subscriptionName
+                              ? item?.subscriptionName
+                              : "N/A"}
                           </p>
                         </td>
 
                         <td>
                           <div className="d-flex align-items-center">
                             <p className="text_color_55 fw-normal ">
-                              <Link to={`/dashboard/messages/${item?.referral}`}>
+                              <Link
+                                to={`/dashboard/messages/${item?.referral}`}
+                              >
                                 {" "}
                                 <img
                                   src={messageIcon}
@@ -174,7 +177,6 @@ const PlayerOverview = ({ user }) => {
                   </tr>
                 ))}
           </tbody>
-
         </Table>
         <MobilePlayers className="m-lg-0 ms-4 me-4"></MobilePlayers>
       </div>

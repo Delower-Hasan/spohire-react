@@ -25,6 +25,14 @@ const Coaches = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
 
+  if (user?.role === "Player" || user?.role === "Coach") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "You are not allowed to view this Page!",
+    });
+  }
+
   const allowedPlans =
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
@@ -106,9 +114,10 @@ const Coaches = () => {
               <tr className="mx-auto">No Coaches Found</tr>
             )} */}
 
-            {currentPageData.map((coach, idx) => (
-              <SingleCoach key={idx} coach={coach} />
-            ))}
+            {(user?.role !== "Player" || user?.role !== "Coach") &&
+              currentPageData.map((coach, idx) => (
+                <SingleCoach key={idx} coach={coach} />
+              ))}
           </tbody>
         </Table>
         <MobilePlayers></MobilePlayers>
@@ -187,8 +196,6 @@ const SingleCoach = ({ coach }) => {
         : user?.subscriptionName === "Bronze"
         ? ["Bronze"]
         : [];
-
-    console.log(allowedPlans, "ddddallow");
 
     if (allowedPlans.includes(coach?.subscriptionName)) {
       navigate(`/dashboard/coacheDetails/${coach?._id}`);

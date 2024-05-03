@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 import { useGetMyObservationsQuery } from "../../../features/observation/observationApi";
 const RecentlyObserved = () => {
   const { data, isLoading, isSuccess } = useGetMyObservationsQuery();
-  // console.log(data?.data, "dddobserve");
-  // target_type
+
   return (
     <>
       <div className="job_offer_overrview_wrapper">
@@ -142,10 +141,11 @@ const RecentlyObserved = () => {
                         <img
                           src={
                             item?.target_id?.image
-                              ? `${process.env.NODE_ENV !== "production"
-                                ? import.meta.env.VITE_LOCAL_API_URL
-                                : import.meta.env.VITE_LIVE_API_URL
-                              }/api/v1/uploads/${item?.target_id?.image}`
+                              ? `${
+                                  process.env.NODE_ENV !== "production"
+                                    ? import.meta.env.VITE_LOCAL_API_URL
+                                    : import.meta.env.VITE_LIVE_API_URL
+                                }/api/v1/uploads/${item?.target_id?.image}`
                               : a1
                           }
                           alt=""
@@ -192,10 +192,11 @@ const RecentlyObserved = () => {
                       className="align-self-lg-center align-self-end"
                     >
                       <Link
-                        to={`${item?.target_id?.role === "Coach"
+                        to={`${
+                          item?.target_id?.role === "Coach"
                             ? "/dashboard/coaches"
                             : "/dashboard/players"
-                          }`}
+                        }`}
                       >
                         {item?.target_id?.role}
                         {item?.target_id?.role === "Coach" ? "es" : "s"}
