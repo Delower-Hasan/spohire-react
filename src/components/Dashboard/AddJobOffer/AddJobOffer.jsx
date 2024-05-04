@@ -16,10 +16,7 @@ import AddJobOfferModalTwo from "./AddJobOfferModalTwo.jsx";
 const options = [
   { value: "Full-time", label: "Full-time" },
   { value: "Part-time", label: "Part-time" },
-  {
-    value: "Contract",
-    label: "Contract",
-  },
+  { value: "Contract", label: "Contract" },
   { value: "Temporary", label: "Temporary" },
 ];
 
@@ -39,10 +36,7 @@ const categoryOptions = [
 const WorkplaceOptions = [
   { value: "On-site", label: "On-site" },
   { value: "Hybrid", label: "Hybrid" },
-  {
-    value: "Remote",
-    label: "Remote",
-  },
+  { value: "Remote", label: "Remote" },
 ];
 
 const AddJobOffer = ({ setAddJobOffer }) => {

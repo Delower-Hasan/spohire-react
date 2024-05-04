@@ -40,17 +40,15 @@ const AddJobOfferModalTwo = ({
       </div>
       <div className="stepBorder2"></div>
       <div className="d-flex gap-4">
-        <div className="payment_process_left">
+        <div className="payment_process_left flex-grow-1">
           <p className="text-start text-black fs-5 fw-medium pb-4">
             How long will the add be active?
           </p>
-
           <div>
             <div
               className={
-                "subscription_wrapper d-flex flex-wrap justify-content-between mb-4 gap-4"
-              }
-            >
+                "subscription_wrapper d-flex flex-lg-nowrap flex-wrap justify-content-between mb-4 gap-4"
+              }>
               {subscriptions.map((sub, index) => (
                 <div
                   key={index}
@@ -60,16 +58,14 @@ const AddJobOfferModalTwo = ({
                       ? "bg_clr_99"
                       : "border bg-white")
                   }
-                  onClick={() => setSelectedSubscription(sub)}
-                >
+                  onClick={() => setSelectedSubscription(sub)}>
                   <h4
                     className={
                       "fs-6 fw-bold " +
                       (selectedSubscription?.price === sub?.price
                         ? "text-white"
                         : "text-black")
-                    }
-                  >
+                    }>
                     {" "}
                     {sub.duration}
                   </h4>
@@ -79,8 +75,7 @@ const AddJobOfferModalTwo = ({
                       (selectedSubscription?.price === sub?.price
                         ? " text-white"
                         : "")
-                    }
-                  >
+                    }>
                     ${sub.price}
                   </p>
                 </div>
@@ -111,14 +106,12 @@ const AddJobOfferModalTwo = ({
                         ? "bg_clr_ff border-transparant"
                         : null
                     } card_btn`}
-                    onClick={() => setSelectedOption("card")}
-                  >
+                    onClick={() => setSelectedOption("card")}>
                     <img className={"mt-0"} src={credit} alt="credit card" />
                     <span
                       className={`${
                         selectedOption === "card" ? "text-white" : "text-black"
-                      }`}
-                    >
+                      }`}>
                       Card
                     </span>
                   </button>
@@ -160,7 +153,7 @@ const AddJobOfferModalTwo = ({
                 ${selectedSubscription?.price}
               </p>
             </div> */}
-            {/* 
+            {/*
             <div className="sub_total mb-4">
               <p className="fs-6 text-black text-start fw-normal mb-2">
                 Gift Card / Voucher code
@@ -197,7 +190,7 @@ const AddJobOfferModalTwo = ({
           </div>
         </div>
 
-        <div>
+        <div className="flex-grow-1">
           <div>
             {selectedOption === "card" ? (
               <Elements stripe={stripePromise}>
