@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import "./Topbar.css";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setPlayerFilterParams } from "../../../features/auth/authSlice";
+import "./Topbar.css";
+
 function PlayerFilter() {
   const dispatch = useDispatch();
-  // State object to store all the values
+  const [countryNames, setCountryNames] = useState([]);
   const [formData, setFormData] = useState({
     position: "",
     status: "",
@@ -17,29 +19,27 @@ function PlayerFilter() {
     dominantHand: "",
   });
 
-  // Event handler to update the form data
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Event handler to apply age filter
-  const handleAgeApply = () => {
-    console.log("Min Age:", formData.minAge);
-    console.log("Max Age:", formData.maxAge);
-    // You can perform further actions with the age range values here
-  };
-
-  // Event handler to apply height filter
-  const handleHeightApply = () => {
-    console.log("Min Height:", formData.minHeight);
-    console.log("Max Height:", formData.maxHeight);
-    // You can perform further actions with the height range values here
-  };
-
-  const FilterApplyHandler = () => {
+  const handleApplyFilter = () => {
     dispatch(setPlayerFilterParams({ data: formData }));
-    console.log("formData", formData);
+    console.log("Filter applied:", formData);
   };
 
   return (
@@ -48,21 +48,20 @@ function PlayerFilter() {
       <div className="position_wrapper pb-4">
         <h2>Position</h2>
         <div className="position_btn_wrapper">
-          <button name="position" onClick={handleChange} value="All">
-            All
-          </button>
-          <button name="position" onClick={handleChange} value="Goalkeeper">
-            Goalkeeper
-          </button>
-          <button name="position" onClick={handleChange} value="Defender">
-            Defender
-          </button>
-          <button name="position" onClick={handleChange} value="Midfielder">
-            Midfielder
-          </button>
-          <button name="position" onClick={handleChange} value="Forward">
-            Forward
-          </button>
+          {["All", "Goalkeeper", "Defender", "Midfielder", "Forward"].map(
+            (pos) => (
+              <button
+                key={pos}
+                className={
+                  formData.position === pos
+                    ? "bg-success text-white"
+                    : "not-selected"
+                }
+                onClick={() => setFormData({ ...formData, position: pos })}>
+                {pos}
+              </button>
+            )
+          )}
         </div>
       </div>
 
@@ -70,15 +69,18 @@ function PlayerFilter() {
       <div className="position_wrapper pb-4">
         <h2>Status</h2>
         <div className="position_btn_wrapper status">
-          <button name="status" onClick={handleChange} value="Bronze">
-            Bronze
-          </button>
-          <button name="status" onClick={handleChange} value="Silver">
-            Silver
-          </button>
-          <button name="status" onClick={handleChange} value="Gold">
-            Gold
-          </button>
+          {["Bronze", "Silver", "Gold"].map((stat) => (
+            <button
+              key={stat}
+              className={
+                formData.status === stat
+                  ? "bg-success text-white"
+                  : "not-selected"
+              }
+              onClick={() => setFormData({ ...formData, status: stat })}>
+              {stat}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -89,12 +91,13 @@ function PlayerFilter() {
           <select
             className="form-select"
             name="location"
-            onChange={handleChange}
-          >
-            <option defaultValue>Select</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            onChange={handleChange}>
+            <option value="">Select</option>
+            {countryNames.map((name, index) => (
+              <option value={name.name} key={index}>
+                {name.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -104,7 +107,7 @@ function PlayerFilter() {
         <h2>Gender</h2>
         <div className="position_btn_wrapper location">
           <select className="form-select" name="gender" onChange={handleChange}>
-            <option defaultValue>Select</option>
+            <option value="">Select</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
@@ -127,7 +130,6 @@ function PlayerFilter() {
             placeholder="Max"
             onChange={handleChange}
           />
-          <button onClick={handleAgeApply}>Apply</button>
         </div>
       </div>
 
@@ -147,7 +149,6 @@ function PlayerFilter() {
             placeholder="Max"
             onChange={handleChange}
           />
-          <button onClick={handleHeightApply}>Apply</button>
         </div>
       </div>
 
@@ -158,15 +159,14 @@ function PlayerFilter() {
           <select
             className="form-select"
             name="dominantHand"
-            onChange={handleChange}
-          >
-            <option defaultValue>Select</option>
+            onChange={handleChange}>
+            <option value="">Select</option>
             <option value="Left">Left</option>
             <option value="Right">Right</option>
           </select>
         </div>
       </div>
-      <button onClick={FilterApplyHandler}>Apply</button>
+      <button onClick={handleApplyFilter}>Apply</button>
     </div>
   );
 }

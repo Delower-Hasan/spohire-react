@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { setFilterParams } from "../../../features/announcement/announcementSlice";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 function AnouncementFilter() {
   const dispatch = useDispatch();
+  const [countryNames, setCountryNames] = useState([]);
   // State object to store the selected values
   const [formData, setFormData] = useState({
     location: "",
     category: "",
   });
+
+      useEffect(() => {
+        axios
+          .get(
+            "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+          )
+          .then(function (response) {
+            setCountryNames(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }, []);
 
   // Event handler for location change
   const handleLocationChange = (e) => {
@@ -35,12 +50,12 @@ function AnouncementFilter() {
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleLocationChange}
-          >
-            <option value="">Select</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            onChange={handleLocationChange}>
+            {countryNames.map((name, index) => (
+              <option value={name.name} key={index}>
+                {name.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -52,8 +67,7 @@ function AnouncementFilter() {
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleCategoryChange}
-          >
+            onChange={handleCategoryChange}>
             <option value="">Select</option>
             <option value="1">One</option>
             <option value="2">Two</option>
