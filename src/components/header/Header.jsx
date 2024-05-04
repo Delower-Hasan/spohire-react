@@ -48,13 +48,7 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`${!user && "pt-4 pb-4"} ${
-        navigate.pathname === "/"
-          ? "header_position position-absolute w-100"
-          : ""
-      }`}
-    >
+    <header className={`${!user && "pt-4 pb-4"} ${ navigate.pathname === "/" ? "header_position position-absolute w-100" : "" }`}>
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
           <Navbar.Brand href="#home" className="d-flex align-items-center">
@@ -144,6 +138,7 @@ const Header = () => {
               </>
             )}
           </div>
+
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="m-auto">
               {user ? (

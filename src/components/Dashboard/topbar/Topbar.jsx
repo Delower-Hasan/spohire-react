@@ -206,8 +206,7 @@ const Topbar = ({ onClose }) => {
           isModalOpen | isAnnouncementModalOpen
             ? "position_static"
             : "position-fixed"
-        } dashbord_topbar`}
-      >
+        } dashbord_topbar`}>
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
@@ -286,8 +285,7 @@ const Topbar = ({ onClose }) => {
                   {location.pathname.startsWith("/dashboard/viewDetails") && (
                     <button
                       className="view_details"
-                      onClick={() => window.history.back()}
-                    >
+                      onClick={() => window.history.back()}>
                       Back
                     </button>
                   )}
@@ -295,8 +293,7 @@ const Topbar = ({ onClose }) => {
                   {location.pathname.startsWith("/dashboard/coacheDetails") && (
                     <button
                       className="view_details"
-                      onClick={() => window.history.back()}
-                    >
+                      onClick={() => window.history.back()}>
                       Back
                     </button>
                   )}
@@ -317,8 +314,7 @@ const Topbar = ({ onClose }) => {
                                   border: "1px solid #8A8988",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}
-                              >
+                                }}>
                                 <img src={silverIcon} alt="silver-icon" />
                                 {user?.subscriptionName}
                               </p>
@@ -327,8 +323,7 @@ const Topbar = ({ onClose }) => {
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#949494",
-                                }}
-                              >
+                                }}>
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -344,8 +339,7 @@ const Topbar = ({ onClose }) => {
                                   border: "1px solid #FFD029",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}
-                              >
+                                }}>
                                 <img src={silverIcon} alt="silver-icon" />
                                 {user?.subscriptionName}
                               </p>
@@ -354,8 +348,7 @@ const Topbar = ({ onClose }) => {
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#EBB111",
-                                }}
-                              >
+                                }}>
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -371,8 +364,7 @@ const Topbar = ({ onClose }) => {
                                   border: "1px solid #CD7F32",
                                   padding: "5px 10px",
                                   borderRadius: "28px",
-                                }}
-                              >
+                                }}>
                                 <img src={silverIcon} alt="silver-icon" />
                                 {user?.subscriptionName}
                               </p>
@@ -381,8 +373,7 @@ const Topbar = ({ onClose }) => {
                                   fontSize: "12px",
                                   fontWeight: "500",
                                   color: "#CD7F32",
-                                }}
-                              >
+                                }}>
                                 Until {formattedExpirationDate}
                               </span>
                             </div>
@@ -415,8 +406,7 @@ const Topbar = ({ onClose }) => {
                         left: "10px",
                         top: "100%",
                         width: "90%",
-                      }}
-                    >
+                      }}>
                       {searchResultDatas?.map((item, index) => (
                         <li key={index}>
                           <Link
@@ -424,8 +414,7 @@ const Topbar = ({ onClose }) => {
                               item.role === "Coach"
                                 ? `/dashboard/coacheDetails/${item._id}`
                                 : `/dashboard/viewDetails/${item._id}`
-                            }`}
-                          >{`${item?.firstName} ${item?.lastName}`}</Link>
+                            }`}>{`${item?.firstName} ${item?.lastName}`}</Link>
                         </li>
                       ))}
                     </ul>
@@ -435,15 +424,13 @@ const Topbar = ({ onClose }) => {
                 {/* Message Icon */}
                 <Link
                   to={"/dashboard/messages"}
-                  className="message_icon bg-none"
-                >
+                  className="message_icon bg-none">
                   <img src={messageIcon} alt="message-icon" />
                 </Link>
 
                 <Link
                   to={"/dashboard/notification"}
-                  className="notification_icon bg-none"
-                >
+                  className="notification_icon bg-none">
                   <img src={notificationIcon} alt="notification-icon" />
                 </Link>
 
@@ -467,8 +454,7 @@ const Topbar = ({ onClose }) => {
                     {/* drop down here */}
                     <button
                       onClick={handleIsDropDownOpen}
-                      className="user_name bg-none d-flex align-items-center gap-2 "
-                    >
+                      className="user_name bg-none d-flex align-items-center gap-2 ">
                       <h2 className="">
                         {`${user?.first_name} ${user?.last_name}`}
                       </h2>
@@ -483,15 +469,13 @@ const Topbar = ({ onClose }) => {
                   {isDropDownOpen && (
                     <div
                       ref={wrapperRef}
-                      className="position-absolute dropdown_menu"
-                    >
+                      className="position-absolute dropdown_menu">
                       <ul className="p-0 m-0 list-unstyled">
                         {profileMenu.map((dropdownItem, index) => (
                           <li key={index} className="py-3 px-3">
                             <Link
                               to={dropdownItem.link}
-                              className="d-flex align-items-center gap-2 text-capitalize"
-                            >
+                              className="d-flex align-items-center gap-2 text-capitalize">
                               <div className="menus_item">
                                 <img
                                   className="hover_icon d-none"
@@ -513,8 +497,7 @@ const Topbar = ({ onClose }) => {
                           <button
                             onClick={handleLoggout}
                             className="d-inline-flex align-items-center gap-2 text-capitalize bg-transparent"
-                            style={{ color: "#FE6470" }}
-                          >
+                            style={{ color: "#FE6470" }}>
                             <div className="menus_item">
                               <img className="" src={logoutIcon} alt="icon" />
                             </div>
@@ -536,8 +519,7 @@ const Topbar = ({ onClose }) => {
 
                 <button
                   onClick={handleAddPlayerModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -545,26 +527,23 @@ const Topbar = ({ onClose }) => {
                 </button>
 
                 {/* add player -/ end */}
-                {/* 
+
                 <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : location.pathname === "/dashboard/jobOffers" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
                   onClick={handleAddJobOfferClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -573,12 +552,10 @@ const Topbar = ({ onClose }) => {
 
                 {/* <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -588,26 +565,23 @@ const Topbar = ({ onClose }) => {
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <button
                   onClick={handleAddAnnouncementClick}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
                   Create Announcement
                 </button>
 
-                {/* <button
+                <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : location.pathname === "/dashboard/coaches" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -619,8 +593,7 @@ const Topbar = ({ onClose }) => {
 
                 <button
                   onClick={handleCoachModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -629,18 +602,16 @@ const Topbar = ({ onClose }) => {
 
                 {/* add player -/ end */}
 
-                {/* <button
+                <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : null}
           </div>
@@ -649,76 +620,182 @@ const Topbar = ({ onClose }) => {
         {filter && (
           <div ref={filterRef} className="filter_wrapper">
             {location.pathname === "/dashboard/coaches" ? (
-              ""
-            ) : (
-              <div className="postion_wrapper pb-4">
-                <h2>Position</h2>
-                <div className="position_btn_wrapper">
-                  <button>All</button>
-                  <button>Goalkeeper</button>
-                  <button>Defender</button>
-                  <button>Midfielder</button>
-                  <button>Forward</button>
-                </div>
-              </div>
-            )}
-
-            <div className="postion_wrapper pb-4">
-              <h2>Status</h2>
-              <div className="position_btn_wrapper status">
-                <button>Bronze</button>
-                <button>Silver</button>
-                <button>Gold</button>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Location</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Nationality</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Gender</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Age</h2>
-              <div className="position_btn_wrapper age d-flex">
-                <input type="number" placeholder="Min" />
-                <input type="number" placeholder="Max" />
-                <button>Apply</button>
-              </div>
-            </div>
-            {location.pathname === "/dashboard/coaches" ? (
-              ""
-            ) : (
               <>
+                {/* status */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Status</h2>
+                  <div className="position_btn_wrapper status">
+                    <button>Bronze</button>
+                    <button>Silver</button>
+                    <button>Gold</button>
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Location</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Nationality */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Nationality</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Gender */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Gender</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Age */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Age</h2>
+                  <div className="position_btn_wrapper age d-flex">
+                    <input type="number" placeholder="Min" />
+                    <input type="number" placeholder="Max" />
+                    <button>Apply</button>
+                  </div>
+                </div>
+              </>
+            ) : location.pathname === "/dashboard/announcements" ? (
+              <>
+                {/* Location */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Location</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Categories */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Categories</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+              </>
+            ) : location.pathname === "/dashboard/players" ? (
+              <>
+                {/* position */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Position</h2>
+                  <div className="position_btn_wrapper">
+                    <button>All</button>
+                    <button>Goalkeeper</button>
+                    <button>Defender</button>
+                    <button>Midfielder</button>
+                    <button>Forward</button>
+                  </div>
+                </div>
+
+                {/* status */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Status</h2>
+                  <div className="position_btn_wrapper status">
+                    <button>Bronze</button>
+                    <button>Silver</button>
+                    <button>Gold</button>
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Location</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Nationality */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Nationality</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Gender */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Gender</h2>
+                  <div className="position_btn_wrapper location">
+                    <select
+                      class="form-select"
+                      aria-label="Default select example">
+                      <option selected>Select</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Age */}
+                <div className="postion_wrapper pb-4">
+                  <h2>Age</h2>
+                  <div className="position_btn_wrapper age d-flex">
+                    <input type="number" placeholder="Min" />
+                    <input type="number" placeholder="Max" />
+                    <button>Apply</button>
+                  </div>
+                </div>
+
+                {/* Height */}
                 <div className="postion_wrapper pb-4">
                   <h2>Height</h2>
                   <div className="position_btn_wrapper age d-flex">
@@ -728,13 +805,13 @@ const Topbar = ({ onClose }) => {
                   </div>
                 </div>
 
+                {/* Dominant hand */}
                 <div className="postion_wrapper pb-4">
                   <h2>Dominant hand</h2>
                   <div className="position_btn_wrapper location">
                     <select
                       class="form-select"
-                      aria-label="Default select example"
-                    >
+                      aria-label="Default select example">
                       <option selected>Select</option>
                       <option value="1">Male</option>
                       <option value="2">Female</option>
@@ -742,7 +819,7 @@ const Topbar = ({ onClose }) => {
                   </div>
                 </div>
               </>
-            )}
+            ) : null}
           </div>
         )}
 
@@ -779,7 +856,6 @@ const Topbar = ({ onClose }) => {
       )}
 
       {/* modals */}
-
       {addJobOffer && (
         <AddJobOffer
           addJobOffer={addJobOffer}
