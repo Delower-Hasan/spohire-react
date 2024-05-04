@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { setCoachFilterParams } from "../../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 function CoachFilter() {
   const dispatch = useDispatch();
+  const [countryNames, setCountryNames] = useState([]);
+ const [status, setStatus] = useState(null);
   // State object to store the selected values
   const [formData, setFormData] = useState({
     status: "",
@@ -13,6 +16,10 @@ function CoachFilter() {
     minAge: "",
     maxAge: "",
   });
+
+  //  const handleStatusChange = (value) => {
+  //    setSelectedStatus(value);
+  //  };
 
   // Event handler for status change
   const handleStatusChange = (e) => {
@@ -45,17 +52,50 @@ function CoachFilter() {
     console.log("formData", formData);
   };
 
+    useEffect(() => {
+      axios
+        .get(
+          "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+        )
+        .then(function (response) {
+          setCountryNames(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, []);
+
+   const handleStatus = (value) => {
+     setStatus(value);
+     console.log(value);
+   };
+
+
   return (
     <div>
       {/* Status */}
       <div className="position_wrapper pb-4">
         <h2>Status</h2>
         <div className="position_btn_wrapper status">
-          <button onClick={handleStatusChange} value="Bronze"></button>
-          <button onClick={handleStatusChange} value="Silver">
+          <button
+            className={
+              status === "Bronze" ? "bg-success text-white" : "not-selected"
+            }
+            onClick={() => handleStatus("Bronze")}>
+            Bronze
+          </button>
+          <button
+            className={
+              status === "Silver" ? "bg-success text-white" : "not-selected"
+            }
+            onClick={() => handleStatus("Silver")}>
             Silver
           </button>
-          <button onClick={handleStatusChange} value="Gold">
+          <button
+            className={
+              status === "Gold" ? "bg-success text-white" : "not-selected"
+            }
+            onClick={() => handleStatus("Gold")}>
             Gold
           </button>
         </div>
@@ -66,10 +106,11 @@ function CoachFilter() {
         <h2>Location</h2>
         <div className="position_btn_wrapper location">
           <select className="form-select" onChange={handleLocationChange}>
-            <option value="">Select</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {countryNames.map((name, index) => (
+              <option value={name.name} key={index}>
+                {name.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -79,10 +120,11 @@ function CoachFilter() {
         <h2>Nationality</h2>
         <div className="position_btn_wrapper location">
           <select className="form-select" onChange={handleNationalityChange}>
-            <option value="">Select</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {countryNames.map((name, index) => (
+              <option value={name.name} key={index}>
+                {name.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>
