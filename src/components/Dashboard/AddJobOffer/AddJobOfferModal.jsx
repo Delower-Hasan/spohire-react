@@ -239,17 +239,6 @@ const AddJobOfferModal = ({
                 >
                   Category
                 </label>
-                {/* <Select
-                        className="basic-single"
-                        classNamePrefix="sdfsdsd"
-                        name="color"
-                        options={categoryOptions}
-                        placeholder="Information Technology"
-                        style={{ padding: "12px 14px", height: "40px" }}
-                        onChange={(selectedOption) =>
-                          setRole(selectedOption.value)
-                        }
-                      /> */}
                 <select
                   className="form-select"
                   aria-label="Default select example"
@@ -260,7 +249,6 @@ const AddJobOfferModal = ({
                     padding: "0 14px",
                   }}
                   name="category"
-                  // value={role}
                   onChange={handleInputChange}
                 >
                   <option selected disabled>

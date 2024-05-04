@@ -31,7 +31,11 @@ const EditGallary = ({ images }) => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             {image ? (
-              <img className="slide_gallary_image" src={image} alt={`Slide ${index + 1}`} />
+              <img
+                className="slide_gallary_image"
+                src={URL.createObjectURL(image)}
+                alt={`Slide ${index + 1}`}
+              />
             ) : (
               <img className="slide_gallary_image" src={sliderOne} alt="" />
             )}

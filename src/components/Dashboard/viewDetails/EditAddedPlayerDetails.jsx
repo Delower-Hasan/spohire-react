@@ -14,6 +14,7 @@ import { userLoggedIn } from "../../../features/auth/authSlice";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
+import { useDropzone } from "react-dropzone";
 
 // data
 const inputFieldData = [
@@ -73,6 +74,7 @@ const EditAddedPlayerDetails = () => {
   const [selectedImages, setSelectedImages] = useState([]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
+
   const fileInputRef = useRef(null);
   // onchange value
   const initialFormData = inputFieldData.reduce(
@@ -94,7 +96,6 @@ const EditAddedPlayerDetails = () => {
       strengthsAdvantages: "",
       aboutMe: "",
       expectationsFromClub: "",
-      gallary: [],
     }
   );
 
@@ -124,32 +125,44 @@ const EditAddedPlayerDetails = () => {
     expectations_from_new_club: "",
     sports: "",
   });
+
   const [editedInfo, setEditedInfo] = useState({});
 
   const navigate = useNavigate();
 
-  const handleGallaryImageChange = (e) => {
-    const files = e.target.files;
-    setGallaryImage(Array.from(files));
-    const newImages = [];
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
+  // const handleGallaryImageChange = (e) => {
+  //   const files = e.target.files;
+  //   setGallaryImage(Array.from(files));
+  //   const newImages = [];
+  //   for (let i = 0; i < files.length; i++) {
+  //     const reader = new FileReader();
 
-      reader.onload = (e) => {
-        newImages.push(e.target.result);
-        if (newImages.length === files.length) {
-          setSelectedImages((prevImages) => [...prevImages, ...newImages]);
-        }
-        setFormData((prevData) => ({
-          ...prevData,
-          gallary: newImages,
-        }));
-      };
-      reader.readAsDataURL(files[i]);
-    }
-  };
+  //     reader.onload = (e) => {
+  //       newImages.push(e.target.result);
+  //       if (newImages.length === files.length) {
+  //         setSelectedImages((prevImages) => [...prevImages, ...newImages]);
+  //       }
+  //       setFormData((prevData) => ({
+  //         ...prevData,
+  //         gallary: newImages,
+  //       }));
+  //     };
+  //     reader.readAsDataURL(files[i]);
+  //   }
+  // };
 
   // handle profile image upload
+
+  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+
+  const onGalleryDrop = (acceptedFiles) => {
+    // Add the newly selected files to the existing selectedGalleryFiles state
+    setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
+  };
+
+  const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
+    useDropzone({ onDrop: onGalleryDrop });
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
@@ -158,18 +171,6 @@ const EditAddedPlayerDetails = () => {
       setSelectedImage(file);
       setEditedInfo({ ...editedInfo, ["image"]: file });
     }
-
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //     setFormData((prevData) => ({
-    //       ...prevData,
-    //       selectedImage: reader.result,
-    //     }));
-    //     setSelectedImage(reader.result);
-    //   };
-    //   reader.readAsDataURL(file);
-    // }
   };
 
   const handleButtonClick = () => {
@@ -192,23 +193,11 @@ const EditAddedPlayerDetails = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    // if (gallaryImage && gallaryImage?.length > 3) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "oopss!",
-    //     text: `Please choose`,
-    //   });
-    // }
-
     const socialMediaArray = Object.values(socialMedia);
 
     const infoData = { ...editedInfo, social_media: socialMediaArray };
 
     const formData = new FormData();
-
-    // Object.entries(infoData)?.forEach(([key, value]) => {
-    //   formData.append(key, value);
-    // });
 
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
@@ -229,8 +218,8 @@ const EditAddedPlayerDetails = () => {
       }
     });
 
-    gallaryImage?.forEach((img, index) => {
-      formData.append(`gallery`, img);
+    selectedGalleryFiles?.forEach((img, index) => {
+      formData.append(`gallary`, img);
     });
 
     try {
@@ -241,7 +230,7 @@ const EditAddedPlayerDetails = () => {
       if (response?.data?.status) {
         Swal.fire({
           icon: "success",
-          title: "Profile Update successfully!",
+          title: "Update successfully!",
           text: `${response?.data?.message}`,
         });
 
@@ -301,32 +290,7 @@ const EditAddedPlayerDetails = () => {
     }
 
     setSocialMedia(values);
-
-    // const newSocials = user?.social_media?.map((i) => {
-    //   const values = {};
-    //   if (i?.includes("twitter.com")) {
-    //     values.twitter = i;
-    //   } else if (i?.includes("instagram.com")) {
-    //     values.instagram = i;
-    //   } else if (i?.includes("facebook.com")) {
-    //     values.facebook = i;
-    //   } else if (i?.includes("youtube.com")) {
-    //     values.youtube = i;
-    //   } else {
-    //     values.others = i;
-    //   }
-    //   return values;
-    // });
-
-    console.log(values, "nnoso");
   }, [user, id]);
-
-  // console.log("usr", user);
-  // console.log("userInfo", userInfo);
-  // console.log("Form Data:", formData);
-  // console.log("editedInfo:", editedInfo);
-
-  console.log(socialMedia, "socialMedia");
 
   return (
     <form className="" onSubmit={handleUpdate}>
@@ -520,7 +484,7 @@ const EditAddedPlayerDetails = () => {
           </div>
         </div>
         {/* <!-- Slider Start --> */}
-        <div className="d-flex align-items-center gap-3 mb_28">
+        {/* <div className="d-flex align-items-center gap-3 mb_28">
           <p
             className="f_sfPro text_color_36 fs_18"
             style={{ paddingLeft: "75px" }}
@@ -542,9 +506,36 @@ const EditAddedPlayerDetails = () => {
               style={{ display: "none" }}
             />
           </label>
+        </div> */}
+        <div className="col-lg-6 p-0">
+          <div className="cover_img">
+            {/* <img className="img-fluid" src={coverImg} alt="" /> */}
+          </div>
+          <div className="d-flex justify-content-center align-items-center">
+            <button
+              type="button"
+              className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+              {...galleryRootProps()}
+            >
+              <div className="add_icon">
+                <img src={plus4} alt="add-icon" />
+              </div>
+              <input {...galleryInputProps()} />
+              Add Photo
+            </button>
+          </div>
+          {/* <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+            {selectedGalleryFiles.map((file, index) => (
+              <img
+                style={{ width: "130px", height: "130px" }}
+                key={index}
+                src={URL.createObjectURL(file)}
+                alt={`Uploaded file ${index}`}
+              />
+            ))}
+          </div> */}
         </div>
-
-        <EditGallary images={selectedImages} />
+        <EditGallary images={selectedGalleryFiles} />
 
         <button
           type="submit"

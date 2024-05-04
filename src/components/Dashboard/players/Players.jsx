@@ -44,16 +44,30 @@ const Players = () => {
   const handleFilter = (value) => {
     if (
       playerFilterParams?.position ||
-      playerFilterParams?.country ||
-      playerFilterParams?.categories
+      playerFilterParams?.status ||
+      playerFilterParams?.location ||
+      playerFilterParams?.gender ||
+      playerFilterParams?.minAge ||
+      playerFilterParams?.maxAge ||
+      playerFilterParams?.minHeight ||
+      playerFilterParams?.maxHeight ||
+      playerFilterParams?.dominantHand
     ) {
       return (
         (playerFilterParams?.position &&
           playerFilterParams?.position === value?.mainPosition) ||
-        (playerFilterParams?.country &&
-          playerFilterParams?.country === value?.nationality) ||
-        (playerFilterParams?.categories &&
-          playerFilterParams?.categories === value?.category)
+        (playerFilterParams?.status &&
+          playerFilterParams?.status === value?.subscriptionName) ||
+        (playerFilterParams?.location &&
+          playerFilterParams?.location === value?.country) ||
+        (playerFilterParams?.gender &&
+          playerFilterParams?.gender === value?.gender) ||
+        (playerFilterParams?.minHeight &&
+          playerFilterParams?.minHeight >= value?.height) ||
+        (playerFilterParams?.maxHeight &&
+          playerFilterParams?.maxHeight <= value?.height) ||
+        (playerFilterParams?.dominantHand &&
+          playerFilterParams?.dominantHand === value?.dominantHand)
       );
     } else {
       return true;

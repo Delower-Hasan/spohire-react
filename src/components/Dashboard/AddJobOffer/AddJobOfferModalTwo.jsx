@@ -20,9 +20,9 @@ const AddJobOfferModalTwo = ({
   const [selectedOption, setSelectedOption] = useState("card");
 
   const subscriptions = [
-    { duration: "1 months", price: 0, month: 1 },
-    { duration: "2 months", price: 10, month: 2 },
-    { duration: "3 months", price: 20, month: 3 },
+    { duration: "1 months", price: 10, month: 1 },
+    { duration: "2 months", price: 20, month: 2 },
+    { duration: "3 months", price: 30, month: 3 },
   ];
 
   const handleSubscriptionClick = (index) => {

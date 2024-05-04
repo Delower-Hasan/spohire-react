@@ -49,11 +49,8 @@ const ViewDetails = () => {
     const data = {
       user_id: user?._id,
       target_id: id,
-      // target_type: "User",
       target_type: "Player",
     };
-
-    // console.log(data, "jjjDD");
 
     try {
       const response = await toggleObservation(data);
@@ -61,7 +58,7 @@ const ViewDetails = () => {
         Swal.fire({
           icon: "success",
           title: "Successsful!",
-          // text: "Job bookmarked successfully!",
+          text: "Bookmarked successfully!",
         });
       }
       if (response?.error?.data?.message) {
@@ -81,6 +78,7 @@ const ViewDetails = () => {
       });
     }
   };
+  console.log("user", user);
   return (
     <div className="details_information">
       <div className="profile_cover">

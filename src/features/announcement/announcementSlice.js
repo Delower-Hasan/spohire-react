@@ -4,9 +4,8 @@ const initialState = {
   filter: "date",
   announcementLocation: null,
   filterParams: {
-    sports: [],
-    country: [],
-    categories: [],
+    location: "",
+    category: "",
   },
   dashboardFilterParams: {
     sports: null,
@@ -26,38 +25,38 @@ const announcementSlice = createSlice({
       state.announcementLocation = action.payload;
     },
     setFilterParams: (state, action) => {
-      const { type, data } = action.payload;
-      const { sports, country, categories } = state.filterParams;
+      const { data } = action.payload;
+      state.filterParams = data;
 
-      switch (type) {
-        case "sports":
-          if (sports.includes(data)) {
-            const newSports = sports.filter((i) => i !== data);
-            state.filterParams.sports = newSports;
-          } else {
-            sports.push(data);
-          }
-          return;
-        case "country":
-          if (country.includes(data)) {
-            const newCountries = country.filter((i) => i !== data);
-            state.filterParams.country = newCountries;
-          } else {
-            country.push(data);
-          }
-          return;
-        case "categories":
-          if (categories.includes(data)) {
-            const newCategories = categories.filter((i) => i !== data);
-            state.filterParams.categories = newCategories;
-          } else {
-            categories.push(data);
-          }
-          return;
+      // switch (type) {
+      //   case "sports":
+      //     if (sports.includes(data)) {
+      //       const newSports = sports.filter((i) => i !== data);
+      //       state.filterParams.sports = newSports;
+      //     } else {
+      //       sports.push(data);
+      //     }
+      //     return;
+      //   case "country":
+      //     if (country.includes(data)) {
+      //       const newCountries = country.filter((i) => i !== data);
+      //       state.filterParams.country = newCountries;
+      //     } else {
+      //       country.push(data);
+      //     }
+      //     return;
+      //   case "categories":
+      //     if (categories.includes(data)) {
+      //       const newCategories = categories.filter((i) => i !== data);
+      //       state.filterParams.categories = newCategories;
+      //     } else {
+      //       categories.push(data);
+      //     }
+      //     return;
 
-        default:
-          return;
-      }
+      //   default:
+      //     return;
+      // }
     },
     setDashboardFilterParams: (state, action) => {
       const { type, data } = action.payload;
