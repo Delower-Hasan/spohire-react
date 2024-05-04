@@ -75,11 +75,9 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
   };
   const [selectedSubscription, setSelectedSubscription] = useState({
     duration: 1,
-    price: 0,
+    price: 10,
     month: 1,
   });
-
-  console.log(announcementData);
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -204,7 +202,7 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                     setSelectedSubscription={setSelectedSubscription}
                     handleSubmit={handleSubmit}
                     addingAnnounement={addingAnnounement}
-                      setAnnouncementIsModalOpen={setAnnouncementIsModalOpen}
+                    setAnnouncementIsModalOpen={setAnnouncementIsModalOpen}
                   />
                 ) : null}
 

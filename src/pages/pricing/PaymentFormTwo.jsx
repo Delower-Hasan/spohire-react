@@ -112,9 +112,7 @@ const PaymentFormTwo = ({
       );
 
       if (error) {
-        console.error("error", error);
         setIsLoading(false);
-
         Swal.fire({
           position: "center",
           icon: "error",
@@ -133,8 +131,8 @@ const PaymentFormTwo = ({
         await createPayment(createPaymentData);
         await handleSubmit();
         // navigation
-
-        closeModal();
+        window.location.reload();
+        // closeModal();
         navigate("/dashboard");
       }
     } catch (error) {

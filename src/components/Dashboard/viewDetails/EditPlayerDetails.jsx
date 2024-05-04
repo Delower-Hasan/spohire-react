@@ -211,18 +211,15 @@ const EditPlayerDetails = () => {
     }));
   };
   // handle gallary change
-
+  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
   const onGalleryDrop = (acceptedFiles) => {
     // Add the newly selected files to the existing selectedGalleryFiles state
     setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
   };
 
-  const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
 
-  console.log("selectedGalleryFiles", selectedGalleryFiles);
-  console.log("gallaryImage", gallaryImage);
   // form submit data
   const handleUpdate = async (e) => {
     e.preventDefault();

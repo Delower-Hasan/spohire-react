@@ -55,7 +55,7 @@ const AddPlayerPaymentFormOwn = ({ gallaryImage, experience, socials }) => {
   const { user, addPlayerInfo } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(user, "user");
+  ;
 
   const [addPlayer, { isLoading: adding }] = useAddPlayerMutation();
 

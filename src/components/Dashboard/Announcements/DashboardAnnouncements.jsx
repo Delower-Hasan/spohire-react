@@ -29,7 +29,6 @@ import Pagination from "../../Pagination/Pagination";
 const DashboardAnnouncements = () => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
   const { dashboardFilterParams } = useSelector((state) => state.announcement);
-  console.log(dashboardFilterParams, "dashboardFilterParams");
   const { user } = useSelector((state) => state.auth);
   const [announcementType, setAnnouncementType] = useState("All");
   const [deleteAnnouncement, { isLoading: deleting }] =
@@ -180,8 +179,7 @@ const DashboardAnnouncements = () => {
 export default DashboardAnnouncements;
 
 const SingleAnnouncement = ({ announcement, handleDelete }) => {
-  const [bookmark, setBookmark] = useState(false);
-
+  
   const { user } = useSelector((state) => state.auth);
 
   const { data, isSuccess } = useGetMyObservationsQuery();
@@ -337,7 +335,7 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
             style={{ width: "20px" }}
             onClick={handleBookmark}
           >
-            {bookmark ? (
+            {isBookmarked ? (
               <img src={bookmarkfill} alt="" />
             ) : (
               <img src={b1} alt="" />

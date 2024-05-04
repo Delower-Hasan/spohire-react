@@ -10,6 +10,7 @@ const Announcements = () => {
   const handleFiltersChange = (newFilters) => {
     setFilters(newFilters);
   };
+
   return (
     <>
       <AnnouncementHeader onFiltersChange={handleFiltersChange} />
