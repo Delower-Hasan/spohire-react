@@ -4,13 +4,16 @@ import location from "../../assets/location.png";
 import tennis from "../../assets/tennis.png";
 
 const SingleJobs = ({ handleDetails, item }) => {
+  console.log("item", item);
+
   return (
     <>
       <div className="announcelist_wrapper">
         <div>
           <div
             className="d-flex align-items-center"
-            style={{ gap: "20px", marginBottom: "20px " }}>
+            style={{ gap: "20px", marginBottom: "20px " }}
+          >
             <div className="announcement_pic">
               <img
                 src={
@@ -71,11 +74,12 @@ const SingleJobs = ({ handleDetails, item }) => {
             overflow: "hidden",
             WebkitLineClamp: 3,
             textOverflow: "ellipsis",
-          }}>
+          }}
+        >
           {item.description}
         </p>
         <div className="jobOpen_btn">
-          <button onClick={() => handleDetails(1)}>Open</button>
+          <button onClick={() => handleDetails(item?._id)}>Open</button>
         </div>
         <div className="d-flex gap-3 d-lg-none d-block justify-content-end">
           <button className="bg-none" style={{ color: "#929292" }}>

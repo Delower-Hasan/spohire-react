@@ -7,7 +7,10 @@ import bookmark2 from "../../../assets/bookmark12.svg";
 import messageIcon from "../../../assets/messageIcon.svg";
 import playerImgOne from "../../../assets/playerImg.svg";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
-import { useGetMyObservationsQuery, useToggleObservationMutation } from "../../../features/observation/observationApi";
+import {
+  useGetMyObservationsQuery,
+  useToggleObservationMutation,
+} from "../../../features/observation/observationApi";
 import { getCountryFlag } from "../../../utils/getFlag";
 import Pagination from "../../Pagination/Pagination";
 import MobileButtons from "./MobileButtons";
@@ -16,57 +19,64 @@ import "./Players.css";
 import { useState } from "react";
 
 const Players = () => {
-const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
-const { user, playerFilterParams } = useSelector((state) => state.auth);
-const [currentPage, setCurrentPage] = useState(1);
-const itemsPerPage = 2;
+  const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
+  const { user, playerFilterParams } = useSelector((state) => state.auth);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
 
-const allowedPlans =
-  user?.subscriptionName === "Gold"
-    ? ["Gold", "Silver", "Bronze"]
-    : user?.subscriptionName === "Silver"
-    ? ["Silver", "Bronze"]
-    : user?.subscriptionName === "Bronze"
-    ? ["Bronze"]
-    : [];
+  const allowedPlans =
+    user?.subscriptionName === "Gold"
+      ? ["Gold", "Silver", "Bronze"]
+      : user?.subscriptionName === "Silver"
+      ? ["Silver", "Bronze"]
+      : user?.subscriptionName === "Bronze"
+      ? ["Bronze"]
+      : [];
 
-const handleFilter = (value) => {
-  if (
-    playerFilterParams?.position ||
-    playerFilterParams?.country ||
-    playerFilterParams?.categories
-  ) {
-    return (
-      (playerFilterParams?.position &&
-        playerFilterParams?.position === value?.mainPosition) ||
-      (playerFilterParams?.country &&
-        playerFilterParams?.country === value?.nationality) ||
-      (playerFilterParams?.categories &&
-        playerFilterParams?.categories === value?.category)
-    );
-  } else {
-    return true;
+  if (user?.role === "Player") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "You are not allowed to view this Page!",
+    });
   }
-};
 
-const filteredData =
-  players
-    ?.filter(
-      (player) =>
-        player?.subscriptionName &&
-        allowedPlans.includes(player?.subscriptionName) &&
-        user?.sports === player?.sports &&
-        player?.isActive
-    )
-    .filter(handleFilter) || [];
+  const handleFilter = (value) => {
+    if (
+      playerFilterParams?.position ||
+      playerFilterParams?.country ||
+      playerFilterParams?.categories
+    ) {
+      return (
+        (playerFilterParams?.position &&
+          playerFilterParams?.position === value?.mainPosition) ||
+        (playerFilterParams?.country &&
+          playerFilterParams?.country === value?.nationality) ||
+        (playerFilterParams?.categories &&
+          playerFilterParams?.categories === value?.category)
+      );
+    } else {
+      return true;
+    }
+  };
 
-const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const filteredData =
+    players
+      ?.filter(
+        (player) =>
+          player?.subscriptionName &&
+          allowedPlans.includes(player?.subscriptionName) &&
+          user?.sports === player?.sports &&
+          player?.isActive
+      )
+      .filter(handleFilter) || [];
 
-const currentPageData = filteredData.slice(
-  (currentPage - 1) * itemsPerPage,
-  currentPage * itemsPerPage
-);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+  const currentPageData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <>
@@ -90,9 +100,10 @@ const currentPageData = filteredData.slice(
             </tr>
           </thead>
           <tbody>
-            {currentPageData.map((player, idx) => (
-              <SinglePlayer key={idx} player={player} />
-            ))}
+            {user?.role !== "Player" &&
+              currentPageData.map((player, idx) => (
+                <SinglePlayer key={idx} player={player} />
+              ))}
           </tbody>
         </Table>
 
@@ -142,7 +153,7 @@ const SinglePlayer = ({ player }) => {
         Swal.fire({
           icon: "success",
           title: "Successsful!",
-          // text: "Job bookmarked successfully!",
+          text: "Bookmarked successfully!",
         });
       }
       if (response?.error?.data?.message) {
@@ -152,7 +163,6 @@ const SinglePlayer = ({ player }) => {
           text: `${response?.error?.data?.message}`,
         });
       }
-
       // console.log(response, "ress");
     } catch (error) {
       Swal.fire({
@@ -162,13 +172,6 @@ const SinglePlayer = ({ player }) => {
       });
     }
   };
-
-  // const handlePath = (id) => {
-  //   navigate(`/dashboard/viewDetails/${id}`);
-  // };
-
-  const gg = getCountryFlag("Afghanistan");
-  // console.log(gg, "gg");
 
   const handlePath = (player) => {
     const allowedPlans =
@@ -199,14 +202,13 @@ const SinglePlayer = ({ player }) => {
               <div className="player_img">
                 <img
                   src={
-                    // player?.image
-                    //   ? `${
-                    //       process.env.NODE_ENV !== "production"
-                    //         ? import.meta.env.VITE_LOCAL_API_URL
-                    //         : import.meta.env.VITE_LIVE_API_URL
-                    //     }/api/v1/uploads/${player?.image}`
-                    //   :
-                    playerImgOne
+                    player?.image
+                      ? `${
+                          process.env.NODE_ENV !== "production"
+                            ? import.meta.env.VITE_LOCAL_API_URL
+                            : import.meta.env.VITE_LIVE_API_URL
+                        }/api/v1/uploads/${player?.image}`
+                      : playerImgOne
                   }
                   alt="player-img"
                   style={{
@@ -219,17 +221,8 @@ const SinglePlayer = ({ player }) => {
               </div>
               <div className="player_name">
                 <p className="text_color_36 fw-medium fs_14">
-                  {/* {player?.first_name} <br /> {player?.last_name} */}
-                  {player?.fullName}
+                  {player?.firstName} <br /> {player?.lastName}
                 </p>
-                {/* <Link
-                  to={`/dashboard/messages/${player?.referral}`}
-                  onClick={(e) => e.stopPropagation()}
-                  style={{ fontSize: "12px", textDecoration: "underline" }}
-                  className="text-primary"
-                >
-                  Contact with Owner
-                </Link> */}
               </div>
             </div>
           </div>
@@ -254,13 +247,13 @@ const SinglePlayer = ({ player }) => {
 
         <td>
           <p className="text_color_55 fw-normal fs_14">
-            {player.mainPosition ? player.mainPosition : "N/A"}
+            {player.mainPosition ?? "N/A"}
           </p>
         </td>
 
         <td>
           <p className="text_color_55 fw-normal fs_14">
-            {player.club_name ? player.club_name : "N/A"}
+            {player.club_name ?? "N/A"}
           </p>
         </td>
 
@@ -278,7 +271,7 @@ const SinglePlayer = ({ player }) => {
                   : "inherit",
             }}
           >
-            {player?.subscriptionName ? player?.subscriptionName : "N/A"}
+            {player?.subscriptionName ?? "N/A"}
           </p>
         </td>
 

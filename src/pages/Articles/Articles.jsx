@@ -1,37 +1,40 @@
 import NewsCard from "../../components/News/NewsCard";
 import NewsHeader from "../../components/News/NewsHeader";
-import "./News.css";
 import Pagination from "../../components/Pagination/Pagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const News = () => {
+const Articles = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchAndFilterArticles = async () => {
       try {
+        // Fetch all blogs
         const response = await axios.get(
           `${import.meta.env.VITE_LIVE_API_URL}/api/v1/blogs/all`
         );
-        // setNews(response.data.data.blogs)
         const allBlogs = response.data.data.blogs;
-        const articles = allBlogs.filter((blog) => blog.type === "news");
+
+        // Filter to include only articles
+        const articles = allBlogs.filter((blog) => blog.type === "article");
+
         setNews(articles);
-        console.log(
-          response.data.data.blogs,
-          "news data get thgeheirleijrlskflksdfhsdhf"
-        );
+        console.log(articles, "Filtered articles");
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching and filtering articles:", error);
       }
     };
-    fetchUsers();
+    fetchAndFilterArticles();
   }, []);
 
   return (
     <div className="container">
-      <NewsHeader />
+      <div className="news_header">
+        <h2>Articles</h2>
+      </div>
+      <div className="h_line_design"></div>
+
       {news.map((data) => (
         <>
           <NewsCard data={data} />
@@ -43,4 +46,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Articles;

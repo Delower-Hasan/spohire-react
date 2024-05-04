@@ -99,6 +99,11 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   });
 
   console.log("selectedGalleryFiles", selectedGalleryFiles);
+
+  // const abc = selectedGalleryFiles?.map((item) => item.path);
+
+  // console.log("abc", abc);
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
@@ -135,7 +140,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     try {
       const response = await addPlayer(formData);
       if (response?.data?.success) {
-        Swal({
+        Swal.fire({
           icon: "success",
           title: "Succes",
           text: `${response?.data?.message}`,

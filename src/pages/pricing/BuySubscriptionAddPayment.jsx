@@ -19,14 +19,13 @@ import v2 from "../../assets/v2.png";
 import v3 from "../../assets/v3.png";
 import v4 from "../../assets/v4.png";
 import { STRIPE_SK } from "../../config/config";
-import { useCreatePaymentMutation } from "../../features/payment/paymentApi";
+import {
+  useCreatePaymentMutation,
+  useUpdatePaymentStatusMutation,
+} from "../../features/payment/paymentApi";
+import { setExpireDate } from "../../utils/setExpireDate";
 
-const PlayerCoachAddPayment = ({
-  handleSubmit,
-  selectedPackages,
-  setMakePaymentClose,
-  addPlayerLoading,
-}) => {
+const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
   const stripe = useStripe();
   const elements = useElements();
   const CARD_OPTIONS = {
@@ -49,11 +48,20 @@ const PlayerCoachAddPayment = ({
   const [selectedOption, setSelectedOption] = useState("card");
 
   const { packageInfo } = useSelector((state) => state.payment);
-  const { user, subscriptions } = useSelector((state) => state.auth);
+  const { user, subscriptions, subscriptionTimeline } = useSelector(
+    (state) => state.auth
+  );
+
+  console.log("subscriptionTimeline", subscriptionTimeline);
+  console.log("subscriptions", subscriptions);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [createPayment, { isLoading: paymentCreating }] =
     useCreatePaymentMutation();
+
+  const [updatePaymentStatus, { isLoading: updating }] =
+    useUpdatePaymentStatusMutation();
 
   const navigate = useNavigate();
 
@@ -85,7 +93,7 @@ const PlayerCoachAddPayment = ({
 
     try {
       const clientSecret = await createPaymentIntent(
-        (selectedPackages?.price + subscriptions?.price) * 100,
+        subscriptions?.price * 100,
         "usd"
       );
 
@@ -123,13 +131,31 @@ const PlayerCoachAddPayment = ({
           transactionId: paymentIntent?.id,
           userId: user?._id,
           amount: subscriptions?.price,
-          purpose: "Successfully added",
+          purpose: "Subscription upgraded",
         };
-        await handleSubmit();
-        await createPayment(createPaymentData);
         // navigation
+        const currentDate = new Date();
 
-        setMakePaymentClose();
+        const paymentRes = await updatePaymentStatus({
+          userId: user?._id,
+          data: {
+            isSubsCribed: true,
+            isActive: true,
+            subscriptionName: subscriptions.subscriptionName,
+            subscriptionDate: currentDate.toISOString(),
+            expirationDate: setExpireDate(
+              subscriptionTimeline.toLowerCase() === "monthly"
+                ? 1
+                : subscriptionTimeline.toLowerCase() === "quaterly"
+                ? 3
+                : 12
+            ),
+          },
+        });
+        // createing payment
+
+        const createPaymentRes = await createPayment(createPaymentData);
+        window.location.reload();
         navigate("/dashboard");
       }
     } catch (error) {
@@ -291,19 +317,19 @@ const PlayerCoachAddPayment = ({
       </div>
 
       <div className="d-flex gap-4 justify-content-end">
-        <button
+        {/* <button
           onClick={() => setMakePaymentClose(false)}
           className="bg-none mt-0 text_clr_bc"
         >
           Cancel order
-        </button>
+        </button> */}
 
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={isLoading || paymentCreating || !stripe || addPlayerLoading}
+          disabled={isLoading || paymentCreating || !stripe}
         >
-          {isLoading || addPlayerLoading ? (
+          {isLoading ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
@@ -322,7 +348,7 @@ const PlayerCoachAddPayment = ({
   );
 };
 
-export default PlayerCoachAddPayment;
+export default BuySubscriptionAddPayment;
 
 const createPaymentIntent = async (amountInCents, currency) => {
   const stripe = Stripe(STRIPE_SK);

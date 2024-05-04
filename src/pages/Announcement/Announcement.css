@@ -174,7 +174,7 @@
 
 .blue_cat p {
     color: #FFF;
-    font-family: 'SF Pro Display' sans-serif;
+    font-family: 'SF Pro Display'sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -207,7 +207,7 @@
     gap: 10px;
     text-transform: uppercase;
     color: #5EA9FE;
-    font-family: 'SF Pro Display' sans-serif;
+    font-family: 'SF Pro Display'sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -216,7 +216,7 @@
 
 .cat_list span {
     color: #747474;
-    font-family: 'SF Pro Display' sans-serif;
+    font-family: 'SF Pro Display'sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -249,7 +249,7 @@
     background: #3378FF;
     padding: 14px 81px 14px 82px;
     color: #FFF;
-    font-family: 'SF Pro Display' sans-serif;
+    font-family: 'SF Pro Display'sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -260,7 +260,7 @@
 .best_matched h3 {
     color: #FFF;
     text-align: center;
-    font-family: 'SF Pro Display' sans-serif;
+    font-family: 'SF Pro Display'sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -333,8 +333,7 @@
 .editAnnouncement_wrapper input,
 textarea {
     padding: 20px;
-    height: 59px;
-
+    /* height: 59px; */
 }
 
 .editAnnouncement_wrapper label {

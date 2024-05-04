@@ -3,33 +3,29 @@ import footBallCoachImg from "../../../assets/footballCoach.png";
 import threedot from "../../../assets/threedot.png";
 import { useGetAllJobsQuery } from "../../../features/job/jobApi";
 import React from "react";
+import { useSubscriptionCheck } from "../../../hooks/useSubscriptionCheck";
 
 const JobOfferOverview = () => {
   const { data: allJobs } = useGetAllJobsQuery();
-  console.log(allJobs?.data, "dfskfj");
+  const { isSubscriptionCheck } = useSubscriptionCheck();
 
   return (
     <>
       <div className="job_offer_overrview_wrapper">
         <div className="d-flex justify-content-between">
           <h4>Job Offers</h4>
-          {allJobs?.data && allJobs.data?.length > 0 && (
+          {isSubscriptionCheck && allJobs?.data && allJobs.data?.length > 0 && (
             <Link to="/dashboard/jobOffers">View More</Link>
           )}
         </div>
-        {allJobs?.data && allJobs?.data?.length > 0 ? (
+        {isSubscriptionCheck && allJobs?.data && allJobs?.data?.length > 0 ? (
           allJobs?.data.slice(0, 3).map((item, idx) => (
             <React.Fragment key={idx}>
               <div className="d-flex align-items-center justify-content-between joboffer_ov_wrapper">
-                <div
-                  key={idx}
-                  className="d-flex align-items-center gap-2 "
-                >
+                <div key={idx} className="d-flex align-items-center gap-2 ">
                   <div className="job_offer_item_img">
                     <img
-                      src={
-                        footBallCoachImg
-                      }
+                      src={footBallCoachImg}
                       // src={
                       //   item?.club_logo
                       //     ? `${
@@ -61,8 +57,11 @@ const JobOfferOverview = () => {
                   </div>
                 </div>
 
-                <img style={{width:"24px",height:"24px"}} src={threedot} alt="" />
-
+                <img
+                  style={{ width: "24px", height: "24px" }}
+                  src={threedot}
+                  alt=""
+                />
               </div>
             </React.Fragment>
           ))

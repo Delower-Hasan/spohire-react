@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useGetAllJobsQuery } from "../../features/job/jobApi";
 import "./JobOffer.css";
 import JobOfferHeader from "./JobOfferHeader";
@@ -10,7 +10,6 @@ const JobOffer = () => {
   const [filteredData, setFilteredData] = useState(allJobs?.data);
   const [categories, setCategories] = useState([]);
 
-
   const [jobData, setJobData] = useState({});
 
   const handleInputChange = (e) => {
@@ -19,34 +18,32 @@ const JobOffer = () => {
     setJobData({ ...jobData, [name]: value });
   };
 
-  // const filterByDate = (dateOption) => {
-  //   const currentDate = new Date();
-  //   const createdAtDate = new Date(createdAt);
+  useEffect(() => {
+    const filtered = allJobs?.data?.filter(
+      (item) =>
+        item?.category?.toLowerCase() === jobData.category?.toLowerCase() ||
+        item?.country?.toLowerCase() === jobData.location?.toLowerCase() ||
+        item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase()
+    );
+    // .filter(filterByDate);
+    setFilteredData(filtered);
+  }, [jobData]);
 
-  //   switch (dateOption) {
-  //     case "Past 24 hours":
-  //       return currentDate - createdAtDate < 24 * 60 * 60 * 1000;
-  //     case "Last week":
-  //       return currentDate - createdAtDate < 7 * 24 * 60 * 60 * 1000;
-  //     case "Last month":
-  //       return currentDate - createdAtDate < 30 * 24 * 60 * 60 * 1000;
-  //     default:
-  //       return false;
-  //   }
-  // };
+  const filterByDate = (item) => {
+    const currentDate = new Date();
+    const createdAtDate = new Date(item?.createdAt);
 
-  const filtered = allJobs?.data?.filter(
-    (item) =>
-      item?.category?.toLowerCase() === jobData.category?.toLowerCase() ||
-      item?.country?.toLowerCase() === jobData.location?.toLowerCase() ||
-      item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase()
-  );
-
-  console.log("jobData", jobData);
-  console.log("filtered", filtered);
-
-
-
+    switch (jobData.postedAt?.trim()) {
+      case "Past 24 hours":
+        return currentDate - createdAtDate < 24 * 60 * 60 * 1000;
+      case "Last week":
+        return currentDate - createdAtDate < 7 * 24 * 60 * 60 * 1000;
+      case "Last month":
+        return currentDate - createdAtDate < 30 * 24 * 60 * 60 * 1000;
+      default:
+        return false;
+    }
+  };
 
   // Function to handle the search
   const handleSearch = (event) => {
@@ -57,7 +54,6 @@ const JobOffer = () => {
       setFilteredData(allJobs?.data);
       return;
     }
-
 
     const filtered = allJobs?.data?.filter((item) =>
       item.job_title.toLowerCase().includes(searchValue.toLowerCase())
@@ -77,7 +73,7 @@ const JobOffer = () => {
         handleSearch={handleSearch}
         handleInputChange={handleInputChange}
       />
-      <MatchesJob filteredData={filteredData || filtered} />
+      <MatchesJob filteredData={filteredData} />
     </>
   );
 };

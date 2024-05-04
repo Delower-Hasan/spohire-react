@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
+const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 
 const AddPlayerForm = ({
   handleInputChange,
@@ -16,7 +17,6 @@ const AddPlayerForm = ({
   galleryInputProps,
   isProfileUploaded,
 }) => {
-
   const [countryNames, setCountryNames] = useState([]);
   const [btnAction, setBtnAction] = useState("");
   const handleBtnClick = (option) => {
@@ -123,7 +123,9 @@ const AddPlayerForm = ({
                   name="gender"
                   onChange={handleInputChange}
                 >
-                  <option disabled>Select Here</option>
+                  <option disabled selected>
+                    Select Here
+                  </option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
@@ -158,11 +160,7 @@ const AddPlayerForm = ({
                   <option>Select Here</option>
 
                   {countryNames?.map((country, index) => (
-                    <option
-                      defaultValue={country.name}
-                      className=""
-                      key={index}
-                    >
+                    <option value={country.name} className="" key={index}>
                       {country.name}
                     </option>
                   ))}
@@ -182,11 +180,7 @@ const AddPlayerForm = ({
                 >
                   <option disabled>Select Here</option>
                   {countryNames?.map((country, index) => (
-                    <option
-                      defaultValue={country.name}
-                      className=""
-                      key={index}
-                    >
+                    <option value={country.name} className="" key={index}>
                       {country.name}
                     </option>
                   ))}
@@ -276,6 +270,28 @@ const AddPlayerForm = ({
         <div className="col-lg-4">
           <div className="pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
+              Sports *
+            </label>
+            <select
+              required
+              className="select_form"
+              name="sports"
+              onChange={handleInputChange}
+            >
+              <option selected disabled>
+                Select Here
+              </option>
+              {sportsDatas.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="col-lg-4">
+          <div className="pb-4">
+            <label htmlFor="name" className="d-block label_name mb-2">
               Dominant Hand *
             </label>
             <select
@@ -284,9 +300,11 @@ const AddPlayerForm = ({
               name="dominantHand"
               onChange={handleInputChange}
             >
-              <option>Select Here</option>
-              <option>Left</option>
-              <option>Right</option>
+              <option selected disabled>
+                Select Here
+              </option>
+              <option value={"Left"}>Left</option>
+              <option value={"Right"}>Right</option>
             </select>
           </div>
         </div>

@@ -14,7 +14,11 @@ const initialState = {
     categories: null,
   },
   addPlayerInfo: undefined,
-  subscriptions: {},
+  subscriptions: {
+    subscriptionName: "Bronze",
+    price: 10,
+  },
+  subscriptionTimeline: "MONTHLY",
 };
 
 const authSlice = createSlice({
@@ -85,6 +89,9 @@ const authSlice = createSlice({
       ];
       state.subscriptions = subscription[action.payload];
     },
+    setSubscriptionTimeline: (state, action) => {
+      state.subscriptionTimeline = action.payload;
+    },
   },
 });
 
@@ -95,5 +102,6 @@ export const {
   setCoachFilterParams,
   setAddPlayerProfileInfo,
   setSubscription,
+  setSubscriptionTimeline,
 } = authSlice.actions;
 export default authSlice.reducer;

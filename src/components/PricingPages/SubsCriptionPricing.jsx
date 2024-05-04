@@ -10,7 +10,8 @@ const SubsCriptionPricing = () => {
           location.pathname === "/dashboard/players" || "/dashboard"
             ? "0px"
             : "150px",
-      }}>
+      }}
+    >
       <PriceRange component={<AddToSubscription />} />
     </div>
   );

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import "../../pages/pricing/Pricing.css";
 import OptionDropdown from "../../pages/pricing/OptionDropdown";
+import { useDispatch } from "react-redux";
+import { setSubscriptionTimeline } from "../../features/auth/authSlice";
 
 const BuySubscriptionModalContent = ({ user, openModal }) => {
+  const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState("MONTHLY");
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
+    dispatch(setSubscriptionTimeline(buttonType));
   };
 
   const manager = user?.role == "Manager";
-  
+
   return (
     <div>
       <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
@@ -34,17 +38,20 @@ const BuySubscriptionModalContent = ({ user, openModal }) => {
       <div className="pricing_buttons">
         <button
           className={activeButton === "MONTHLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("MONTHLY")}>
+          onClick={() => handleButtonClick("MONTHLY")}
+        >
           MONTHLY
         </button>
         <button
           className={activeButton === "QUARTERLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("QUARTERLY")}>
+          onClick={() => handleButtonClick("QUARTERLY")}
+        >
           QUARTERLY
         </button>
         <button
           className={activeButton === "YEARLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("YEARLY")}>
+          onClick={() => handleButtonClick("YEARLY")}
+        >
           YEARLY
         </button>
       </div>

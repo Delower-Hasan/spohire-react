@@ -61,8 +61,6 @@ const AddCoachModal2 = ({ setAddCoachModal }) => {
     experience: "",
   });
 
-  console.log("playerData", coachData);
-
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {

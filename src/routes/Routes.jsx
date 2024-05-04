@@ -51,6 +51,7 @@ import PrivateRoute from "./PrivateRoute.jsx";
 import SubscribedRoute from "./SubscribedRoute.jsx";
 import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport.jsx";
 import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
+import Articles from "../pages/Articles/Articles.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -66,7 +67,11 @@ export const router = createBrowserRouter([
         element: <News />,
       },
       {
-        path: "/newsDetails",
+        path: "/articles",
+        element: <Articles />,
+      },
+      {
+        path: "/newsDetails/:id",
         element: <NewsDetails />,
       },
       {
@@ -174,9 +179,9 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: (
-          // <SubscribedRoute>
-          <OverView />
-          // </SubscribedRoute>
+          <SubscribedRoute>
+            <OverView />
+          </SubscribedRoute>
         ),
       },
       {

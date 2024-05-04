@@ -6,11 +6,12 @@ import location from "../../../assets/location.png";
 import threedot from "../../../assets/threedot.png";
 import { Link } from "react-router-dom";
 import { useGetAllAnnouncementQuery } from "../../../features/announcement/announcementApi";
+import { useSubscriptionCheck } from "../../../hooks/useSubscriptionCheck";
 
 const AnnouncementOverview = () => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
+  const { isSubscriptionCheck } = useSubscriptionCheck();
 
-  console.log(allAnnouncements?.data, "ann");
   return (
     <>
       <div
@@ -19,12 +20,16 @@ const AnnouncementOverview = () => {
       >
         <div className="d-flex justify-content-between">
           <h4>Announcements</h4>
-          {allAnnouncements?.data && allAnnouncements?.data?.length > 0 && (  
-            <Link to="/dashboard/announcements">View More</Link>
-          )}
+          {isSubscriptionCheck &&
+            allAnnouncements?.data &&
+            allAnnouncements?.data?.length > 0 && (
+              <Link to="/dashboard/announcements">View More</Link>
+            )}
         </div>
         {/* list */}
-        {allAnnouncements?.data && allAnnouncements?.data.length > 0 ? (
+        {isSubscriptionCheck &&
+        allAnnouncements?.data &&
+        allAnnouncements?.data.length > 0 ? (
           allAnnouncements?.data.slice(0, 3).map((item, idx) => (
             <div
               className="announcelist_wrapper1 d-flex  justify-content-between align-items-center"
@@ -38,9 +43,7 @@ const AnnouncementOverview = () => {
                 >
                   <div className="announcement_pic">
                     <img
-                      src={
-                         a1
-                      }
+                      src={a1}
                       // src={
                       //   item?.image
                       //     ? `${process.env.NODE_ENV !== "production"
@@ -73,7 +76,9 @@ const AnnouncementOverview = () => {
                         style={{ gap: "6px" }}
                       >
                         <img src={publishedFlag} alt="" />
-                        <span style={{ color: "#05CD99" }}>{item?.status ? item.status : "Not Published"}</span>
+                        <span style={{ color: "#05CD99" }}>
+                          {item?.status ? item.status : "Not Published"}
+                        </span>
                       </div>
                       <div
                         className="d-flex align-items-center"
@@ -86,9 +91,11 @@ const AnnouncementOverview = () => {
                   </div>
                 </div>
               </div>
-              <img style={{width:"24px",height:"24px"}} src={threedot} alt="" />
-
-
+              <img
+                style={{ width: "24px", height: "24px" }}
+                src={threedot}
+                alt=""
+              />
             </div>
           ))
         ) : (

@@ -10,8 +10,6 @@ import JobCategory from "./JobCategory";
 const SingleAnnouncement = ({ item }) => {
   const [bookmark, setBookmark] = useState(false);
 
-  console.log(item, "item");
-
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
@@ -22,8 +20,8 @@ const SingleAnnouncement = ({ item }) => {
         <div className="d-flex flex-wrap justify-content-between align-items-start">
           <div
             className="d-flex flex-nowrap align-items-center"
-            style={{ gap: "36px" }}>
-
+            style={{ gap: "36px" }}
+          >
             <div className="announcement_pic">
               <img
                 src={item.image}
@@ -42,10 +40,12 @@ const SingleAnnouncement = ({ item }) => {
               <p className="position">{item.sports}</p>
               <div
                 className="d-flex gap-3 flex-wrap"
-                style={{ marginBottom: "31px" }}>
+                style={{ marginBottom: "31px" }}
+              >
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}>
+                  style={{ gap: "6px" }}
+                >
                   <img src={location} alt="" />
                   <span>{item.location}</span>
                 </div>
@@ -58,7 +58,8 @@ const SingleAnnouncement = ({ item }) => {
                  </div> */}
                 <div
                   className="d-flex  align-items-center"
-                  style={{ gap: "6px" }}>
+                  style={{ gap: "6px" }}
+                >
                   <img src={dollar} alt="" />
                   <span>USD {item.budget}</span>
                 </div>

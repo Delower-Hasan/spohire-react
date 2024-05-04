@@ -7,6 +7,7 @@ import checkActive from "../../assets/white-check.svg";
 import { setSubscription } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import MakePaymenModal from "../../components/Dashboard/Modal/MakePaymenModal";
+import MakePaymenModalForUpgradeSubscription from "../../components/Dashboard/Modal/MakePaymenModalForUpgradeSubscription";
 
 const priceOptions = [
   {
@@ -78,9 +79,14 @@ const PricingCard = () => {
           <div
             key={index}
             className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
-            onClick={() => handleCardClick(index)}>
+            onClick={() => {
+              isPricingPage ? null : openModal();
+              handleCardClick(index);
+            }}
+          >
             <div
-              className={`price_card ${activeCard === index ? "active" : ""}`}>
+              className={`price_card ${activeCard === index ? "active" : ""}`}
+            >
               <div className="d-flex align-items-center gap-4 mb-5">
                 <div className="model">
                   <img className="mt-0" src={data.pic} alt="" />
@@ -93,14 +99,16 @@ const PricingCard = () => {
               <p
                 className={` mb-3 ${
                   activeCard === index ? "active_price" : "price"
-                }`}>
+                }`}
+              >
                 ${data.price} <span>/month</span>
               </p>
 
               <p
                 className={` ${
                   activeCard === index ? "active_include" : "include"
-                }`}>
+                }`}
+              >
                 What's included
               </p>
 
@@ -115,7 +123,8 @@ const PricingCard = () => {
                     <p
                       className={` ${
                         activeCard === idx ? "active_color" : "options"
-                      }`}>
+                      }`}
+                    >
                       {option}
                     </p>
                   </div>
@@ -124,7 +133,6 @@ const PricingCard = () => {
 
               <div className="d-flex">
                 <button
-                  onClick={isPricingPage ? null : openModal}
                   className="d-inline-flex"
                   style={{
                     padding: "17px 66px",
@@ -135,7 +143,8 @@ const PricingCard = () => {
                     color: `${activeCard === index ? "#2B3674" : "#FFFFFF"}`,
                     fontWeight: "500",
                     fontSize: "20px",
-                  }}>
+                  }}
+                >
                   Subscribe
                 </button>
               </div>
@@ -146,7 +155,10 @@ const PricingCard = () => {
 
       {modalOpen && (
         <div className="model" ref={modalRef}>
-          <MakePaymenModal modalRef={modalRef} closeModal={closeModal} />
+          <MakePaymenModalForUpgradeSubscription
+            modalRef={modalRef}
+            closeModal={closeModal}
+          />
         </div>
       )}
     </div>

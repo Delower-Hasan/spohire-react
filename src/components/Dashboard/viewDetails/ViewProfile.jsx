@@ -11,6 +11,8 @@ import silver from "../../../assets/silver1.png";
 import Gallary from "./Gallary";
 import "./ViewDetails.css";
 import ViewDetailsMobile from "./ViewDetailsMobile";
+import { useEffect, useState } from "react";
+import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
 
 const ViewProfile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -22,13 +24,33 @@ const ViewProfile = () => {
     const age = Math.floor(timeDiff / (365.25 * 24 * 60 * 60 * 1000));
     return age;
   };
-console.log(user,"viewprofile user info")
+  const [socialMedia, setSocialMedia] = useState([]);
+
+  useEffect(() => {
+    let values = {};
+
+    for (let i = 0; i < user?.social_media?.length; i++) {
+      const element = user?.social_media[i];
+      if (element.includes("twitter.com")) {
+        values.twitter = element;
+      } else if (element?.includes("instagram.com")) {
+        values.instagram = element;
+      } else if (element?.includes("facebook.com")) {
+        values.facebook = element;
+      } else if (element?.includes("youtube.com")) {
+        values.youtube = element;
+      } else {
+        values.others = element;
+      }
+    }
+    setSocialMedia(values);
+  }, [user]);
+ 
   return (
     <>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
-          <button className="cancel"> Cancel </button>
           <Link to={"/dashboard/editPlayerDetals"} className="edit d-block">
             Edit
           </Link>
@@ -51,9 +73,12 @@ console.log(user,"viewprofile user info")
                     : profileImage
                 }
                 // src={profileImage}
-                style={{ objectFit: "cover" ,width:"40px",height:"40px",
-              borderRadius:"50%"
-              }}
+                style={{
+                  objectFit: "cover",
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "50%",
+                }}
                 alt="Profile"
               />
             </div>
@@ -93,18 +118,34 @@ console.log(user,"viewprofile user info")
               )}
             </div>
 
-            <button className="update_plan">Upgrade</button>
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+              className="update_plan"
+            >
+              Upgrade
+            </button>
+
+            {/* buy subscription coatch */}
+            <BuySubscriptionModal user={user} />
+            {/* buy subscription coatch */}
 
             <div className="social_media_icon d-flex items-center gap-3">
               <Link className="link_btn" to="#">
                 <FaLink /> Copy Profile Link
               </Link>
-              <Link className="icon" to="#">
-                <img src={instagram} alt="" />
-              </Link>
-              <Link className="icon" to="#">
-                <img src={facebook} alt="" />
-              </Link>
+
+              {socialMedia.instagram && (
+                <Link className="icon" to={socialMedia.instagram}>
+                  <img src={instagram} alt="" />
+                </Link>
+              )}
+
+              {socialMedia.facebook && (
+                <Link className="icon" to={socialMedia.facebook}>
+                  <img src={facebook} alt="" />
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -137,12 +178,12 @@ console.log(user,"viewprofile user info")
                   <p className="user_data_info fs-6">{user?.nationality}</p>
                 </div>
 
-                <div>
+                {/* <div>
                   <span className="user_name">Position</span>
                   <p className="user_data_info fs-6">
                     {user?.position ? user?.position : "N/A"}
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

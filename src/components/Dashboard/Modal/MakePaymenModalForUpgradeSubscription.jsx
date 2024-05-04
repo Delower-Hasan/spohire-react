@@ -8,14 +8,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PK } from "../../../config/config";
 import { Elements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
+import BuySubscriptionAddPayment from "../../../pages/pricing/BuySubscriptionAddPayment";
 
-const MakePaymenModal = ({
-  setMakePaymentClose,
-  handleSubmit,
-  selectedPackages,
-  addPlayerLoading,
-  modalRef,
-}) => {
+const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
   const options = [
     "All analytics features",
     "Up to 250,000 tracked visits",
@@ -23,8 +18,10 @@ const MakePaymenModal = ({
     "Up to 3 team members",
   ];
   const stripePromise = loadStripe(STRIPE_PK);
-  const { subscriptions } = useSelector((state) => state.auth);
-  console.log("subscriptions", subscriptions);
+
+  const { subscriptions, subscriptionTimeline } = useSelector(
+    (state) => state.auth
+  );
 
   return (
     <div className="">
@@ -51,9 +48,11 @@ const MakePaymenModal = ({
                       </p>
                     </div>
 
-                    <p className={` mb-3 mpl_price_length`}>1 months</p>
+                    <p className={` mb-3 mpl_price_length`}>
+                      {subscriptionTimeline}
+                    </p>
                     <h3 className="text-start mpl_price mb-3">
-                      ${subscriptions?.price + selectedPackages?.price}
+                      ${subscriptions?.price}
                     </h3>
 
                     <p className={`active_include`}>What's included</p>
@@ -146,11 +145,9 @@ const MakePaymenModal = ({
                 </div>
 
                 <Elements stripe={stripePromise}>
-                  <PlayerCoachAddPayment
-                    handleSubmit={handleSubmit}
-                    addPlayerLoading={addPlayerLoading}
-                    selectedPackages={selectedPackages}
-                    setMakePaymentClose={setMakePaymentClose}
+                  <BuySubscriptionAddPayment
+                    modalRef={modalRef}
+                    closeModal={closeModal}
                   />
                 </Elements>
 
@@ -230,4 +227,4 @@ const MakePaymenModal = ({
   );
 };
 
-export default MakePaymenModal;
+export default MakePaymenModalForUpgradeSubscription;

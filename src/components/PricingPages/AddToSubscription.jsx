@@ -8,6 +8,7 @@ const AddToSubscription = () => {
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
   };
+  
 
   return (
     <div
@@ -15,7 +16,8 @@ const AddToSubscription = () => {
         location.pathname === "/dashboard/players" || "/dashboard"
           ? "d-none"
           : null
-      }`}>
+      }`}
+    >
       <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
         <h6>Subscription to view</h6>
         <OptionDropdown
@@ -33,17 +35,20 @@ const AddToSubscription = () => {
       <div className="pricing_buttons">
         <button
           className={activeButton === "MONTHLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("MONTHLY")}>
+          onClick={() => handleButtonClick("MONTHLY")}
+        >
           MONTHLY
         </button>
         <button
           className={activeButton === "QUARTERLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("QUARTERLY")}>
+          onClick={() => handleButtonClick("QUARTERLY")}
+        >
           QUARTERLY
         </button>
         <button
           className={activeButton === "YEARLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("YEARLY")}>
+          onClick={() => handleButtonClick("YEARLY")}
+        >
           YEARLY
         </button>
       </div>
