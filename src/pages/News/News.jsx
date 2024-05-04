@@ -38,7 +38,7 @@ const News = () => {
         </>
       ))}
 
-      <Pagination />
+      {/* <Pagination /> */}
     </div>
   );
 };

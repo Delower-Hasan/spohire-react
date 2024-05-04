@@ -117,13 +117,12 @@ const PricingCard = () => {
                   <div className="d-flex align-items-center gap-2" key={idx}>
                     <img
                       className="mt-0"
-                      src={activeCard === idx ? checkActive : check}
+                      src={activeCard === idx ? check : check}
                       alt=""
                     />
                     <p
-                      className={` ${
-                        activeCard === idx ? "active_color" : "options"
-                      }`}
+                    style={{ fontSize: "18px" }}
+                      className={`${ activeCard === idx ? "active_color" : "active_color" }`}
                     >
                       {option}
                     </p>
