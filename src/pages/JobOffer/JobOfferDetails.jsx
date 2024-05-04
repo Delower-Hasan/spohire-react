@@ -16,11 +16,13 @@ import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 const JobOfferDetails = () => {
+
+  
   const { id } = useParams();
   const { data: jobDetails } = useGetJobByIdQuery(id);
   const { data: appliedJobs } = useGetMyAppliedJobsQuery();
 
-  // console.log("appliedJobs", appliedJobs);
+
   const { user } = useSelector((state) => state.auth);
   const { data: myJobs, isSuccess } = useGetMyObservationsQuery();
 
