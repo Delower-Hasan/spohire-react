@@ -42,13 +42,35 @@ const Coaches = () => {
       ? ["Bronze"]
       : [];
 
+  //   status: "",
+  // location: "",
+  // nationality: "",
+  // gender: "",
+  // minAge: "",
+  // maxAge: "",
   const handleFilter = (value) => {
-    if (coachFilterParams?.country || coachFilterParams?.categories) {
+    if (
+      coachFilterParams?.status ||
+      coachFilterParams?.location ||
+      coachFilterParams?.nationality ||
+      coachFilterParams?.gender ||
+      coachFilterParams?.maxAge ||
+      coachFilterParams?.minAge
+    ) {
       return (
+        (coachFilterParams?.status &&
+          coachFilterParams?.status === value?.subscriptionName) ||
+        (coachFilterParams?.location &&
+          coachFilterParams?.location === value?.country) ||
         (coachFilterParams?.country &&
           coachFilterParams?.country === value?.nationality) ||
-        (coachFilterParams?.categories &&
-          coachFilterParams?.categories === value?.category)
+        (coachFilterParams?.nationality &&
+          coachFilterParams?.nationality === value?.nationality) ||
+        (coachFilterParams?.gender &&
+          coachFilterParams?.gender === value?.gender) ||
+        (coachFilterParams?.minAge &&
+          coachFilterParams?.minAge >= value?.age) ||
+        (coachFilterParams?.maxAge && coachFilterParams?.maxAge <= value?.age)
       );
     } else {
       return true;

@@ -4,14 +4,23 @@ const initialState = {
   accessToken: undefined,
   user: undefined,
   playerFilterParams: {
-    position: null,
-    country: null,
-    categories: null,
+    position: "",
+    status: "",
+    location: "",
+    gender: "",
+    minAge: "",
+    maxAge: "",
+    minHeight: "",
+    maxHeight: "",
+    dominantHand: "",
   },
   coachFilterParams: {
-    age: null,
-    country: null,
-    categories: null,
+    status: "",
+    location: "",
+    nationality: "",
+    gender: "",
+    minAge: "",
+    maxAge: "",
   },
   addPlayerInfo: undefined,
   subscriptions: {
@@ -19,6 +28,7 @@ const initialState = {
     price: 10,
   },
   subscriptionTimeline: "MONTHLY",
+  
 };
 
 const authSlice = createSlice({
@@ -34,40 +44,12 @@ const authSlice = createSlice({
       state.user = undefined;
     },
     setPlayerFilterParams: (state, action) => {
-      const { type, data } = action.payload;
-
-      switch (type) {
-        case "position":
-          state.playerFilterParams.position = data;
-          return;
-        case "country":
-          state.playerFilterParams.country = data;
-          return;
-        case "categories":
-          state.playerFilterParams.categories = data;
-          return;
-
-        default:
-          return;
-      }
+      const { data } = action.payload;
+      state.playerFilterParams = data;
     },
     setCoachFilterParams: (state, action) => {
-      const { type, data } = action.payload;
-
-      switch (type) {
-        case "age":
-          state.coachFilterParams.age = data;
-          return;
-        case "country":
-          state.coachFilterParams.country = data;
-          return;
-        case "categories":
-          state.coachFilterParams.categories = data;
-          return;
-
-        default:
-          return;
-      }
+      const { data } = action.payload;
+      state.coachFilterParams = data;
     },
     setAddPlayerProfileInfo: (state, action) => {
       state.addPlayerInfo = action.payload;

@@ -27,6 +27,9 @@ import AddCoachModal from "../Modal/AddCoachModal";
 import AddPlayerModal from "../Modal/AddPlayerModal";
 import "./Topbar.css";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
+import PlayerFilter from "./PlayerFilter";
+import CoachFilter from "./CoachFilter";
+import AnouncementFilter from "./AnouncementFilter";
 
 const Topbar = ({ onClose }) => {
   let location = useLocation();
@@ -196,8 +199,6 @@ const Topbar = ({ onClose }) => {
     localStorage.removeItem("spohireAuth");
     navigate("/login");
   };
-
-  console.log("user?.subscriptionName", user?.subscriptionName);
 
   return (
     <>
@@ -545,7 +546,7 @@ const Topbar = ({ onClose }) => {
                 </button>
 
                 {/* add player -/ end */}
-                {/* 
+
                 <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
@@ -557,7 +558,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : location.pathname === "/dashboard/jobOffers" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -573,12 +574,10 @@ const Topbar = ({ onClose }) => {
 
                 {/* <button
                   onClick={handleFilterModal}
-                  className="addPlayer bg-none d-inline-flex align-items-center gap-2"
-                >
+                  className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
                     className="add_icon"
-                    style={{ backgroundColor: "#05cd9914" }}
-                  >
+                    style={{ backgroundColor: "#05cd9914" }}>
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
@@ -596,7 +595,7 @@ const Topbar = ({ onClose }) => {
                   Create Announcement
                 </button>
 
-                {/* <button
+                <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
                 >
@@ -607,7 +606,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : location.pathname === "/dashboard/coaches" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -629,7 +628,7 @@ const Topbar = ({ onClose }) => {
 
                 {/* add player -/ end */}
 
-                {/* <button
+                <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2"
                 >
@@ -640,7 +639,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : null}
           </div>
@@ -649,100 +648,14 @@ const Topbar = ({ onClose }) => {
         {filter && (
           <div ref={filterRef} className="filter_wrapper">
             {location.pathname === "/dashboard/coaches" ? (
-              ""
-            ) : (
-              <div className="postion_wrapper pb-4">
-                <h2>Position</h2>
-                <div className="position_btn_wrapper">
-                  <button>All</button>
-                  <button>Goalkeeper</button>
-                  <button>Defender</button>
-                  <button>Midfielder</button>
-                  <button>Forward</button>
-                </div>
-              </div>
-            )}
-
-            <div className="postion_wrapper pb-4">
-              <h2>Status</h2>
-              <div className="position_btn_wrapper status">
-                <button>Bronze</button>
-                <button>Silver</button>
-                <button>Gold</button>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Location</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Nationality</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Gender</h2>
-              <div className="position_btn_wrapper location">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="postion_wrapper pb-4">
-              <h2>Age</h2>
-              <div className="position_btn_wrapper age d-flex">
-                <input type="number" placeholder="Min" />
-                <input type="number" placeholder="Max" />
-                <button>Apply</button>
-              </div>
-            </div>
-            {location.pathname === "/dashboard/coaches" ? (
-              ""
-            ) : (
+              <CoachFilter />
+            ) : location.pathname === "/dashboard/announcements" ? (
               <>
-                <div className="postion_wrapper pb-4">
-                  <h2>Height</h2>
-                  <div className="position_btn_wrapper age d-flex">
-                    <input type="number" placeholder="Min" />
-                    <input type="number" placeholder="Max" />
-                    <button>Apply</button>
-                  </div>
-                </div>
-
-                <div className="postion_wrapper pb-4">
-                  <h2>Dominant hand</h2>
-                  <div className="position_btn_wrapper location">
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                    >
-                      <option selected>Select</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                    </select>
-                  </div>
-                </div>
+                <AnouncementFilter />
               </>
-            )}
+            ) : location.pathname === "/dashboard/players" ? (
+              <PlayerFilter />
+            ) : null}
           </div>
         )}
 
@@ -779,7 +692,6 @@ const Topbar = ({ onClose }) => {
       )}
 
       {/* modals */}
-
       {addJobOffer && (
         <AddJobOffer
           addJobOffer={addJobOffer}

@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import "./Announcements.css";
-import a1 from "../../../assets/a11.png";
-import flag from "../../../assets/flag.png";
-import dollar from "../../../assets/coin-dollar.png";
-import location from "../../../assets/location.png";
-import b1 from "../../../assets/bookmark.png";
-import bookmarkfill from "../../../assets/bookmark-fill.png";
-import edit2 from "../../../assets/edit2.png";
-import delet from "../../../assets/delete.png";
-import DeleteModal from "../../../pages/Announcement/DeleteModal";
 import { useState } from "react";
+import a1 from "../../../assets/a11.png";
+import bookmarkfill from "../../../assets/bookmark-fill.png";
+import b1 from "../../../assets/bookmark.png";
+import dollar from "../../../assets/coin-dollar.png";
+import delet from "../../../assets/delete.png";
+import edit2 from "../../../assets/edit2.png";
+import location from "../../../assets/location.png";
 import {
   useDeleteAnnouncementMutation,
   useGetAllAnnouncementQuery,
 } from "../../../features/announcement/announcementApi";
+import DeleteModal from "../../../pages/Announcement/DeleteModal";
+import "./Announcements.css";
 
 import {
   useGetMyObservationsQuery,
@@ -22,8 +21,8 @@ import {
 } from "../../../features/observation/observationApi";
 
 import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import Pagination from "../../Pagination/Pagination";
 
 const DashboardAnnouncements = () => {
@@ -33,9 +32,7 @@ const DashboardAnnouncements = () => {
   const [announcementType, setAnnouncementType] = useState("All");
   const [deleteAnnouncement, { isLoading: deleting }] =
     useDeleteAnnouncementMutation();
-  // const sorting = allAnnouncements?.data?.sort(
-  //   (a, b) => a.createdAt - b.createdAt
-  // );
+
   const handleDelete = async (item) => {
     Swal.fire({
       title: "Are you sure?",
@@ -69,18 +66,12 @@ const DashboardAnnouncements = () => {
   };
 
   const filtering = (data) => {
-    if (
-      dashboardFilterParams?.sports ||
-      dashboardFilterParams?.country ||
-      dashboardFilterParams?.categories
-    ) {
+    if (dashboardFilterParams?.location || dashboardFilterParams?.category) {
       return (
-        (dashboardFilterParams?.sports &&
-          dashboardFilterParams.sports === data?.sports) ||
-        (dashboardFilterParams?.country &&
-          dashboardFilterParams?.country === data?.country) ||
-        (dashboardFilterParams?.categories &&
-          dashboardFilterParams?.categories === data?.category)
+        (dashboardFilterParams?.location &&
+          dashboardFilterParams?.location === data?.country) ||
+        (dashboardFilterParams?.category &&
+          dashboardFilterParams?.category === data?.category)
       );
     } else {
       return true;
@@ -171,7 +162,7 @@ const DashboardAnnouncements = () => {
       </div>
 
       <DeleteModal />
-      <Pagination />
+      {/* <Pagination /> */}
     </>
   );
 };
@@ -179,7 +170,6 @@ const DashboardAnnouncements = () => {
 export default DashboardAnnouncements;
 
 const SingleAnnouncement = ({ announcement, handleDelete }) => {
-  
   const { user } = useSelector((state) => state.auth);
 
   const { data, isSuccess } = useGetMyObservationsQuery();
