@@ -216,7 +216,7 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
     <>
       <div className="announcelist_wrapper">
         <div className="d-flex justify-content-between align-items-start">
-          <div className="d-flex align-items-center" style={{ gap: "20px" }}>
+          <div className="d-flex align-items-start" style={{ gap: "20px" }}>
             <div className="announcement_pic">
               <img
                 src={
@@ -239,24 +239,21 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
             </div>
             <div className="recruiment f_sfPro">
               <p style={{ color: "#3378ff" }}>{announcement?.title}</p>
+              <div className="d-flex align-items-center mb-2 mt-1 ">
+                <span>{announcement?.sports}</span>
+              </div>
               <div className="d-flex gap-3 flex-wrap">
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}
+                  style={{ gap: "4px" }}
                 >
                   <img src={location} alt="" />
                   <span>{announcement?.location}</span>
                 </div>
-                {/* <div
-                  className="d-flex align-items-center"
-                  style={{ gap: "6px" }}
-                >
-                  <img src={flag} alt="" />
-                  <span>{announcement?.status}</span>
-                </div> */}
+
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}
+                  style={{ gap: "4px" }}
                 >
                   <img src={dollar} alt="" />
                   <span>USD {announcement?.budget}</span>

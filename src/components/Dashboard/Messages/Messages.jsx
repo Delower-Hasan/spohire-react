@@ -72,7 +72,6 @@ const Messages = () => {
       }
       if (res?.data?.success) {
         // console.log(res, "noo res");
-        // if conversation id is not exists it will create conversation id
         dispatch(setConversationId(res?.data?.data?._id));
         dispatch(setMessages([]));
       }
@@ -177,8 +176,6 @@ const Messages = () => {
               </div>
             </div>
             <div className={`col-lg-9 d-flex`}>
-              {/* <div className="border-right"></div> */}
-              {/* <Messaging setShowChatDetails={setShowChatDetails}  myParam={myParam} /> */}
               <div className="messaging" style={{ width: "100%" }}>
                 <h2 onClick={close} className="pointer">
                   {selectedMsgUser?.first_name} {selectedMsgUser?.last_name}
@@ -202,7 +199,7 @@ const Messages = () => {
                                   </span>
                                 </div>
                                 <p className="message_time_one position-absolute">
-                                  8:00 PM
+                                  {formatMessageTime(item?.createdAt)}
                                 </p>
                               </div>
                               <div className="position-absolute avatar_img2">
@@ -224,7 +221,7 @@ const Messages = () => {
                                   </div>
                                 </div>
                                 <p className="message_time position-absolute">
-                                  8:00 PM
+                                  {formatMessageTime(item?.createdAt)}
                                 </p>
                               </div>
 
@@ -256,56 +253,14 @@ const Messages = () => {
                     <button
                       onClick={handleSendClick}
                       className="bg-none"
-                      disabled={!messageText}>
+                      disabled={!messageText}
+                    >
                       <img src={send} alt="" />
                     </button>
                   </div>
                 </div>
               </div>
-              {/* {showChatDetails && <div className="border-right"></div>} */}
             </div>
-
-            {/* {showChatDetails && (
-              <div className={`col-lg-3 d-lg-block d-none`}>
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex align-items-center  gap-2">
-                    <img src={chaticon} alt="" />
-                    <p>Chat Details</p>
-                  </div>
-                  <button className="bg-none" onClick={handleChatCloseClick}>
-                    <img src={chatclose} alt="chatclose" />
-                  </button>
-                </div>
-
-                <div
-                  className="text-center profile_right"
-                  onClick={hanldeViewProfile}
-                  style={{ cursor: "pointer" }}
-                >
-                  <img
-                    src={
-                      selectedMsgUser?.image
-                        ? `${
-                            process.env.NODE_ENV !== "production"
-                              ? import.meta.env.VITE_LOCAL_API_URL
-                              : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${selectedMsgUser?.image}`
-                        : profile
-                    }
-                    alt="chatclose"
-                    style={{
-                      height: "89px",
-                      width: "89px",
-                      objectFit: "cover",
-                      borderRadius: "50%",
-                    }}
-                  />
-                  {selectedMsgUser?.first_name} {selectedMsgUser?.last_name}
-                  <span>{selectedMsgUser?.role}</span>
-                </div>
-                <hr className="coach_hr" />
-              </div>
-            )} */}
           </div>
         </div>
       </div>
@@ -314,45 +269,3 @@ const Messages = () => {
 };
 
 export default Messages;
-// <div className="container-fluid">
-//     <div className="message_wrapper">
-//         <div className="row w-100">
-//             <div className="col-lg-3  d-lg-block d-none">
-//                 <div>
-//                     <div className='chat_list_wrapper '>
-//                         <h3>Message details</h3>
-//                         <div className="form-group has-search1">
-//                             <span className="fa fa-search form-control-feedback"></span>
-//                             <input type="text" className="form-control" placeholder="Search" />
-//                         </div>
-//                         <ChatProfiles />
-//                     </div>
-//                 </div>
-//             </div>
-
-//             {/* div 6 */}
-//             <div className="col-lg-6 message_border d-flex">
-//                 <div className='border-right'></div>
-//                 <Messaging myParam={myParam} />
-//                 <div className='border-right'></div>
-//             </div>
-
-//             <div className="col-lg-3 d-lg-block d-none">
-//                 <div className='d-flex justify-content-between'>
-//                     <div className='d-flex align-items-center  gap-2'>
-//                         <img src={chaticon} alt="" />
-//                         <p>Chat Details</p>
-//                     </div>
-//                     <button className='bg-none'> <img src={chatclose} alt="chatclose" /></button>
-//                 </div>
-
-//                 <div className='text-center profile_right'>
-//                     <img src={profile} alt="chatclose" />
-//                     {myParam !== null  ? <p>Abram Korsgaard</p> : <b>Dihan Abir</b>}
-//                     <span>Coach</span>
-//                 </div>
-//                 <hr className='coach_hr' />
-//             </div>
-//         </div>
-//     </div>
-// </div>
