@@ -238,7 +238,7 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
               />
             </div>
             <div className="recruiment f_sfPro">
-              <p>{announcement?.title}</p>
+              <p style={{ color: "#3378ff" }}>{announcement?.title}</p>
               <div className="d-flex gap-3 flex-wrap">
                 <div
                   className="d-flex align-items-center"
@@ -262,6 +262,23 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
                   <span>USD {announcement?.budget}</span>
                 </div>
               </div>
+              <p className="announcement_details f_sfPro">
+                {announcement?.description.slice(0, seeMore)}{" "}
+                {announcement?.description?.length > seeMore && (
+                  <>
+                    ...
+                    <span
+                      className="text-primary"
+                      onClick={() =>
+                        setSeeMore(announcement?.description.length)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      See More
+                    </span>
+                  </>
+                )}
+              </p>
             </div>
           </div>
 
@@ -300,25 +317,7 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
             </div>
           </div>
         </div>
-        <p className="announcement_details f_sfPro">
-          {/* We cant wait to share this milestone with our incredible sports
-          community. Your passion and support have fueled our journey, and were
-          thrilled to <br className="d-lg-block d-none" /> take it to the next
-          level together. */}
-          {announcement?.description.slice(0, seeMore)}{" "}
-          {announcement?.description?.length > seeMore && (
-            <>
-              ...
-              <span
-                className="text-primary"
-                onClick={() => setSeeMore(announcement?.description.length)}
-                style={{ cursor: "pointer" }}
-              >
-                See More
-              </span>
-            </>
-          )}
-        </p>
+
         <div className="d-flex gap-3 d-lg-none d-block justify-content-end">
           <button
             className="bg-none"

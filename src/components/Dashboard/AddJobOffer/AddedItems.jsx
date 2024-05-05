@@ -16,16 +16,12 @@ const AddedItems = () => {
   const [active, setActive] = useState("active");
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log();
 
   const [cancleSubscription, { isLoading }] = useCancleSubscriptionMutation();
 
   const { data } = useGetUserReferallsQuery();
 
-  console.log(data, "fdaftga");
-
   const handleUndoAddProfile = async () => {
-    console.log("dd");
     try {
       const response = await cancleSubscription();
       if (response?.data?.success) {
@@ -78,17 +74,15 @@ const AddedItems = () => {
             Active
           </button>
 
-          {user?.role === "Manager" && (
-            <button
-              className={`fs-6 fw-medium text_color_80 ${
-                active === "expired" && "activeBtn2"
-              }`}
-              onClick={() => setActive("expired")}
-            >
-              {/* {user?.role === "Coach" ? "Players" : "Player"} */}
-              expired
-            </button>
-          )}
+          <button
+            className={`fs-6 fw-medium text_color_80 ${
+              active === "expired" && "activeBtn2"
+            }`}
+            onClick={() => setActive("expired")}
+          >
+            {/* {user?.role === "Coach" ? "Players" : "Player"} */}
+            expired
+          </button>
         </div>
 
         <div className="job_offers_topBtn_left d-flex gap-4">
@@ -143,12 +137,6 @@ const AddedItems = () => {
             Announcements
           </button>
         </div>
-
-        {/* <div className="job_offers_topBtn_right">
-    <button className="bg-transparent border-0 text_color_fb">
-      Clear All
-    </button>
-  </div> */}
       </div>
 
       {jobOffersType === "job" && <JobOffers />}

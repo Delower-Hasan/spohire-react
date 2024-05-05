@@ -75,13 +75,32 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
         <div className="annuncement_inner_wrapper">
           <div className="row" style={{ gap: "60px" }}>
             <div className="col">
+              <label htmlFor="">Sports</label>
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                style={{
+                  backgroundColor: "rgba(245, 245, 245, 0.70)",
+                }}
+                name="sport"
+                onChange={handleChange}
+              >
+                <option value="All">Select here</option>
+                {sportOptions.map((name, index) => (
+                  <option value={name?.value} className="" key={index}>
+                    {name.value}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* <div className="col">
               <label htmlFor="">Sport</label>
               <CustomSelect
                 options={sportOptions}
                 onChange={handleChange}
                 name="sport"
               />
-            </div>
+            </div> */}
             <div className="col">
               <label htmlFor="">Location</label>
               <select
@@ -91,7 +110,8 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
                   backgroundColor: "rgba(245, 245, 245, 0.70)",
                 }}
                 name="location"
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="All" className="">
                   Select here
                 </option>
@@ -111,7 +131,8 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
                   backgroundColor: "rgba(245, 245, 245, 0.70)",
                 }}
                 name="category"
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="All" className="">
                   Select here
                 </option>

@@ -9,8 +9,8 @@ const AnnouncementList = ({ filters }) => {
   const applyFilters = (announcement) => {
     const { sport, location, category } = filters;
     return (
-      (!sport || announcement.sport === sport) &&
-      (!location || announcement.location === location) &&
+      (!sport || announcement.sports === sport) &&
+      (!location || announcement.country === location) &&
       (!category || announcement.category === category)
     );
   };
@@ -21,7 +21,8 @@ const AnnouncementList = ({ filters }) => {
     <>
       <div
         className="container"
-        style={{ marginTop: "104px", marginBottom: "150px" }}>
+        style={{ marginTop: "104px", marginBottom: "150px" }}
+      >
         <div className="row">
           {filteredAnnouncements?.length > 0 ? (
             filteredAnnouncements.map((item, index) => (

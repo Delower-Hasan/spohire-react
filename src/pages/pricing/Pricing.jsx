@@ -9,16 +9,6 @@ import PricingBanner from "./PricingBanner";
 const Pricing = () => {
   return (
     <div>
-      {/* <button onClick={clickHandler}>Click</button>
-      <PageHeader />
-      <BestOffer />
-      <div className="slider_bg">
-        <div>
-          <WhatPeopleSay color="#fff" />
-        </div>
-      </div>
-      <GetStarted /> */}
-
       <PricingBanner />
       <div className="container pricing_bg_wrapper">
         <PriceRange component={<AddToTrandfer />} />
