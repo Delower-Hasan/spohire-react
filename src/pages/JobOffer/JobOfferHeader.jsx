@@ -2,10 +2,11 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+
 const jobTypeOptions = [
   { value: "Full-time", label: "Full-time" },
   { value: "Part-time", label: "Part-time" },
-  { value: "Other", label: "Other" },
+  { value: "Contract", label: "Contract" },
 ];
 
 const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
@@ -30,6 +31,12 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
     { value: "Past 24 hours", label: "Past 24 hours" },
     { value: "Last week", label: "Last week" },
     { value: "Last month", label: "Last month" },
+  ];
+
+  const remotes = [
+    { value: "On-site", label: "On-site" },
+    { value: "Hybrid", label: "Hybrid" },
+    { value: "Remote", label: "Remote" },
   ];
 
   const handleDocumentClick = (event) => {
@@ -116,7 +123,7 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 // width: "268px",
               }}
             >
-              <option disabled selected className="">
+              <option disabled selected>
                 Select here
               </option>
               {options.map((name, index) => (
@@ -137,12 +144,34 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
             >
-              <option value="All" className="">
+              <option value="All" disabled selected>
                 Select here
               </option>
               {countryNames.map((name, index) => (
-                <option value={name?.value} className="" key={index}>
+                <option value={name?.value} key={index}>
                   {name.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col">
+            <label htmlFor="">Remote</label>
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              name="workplaceType"
+              onChange={handleInputChange}
+              style={{
+                backgroundColor: "rgba(245, 245, 245, 0.70)",
+              }}
+            >
+              <option value="All" disabled selected>
+                Select here
+              </option>
+
+              {remotes.map((item, index) => (
+                <option key={index} value={item.value} className="">
+                  {item.value}
                 </option>
               ))}
             </select>
@@ -158,7 +187,7 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
             >
-              <option value="All" className="">
+              <option value="All" disabled selected>
                 Select here
               </option>
 

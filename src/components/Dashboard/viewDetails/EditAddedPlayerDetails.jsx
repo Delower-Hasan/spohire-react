@@ -11,9 +11,8 @@ import {
   useUpdatePlayerDetailsMutation,
 } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
-import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 
 // data

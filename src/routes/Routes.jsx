@@ -53,347 +53,342 @@ import HelpSupport from "../components/Dashboard/Setting/HelpSupport/HelpSupport
 import Settings from "../components/Dashboard/Setting/Settings/Settings.jsx";
 import Articles from "../pages/Articles/Articles.jsx";
 
-export const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        {
-          path: "/news",
-          element: <News />,
-        },
-        {
-          path: "/articles",
-          element: <Articles />,
-        },
-        {
-          path: "/newsDetails/:id",
-          element: <NewsDetails />,
-        },
-        {
-          path: "/terms-condition",
-          element: <TermsAndCondition />,
-        },
-        {
-          path: "/transfarMarket",
-          element: <TransfarMarket />,
-        },
-        {
-          path: "/gallary/:id",
-          element: <Gallary />,
-        },
-        {
-          path: "/paymentProcess",
-          element: (
-            <PaymentRoute>
-              <PaymentProcessNew />
-            </PaymentRoute>
-          ),
-        },
-        {
-          path: "/paymentProcessAddPlayer",
-          element: (
-            // <PaymentRoute>
-            <PaymentProcessAddPlayer />
-            // </PaymentRoute>
-          ),
-        },
-
-        {
-          path: "/jobOffer",
-          element: <JobOffer />,
-        },
-
-        {
-          path: "/jobDetails/:id",
-          // element: <JobDetails />,
-          element: <JobOfferDetails />,
-        },
-
-        {
-          path: "/announcements",
-          element: <Announcements />,
-        },
-
-        {
-          path: "/pricing",
-          element: <Pricing />,
-        },
-        {
-          path: "/pricingAddProfile/:id",
-          element: <PricingAddProfile />,
-        },
-      ],
-    },
-
-    {
-      path: "/login",
-      element: <Login />,
-    },
-
-    {
-      path: "/signup",
-      element: <SignUp />,
-    },
-
-    {
-      path: "/addProfile",
-      element: <AddProfile />,
-    },
-
-    {
-      path: "/addPlayerProfile",
-      element: <AddPlayerProfile />,
-    },
-
-    {
-      path: "/addCoachProfile",
-      element: <AddCoachProfile />,
-    },
-
-    {
-      path: "/addProfilePlayer",
-      element: <AddProfilePlayer />,
-    },
-
-    {
-      path: "/addProfileCoach",
-      element: <AddProfileCoach />,
-    },
-    // {
-    //   path: "/addplayer",
-    //   element: <AddPlayer />,
-    // },
-    {
-      path: "/addplayer2",
-      element: <AddPlayerInfo2 />,
-    },
-
-    {
-      path: "/addplayer3",
-      element: <AddPlayerInfo3 />,
-    },
-
-    {
-      path: "/dashboard",
-      element: <DashboardLayout />,
-
-      children: [
-        {
-          path: "/dashboard",
-          element: (
-            <SubscribedRoute>
-              <OverView />
-            </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/jobOffers",
-          element: (
-            // <SubscribedRoute>
-            <JobOffers />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/jobApplicants/:id",
-          element: (
-            // <SubscribedRoute>
-            <AppliedJobs />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/addedItems",
-          element: (
-            // <SubscribedRoute>
-            // <AppliedJobs />
-            <AddedItems />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/jobDetails/:id",
-          // element: <JobDetails />,
-          element: <JobOfferDetails />,
-        },
-
-        {
-          path: "/dashboard/myAppliedJobs",
-          element: (
-            // <SubscribedRoute>
-            // <AppliedJobs />
-            <MyAppliedJob />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/players",
-          element: (
-            <SubscribedRoute>
-              <Players />
-            </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/coaches",
-          element: (
-            <SubscribedRoute>
-              <Coaches />
-            </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/coacheDetails/:id",
-          element: (
-            <SubscribedRoute>
-              <CoachesDetails />
-            </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/coachesProfile",
-          element: (
-            <SubscribedRoute>
-              <CoachesProfile />
-            </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/editCoacheProfile",
-          element: (
-            // <SubscribedRoute>
-            <EditCoachProfile />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/viewDetails/:id",
-          element: (
-            // <SubscribedRoute>
-            <ViewDetails />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/viewProfile",
-          element: (
-            <PrivateRoute>
-              <ViewProfile />
-            </PrivateRoute>
-          ),
-        },
-        {
-          path: "/dashboard/editPlayerDetals",
-          element: (
-            // <SubscribedRoute>
-            <PrivateRoute>
-              <EditPlayerDetails />
-            </PrivateRoute>
-
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/editDetails/:id",
-          element: (
-            // <SubscribedRoute>
-            <PrivateRoute>
-              <EditAddedPlayerDetails />
-            </PrivateRoute>
-
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/messages/:id",
-          element: (
-            // <SubscribedRoute>
-            <Messages />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/messages",
-          element: (
-            // <SubscribedRoute>
-            <BlankMessages />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/observed",
-          element: (
-            // <SubscribedRoute>
-            <ObservedClone />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/billing",
-          element: (
-            // <SubscribedRoute>
-            <Billing />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/notification",
-          element: (
-            // <SubscribedRoute>
-            <Notification />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/password",
-          element: (
-            // <SubscribedRoute>
-            <Password />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/help-and-support",
-          element: <HelpSupport />,
-        },
-        {
-          path: "/dashboard/settings",
-          element: <Settings />,
-        },
-        {
-          path: "/dashboard/announcements",
-          element: (
-            // <SubscribedRoute>
-            <DashboardAnnouncements />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/editAnnouncements/:id",
-          element: (
-            // <SubscribedRoute>
-            <EditAnnouncements />
-            // </SubscribedRoute>
-          ),
-        },
-        {
-          path: "/dashboard/createAnnouncements",
-          element: (
-            // <SubscribedRoute>
-            <CreateAnnouncements />
-            // </SubscribedRoute>
-          ),
-        },
-      ],
-    },
-  ],
+export const router = createBrowserRouter([
   {
-    basename: "/",
-  }
-);
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/news",
+        element: <News />,
+      },
+      {
+        path: "/articles",
+        element: <Articles />,
+      },
+      {
+        path: "/newsDetails/:id",
+        element: <NewsDetails />,
+      },
+      {
+        path: "/terms-condition",
+        element: <TermsAndCondition />,
+      },
+      {
+        path: "/transfarMarket",
+        element: <TransfarMarket />,
+      },
+      {
+        path: "/gallary/:id",
+        element: <Gallary />,
+      },
+      {
+        path: "/paymentProcess",
+        element: (
+          <PaymentRoute>
+            <PaymentProcessNew />
+          </PaymentRoute>
+        ),
+      },
+      {
+        path: "/paymentProcessAddPlayer",
+        element: (
+          // <PaymentRoute>
+          <PaymentProcessAddPlayer />
+          // </PaymentRoute>
+        ),
+      },
+
+      {
+        path: "/jobOffer",
+        element: <JobOffer />,
+      },
+
+      {
+        path: "/jobDetails/:id",
+        // element: <JobDetails />,
+        element: <JobOfferDetails />,
+      },
+
+      {
+        path: "/announcements",
+        element: <Announcements />,
+      },
+
+      {
+        path: "/pricing",
+        element: <Pricing />,
+      },
+      {
+        path: "/pricingAddProfile/:id",
+        element: <PricingAddProfile />,
+      },
+    ],
+  },
+
+  {
+    path: "/login",
+    element: <Login />,
+  },
+
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+
+  {
+    path: "/addProfile",
+    element: <AddProfile />,
+  },
+
+  {
+    path: "/addPlayerProfile",
+    element: <AddPlayerProfile />,
+  },
+
+  {
+    path: "/addCoachProfile",
+    element: <AddCoachProfile />,
+  },
+
+  {
+    path: "/addProfilePlayer",
+    element: <AddProfilePlayer />,
+  },
+
+  {
+    path: "/addProfileCoach",
+    element: <AddProfileCoach />,
+  },
+  // {
+  //   path: "/addplayer",
+  //   element: <AddPlayer />,
+  // },
+  {
+    path: "/addplayer2",
+    element: <AddPlayerInfo2 />,
+  },
+
+  {
+    path: "/addplayer3",
+    element: <AddPlayerInfo3 />,
+  },
+
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+
+    children: [
+      {
+        path: "/dashboard",
+        element: (
+          <SubscribedRoute>
+            <OverView />
+          </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/jobOffers",
+        element: (
+          // <SubscribedRoute>
+          <JobOffers />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/jobApplicants/:id",
+        element: (
+          // <SubscribedRoute>
+          <AppliedJobs />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addedItems",
+        element: (
+          // <SubscribedRoute>
+          // <AppliedJobs />
+          <AddedItems />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/jobDetails/:id",
+        // element: <JobDetails />,
+        element: <JobOfferDetails />,
+      },
+
+      {
+        path: "/dashboard/myAppliedJobs",
+        element: (
+          // <SubscribedRoute>
+          // <AppliedJobs />
+          <MyAppliedJob />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/players",
+        element: (
+          <SubscribedRoute>
+            <Players />
+          </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/coaches",
+        element: (
+          <SubscribedRoute>
+            <Coaches />
+          </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/coacheDetails/:id",
+        element: (
+          <SubscribedRoute>
+            <CoachesDetails />
+          </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/coachesProfile",
+        element: (
+          <SubscribedRoute>
+            <CoachesProfile />
+          </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/editCoacheProfile",
+        element: (
+          // <SubscribedRoute>
+          <EditCoachProfile />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/viewDetails/:id",
+        element: (
+          // <SubscribedRoute>
+          <ViewDetails />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/viewProfile",
+        element: (
+          <PrivateRoute>
+            <ViewProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/editPlayerDetals",
+        element: (
+          // <SubscribedRoute>
+          <PrivateRoute>
+            <EditPlayerDetails />
+          </PrivateRoute>
+
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/editDetails/:id",
+        element: (
+          // <SubscribedRoute>
+          <PrivateRoute>
+            <EditAddedPlayerDetails />
+          </PrivateRoute>
+
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/messages/:id",
+        element: (
+          // <SubscribedRoute>
+          <Messages />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/messages",
+        element: (
+          // <SubscribedRoute>
+          <BlankMessages />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/observed",
+        element: (
+          // <SubscribedRoute>
+          <ObservedClone />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/billing",
+        element: (
+          // <SubscribedRoute>
+          <Billing />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/notification",
+        element: (
+          // <SubscribedRoute>
+          <Notification />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/password",
+        element: (
+          // <SubscribedRoute>
+          <Password />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/help-and-support",
+        element: <HelpSupport />,
+      },
+      {
+        path: "/dashboard/settings",
+        element: <Settings />,
+      },
+      {
+        path: "/dashboard/announcements",
+        element: (
+          // <SubscribedRoute>
+          <DashboardAnnouncements />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/editAnnouncements/:id",
+        element: (
+          // <SubscribedRoute>
+          <EditAnnouncements />
+          // </SubscribedRoute>
+        ),
+      },
+      {
+        path: "/dashboard/createAnnouncements",
+        element: (
+          // <SubscribedRoute>
+          <CreateAnnouncements />
+          // </SubscribedRoute>
+        ),
+      },
+    ],
+  },
+]);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Marquee from "react-fast-marquee";
 import Germany from "../../../assets/germany.png";
 import { AiOutlineMessage } from "react-icons/ai";
@@ -78,7 +78,19 @@ const ViewDetails = () => {
       });
     }
   };
-  console.log("user", user);
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard
+      .writeText(
+        `${import.meta.env.VITE_DOMAIN_URL}/dashboard/viewDetails/${id}`
+      )
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500); // Reset copied state after 1.5 seconds
+      })
+      .catch((error) => console.error("Failed to copy:", error));
+  };
   return (
     <div className="details_information">
       <div className="profile_cover">
@@ -108,9 +120,17 @@ const ViewDetails = () => {
                 </button>
               </Link>
 
-              <button className="cm_link d-flex gap-2 align-items-center justify-content-center">
+              <button
+                className="cm_link d-flex gap-2 align-items-center justify-content-center"
+                onClick={copyToClipboard}
+              >
                 <FaLink />
-                <p>Message</p>
+
+                {copied ? (
+                  <span style={{ color: "red" }}>Copied!</span>
+                ) : (
+                  <p>Share</p>
+                )}
               </button>
 
               <button

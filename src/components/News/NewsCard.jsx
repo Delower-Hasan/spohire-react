@@ -10,8 +10,6 @@ const NewsCard = ({ data }) => {
   const month = date.toLocaleString("default", { month: "long" });
   const day = date.getDate();
 
-  console.log(`${day} ${month}`);
-
   return (
     <>
       <div className="news_card">

@@ -25,7 +25,6 @@ const SignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
-
   const button_disability =
     !firstName ||
     !lastName ||

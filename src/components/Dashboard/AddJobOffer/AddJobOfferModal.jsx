@@ -282,14 +282,13 @@ const AddJobOfferModal = ({
                     padding: "0 14px",
                   }}
                   name="language"
-                  // value={role}
                   onChange={handleInputChange}
                 >
                   <option selected disabled>
                     Select Language
                   </option>
 
-                  <option className="">Language</option>
+                  <option value="English">English</option>
                 </select>
               </div>
             </div>

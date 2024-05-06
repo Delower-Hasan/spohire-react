@@ -254,7 +254,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
               <div className="job_offer_nameDesignation">
                 <h5
                   className="fw-medium fs-6 text_color_36 mb-1"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: "#3378ff" }}
                 >
                   {item?.job_title}
                 </h5>

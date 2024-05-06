@@ -414,11 +414,11 @@ const DashbordSidebar = ({ user }) => {
           <div className="logout">
             <button
               type="button"
-              className="text-decoration-none d-flex align-items-center gap-4 bg-none"
+              className="text-decoration-none d-flex align-items-center gap-4 bg-none text_clr_70"
               onClick={handleLoggout}
             >
-              <img src={logoutIcon} alt="icon" />
-              <span to={"#"} className="text_color_E3 text-capitalize fs-6">
+              <img src={logoutIcon} alt="icon" className="text_clr_70" />
+              <span to={"#"} className="text_clr_70 text-capitalize fs-6">
                 logout
               </span>
             </button>

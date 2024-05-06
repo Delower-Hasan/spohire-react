@@ -80,7 +80,6 @@ const PricingCard = () => {
             key={index}
             className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
             onClick={() => {
-              isPricingPage ? null : openModal();
               handleCardClick(index);
             }}
           >
@@ -117,12 +116,14 @@ const PricingCard = () => {
                   <div className="d-flex align-items-center gap-2" key={idx}>
                     <img
                       className="mt-0"
-                      src={activeCard === idx ? check : check}
+                      src={activeCard === index ? check : check}
                       alt=""
                     />
                     <p
-                    style={{ fontSize: "18px" }}
-                      className={`${ activeCard === idx ? "active_color" : "active_color" }`}
+                      style={{ fontSize: "18px" }}
+                      className={`${
+                        activeCard === index ? "active_color" : "active_color2"
+                      }`}
                     >
                       {option}
                     </p>
@@ -130,23 +131,28 @@ const PricingCard = () => {
                 ))}
               </div>
 
-              <div className="d-flex">
-                <button
-                  className="d-inline-flex"
-                  style={{
-                    padding: "17px 66px",
-                    borderRadius: "96px",
-                    backgroundColor: `${
-                      activeCard === index ? "#fff" : "#2B3674"
-                    }`,
-                    color: `${activeCard === index ? "#2B3674" : "#FFFFFF"}`,
-                    fontWeight: "500",
-                    fontSize: "20px",
-                  }}
-                >
-                  Subscribe
-                </button>
-              </div>
+              {!isPricingPage && (
+                <div className="d-flex">
+                  <button
+                    onClick={() => {
+                      isPricingPage ? null : openModal();
+                    }}
+                    className="d-inline-flex"
+                    style={{
+                      padding: "17px 66px",
+                      borderRadius: "96px",
+                      backgroundColor: `${
+                        activeCard === index ? "#fff" : "#2B3674"
+                      }`,
+                      color: `${activeCard === index ? "#2B3674" : "#FFFFFF"}`,
+                      fontWeight: "500",
+                      fontSize: "20px",
+                    }}
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ))}

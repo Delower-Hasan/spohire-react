@@ -11,10 +11,11 @@ import locationIcon from "../../../assets/location-icon.svg";
 import location from "../../../assets/location.png";
 import playerprofile from "../../../assets/player_profile.png";
 import {
-    useGetMyObservationsQuery,
-    useToggleObservationMutation,
+  useGetMyObservationsQuery,
+  useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
 import "./ObservedClone.css";
+import { formatDate } from "../../../utils/formateChatTIme";
 
 const ObservedClone = () => {
   const { data, isLoading, isSuccess } = useGetMyObservationsQuery();
@@ -77,7 +78,8 @@ const ObservedClone = () => {
     return (
       <div
         className="d-flex justify-content-center align-items-center fs-4"
-        style={{ height: "70vh" }}>
+        style={{ height: "70vh" }}
+      >
         No Bookmarks
       </div>
     );
@@ -106,7 +108,8 @@ const ObservedClone = () => {
                         <div className="d-flex justify-content-between align-items-start">
                           <div
                             className="d-flex align-items-center"
-                            style={{ gap: "20px" }}>
+                            style={{ gap: "20px" }}
+                          >
                             <div className="announcement_pic">
                               <img
                                 src={
@@ -130,11 +133,17 @@ const ObservedClone = () => {
                               />
                             </div>
                             <div className="recruiment f_sfPro">
-                              <p>{item?.target_id?.title}</p>
+                              <h5
+                                style={{ color: "#0095FF" }}
+                                className="fw-medium fs-6 text_color_36 mb-1"
+                              >
+                                {item?.target_id?.title}
+                              </h5>
                               <div className="d-flex gap-3 flex-wrap">
                                 <div
                                   className="d-flex align-items-center"
-                                  style={{ gap: "6px" }}>
+                                  style={{ gap: "6px" }}
+                                >
                                   <img src={location} alt="" />
                                   <span>{item?.target_id?.location}</span>
                                 </div>
@@ -147,11 +156,45 @@ const ObservedClone = () => {
                                 </div> */}
                                 <div
                                   className="d-flex align-items-center"
-                                  style={{ gap: "6px" }}>
+                                  style={{ gap: "6px" }}
+                                >
                                   <img src={dollar} alt="" />
                                   <span>USD {item?.target_id?.budget}</span>
                                 </div>
                               </div>
+                              <p
+                                className="announcement_details f_sfPro"
+                                style={{
+                                  display: "-webkit-box",
+                                  WebkitBoxOrient: "vertical",
+                                  overflow: "hidden",
+                                  WebkitLineClamp: 1,
+                                  textOverflow: "ellipsis",
+                                }}
+                              >
+                                {/* {item?.target_id?.description} */}
+                                {item?.target_id?.description?.slice(
+                                  0,
+                                  seeMore
+                                )}{" "}
+                                {item?.target_id?.description?.length >
+                                  seeMore && (
+                                  <>
+                                    ...
+                                    <span
+                                      className="text-primary"
+                                      onClick={() =>
+                                        handleSeeMore(
+                                          item?.target_id?.description?.length
+                                        )
+                                      }
+                                      style={{ cursor: "pointer" }}
+                                    >
+                                      See More
+                                    </span>
+                                  </>
+                                )}
+                              </p>
                             </div>
                           </div>
                           <div className="d-lg-block d-none">
@@ -163,44 +206,20 @@ const ObservedClone = () => {
                                   item?.target_id?._id,
                                   "Announcement"
                                 )
-                              }>
+                              }
+                            >
                               <img src={bookmarkfill} alt="" />
                             </div>
                           </div>
                         </div>
-                        <p
-                          className="announcement_details f_sfPro"
-                          style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                            WebkitLineClamp: 1,
-                            textOverflow: "ellipsis",
-                          }}>
-                          {/* {item?.target_id?.description} */}
-                          {item?.target_id?.description?.slice(0, seeMore)}{" "}
-                          {item?.target_id?.description?.length > seeMore && (
-                            <>
-                              ...
-                              <span
-                                className="text-primary"
-                                onClick={() =>
-                                  handleSeeMore(
-                                    item?.target_id?.description?.length
-                                  )
-                                }
-                                style={{ cursor: "pointer" }}>
-                                See More
-                              </span>
-                            </>
-                          )}
-                        </p>
+
                         <div
                           className="d-flex gap-3 d-lg-none d-block justify-content-end"
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             handleBookmark(item?.target_id?._id, "Announcement")
-                          }>
+                          }
+                        >
                           <img src={bookmarkfill} alt="" />
                         </div>
                       </div>
@@ -260,7 +279,11 @@ const ObservedClone = () => {
                                         `/dashboard/jobDetails/${item?.target_id?._id}`
                                       )
                                     }
-                                    style={{ cursor: "pointer" }}>
+                                    style={{
+                                      cursor: "pointer",
+                                      color: "#0095FF",
+                                    }}
+                                  >
                                     {item?.target_id?.job_title}
                                   </h5>
 
@@ -299,7 +322,8 @@ const ObservedClone = () => {
                               style={{ cursor: "pointer" }}
                               onClick={() =>
                                 handleBookmark(item?.target_id?._id, "Job")
-                              }>
+                              }
+                            >
                               <img
                                 className="img-fluid"
                                 src={bookmarkfill}
@@ -367,10 +391,15 @@ const ObservedClone = () => {
                                     onClick={() =>
                                       handleNavigatePlayer(item?.target_id)
                                     }
-                                    style={{ cursor: "pointer" }}>
+                                    style={{
+                                      cursor: "pointer",
+                                      color: "#0095FF",
+                                    }}
+                                  >
                                     {/* {item?.target_id?.first_name}{" "}
                                   {item?.target_id?.last_name} */}
-                                    {item?.target_id?.fullName}
+                                    {item?.target_id?.firstName}{" "}
+                                    {item?.target_id?.lastName}
                                   </h5>
 
                                   <p className="fs-14 fw-normal text_color_80 mb-1">
@@ -382,7 +411,19 @@ const ObservedClone = () => {
                                   <div className="job_offer_location  d-flex align-items-center gap-1">
                                     <img src={locationIcon} alt="icon" />
                                     <span className="fs-14 fw-normal text_color_80">
-                                      {item?.target_id?.nationality}
+                                      {item?.target_id?.country}
+                                    </span>
+                                  </div>
+                                  <div className="job_offer_location  d-flex align-items-center gap-1">
+                                    <span className="fs-14 fw-normal text_color_80">
+                                      {item?.target_id?.mainPosition}
+                                    </span>
+                                  </div>
+                                  <div className="job_offer_location  d-flex align-items-center gap-1">
+                                    <span className="fs-14 fw-normal text_color_80">
+                                      {formatDate(
+                                        item?.target_id?.expirationDate
+                                      )}
                                     </span>
                                   </div>
                                 </div>
@@ -394,7 +435,8 @@ const ObservedClone = () => {
                               style={{ cursor: "pointer" }}
                               onClick={() =>
                                 handleBookmark(item?.target_id?._id, "User")
-                              }>
+                              }
+                            >
                               <img
                                 src={bookmarkfill}
                                 style={{ cursor: "pointer" }}
