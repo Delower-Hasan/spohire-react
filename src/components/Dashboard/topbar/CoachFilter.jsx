@@ -6,7 +6,7 @@ import axios from "axios";
 function CoachFilter() {
   const dispatch = useDispatch();
   const [countryNames, setCountryNames] = useState([]);
- const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState(null);
   // State object to store the selected values
   const [formData, setFormData] = useState({
     status: "",
@@ -49,27 +49,39 @@ function CoachFilter() {
   // Event handler for applying age filter
   const handleAgeApply = () => {
     dispatch(setCoachFilterParams({ data: formData }));
-    console.log("formData", formData);
   };
 
-    useEffect(() => {
-      axios
-        .get(
-          "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
-        )
-        .then(function (response) {
-          setCountryNames(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, []);
+  const handleResetFilter = () => {
+    const formDatas = {
+      status: "",
+      location: "",
+      nationality: "",
+      gender: "",
+      minAge: "",
+      maxAge: "",
+    };
+    dispatch(setCoachFilterParams({ data: formDatas }));
+    setFormData(formDatas);
+    setStatus(null);
+  };
 
-   const handleStatus = (value) => {
-     setStatus(value);
-     console.log(value);
-   };
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
+  const handleStatus = (value) => {
+    setStatus(value);
+    console.log(value);
+  };
 
   return (
     <div>
@@ -149,7 +161,10 @@ function CoachFilter() {
             onChange={(e) => handleAgeChange(e, "maxAge")}
             min={"0"}
           />
-          <button onClick={handleAgeApply}>Apply</button>
+          <button onClick={handleAgeApply} className="me-2">
+            Apply
+          </button>
+          <button onClick={handleResetFilter}>Reset</button>
         </div>
       </div>
     </div>

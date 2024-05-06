@@ -3,20 +3,7 @@ import { useGetAllAnnouncementQuery } from "../../features/announcement/announce
 import DeleteModal from "./DeleteModal";
 import SingleAnnouncement from "./SingleAnnouncement";
 
-const AnnouncementList = ({ filters }) => {
-  const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
-
-  const applyFilters = (announcement) => {
-    const { sport, location, category } = filters;
-    return (
-      (!sport || announcement.sports === sport) &&
-      (!location || announcement.country === location) &&
-      (!category || announcement.category === category)
-    );
-  };
-
-  const filteredAnnouncements = allAnnouncements?.data?.filter(applyFilters);
-
+const AnnouncementList = ({ filteredData }) => {
   return (
     <>
       <div
@@ -24,8 +11,8 @@ const AnnouncementList = ({ filters }) => {
         style={{ marginTop: "104px", marginBottom: "150px" }}
       >
         <div className="row">
-          {filteredAnnouncements?.length > 0 ? (
-            filteredAnnouncements.map((item, index) => (
+          {filteredData?.length > 0 ? (
+            filteredData.map((item, index) => (
               <SingleAnnouncement key={index} item={item} />
             ))
           ) : (

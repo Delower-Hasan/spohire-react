@@ -126,6 +126,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
               {/* <option disabled selected>
                 Select here
               </option> */}
+              {/* </option> */}
+              <option value={""}>All</option>
               {options.map((name, index) => (
                 <option value={name?.value} className="" key={index}>
                   {name.value}
@@ -147,6 +149,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
               {/* <option value="All" disabled selected>
                 Select here
               </option> */}
+              {/* </option> */}
+              <option value={""}>All</option>
               {countryNames.map((name, index) => (
                 <option value={name?.value} key={index}>
                   {name.name}
@@ -168,6 +172,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
               {/* <option value="All" disabled selected>
                 Select here
               </option> */}
+              {/* </option> */}
+              <option value={""}>All</option>
 
               {remotes.map((item, index) => (
                 <option key={index} value={item.value} className="">
@@ -191,6 +197,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 Select here
               </option> */}
 
+              {/* </option> */}
+              <option value={""}>All</option>
               {jobTypeOptions.map((item, index) => (
                 <option key={index} value={item.value} className="">
                   {item.value}
@@ -214,6 +222,8 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 Select here
               </option> */}
 
+              {/* </option> */}
+              <option value={""}>All</option>
               {dateOptions.map((item, index) => (
                 <option key={index} value={item.value} className="">
                   {item.value}

@@ -5,28 +5,36 @@ import JobOfferHeader from "./JobOfferHeader";
 import MatchesJob from "./MatchesJob";
 const JobOffer = () => {
   const { data: allJobs } = useGetAllJobsQuery();
-
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState(allJobs?.data);
-  const [categories, setCategories] = useState([]);
 
   const [jobData, setJobData] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setJobData({ ...jobData, [name]: value });
+    if (value === "") {
+      const { [name]: removedField, ...rest } = jobData;
+      setJobData(rest);
+    } else {
+      setJobData({ ...jobData, [name]: value });
+    }
   };
 
   useEffect(() => {
-    const filtered = allJobs?.data?.filter(
-      (item) =>
-        item?.category?.toLowerCase() === jobData.category?.toLowerCase() ||
-        item?.country?.toLowerCase() === jobData.location?.toLowerCase() ||
-        item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase() ||
-        item?.workplaceType?.toLowerCase() ===
-          jobData.workplaceType?.toLowerCase() ||
+    const filtered = allJobs?.data?.filter((item) => {
+      return (
+        (jobData.category &&
+          item?.category?.toLowerCase() === jobData.category?.toLowerCase()) ||
+        (jobData.location &&
+          item?.country?.toLowerCase() === jobData.location?.toLowerCase()) ||
+        (jobData.jobType &&
+          item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase()) ||
+        (jobData.workplaceType &&
+          item?.workplaceType?.toLowerCase() ===
+            jobData.workplaceType.toLowerCase()) ||
         filterByDate(item)
-    );
+      );
+    });
     setFilteredData(filtered);
   }, [jobData]);
 

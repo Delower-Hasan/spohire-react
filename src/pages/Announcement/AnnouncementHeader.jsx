@@ -25,30 +25,6 @@ const sportOptions = [
 
 const AnnouncementHeader = ({ onFiltersChange }) => {
   const [countryNames, setCountryNames] = useState([]);
-  const [selectedSport, setSelectedSport] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  const handleFiltersChange = () => {
-    onFiltersChange({
-      sport: selectedSport,
-      location: selectedLocation,
-      category: selectedCategory,
-    });
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    if (value === "All") {
-      if (name === "sport") setSelectedSport(null);
-      else if (name === "location") setSelectedLocation(null);
-      else if (name === "category") setSelectedCategory(null);
-    } else {
-      if (name === "sport") setSelectedSport(value);
-      else if (name === "location") setSelectedLocation(value);
-      else if (name === "category") setSelectedCategory(value);
-    }
-  };
 
   useEffect(() => {
     axios
@@ -63,10 +39,7 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
       });
   }, []);
 
-  useEffect(() => {
-    handleFiltersChange();
-  }, [selectedSport, selectedLocation, selectedCategory]);
-
+ 
   return (
     <>
       <div className="container job_header_wrapper">
@@ -83,9 +56,12 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
                   backgroundColor: "rgba(245, 245, 245, 0.70)",
                 }}
                 name="sport"
-                onChange={handleChange}
+                onChange={onFiltersChange}
               >
-                <option value="All">Select here</option>
+                <option disabled selected>
+                  Select here
+                </option>
+                <option value="">All</option>
                 {sportOptions.map((name, index) => (
                   <option value={name?.value} className="" key={index}>
                     {name.value}
@@ -110,11 +86,12 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
                   backgroundColor: "rgba(245, 245, 245, 0.70)",
                 }}
                 name="location"
-                onChange={handleChange}
+                onChange={onFiltersChange}
               >
-                <option value="All" className="">
+                <option disabled selected>
                   Select here
                 </option>
+                <option value="">All</option>
                 {countryNames.map((name, index) => (
                   <option value={name?.value} className="" key={index}>
                     {name.name}
@@ -131,11 +108,12 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
                   backgroundColor: "rgba(245, 245, 245, 0.70)",
                 }}
                 name="category"
-                onChange={handleChange}
+                onChange={onFiltersChange}
               >
-                <option value="All" className="">
+                <option disabled selected>
                   Select here
                 </option>
+                <option value="">All</option>
                 {options.map((name, index) => (
                   <option value={name?.value} className="" key={index}>
                     {name.value}
