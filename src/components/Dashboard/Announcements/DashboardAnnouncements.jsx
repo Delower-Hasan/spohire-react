@@ -27,8 +27,12 @@ import Pagination from "../../Pagination/Pagination";
 
 const DashboardAnnouncements = () => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
-  const { dashboardFilterParams } = useSelector((state) => state.announcement);
+
+  const { dashboardFilterParams, filterParams } = useSelector(
+    (state) => state.announcement
+  );
   const { user } = useSelector((state) => state.auth);
+
   const [announcementType, setAnnouncementType] = useState("All");
   const [deleteAnnouncement, { isLoading: deleting }] =
     useDeleteAnnouncementMutation();
@@ -65,13 +69,24 @@ const DashboardAnnouncements = () => {
     }
   };
 
-  const filtering = (data) => {
-    if (dashboardFilterParams?.location || dashboardFilterParams?.category) {
+  // const filtering = (data) => {
+  //   if (dashboardFilterParams?.location || dashboardFilterParams?.category) {
+  //     return (
+  //       (dashboardFilterParams?.location &&
+  //         dashboardFilterParams?.location === data?.country) ||
+  //       (dashboardFilterParams?.category &&
+  //         dashboardFilterParams?.category === data?.category)
+  //     );
+  //   } else {
+  //     return true;
+  //   }
+  // };
+
+  const handleFilter = (value) => {
+    if (filterParams?.location || filterParams?.category) {
       return (
-        (dashboardFilterParams?.location &&
-          dashboardFilterParams?.location === data?.country) ||
-        (dashboardFilterParams?.category &&
-          dashboardFilterParams?.category === data?.category)
+        (filterParams?.location && filterParams?.location === value?.country) ||
+        (filterParams?.category && filterParams?.category === value?.category)
       );
     } else {
       return true;
@@ -79,8 +94,9 @@ const DashboardAnnouncements = () => {
   };
 
   const filteredData =
-    allAnnouncements?.data?.filter(filtering)?.filter(announcementTypeFilter) ||
-    [];
+    allAnnouncements?.data
+      ?.filter(announcementTypeFilter)
+      .filter(handleFilter) || [];
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);

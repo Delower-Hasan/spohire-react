@@ -39,7 +39,21 @@ function PlayerFilter() {
 
   const handleApplyFilter = () => {
     dispatch(setPlayerFilterParams({ data: formData }));
-    console.log("Filter applied:", formData);
+  };
+  const handleResetFilter = () => {
+    const formDatas = {
+      position: "",
+      status: "",
+      location: "",
+      gender: "",
+      minAge: "",
+      maxAge: "",
+      minHeight: "",
+      maxHeight: "",
+      dominantHand: "",
+    };
+    dispatch(setPlayerFilterParams({ data: formDatas }));
+    setFormData(formDatas);
   };
 
   return (
@@ -57,7 +71,8 @@ function PlayerFilter() {
                     ? "bg-success text-white"
                     : "not-selected"
                 }
-                onClick={() => setFormData({ ...formData, position: pos })}>
+                onClick={() => setFormData({ ...formData, position: pos })}
+              >
                 {pos}
               </button>
             )
@@ -77,7 +92,8 @@ function PlayerFilter() {
                   ? "bg-success text-white"
                   : "not-selected"
               }
-              onClick={() => setFormData({ ...formData, status: stat })}>
+              onClick={() => setFormData({ ...formData, status: stat })}
+            >
               {stat}
             </button>
           ))}
@@ -91,7 +107,8 @@ function PlayerFilter() {
           <select
             className="form-select"
             name="location"
-            onChange={handleChange}>
+            onChange={handleChange}
+          >
             <option value="">Select</option>
             {countryNames.map((name, index) => (
               <option value={name.name} key={index}>
@@ -159,14 +176,18 @@ function PlayerFilter() {
           <select
             className="form-select"
             name="dominantHand"
-            onChange={handleChange}>
+            onChange={handleChange}
+          >
             <option value="">Select</option>
             <option value="Left">Left</option>
             <option value="Right">Right</option>
           </select>
         </div>
       </div>
-      <button onClick={handleApplyFilter}>Apply</button>
+      <button onClick={handleApplyFilter} className="me-2">
+        Apply
+      </button>
+      <button onClick={handleResetFilter}>Reset</button>
     </div>
   );
 }

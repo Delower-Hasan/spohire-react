@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import JobOffers from "./JobOffers";
 import MyAnnouncement from "./MyAnnouncements";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,52 +15,26 @@ const AddedItems = () => {
   const [jobOffersType, setJobOffersType] = useState("Manager");
   const [active, setActive] = useState("active");
   const { user } = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
+  const [filterData, setFilterData] = useState([]);
 
   const [cancleSubscription, { isLoading }] = useCancleSubscriptionMutation();
 
   const { data } = useGetUserReferallsQuery();
 
-  const handleUndoAddProfile = async () => {
-    try {
-      const response = await cancleSubscription();
-      if (response?.data?.success) {
-        const previousUserInfo = JSON.parse(
-          localStorage.getItem("spohireAuth")
-        );
+  useEffect(() => {
+    const filtered =
+      active === "expired"
+        ? data?.filter((u) => u.isActive === false)
+        : data?.filter((u) => u.isActive);
 
-        const newUserInfo = {
-          accessToken: previousUserInfo?.accessToken,
-          user: response.data.data,
-        };
+    setFilterData(filtered);
+  }, [active]);
 
-        dispatch(userLoggedIn(newUserInfo));
+  useEffect(() => {
+    const filteredDatas = data?.filter((u) => u.isActive);
+    setFilterData(filteredDatas);
+  }, [data]);
 
-        localStorage.setItem("spohireAuth", JSON.stringify(newUserInfo));
-        Swal.fire({
-          icon: "success",
-          title: "Successsful!",
-        });
-      }
-      if (response?.error?.data?.message) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: `${response?.error?.data?.message}`,
-        });
-      }
-
-      console.log(response, "ress");
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `${error?.message}`,
-      });
-    }
-  };
-  console.log("jobOffersType", jobOffersType);
   return (
     <div className="job_offers_wrapper">
       <div className="job_offers_topBtn ">
@@ -75,14 +49,14 @@ const AddedItems = () => {
             Active
           </button>
 
-          {/* <button
+          <button
             className={`fs-6 fw-medium text_color_80 ${
               active === "expired" && "activeBtn2"
             }`}
             onClick={() => setActive("expired")}
           >
             expired
-          </button> */}
+          </button>
         </div>
 
         <div className="job_offers_topBtn_left d-flex gap-4">
@@ -137,12 +111,12 @@ const AddedItems = () => {
         </div>
       </div>
 
-      {jobOffersType === "job" && <JobOffers />}
-      {jobOffersType === "announcement" && <MyAnnouncement />}
+      {jobOffersType === "job" && <JobOffers isActive={active} />}
+      {jobOffersType === "announcement" && <MyAnnouncement isActive={active} />}
 
       {jobOffersType === "coach" && (
         <ReferallProfiles
-          data={data?.filter((i) => i.role === "Coach")}
+          data={filterData?.filter((i) => i.role === "Coach")}
           jobOffersType={jobOffersType}
           cancleSubscription={cancleSubscription}
           user={user}
@@ -151,7 +125,7 @@ const AddedItems = () => {
 
       {jobOffersType === "player" && (
         <ReferallProfiles
-          data={data?.filter((i) => i.role === "Player")}
+          data={filterData?.filter((i) => i.role === "Player")}
           jobOffersType={jobOffersType}
           cancleSubscription={cancleSubscription}
           user={user}

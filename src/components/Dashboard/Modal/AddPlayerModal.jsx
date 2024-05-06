@@ -90,7 +90,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const fileInputRef = useRef(null);
 
   const [image, setImage] = useState("");
-  const [imageFile, setImageFIle] = useState(null);
 
   const [selectedPackages, setSelectedPackages] = useState({
     duration: 1,
@@ -98,16 +97,9 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     month: 1,
   });
 
-  console.log("selectedGalleryFiles", selectedGalleryFiles);
-
-  // const abc = selectedGalleryFiles?.map((item) => item.path);
-
-  // console.log("abc", abc);
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
-    setImageFIle(selectedFile);
     setPlayerData({ ...playerData, image: selectedFile });
   };
   const [loading, setLoading] = useState(false);
