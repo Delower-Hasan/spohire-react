@@ -11,10 +11,10 @@ import Swal from "sweetalert2";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import { formatDate } from "../../../utils/formateChatTIme";
 import editIcon from "../../../assets/editIcon.png";
+import footBallCoachImg from "../../../assets/footballCoach.png";
 
 const ReferallProfiles = ({
   data,
-  footBallCoachImg,
   jobOffersType,
   cancleSubscription,
   user,
@@ -139,22 +139,24 @@ function SingleJob({
               <div className="job_offer_nameDesignation">
                 <h5
                   className="fw-medium fs-6 text_color_36 mb-1"
-                  //   onClick={() => handleCLick(item)}
-                  style={{ cursor: "pointer" }}>
-                  {/* {item?.first_name} {item?.last_name} */}
-                  {item?.fullName}
+                  style={{ cursor: "pointer", color: "rgb(51, 120, 255)" }}
+                >
+                  {item?.firstName} {item?.lastName}
                 </h5>
 
-                <p className="fs-14 fw-normal text_color_80 mb-1">
+                <p
+                  className="fs-14 fw-normal text_color_80 mb-1"
+                  style={{ color: "rgb(235, 177, 17)" }}
+                >
                   {item?.subscriptionName}
                 </p>
               </div>
 
-              <div className="job_offerItem_address flex-wrap d-flex align-items-center gap-2 gap-md-4">
+              <div className="job_offerItem_address flex-wrap d-flex align-items-center gap-2 ">
                 <div className="job_offer_location  d-flex align-items-center gap-1">
                   <img src={locationIcon} alt="icon" />
                   <span className="fs-14 fw-normal text_color_80">
-                    {item?.nationality}
+                    {item?.country}
                   </span>
                 </div>
 
@@ -167,7 +169,10 @@ function SingleJob({
                 <div className="job_offer_flag d-flex align-items-center gap-1">
                   {/* <img src={dollarIcon} alt="icon" /> */}
                   <span className="fs-14 fw-normal text_color_80">
-                    Expire Date: {formatDate(item?.expirationDate) ?? "N/A"}
+                    <span style={{ color: "rgb(254, 100, 112)" }}>
+                      Expire Date:
+                    </span>{" "}
+                    {formatDate(item?.expirationDate) ?? "N/A"}
                   </span>
                 </div>
               </div>
@@ -176,7 +181,8 @@ function SingleJob({
           <div className="right d-flex  gap-2">
             <button
               className="bg-none"
-              onClick={(e) => handleEditPlayerProfile(item, e)}>
+              onClick={(e) => handleEditPlayerProfile(item, e)}
+            >
               <img src={editIcon} alt="" />
             </button>
             <button className="bg-none" onClick={(e) => handleDelete(item, e)}>

@@ -5,6 +5,7 @@ import { Navigate, useLocation } from "react-router-dom";
 const SubscribedRoute = ({ children }) => {
   const { isSubscriptionCheck, path } = useSubscriptionCheck();
   const location = useLocation();
+
   return isSubscriptionCheck ? (
     children
   ) : (

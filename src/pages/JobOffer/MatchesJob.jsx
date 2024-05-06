@@ -14,7 +14,7 @@ const MatchesJob = ({ filteredData }) => {
 
   const handleDetails = (jobId) => {
     if (user) {
-      navigate(`/dashboard/jobDetails/${jobId}`);
+      navigate(`/jobDetails/${jobId}`);
       console.log("details page for job ID:", jobId);
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     } else {

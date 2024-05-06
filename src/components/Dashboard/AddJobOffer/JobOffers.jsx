@@ -117,7 +117,7 @@ const JobOffers = () => {
           >
             No job offer
           </div>
-        )        }
+        )}
       </div>
       {filteredJobs?.length > itemsPerPage && (
         <Pagination
@@ -155,7 +155,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
   const { data, isSuccess } = useGetMyObservationsQuery();
 
   const isBookmarked = data?.data?.find((i) => i?.target_id?._id === item?._id);
-  
+
   const [toggleObservation, { isLoading }] = useToggleObservationMutation();
 
   const handleBookmark = async (id) => {

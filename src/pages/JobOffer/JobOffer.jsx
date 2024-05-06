@@ -14,7 +14,6 @@ const JobOffer = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setJobData({ ...jobData, [name]: value });
   };
 
@@ -23,25 +22,30 @@ const JobOffer = () => {
       (item) =>
         item?.category?.toLowerCase() === jobData.category?.toLowerCase() ||
         item?.country?.toLowerCase() === jobData.location?.toLowerCase() ||
-        item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase()
+        item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase() ||
+        item?.workplaceType?.toLowerCase() ===
+          jobData.workplaceType?.toLowerCase() ||
+        filterByDate(item)
     );
-    // .filter(filterByDate);
     setFilteredData(filtered);
   }, [jobData]);
 
   const filterByDate = (item) => {
     const currentDate = new Date();
     const createdAtDate = new Date(item?.createdAt);
-
     switch (jobData.postedAt?.trim()) {
       case "Past 24 hours":
-        return currentDate - createdAtDate < 24 * 60 * 60 * 1000;
+        return currentDate - createdAtDate < 24 * 60 * 60 * 1000 ? item : null;
       case "Last week":
-        return currentDate - createdAtDate < 7 * 24 * 60 * 60 * 1000;
+        return currentDate - createdAtDate < 7 * 24 * 60 * 60 * 1000
+          ? item
+          : null;
       case "Last month":
-        return currentDate - createdAtDate < 30 * 24 * 60 * 60 * 1000;
+        return currentDate - createdAtDate < 30 * 24 * 60 * 60 * 1000
+          ? item
+          : null;
       default:
-        return false;
+        null;
     }
   };
 

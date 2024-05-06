@@ -4,8 +4,6 @@ import location from "../../assets/location.png";
 import tennis from "../../assets/tennis.png";
 
 const SingleJobs = ({ handleDetails, item }) => {
-  console.log("item", item);
-
   return (
     <>
       <div className="announcelist_wrapper">

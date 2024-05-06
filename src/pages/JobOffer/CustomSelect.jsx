@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState } from "react";
 
 const CustomSelect = ({ options, setJobTypeFilter }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,8 @@ const CustomSelect = ({ options, setJobTypeFilter }) => {
                 width="16"
                 height="9"
                 viewBox="0 0 16 9"
-                fill="none">
+                fill="none"
+              >
                 <path
                   d="M15.0278 0.929688L8.01389 7.94358L1 0.929688"
                   stroke="#0095FF"
@@ -47,14 +48,14 @@ const CustomSelect = ({ options, setJobTypeFilter }) => {
                   className={`option ${
                     selectedOption === option.value ? "selected" : ""
                   }`}
-                  onClick={() => handleOptionClick(option.value)}>
+                  onClick={() => handleOptionClick(option.value)}
+                >
                   <div
                     name="jobType"
-                    // onChange={(e) => setJobTypeFilter(e.target.value)}
-
                     className={` ${
                       selectedOption === option.value ? "active_checkbox" : ""
-                    }`}>
+                    }`}
+                  >
                     <div className="non_checked">
                       <div className="checkbox_custom"></div>
                     </div>
@@ -70,4 +71,4 @@ const CustomSelect = ({ options, setJobTypeFilter }) => {
   );
 };
 
-export default CustomSelect
+export default CustomSelect;

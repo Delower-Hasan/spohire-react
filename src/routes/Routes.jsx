@@ -107,6 +107,13 @@ export const router = createBrowserRouter([
         path: "/jobOffer",
         element: <JobOffer />,
       },
+
+      {
+        path: "/jobDetails/:id",
+        // element: <JobDetails />,
+        element: <JobOfferDetails />,
+      },
+
       {
         path: "/announcements",
         element: <Announcements />,

@@ -8,14 +8,13 @@ const AddToSubscription = () => {
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
   };
-  
 
   return (
     <div
       className={`${
-        location.pathname === "/dashboard/players" || "/dashboard"
+        location.pathname === "/dashboard/players"
           ? "d-none"
-          : null
+          : "d-block"
       }`}
     >
       <div className="range_header d-flex flex-wrap align-items-center w-100 justify-content-center gap-4">
