@@ -61,7 +61,7 @@ function PlayerFilter() {
       {/* Position */}
       <div className="position_wrapper pb-4">
         <h2>Position</h2>
-        <div className="position_btn_wrapper">
+        <div className="position_btn_wrapper d-flex gap-3">
           {["All", "Goalkeeper", "Defender", "Midfielder", "Forward"].map(
             (pos) => (
               <button
@@ -83,13 +83,13 @@ function PlayerFilter() {
       {/* Status */}
       <div className="position_wrapper pb-4">
         <h2>Status</h2>
-        <div className="position_btn_wrapper status">
+        <div className="position_btn_wrapper d-flex gap-3 status">
           {["Bronze", "Silver", "Gold"].map((stat) => (
             <button
               key={stat}
               className={
                 formData.status === stat
-                  ? "bg-success text-white"
+                  ? "bg-warning text-white"
                   : "not-selected"
               }
               onClick={() => setFormData({ ...formData, status: stat })}
@@ -140,12 +140,14 @@ function PlayerFilter() {
             name="minAge"
             placeholder="Min"
             onChange={handleChange}
+            min={"0"}
           />
           <input
             type="number"
             name="maxAge"
             placeholder="Max"
             onChange={handleChange}
+            min={"0"}
           />
         </div>
       </div>
@@ -159,12 +161,14 @@ function PlayerFilter() {
             name="minHeight"
             placeholder="Min"
             onChange={handleChange}
+            min={"0"}
           />
           <input
             type="number"
             name="maxHeight"
             placeholder="Max"
             onChange={handleChange}
+            min={"0"}
           />
         </div>
       </div>

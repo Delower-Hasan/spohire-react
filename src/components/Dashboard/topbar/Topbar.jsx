@@ -18,6 +18,7 @@ import notificationIcon from "../../../assets/notification_icon.svg";
 import profileIcon from "../../../assets/profile_icon.svg";
 import settingsIcon from "../../../assets/setting_icon.png";
 import silverIcon from "../../../assets/silver_icon.svg";
+import goldIcon from "../../../assets/gold_icon.png";
 import subscriptionIcon from "../../../assets/subcription_icon.svg";
 import { userLoggedOut } from "../../../features/auth/authSlice";
 import useClickOutside from "../../../hooks/useClickOutside";
@@ -30,6 +31,7 @@ import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
 import PlayerFilter from "./PlayerFilter";
 import CoachFilter from "./CoachFilter";
 import AnouncementFilter from "./AnouncementFilter";
+import JobOfferFilter from "./JobOfferFilter";
 
 const Topbar = ({ onClose }) => {
   let location = useLocation();
@@ -200,7 +202,12 @@ const Topbar = ({ onClose }) => {
 
   return (
     <>
-      <div className={`${ isModalOpen | isAnnouncementModalOpen ? "position_static" : "position-fixed" } dashbord_topbar`}>
+      <div
+        className={`${
+          isModalOpen | isAnnouncementModalOpen
+            ? "position_static"
+            : "position-fixed"
+        } dashbord_topbar`}>
         <div className="topbar_desk">
           <div className="dashbord_topbar_wrapper d-flex justify-content-between align-items-center">
             <div className="dashbord_topbar_title">
@@ -299,7 +306,7 @@ const Topbar = ({ onClose }) => {
                       {user?.isSubsCribed ? (
                         <>
                           {user?.subscriptionName === "Silver" && (
-                            <div className="d-flex align-items-center gap-2">
+                            <div className="d-flex align-items-center gap-2 text-uppercase">
                               <p
                                 className="font-bold d-inline-flex gap-2"
                                 style={{
@@ -324,7 +331,7 @@ const Topbar = ({ onClose }) => {
                           )}
 
                           {user?.subscriptionName === "Gold" && (
-                            <div className="d-flex align-items-center gap-2">
+                            <div className="d-flex align-items-center gap-2 text-uppercase">
                               <p
                                 className="font-bold d-inline-flex gap-2"
                                 style={{
@@ -334,7 +341,7 @@ const Topbar = ({ onClose }) => {
                                   padding: "5px 10px",
                                   borderRadius: "28px",
                                 }}>
-                                <img src={silverIcon} alt="silver-icon" />
+                                <img src={goldIcon} alt="silver-icon" />
                                 {user?.subscriptionName}
                               </p>
                               <span
@@ -349,7 +356,7 @@ const Topbar = ({ onClose }) => {
                           )}
 
                           {user?.subscriptionName === "Bronze" && (
-                            <div className="d-flex align-items-center gap-2">
+                            <div className="d-flex align-items-center gap-2 text-uppercase">
                               <p
                                 className="font-bold d-inline-flex gap-2"
                                 style={{
@@ -390,7 +397,7 @@ const Topbar = ({ onClose }) => {
                     id="search_input"
                     onChange={handleSearch}
                     type="text"
-                    placeholder="Search d"
+                    placeholder="Search"
                   />
                   {searchResultDatas?.length > 0 && (
                     <ul
@@ -544,7 +551,7 @@ const Topbar = ({ onClose }) => {
                   Add Job Offer
                 </button>
 
-                {/* <button
+                <button
                   onClick={handleFilterModal}
                   className="addPlayer bg-none d-inline-flex align-items-center gap-2">
                   <div
@@ -553,7 +560,7 @@ const Topbar = ({ onClose }) => {
                     <img src={filterIcon} alt="add-icon" />
                   </div>
                   Filters
-                </button> */}
+                </button>
               </div>
             ) : location.pathname === "/dashboard/announcements" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
@@ -621,6 +628,8 @@ const Topbar = ({ onClose }) => {
               </>
             ) : location.pathname === "/dashboard/players" ? (
               <PlayerFilter />
+            ) : location.pathname === "/dashboard/jobOffers" ? (
+              <JobOfferFilter/>
             ) : null}
           </div>
         )}

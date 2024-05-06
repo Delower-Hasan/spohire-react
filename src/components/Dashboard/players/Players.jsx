@@ -235,7 +235,7 @@ const SinglePlayer = ({ player }) => {
               </div>
               <div className="player_name">
                 <p className="text_color_36 fw-medium fs_14">
-                  {player?.firstName} <br /> {player?.lastName}
+                  {player?.firstName} {player?.lastName}
                 </p>
               </div>
             </div>
@@ -283,8 +283,7 @@ const SinglePlayer = ({ player }) => {
                   : player?.subscriptionName === "Gold"
                   ? "#FFC21B"
                   : "inherit",
-            }}
-          >
+            }}>
             {player?.subscriptionName ?? "N/A"}
           </p>
         </td>
@@ -295,8 +294,7 @@ const SinglePlayer = ({ player }) => {
               className="bg-none me-3"
               onClick={(e) => handleBookmark(e, player?._id)}
               style={{ width: "20px" }}
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
               {isBookmarked ? (
                 <img
                   style={{ width: "12px", height: "17px" }}
@@ -313,8 +311,7 @@ const SinglePlayer = ({ player }) => {
             </button>
             <span
               onClick={(e) => handleMessageRoute(e, player?.referral)}
-              className="text_color_55 fw-normal fs_14"
-            >
+              className="text_color_55 fw-normal fs_14">
               <img src={messageIcon} alt="message-icon" className="ms-2" />
             </span>
           </div>

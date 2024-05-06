@@ -16,6 +16,7 @@
     margin-bottom: 24px;
     transition: all linear 0.2s;
 }
+
 /*
 .job_offers_wrapper .job_offer_items_wrapper .job_offers_item:hover {
     border-radius: 16px;
@@ -24,9 +25,10 @@
     box-shadow: 3px 16px 50px -2px rgba(121, 120, 130, 0.15);
 } */
 
-/* .job_offers_wrapper{
-    padding: 40px;
-} */
+.job_offers_wrapper{
+    min-height: 580px;
+}
+
 
 .activeBtn{
     border: transparent !important;

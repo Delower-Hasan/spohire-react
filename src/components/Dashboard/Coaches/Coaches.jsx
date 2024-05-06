@@ -262,7 +262,7 @@ const SingleCoach = ({ coach }) => {
               </div>
               <div className="player_name">
                 <p className="text_color_36 fw-medium fs_14">
-                  {coach?.firstName} <br /> {coach?.lastName}
+                  {coach?.firstName} {coach?.lastName}
                 </p>
                 {/* <Link
                   to={`/dashboard/messages/${coach?.referral}`}
@@ -304,8 +304,19 @@ const SingleCoach = ({ coach }) => {
         </td>
 
         <td>
-          <p className="text_color_55 fw-normal fs_14">
-            {coach?.subscriptionName ? coach?.subscriptionName : "N/A"}
+          <p
+            className="text_color_55 fw-normal"
+            style={{
+              color:
+                coach?.subscriptionName === "Silver"
+                  ? "#AEAEAE"
+                  : coach?.subscriptionName === "Bronze"
+                  ? "#CD7F32"
+                  : coach?.subscriptionName === "Gold"
+                  ? "#FFC21B"
+                  : null,
+            }}>
+            {coach?.subscriptionName ?? "N/A"}
           </p>
         </td>
 
@@ -315,8 +326,7 @@ const SingleCoach = ({ coach }) => {
               className="bg-none me-3"
               onClick={(e) => handleBookmark(e, coach?._id)}
               style={{ width: "20px" }}
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
               {isBookmarked ? (
                 <img src={bookmarkfill} alt="" />
               ) : (
@@ -326,8 +336,7 @@ const SingleCoach = ({ coach }) => {
             <span
               // to={`/dashboard/messages/${coach?._id}`}
               onClick={(e) => hancleMessageLink(e, coach?.referral)}
-              className="text_color_55 fw-normal fs_14"
-            >
+              className="text_color_55 fw-normal fs_14">
               <img src={messageIcon} alt="message-icon" className="ms-2" />
             </span>
           </div>

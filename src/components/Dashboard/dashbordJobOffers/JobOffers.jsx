@@ -102,70 +102,69 @@ const JobOffers = () => {
   const endIndex = startIndex + itemsPerPage;
 
   return (
-    <div className="job_offers_wrapper">
-      <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
-        <div className="job_offers_topBtn_left d-flex gap-4">
-          <button
-            className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "All" && "activeBtn"
-            }`}
-            onClick={() => setJobOffersType("All")}
-          >
-            All
-          </button>
+    <>
+      <div className="job_offers_wrapper">
+        <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
+          <div className="job_offers_topBtn_left d-flex gap-4">
+            <button
+              className={`fs-6 fw-medium text_color_80 ${
+                jobOffersType === "All" && "activeBtn"
+              }`}
+              onClick={() => setJobOffersType("All")}>
+              All
+            </button>
 
-          <button
-            className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "My" && "activeBtn"
-            }`}
-            onClick={() => setJobOffersType("My")}
-          >
-            My Job Offers
-          </button>
-        </div>
-      </div>
-
-      <div className="job_offer_items_wrapper">
-        {allJobs?.data && filteredJobs.length > 0 ? (
-          filteredJobs
-            .slice(startIndex, endIndex)
-            .map((item, index) => (
-              <SingleJob
-                key={index}
-                item={item}
-                handleEditJobOfferClick={handleEditJobOfferClick}
-                handleDelete={handleDelete}
-              />
-            ))
-        ) : (
-          <div
-            className="d-flex justify-content-center align-items-center fs-4"
-            style={{ height: "70vh" }}
-          >
-            No job offer
+            <button
+              className={`fs-6 fw-medium text_color_80 ${
+                jobOffersType === "My" && "activeBtn"
+              }`}
+              onClick={() => setJobOffersType("My")}>
+              My Job Offers
+            </button>
           </div>
-        )}
+        </div>
+
+        <div className="job_offer_items_wrapper">
+          {allJobs?.data && filteredJobs.length > 0 ? (
+            filteredJobs
+              .slice(startIndex, endIndex)
+              .map((item, index) => (
+                <SingleJob
+                  key={index}
+                  item={item}
+                  handleEditJobOfferClick={handleEditJobOfferClick}
+                  handleDelete={handleDelete}
+                />
+              ))
+          ) : (
+            <div
+              className="d-flex justify-content-center align-items-center fs-4"
+              style={{ height: "70vh" }}>
+              No job offer
+            </div>
+          )}
+        </div>
+
+        <MobileButtons />
+
+        {/* <AddJobOffer /> */}
+        <EditJobOffer
+          show={isModalOpen}
+          onHide={closeModal}
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          style={{ width: "648px" }}
+          editingItem={editingItem}
+        />
       </div>
-      {filteredJobs?.length > itemsPerPage && (
+      {filteredJobs?.length > 0 && (
         <Pagination
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
           totalPages={totalPages}
         />
-        // <div>fsjkjfsk</div>
       )}
-      <MobileButtons />
-
-      {/* <AddJobOffer /> */}
-      <EditJobOffer
-        show={isModalOpen}
-        onHide={closeModal}
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
-        style={{ width: "648px" }}
-        editingItem={editingItem}
-      />
-    </div>
+    </>
   );
 };
 

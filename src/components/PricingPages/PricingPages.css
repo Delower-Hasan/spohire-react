@@ -150,15 +150,25 @@
     line-height: normal;
 }
 
-.make_payment_right .payment_details select{
+.make_payment_right .payment_details select {
     background: #F3F7FF;
 }
 
-.addplayer_modal .inner .icon{
+.addplayer_modal .inner .icon {
     right: 20px;
     padding: 20px;
 }
 
-.addplayer_modal .inner .icon  button{
+.addplayer_modal .inner .icon button {
     background: transparent;
+}
+
+.add-player-head h6 {
+    color: #4C4E52;
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    text-transform: uppercase;
 }

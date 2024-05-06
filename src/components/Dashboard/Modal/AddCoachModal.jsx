@@ -216,7 +216,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                 className="addplayer_btn"
                 onClick={() => setStep((prevStep) => prevStep + 1)}
               >
-                {step === 2 ? "Next" : "Add Player"}
+                {step === 2 ? "Next" : "Add Coach"}
               </button>
             </div>
           </div>
