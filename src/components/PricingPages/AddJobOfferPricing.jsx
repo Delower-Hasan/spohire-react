@@ -122,7 +122,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           >
             {location.pathname === "/pricing" ? (
               <div>
-                <h3>${selectedPrice}</h3>
+                <h3>$15</h3>
               </div>
             ) : null}
           </div>
