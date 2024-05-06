@@ -71,6 +71,16 @@
   margin-bottom: 8px;
 }
 
+.announcement_details{
+  color: #1C1C1C;
+    font-family: "Plus Jakarta Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+    /* 177.778% */
+}
+
 .tennis_desc small {
   color: #546580;
   font-family: "SF Pro Display", sans-serif;
@@ -368,7 +378,6 @@
 }
 
 @media(max-width:768px) {
-
   .search_input {
     margin: 0;
   }
@@ -427,7 +436,6 @@
 }
 
 .custom-dropdown-content {
-
   display: flex;
 }
 
@@ -495,3 +503,13 @@
 }
 
 /* job offer new header start */
+
+p.announcement_details{
+  color: #1C1C1C;
+    font-family: "Plus Jakarta Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+    text-transform: capitalize;
+}

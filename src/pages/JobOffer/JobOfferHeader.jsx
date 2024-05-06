@@ -123,9 +123,10 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 // width: "268px",
               }}
             >
-              <option disabled selected>
+              {/* <option disabled selected>
                 Select here
-              </option>
+              </option> */}
+              {/* </option> */}
               <option value={""}>All</option>
               {options.map((name, index) => (
                 <option value={name?.value} className="" key={index}>
@@ -145,9 +146,10 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
             >
-              <option value="All" disabled selected>
+              {/* <option value="All" disabled selected>
                 Select here
-              </option>
+              </option> */}
+              {/* </option> */}
               <option value={""}>All</option>
               {countryNames.map((name, index) => (
                 <option value={name?.value} key={index}>
@@ -167,9 +169,10 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
             >
-              <option value="All" disabled selected>
+              {/* <option value="All" disabled selected>
                 Select here
-              </option>
+              </option> */}
+              {/* </option> */}
               <option value={""}>All</option>
 
               {remotes.map((item, index) => (
@@ -190,9 +193,11 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
             >
-              <option value="All" disabled selected>
+              {/* <option value="All" disabled selected>
                 Select here
-              </option>
+              </option> */}
+
+              {/* </option> */}
               <option value={""}>All</option>
               {jobTypeOptions.map((item, index) => (
                 <option key={index} value={item.value} className="">
@@ -213,9 +218,11 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
                 backgroundColor: "rgba(245, 245, 245, 0.70)",
               }}
             >
-              <option disabled selected className="">
+              {/* <option disabled selected className="">
                 Select here
-              </option>
+              </option> */}
+
+              {/* </option> */}
               <option value={""}>All</option>
               {dateOptions.map((item, index) => (
                 <option key={index} value={item.value} className="">

@@ -33,11 +33,11 @@ const SingleJobs = ({ handleDetails, item }) => {
               />
             </div>
             <div className="recruiment">
-              <p>{item.job_title}</p>
+              <p className="job_title">{item.job_title}</p>
               <small>{item.company}</small>
             </div>
           </div>
-          <div className="d-flex gap-3 flex-wrap detail_span">
+          <div className="d-flex gap-5 flex-wrap detail_span">
             <div className="d-flex align-items-center" style={{ gap: "6px" }}>
               <img
                 style={{ width: "20px", height: "20px" }}
@@ -65,7 +65,7 @@ const SingleJobs = ({ handleDetails, item }) => {
           </div>
         </div>
         <p
-          className="announcement_details f_sfPro"
+          className="announcement_details"
           style={{
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",

@@ -16,13 +16,13 @@
 
 .players .table>:not(:last-child)>:last-child>* {
     color: #A3AED0;
-    text-align: center;
+    /* text-align: center; */
     font-family: "DM Sans", sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
-        letter-spacing: -0.28px;
+    letter-spacing: -0.28px;
     padding-bottom: 6px;
 }
 
