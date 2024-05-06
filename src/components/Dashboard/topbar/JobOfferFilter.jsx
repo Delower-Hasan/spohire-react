@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { setFilterParams } from "../../../features/announcement/announcementSlice";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 function JobOfferFilter() {
   const dispatch = useDispatch();
@@ -38,7 +38,14 @@ function JobOfferFilter() {
   // Event handler for applying age filter
   const handleAgeApply = () => {
     dispatch(setFilterParams({ data: formData }));
-    console.log("formData", formData);
+  };
+  const handleResetFilter = () => {
+    const formDatas = {
+      location: "",
+      category: "",
+    };
+    dispatch(setFilterParams({ data: formDatas }));
+    setFormData(formDatas);
   };
 
   return (
@@ -68,15 +75,24 @@ function JobOfferFilter() {
             className="form-select"
             aria-label="Default select example"
             onChange={handleCategoryChange}>
-            <option value="">Select</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option disabled selected>
+              Select
+            </option>
+            {["Full-time", "Part-time", "Contract", "Temporary"].map(
+              (item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              )
+            )}
           </select>
         </div>
       </div>
 
-      <button onClick={handleAgeApply}>Apply</button>
+      <button onClick={handleAgeApply} className="me-2">
+        Apply
+      </button>
+      <button onClick={handleResetFilter}>Reset</button>
     </div>
   );
 }

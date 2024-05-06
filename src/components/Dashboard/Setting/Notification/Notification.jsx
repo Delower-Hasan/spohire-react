@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import deleteIcon from "../../../../assets/deleteIcon.png";
+import deleteIcon from "../../../../assets/delete_red.svg";
 import {
   useDeleteNotificationMutation,
   useGetMyNotificationsQuery,
@@ -100,7 +100,7 @@ const Notification = () => {
 
     <div className="job_offers_wrapper">
       <div className="job_offers_topBtn d-flex align-items-center justify-content-between">
-        {/* <div className="job_offers_topBtn_left d-flex gap-4">
+        <div className="job_offers_topBtn_left d-flex gap-4">
           <button
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "All" && "activeBtn"
@@ -116,7 +116,7 @@ const Notification = () => {
             onClick={() => setJobOffersType("My")}>
             My Job Offers
           </button>
-        </div> */}
+        </div>
 
         {/* <div className="job_offers_topBtn_right">
           <button className="bg-transparent border-0 text_color_fb">

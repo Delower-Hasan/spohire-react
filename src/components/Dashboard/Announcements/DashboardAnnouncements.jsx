@@ -111,16 +111,14 @@ const DashboardAnnouncements = () => {
     <>
       <div
         className="announcement bg-white rounded-2"
-        style={{ margin: "30px", padding: "30px" }}
-      >
+        style={{ margin: "30px", padding: "30px" }}>
         <div className="job_offers_topBtn d-flex align-items-center justify-content-between mb-3">
           <div className="job_offers_topBtn_left d-flex gap-4">
             <button
               className={`fs-6 fw-medium text_color_80 ${
                 announcementType === "All" && "activeBtn"
               }`}
-              onClick={() => setAnnouncementType("All")}
-            >
+              onClick={() => setAnnouncementType("All")}>
               All
             </button>
 
@@ -136,8 +134,7 @@ const DashboardAnnouncements = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 announcementType === "My" && "activeBtn"
               }`}
-              onClick={() => setAnnouncementType("My")}
-            >
+              onClick={() => setAnnouncementType("My")}>
               My Announcement
             </button>
           </div>
@@ -162,20 +159,20 @@ const DashboardAnnouncements = () => {
           ) : (
             <div
               className="d-flex justify-content-center align-items-center fs-4"
-              style={{ height: "70vh" }}
-            >
+              style={{ height: "70vh" }}>
               No Announcements
             </div>
           )}
         </div>
-        {filteredData?.length > itemsPerPage && (
-          <Pagination
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        )}
       </div>
+
+      {filteredData?.length > 0 && (
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+        />
+      )}
 
       <DeleteModal />
       {/* <Pagination /> */}
