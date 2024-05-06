@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -21,12 +21,9 @@ import EditJobOffer from "../AddJobOffer/EditJobOffer";
 import MobileButtons from "../players/MobileButtons";
 import "./jobOffers.css";
 
-const JobOffers = () => {
+const JobOffers = ({ isActive }) => {
   const { data: allJobs } = useGetAllJobsQuery();
   const { user } = useSelector((state) => state.auth);
-  const { jobType, JobLocation, jobCategory } = useSelector(
-    (state) => state.job
-  );
 
   const [deleteJob, { isLoading }] = useDeleteJobMutation();
 
@@ -34,6 +31,7 @@ const JobOffers = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [filterData, setFilterData] = useState([]);
 
   const handleEditJobOfferClick = (item) => {
     setIsModalOpen(true);
@@ -47,8 +45,6 @@ const JobOffers = () => {
   const offerTypeFilter = (data) => {
     if (jobOffersType === "My") {
       return data?.creator === user?._id;
-    } else {
-      return data?.creator !== user?._id;
     }
   };
 
@@ -75,32 +71,27 @@ const JobOffers = () => {
     });
   };
 
-  const filteredJobs = allJobs?.data.filter(offerTypeFilter).filter((value) => {
-    if (jobType || JobLocation || jobCategory) {
-      return (
-        (jobType && jobType == value.workplaceType) ||
-        (JobLocation && JobLocation == value.job_location) ||
-        (jobCategory && jobCategory == value.role)
-      );
-    } else {
-      return true;
-    }
-    // return true;
-  });
+  useEffect(() => {
+    const filtered =
+      isActive === "expired"
+        ? allJobs?.data?.filter((u) => u.isActive === false)
+        : allJobs?.data?.filter((u) => u.isActive);
+    setFilterData(filtered?.filter(offerTypeFilter));
+  }, [allJobs?.data, isActive]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 10;
-  const totalPages = Math.ceil(filteredJobs?.length / itemsPerPage);
+  const totalPages = Math.ceil(filterData?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
   return (
     <>
       <div className="job_offer_items_wrapper">
-        {allJobs?.data && filteredJobs?.length > 0 ? (
-          filteredJobs
+        {filterData && filterData?.length > 0 ? (
+          filterData
             .slice(startIndex, endIndex)
             .map((item, index) => (
               <SingleJob
@@ -119,7 +110,7 @@ const JobOffers = () => {
           </div>
         )}
       </div>
-      {filteredJobs?.length > itemsPerPage && (
+      {filterData?.length > itemsPerPage && (
         <Pagination
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
@@ -144,7 +135,6 @@ const JobOffers = () => {
 export default JobOffers;
 
 function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
-  const [bookmark, setBookmark] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { data: applicants } = useGetJobApplicantsQuery(item?._id);
   const navigate = useNavigate();
@@ -152,45 +142,6 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
     navigate(`/dashboard/jobDetails/${value?._id}`);
   };
 
-  const { data, isSuccess } = useGetMyObservationsQuery();
-
-  const isBookmarked = data?.data?.find((i) => i?.target_id?._id === item?._id);
-
-  const [toggleObservation, { isLoading }] = useToggleObservationMutation();
-
-  const handleBookmark = async (id) => {
-    const data = {
-      user_id: user?._id,
-      target_id: id,
-      target_type: "Job",
-    };
-
-    try {
-      const response = await toggleObservation(data);
-      if (response?.data?.success) {
-        Swal.fire({
-          icon: "success",
-          title: "Successsful!",
-          text: "Job bookmarked successfully!",
-        });
-      }
-      if (response?.error?.data?.message) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: `${response?.error?.data?.message}`,
-        });
-      }
-
-      console.log(response, "ress");
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `${error?.message}`,
-      });
-    }
-  };
   return (
     <>
       <div className="job_offers_item p-3">

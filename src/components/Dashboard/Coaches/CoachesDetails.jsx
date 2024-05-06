@@ -1,20 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Marquee from "react-fast-marquee";
-import Germany from "../../../assets/germany.png";
 import { AiOutlineMessage } from "react-icons/ai";
 import { FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
-import photographImg from "../../../assets/coach_img.png";
 import silverIcon from "../../../assets/silver_icon.svg";
-import { FaInstagram, FaFacebookF } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
-import { BsTiktok } from "react-icons/bs";
-import { GoDotFill } from "react-icons/go";
-import ImageOne from "../../../assets/imagesOne.png";
-import ImageTwoMini from "../../../assets/imagesTwoMini.png";
-import ImageThreeMini from "../../../assets/imagesThreeMini.png";
-import ImageFourMini from "../../../assets/imagesFourMini.png";
-import ImageFiveMini from "../../../assets/imagesFiveMini.png";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useGetPlayerDetailsQuery } from "../../../features/auth/authApi";
@@ -26,17 +15,8 @@ import Swal from "sweetalert2";
 
 const CoachesDetails = () => {
   const { id } = useParams();
-  const authUser = useSelector((item) => item.auth);
   const { data: user, isLoading } = useGetPlayerDetailsQuery(id);
-  console.log("getPlayerDetails", user);
-  // console.log("authUser", authUser);
-
-  // if (isLoading) {
-  //   return <p>Loading ...</p>;
-  // }
-
   const { data: observation, isSuccess } = useGetMyObservationsQuery();
-
   const isBookmarked = observation?.data?.find(
     (i) => i?.target_id?._id === user?._id
   );
@@ -49,12 +29,8 @@ const CoachesDetails = () => {
     const data = {
       user_id: user?._id,
       target_id: id,
-      // target_type: "User",
       target_type: "Player",
     };
-
-    // console.log(data, "jjjDD");
-
     try {
       const response = await toggleObservation(data);
       if (response?.data?.success) {
@@ -71,8 +47,6 @@ const CoachesDetails = () => {
           text: `${response?.error?.data?.message}`,
         });
       }
-
-      // console.log(response, "ress");
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -81,7 +55,21 @@ const CoachesDetails = () => {
       });
     }
   };
-  console.log("isBookmarked", isBookmarked);
+
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard
+      .writeText(
+        `${import.meta.env.VITE_DOMAIN_URL}/dashboard/coacheDetails/${id}`
+      )
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500); // Reset copied state after 1.5 seconds
+      })
+      .catch((error) => console.error("Failed to copy:", error));
+  };
+
   return (
     <div className="details_information">
       <div className="profile_cover">
@@ -111,9 +99,17 @@ const CoachesDetails = () => {
                 </button>
               </Link>
 
-              <button className="cm_link d-flex gap-2 align-items-center justify-content-center">
+              <button
+                className="cm_link d-flex gap-2 align-items-center justify-content-center"
+                onClick={copyToClipboard}
+              >
                 <FaLink />
-                <p>Message</p>
+
+                {copied ? (
+                  <span style={{ color: "red" }}>Copied!</span>
+                ) : (
+                  <p>Share</p>
+                )}
               </button>
 
               <button

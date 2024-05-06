@@ -24,7 +24,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Pagination from "../../Pagination/Pagination";
 
-const MyAnnouncement = () => {
+const MyAnnouncement = ({ isActive }) => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
 
   const { user } = useSelector((state) => state.auth);
@@ -33,13 +33,7 @@ const MyAnnouncement = () => {
   const [deleteAnnouncement, { isLoading: deleting }] =
     useDeleteAnnouncementMutation();
 
-  // const sorting = allAnnouncements?.data?.sort(
-  //   (a, b) => a.createdAt - b.createdAt
-  // );
-
   const handleDelete = async (item) => {
-    console.log(item, "djkf");
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -63,12 +57,9 @@ const MyAnnouncement = () => {
     });
   };
 
-  // console.log(allAnnouncements, "sss");
   const announcementTypeFilter = (data) => {
     if (announcementType === "My") {
       return data?.creator === user?._id;
-    } else {
-      return data?.creator !== user?._id;
     }
   };
 
@@ -77,12 +68,17 @@ const MyAnnouncement = () => {
 
   const itemsPerPage = 10;
 
-  const filteredData =
-    allAnnouncements?.data?.filter(announcementTypeFilter) || [];
+  const filtered =
+    isActive === "expired"
+      ? allAnnouncements?.data?.filter((u) => u.isActive === false)
+      : allAnnouncements?.data?.filter((u) => u.isActive);
+
+  const filteredData = filtered?.filter(announcementTypeFilter) || [];
 
   const totalPages = Math.ceil(filteredData?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+
   return (
     <>
       <div
