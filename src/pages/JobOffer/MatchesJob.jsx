@@ -5,12 +5,22 @@ import { useNavigate } from "react-router-dom";
 import { useGetAllJobsQuery } from "../../features/job/jobApi";
 import ApplyJobs from "./ApplyJobs";
 import SingleJobs from "./SingleJobs";
+import Pagination from "../../components/Pagination/Pagination";
 
 const MatchesJob = ({ filteredData }) => {
   const navigate = useNavigate();
   const { data: allJobs } = useGetAllJobsQuery();
   const [selectedJob, setSelectedJob] = useState(null);
   const { user } = useSelector((state) => state.auth);
+
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 10;
+
+  // const totalPages = Math.ceil(data?.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   const handleDetails = (jobId) => {
     if (user) {
@@ -44,6 +54,17 @@ const MatchesJob = ({ filteredData }) => {
         </div>
       </div>
       <ApplyJobs selectedJob={selectedJob} user={user} />
+
+      {filteredData?.length > 0 && (
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          // totalPages={totalPages}
+        />
+        // <div>fsjkjfsk</div>
+      )}
+
+      {/* <Pagination /> */}
     </>
   );
 };
