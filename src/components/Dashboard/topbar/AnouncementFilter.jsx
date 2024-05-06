@@ -12,18 +12,18 @@ function AnouncementFilter() {
     category: "",
   });
 
-      useEffect(() => {
-        axios
-          .get(
-            "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
-          )
-          .then(function (response) {
-            setCountryNames(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   // Event handler for location change
   const handleLocationChange = (e) => {
@@ -38,7 +38,14 @@ function AnouncementFilter() {
   // Event handler for applying age filter
   const handleAgeApply = () => {
     dispatch(setFilterParams({ data: formData }));
-    console.log("formData", formData);
+  };
+  const handleResetFilter = () => {
+    const formDatas = {
+      location: "",
+      category: "",
+    };
+    dispatch(setFilterParams({ data: formDatas }));
+    setFormData(formDatas);
   };
 
   return (
@@ -50,7 +57,8 @@ function AnouncementFilter() {
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleLocationChange}>
+            onChange={handleLocationChange}
+          >
             {countryNames.map((name, index) => (
               <option value={name.name} key={index}>
                 {name.name}
@@ -67,16 +75,26 @@ function AnouncementFilter() {
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleCategoryChange}>
-            <option value="">Select</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            onChange={handleCategoryChange}
+          >
+            <option disabled selected>
+              Select
+            </option>
+            {["Full-time", "Part-time", "Contract", "Temporary"].map(
+              (item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              )
+            )}
           </select>
         </div>
       </div>
 
-      <button onClick={handleAgeApply}>Apply</button>
+      <button onClick={handleAgeApply} className="me-2">
+        Apply
+      </button>
+      <button onClick={handleResetFilter}>Reset</button>
     </div>
   );
 }
