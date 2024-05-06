@@ -72,10 +72,7 @@ const SingleAnnouncement = ({ item }) => {
     <>
       <div className="announcelist_wrapper">
         <div className="d-flex justify-content-between align-items-start">
-          <div
-            className="d-flex align-items-center"
-            style={{ gap: "36px" }}
-          >
+          <div className="d-flex align-items-center" style={{ gap: "36px" }}>
             <div className="announcement_pic">
               <img
                 src={item.image}
@@ -90,29 +87,26 @@ const SingleAnnouncement = ({ item }) => {
             </div>
 
             <div className="recruiment f_sfPro">
-              <p className="title">{item.title}</p>
-              <p className="position">{item.sports}</p>
+              <p className="title text-capitalize">{item.title}</p>
+              <p className="position text-capitalize">{item.sports}</p>
               <div
                 className="d-flex gap-3 flex-wrap"
-                style={{ marginBottom: "31px" }}
-              >
+                style={{ marginBottom: "31px" }}>
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}
-                >
+                  style={{ gap: "6px" }}>
                   <img src={location} alt="" />
-                  <span>{item.location}</span>
+                  <span className="text-capitalize">{item.location}</span>
                 </div>
                 <div
                   className="d-flex  align-items-center"
-                  style={{ gap: "6px" }}
-                >
+                  style={{ gap: "6px" }}>
                   <img src={dollar} alt="" />
                   <span>USD {item.budget}</span>
                 </div>
               </div>
 
-              <p className="details">{item.description}</p>
+              <p className="details text-capitalize">{item.description}</p>
             </div>
           </div>
           {/* icon div */}
@@ -120,8 +114,7 @@ const SingleAnnouncement = ({ item }) => {
             <div>
               <button
                 className="bg-none"
-                onClick={() => bookmarkOrRedirectHandler(item?._id)}
-              >
+                onClick={() => bookmarkOrRedirectHandler(item?._id)}>
                 {isBookmarked ? (
                   <img
                     style={{ width: "18px", height: "25px" }}

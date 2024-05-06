@@ -35,13 +35,19 @@ const PlayerOverview = ({ user }) => {
           <h4 className="players_title"> Players</h4>
 
           {data && data?.length > 0 && (
+            // <Link
+            //   to={`${
+            //     user?.role === "Manager" || user?.role === "Coach"
+            //       ? "/dashboard/players"
+            //       : "/dashboard/coaches"
+            //   }`}
+            // >
             <Link
               to={`${
-                user?.role === "Manager" || user?.role === "Coach"
+                user?.role === "manager" || user?.role === "coach"
                   ? "/dashboard/players"
-                  : "/dashboard/coaches"
-              }`}
-            >
+                  : null
+              }`}>
               <img src={more} alt="more" />
             </Link>
           )}
@@ -51,8 +57,7 @@ const PlayerOverview = ({ user }) => {
           className="players_desk content overview_table1"
           style={{
             background: "#FFFDFD",
-          }}
-        >
+          }}>
           <thead>
             <tr className="players_table_head">
               <th scope="col">Name</th>
@@ -79,8 +84,8 @@ const PlayerOverview = ({ user }) => {
                     {item?.subscriptionName ? (
                       <>
                         <td>
-                          <div className="player_info d-flex align-items-center gap-2">
-                            <div className="player_info_wrapper d-flex gap-2 align-items-center">
+                          <div class="player_info">
+                            <div class="player_info_wrapper d-flex gap-2 align-items-center">
                               <div className="player_img">
                                 <img
                                   src={
@@ -101,7 +106,7 @@ const PlayerOverview = ({ user }) => {
                                   }}
                                 />
                               </div>
-                              <div className="player_name">
+                              <div class="player_name">
                                 <p className="text_color_36 fw-medium mb-0">
                                   {item?.fullName}
                                 </p>
@@ -144,8 +149,7 @@ const PlayerOverview = ({ user }) => {
                                   : item?.subscriptionName === "Bronze"
                                   ? "#CD7F32"
                                   : "inherit",
-                            }}
-                          >
+                            }}>
                             {item?.subscriptionName
                               ? item?.subscriptionName
                               : "N/A"}
@@ -156,8 +160,7 @@ const PlayerOverview = ({ user }) => {
                           <div className="d-flex align-items-center">
                             <p className="text_color_55 fw-normal ">
                               <Link
-                                to={`/dashboard/messages/${item?.referral}`}
-                              >
+                                to={`/dashboard/messages/${item?.referral}`}>
                                 {" "}
                                 <img
                                   src={messageIcon}

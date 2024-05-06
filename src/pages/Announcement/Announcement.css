@@ -35,15 +35,24 @@
 }
 
 .announcelist_wrapper {
-    /* border-radius: 20px;
-    background: #F5F8FE; */
-    border-radius: 16px;
+    border-radius: 20px;
+
+    background: #F5F8FE;
     border: 1px solid var(--Light-blue, #F4F7FE);
-    background: var(--White, #FFF);
     box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
     padding: 25px;
     margin-bottom: 24px;
+}
 
+.announcelist_wrapper .job_title {
+    color: #4C4E52;
+    font-family: "SF Pro Display";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+    padding-bottom: 10px;
 }
 
 .editAnnouncement_wrapper {
@@ -126,11 +135,12 @@
 
 .recruiment small {
     color: #546580;
-    font-family: "SF Pro Display", sans-serif;
+    font-family: "SF Pro Display";
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-transform: capitalize;
 }
 
 .recruiment span {
@@ -174,7 +184,7 @@
 
 .blue_cat p {
     color: #FFF;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -207,7 +217,7 @@
     gap: 10px;
     text-transform: uppercase;
     color: #5EA9FE;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -216,7 +226,7 @@
 
 .cat_list span {
     color: #747474;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -249,7 +259,7 @@
     background: #3378FF;
     padding: 14px 81px 14px 82px;
     color: #FFF;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -260,7 +270,7 @@
 .best_matched h3 {
     color: #FFF;
     text-align: center;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;

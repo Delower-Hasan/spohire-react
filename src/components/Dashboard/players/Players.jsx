@@ -235,7 +235,7 @@ const SinglePlayer = ({ player }) => {
               </div>
               <div className="player_name">
                 <p className="text_color_36 fw-medium fs_14">
-                  {player?.firstName} <br /> {player?.lastName}
+                  {player?.firstName} {player?.lastName}
                 </p>
               </div>
             </div>
@@ -282,7 +282,7 @@ const SinglePlayer = ({ player }) => {
                   ? "#CD7F32"
                   : player?.subscriptionName === "Gold"
                   ? "#FFC21B"
-                  : "inherit",
+                  : null,
             }}>
             {player?.subscriptionName ?? "N/A"}
           </p>
