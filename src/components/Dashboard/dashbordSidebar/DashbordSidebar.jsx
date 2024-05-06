@@ -50,6 +50,7 @@ const DashbordSidebar = ({ user }) => {
   console.log(user?.role, "user");
   const [isAccordionOpen, setIsAccordionOpen] = useState(false); // State to track accordion open/close status
   const [isAccordionOpen1, setIsAccordionOpen1] = useState(false); // State to track accordion open/close status
+  const [isAccordionOpen2, setIsAccordionOpen2] = useState(false); // State to track accordion open/close status
 
   const handleAccordionToggle = () => {
     setIsAccordionOpen(!isAccordionOpen);
@@ -57,6 +58,10 @@ const DashbordSidebar = ({ user }) => {
 
   const handleAccordionToggle1 = () => {
     setIsAccordionOpen1(!isAccordionOpen1);
+  };
+
+  const handleAccordionToggle2 = () => {
+    setIsAccordionOpen2(!isAccordionOpen2);
   };
 
   return (
@@ -289,7 +294,7 @@ const DashbordSidebar = ({ user }) => {
 
             <Accordion className="">
               <Accordion.Item eventKey="3" className="border-0">
-                <Accordion.Header className="p-0">
+                <Accordion.Header className="p-0" onClick={handleAccordionToggle2}>
                   <li
                     className="d-flex align-content-center"
                     style={{ gap: "12px" }}>
@@ -298,14 +303,13 @@ const DashbordSidebar = ({ user }) => {
                       className="text-decoration-none d-flex align-items-center gap-4">
                       <img src={settingsIcon} alt="icon" />
                       <span className="text_color_E3 text-capitalize fs-6">
-                        {" "}
-                        Settings{" "}
+                        Settings
                       </span>
                     </Link>
                     <img
                       className="mt-1"
                       src={
-                        isAccordionOpen1 ? activesidebarbottomshape : rightArrow
+                        isAccordionOpen2 ? activesidebarbottomshape : rightArrow
                       }
                       alt="rightArrow"
                     />
@@ -379,13 +383,6 @@ const DashbordSidebar = ({ user }) => {
           </ul>
         </div>
 
-        {/* unsed accodiron */}
-        <div>
-          <Accordion className="border-0">
-            <Accordion.Item eventKey="1" className="border-0"></Accordion.Item>
-          </Accordion>
-        </div>
-        {/* unsed accodiron */}
 
         <div className="bottom">
           <div className="logout">
