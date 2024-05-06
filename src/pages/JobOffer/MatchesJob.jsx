@@ -9,8 +9,9 @@ import Pagination from "../../components/Pagination/Pagination";
 
 const MatchesJob = ({ filteredData }) => {
   const navigate = useNavigate();
-  const { data: allJobs } = useGetAllJobsQuery();
+
   const [selectedJob, setSelectedJob] = useState(null);
+  
   const { user } = useSelector((state) => state.auth);
 
   // pagination

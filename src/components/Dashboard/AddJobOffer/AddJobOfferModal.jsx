@@ -35,8 +35,9 @@ const AddJobOfferModal = ({
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
               {" "}
-              Job Title{" "}
+              Job Title *{" "}
             </label>
+
             {/* <div className="form_icons" style={{ top: "36px" }}>
               <img className="mt-0" src={region} alt="title" />
             </div> */}
@@ -78,7 +79,6 @@ const AddJobOfferModal = ({
               placeholder="Brows Here"
             />
           </div>
-
           {/* SELECT */}
           <div className="position-relative text-start ">
             <div className="row">
@@ -87,7 +87,7 @@ const AddJobOfferModal = ({
                   htmlFor="exampleFormControlInput1"
                   className="form-label"
                 >
-                  Country
+                  Country *
                 </label>
 
                 <select
@@ -117,6 +117,7 @@ const AddJobOfferModal = ({
                   ))}
                 </select>
               </div>
+
               <div className="col-lg-6">
                 <div
                   className="position-relative text-start "
@@ -126,7 +127,7 @@ const AddJobOfferModal = ({
                     htmlFor="exampleFormControlInput1"
                     className="form-label"
                   >
-                    City
+                    City *
                   </label>
 
                   <input
@@ -143,12 +144,13 @@ const AddJobOfferModal = ({
             </div>
           </div>
           {/* SELECT */}
+
           <div
             className="position-relative text-start "
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Job type
+              Job type*
             </label>
 
             <select
@@ -175,7 +177,6 @@ const AddJobOfferModal = ({
             </select>
           </div>
         </div>
-
         <div className="col-lg-6 ">
           <div
             className="position-relative text-start "
@@ -202,7 +203,7 @@ const AddJobOfferModal = ({
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Workplace Type
+              Workplace Type *
             </label>
 
             <select
@@ -237,7 +238,7 @@ const AddJobOfferModal = ({
                   htmlFor="exampleFormControlInput1"
                   className="form-label"
                 >
-                  Category
+                  Category *
                 </label>
                 <select
                   className="form-select"
@@ -265,12 +266,13 @@ const AddJobOfferModal = ({
                   ))}
                 </select>
               </div>
+
               <div className="col-lg-6">
                 <label
                   htmlFor="exampleFormControlInput1"
                   className="form-label"
                 >
-                  Language
+                  Language *
                 </label>
                 <select
                   className="form-select"
@@ -299,7 +301,7 @@ const AddJobOfferModal = ({
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Salary
+              Salary *
             </label>
             <div className="form_icons" style={{ top: "43px" }}>
               <img className="mt-0" src={salary} alt="user" />
@@ -320,7 +322,7 @@ const AddJobOfferModal = ({
         <div className="position-relative text-start">
           <div className="mb-3">
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Description
+              Description *
             </label>
             <div className="input-group mb-3">
               <textarea

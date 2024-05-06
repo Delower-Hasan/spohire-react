@@ -221,7 +221,15 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                       onClick={() => setStep((prevStep) => prevStep + 1)}
                       className="submit_now_btn m-0"
                       type="button"
-                      // disabled={loading || isLoading}
+                      disabled={
+                        !announcementData.title ||
+                        !announcementData.sports ||
+                        !announcementData.category ||
+                        !announcementData.location ||
+                        !announcementData.country ||
+                        !announcementData.budget ||
+                        !announcementData.description
+                      }
                     >
                       Next
                     </button>

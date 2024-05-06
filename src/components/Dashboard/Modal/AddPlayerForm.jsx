@@ -321,7 +321,6 @@ const AddPlayerForm = ({
               <option selected disabled>
                 Select Here
               </option>
-              <option value={"All"}>All</option>
               <option value={"Goalkeeper"}>Goalkeeper</option>
               <option value={"Defender"}>Defender</option>
               <option value={"Midfielder"}>Midfielder</option>
@@ -335,13 +334,21 @@ const AddPlayerForm = ({
             <label htmlFor="name" className="d-block label_name mb-2">
               Alternative position
             </label>
-            <input
-              id="name"
-              type="text"
+
+            <select
+              required
+              className="select_form"
               name="alterPosition"
               onChange={handleInputChange}
-              placeholder="Select here"
-            />
+            >
+              <option selected disabled>
+                Select Here
+              </option>
+              <option value={"Goalkeeper"}>Goalkeeper</option>
+              <option value={"Defender"}>Defender</option>
+              <option value={"Midfielder"}>Midfielder</option>
+              <option value={"Forward"}>Forward</option>
+            </select>
           </div>
         </div>
 
@@ -356,6 +363,21 @@ const AddPlayerForm = ({
               onChange={handleInputChange}
               type="text"
               placeholder="Select here"
+            />
+          </div>
+        </div>
+
+        <div className="col-lg-4">
+          <div className="input_form pb-4">
+            <label htmlFor="name" className="d-block label_name mb-2">
+              Age
+            </label>
+            <input
+              id="name"
+              name="age"
+              onChange={handleInputChange}
+              type="number"
+              placeholder="Age"
             />
           </div>
         </div>

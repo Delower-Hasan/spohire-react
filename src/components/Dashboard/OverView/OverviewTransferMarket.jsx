@@ -72,14 +72,16 @@ const OverviewTransferMarket = () => {
                 <span>Add Announcement</span>
               </button>
 
-              <button
-                className="modal_link"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-              >
-                <img src={add3icon} alt="addpicon" />
-                <span>Upgrade Subscription</span>
-              </button>
+              {user?.subscriptionName !== "Gold" && (
+                <button
+                  className="modal_link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <img src={add3icon} alt="addpicon" />
+                  <span>Upgrade Subscription</span>
+                </button>
+              )}
             </>
           ) : (
             <>

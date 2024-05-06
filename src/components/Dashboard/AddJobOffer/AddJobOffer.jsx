@@ -43,7 +43,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
-    const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1);
   const [imageFile, setImageFIle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -65,14 +65,12 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setJobData({ ...jobData, [name]: value });
   };
 
   const handleSubmit = async () => {
     setLoading(true);
     const date = new Date();
-
     const jobDataInfo = {
       ...jobData,
       subscriptionDate: date,
@@ -80,13 +78,10 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       packagechoose: selectedSubscription?.month,
       creator: user?._id,
     };
-
     const formData = new FormData();
-
     Object.entries(jobDataInfo).forEach(([key, value]) => {
       formData.append(key, value);
     });
-
     try {
       const response = await addJob(formData);
       if (response?.data?.success) {
@@ -114,8 +109,8 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       setLoading(false);
     }
   };
-  const fileInputRef = useRef(null);
 
+  const fileInputRef = useRef(null);
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
@@ -136,8 +131,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       });
   }, []);
 
-
-
+  console.log("jobData", jobData);
   return (
     <div className={`addplayer_modal`}>
       <div ref={addJobOfferRef} className="inner">
@@ -185,6 +179,17 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     <button
                       className="submit_now_btn m-0"
                       type="button"
+                      disabled={
+                        !jobData.job_title ||
+                        !jobData.workplaceType ||
+                        !jobData.job_location ||
+                        !jobData.country ||
+                        !jobData.category ||
+                        !jobData.jobType ||
+                        !jobData.language ||
+                        !jobData.salary ||
+                        !jobData.description
+                      }
                       onClick={() => setStep((prevStep) => prevStep + 1)}
                     >
                       Next

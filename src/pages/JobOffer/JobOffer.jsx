@@ -6,7 +6,7 @@ import MatchesJob from "./MatchesJob";
 const JobOffer = () => {
   const { data: allJobs } = useGetAllJobsQuery();
   const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState(allJobs?.data);
+  const [filteredData, setFilteredData] = useState([]);
 
   const [jobData, setJobData] = useState({});
 
@@ -19,24 +19,6 @@ const JobOffer = () => {
       setJobData({ ...jobData, [name]: value });
     }
   };
-
-  useEffect(() => {
-    const filtered = allJobs?.data?.filter((item) => {
-      return (
-        (jobData.category &&
-          item?.category?.toLowerCase() === jobData.category?.toLowerCase()) ||
-        (jobData.location &&
-          item?.country?.toLowerCase() === jobData.location?.toLowerCase()) ||
-        (jobData.jobType &&
-          item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase()) ||
-        (jobData.workplaceType &&
-          item?.workplaceType?.toLowerCase() ===
-            jobData.workplaceType.toLowerCase()) ||
-        filterByDate(item)
-      );
-    });
-    setFilteredData(filtered);
-  }, [jobData]);
 
   const filterByDate = (item) => {
     const currentDate = new Date();
@@ -57,27 +39,61 @@ const JobOffer = () => {
     }
   };
 
-  // Function to handle the search
+  useEffect(() => {
+    const filtered = allJobs?.data?.filter((item) => {
+      return (
+        // Category filter
+        (jobData.category &&
+          item?.category?.toLowerCase() === jobData.category?.toLowerCase()) ||
+        (!jobData.category &&
+          !jobData.location &&
+          !jobData.jobType &&
+          !jobData.workplaceType) || // Reset all filters when category is empty
+        // Location filter
+        (jobData.location &&
+          item?.country?.toLowerCase() === jobData.location?.toLowerCase()) ||
+        (!jobData.location &&
+          !jobData.category &&
+          !jobData.jobType &&
+          !jobData.workplaceType) || // Reset all filters when location is empty
+        // Job Type filter
+        (jobData.jobType &&
+          item?.jobType?.toLowerCase() === jobData.jobType?.toLowerCase()) ||
+        (!jobData.jobType &&
+          !jobData.category &&
+          !jobData.location &&
+          !jobData.workplaceType) || // Reset all filters when jobType is empty
+        // Workplace Type filter
+        (jobData.workplaceType &&
+          item?.workplaceType?.toLowerCase() ===
+            jobData.workplaceType?.toLowerCase()) ||
+        (!jobData.workplaceType &&
+          !jobData.category &&
+          !jobData.location &&
+          !jobData.jobType) || // Reset all filters when workplaceType is empty
+        filterByDate(item)
+      );
+    });
+    setFilteredData(filtered);
+  }, [jobData]);
+
+  useEffect(() => {
+    setFilteredData(allJobs?.data);
+  }, [allJobs?.data]);
+
   const handleSearch = (event) => {
     const searchValue = event.target.value;
     setSearchText(searchValue);
-
     if (searchValue === "") {
       setFilteredData(allJobs?.data);
       return;
     }
-
     const filtered = allJobs?.data?.filter((item) =>
       item.job_title.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredData(filtered);
   };
 
-  useEffect(() => {
-    if (allJobs?.data) {
-      setFilteredData(allJobs?.data);
-    }
-  }, [allJobs?.data]);
   return (
     <>
       <JobOfferHeader
@@ -85,7 +101,7 @@ const JobOffer = () => {
         handleSearch={handleSearch}
         handleInputChange={handleInputChange}
       />
-      <MatchesJob filteredData={filteredData} />
+      <MatchesJob filteredData={filteredData?.length > 0 && filteredData} />
     </>
   );
 };

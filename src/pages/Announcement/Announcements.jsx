@@ -29,14 +29,26 @@ const Announcements = () => {
   useEffect(() => {
     const filtered = allAnnouncements?.data?.filter((item) => {
       return (
+        // Category filter
         (announceData.category &&
           item?.category?.toLowerCase() ===
             announceData.category?.toLowerCase()) ||
+        (!announceData.category &&
+          !announceData.location &&
+          !announceData.sport) || // Reset all filters when category is empty
+        // Location filter
         (announceData.location &&
           item?.country?.toLowerCase() ===
             announceData.location?.toLowerCase()) ||
+        (!announceData.location &&
+          !announceData.category &&
+          !announceData.sport) || // Reset all filters when location is empty
+        // Sport filter
         (announceData.sport &&
-          item?.sports?.toLowerCase() === announceData.sport?.toLowerCase())
+          item?.sports?.toLowerCase() === announceData.sport?.toLowerCase()) ||
+        (!announceData.sport &&
+          !announceData.category &&
+          !announceData.location) // Reset all filters when sport is empty
       );
     });
     setFilteredData(filtered);
