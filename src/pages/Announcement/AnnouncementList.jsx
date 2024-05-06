@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetAllAnnouncementQuery } from "../../features/announcement/announcementApi";
 import DeleteModal from "./DeleteModal";
 import SingleAnnouncement from "./SingleAnnouncement";
+import Pagination from "../../components/Pagination/Pagination";
+import usePagination from "../../hooks/usePagination";
 
 const AnnouncementList = ({ filteredData }) => {
+  const { currentPage, setCurrentPage, totalPages, displayedData, handlePageChange } = usePagination(filteredData);
+
   return (
     <>
       <div
@@ -11,8 +15,8 @@ const AnnouncementList = ({ filteredData }) => {
         style={{ marginTop: "104px", marginBottom: "150px" }}
       >
         <div className="row">
-          {filteredData?.length > 0 ? (
-            filteredData.map((item, index) => (
+          {displayedData?.length > 0 ? (
+            displayedData.map((item, index) => (
               <SingleAnnouncement key={index} item={item} />
             ))
           ) : (
@@ -22,6 +26,16 @@ const AnnouncementList = ({ filteredData }) => {
           )}
         </div>
       </div>
+
+      {totalPages > 1 && (
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
+
       <DeleteModal />
     </>
   );
