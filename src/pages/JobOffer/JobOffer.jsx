@@ -61,12 +61,10 @@ const JobOffer = () => {
   const handleSearch = (event) => {
     const searchValue = event.target.value;
     setSearchText(searchValue);
-
     if (searchValue === "") {
       setFilteredData(allJobs?.data);
       return;
     }
-
     const filtered = allJobs?.data?.filter((item) =>
       item.job_title.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -74,9 +72,7 @@ const JobOffer = () => {
   };
 
   useEffect(() => {
-    if (allJobs?.data) {
-      setFilteredData(allJobs?.data);
-    }
+    setFilteredData(allJobs?.data);
   }, [allJobs?.data]);
   return (
     <>

@@ -8,8 +8,9 @@ import SingleJobs from "./SingleJobs";
 
 const MatchesJob = ({ filteredData }) => {
   const navigate = useNavigate();
-  const { data: allJobs } = useGetAllJobsQuery();
+
   const [selectedJob, setSelectedJob] = useState(null);
+  
   const { user } = useSelector((state) => state.auth);
 
   const handleDetails = (jobId) => {

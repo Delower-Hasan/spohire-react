@@ -24,13 +24,12 @@ const CreateAnnouncemnetModal = ({
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Title
+              Title *
             </label>
 
             {/*<div className="form_icons" style={{top: "36px"}}>*/}
             {/*    <img className="mt-0" src={region} alt="title"/>*/}
             {/*</div>*/}
-
             <input
               type="text"
               className="form-control"
@@ -42,14 +41,13 @@ const CreateAnnouncemnetModal = ({
             />
           </div>
           {/*title end*/}
-
           {/*category type*/}
           <div
             className="position-relative text-start "
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Category
+              Category *
             </label>
 
             <select
@@ -75,8 +73,8 @@ const CreateAnnouncemnetModal = ({
             </select>
           </div>
           {/*category type end*/}
-
           {/* country */}
+
           <div className="position-relative text-start ">
             <div className="row">
               <div className="col-lg-6 job_location_select">
@@ -84,7 +82,7 @@ const CreateAnnouncemnetModal = ({
                   htmlFor="exampleFormControlInput1"
                   className="form-label"
                 >
-                  Country
+                  Country *
                 </label>
 
                 <select
@@ -118,7 +116,7 @@ const CreateAnnouncemnetModal = ({
                     htmlFor="exampleFormControlInput1"
                     className="form-label"
                   >
-                    City
+                    City *
                   </label>
 
                   <input
@@ -156,7 +154,7 @@ const CreateAnnouncemnetModal = ({
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Sports
+              Sports *
             </label>
 
             <select
@@ -192,7 +190,7 @@ const CreateAnnouncemnetModal = ({
             style={{ marginBottom: "32px" }}
           >
             <label htmlFor="exampleFormControlInput1" className="form-label">
-              Budget
+              Budget *
             </label>
 
             <div className={"d-flex upload_wrapper"}>
@@ -280,7 +278,7 @@ const CreateAnnouncemnetModal = ({
 
         <div className="mb-3" style={{ marginBottom: "32px" }}>
           <label hytmlFor="exampleFormControlInput1" className="form-label">
-            Description
+            Description *
           </label>
           <div className="input-group mb-3">
             <textarea

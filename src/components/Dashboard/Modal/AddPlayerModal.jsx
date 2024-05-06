@@ -162,6 +162,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     }
   };
 
+  console.log("playerDatad", playerData);
+
   return (
     <div className="addplayer_modal">
       <div ref={wrapperRef} className="inner">
@@ -213,6 +215,20 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
                 className="addplayer_btn"
+                disabled={
+                  !playerData.firstName ||
+                  !playerData.lastName ||
+                  !playerData.gender ||
+                  !playerData.date_of_birth ||
+                  !playerData.nationality ||
+                  !playerData.country ||
+                  !playerData.email ||
+                  !playerData.phone_number ||
+                  !playerData.city ||
+                  !playerData.sports ||
+                  !playerData.dominantHand ||
+                  !playerData.position
+                }
                 onClick={() => setStep((prevStep) => prevStep + 1)}
               >
                 {step === 2 ? "Next" : "Add Player"}
