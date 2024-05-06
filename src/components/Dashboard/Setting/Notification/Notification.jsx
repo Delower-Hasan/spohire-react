@@ -141,7 +141,7 @@ const Notification = () => {
           </div>
         )}
       </div>
-      {data?.length > itemsPerPage && (
+      {data?.length > 0 && (
         <Pagination
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
@@ -150,7 +150,7 @@ const Notification = () => {
         // <div>fsjkjfsk</div>
       )}
 
-      <Pagination />
+      {/* <Pagination /> */}
     </div>
   );
 };
