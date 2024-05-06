@@ -12,15 +12,8 @@ import {
 } from "../../features/observation/observationApi";
 
 const SingleAnnouncement = ({ item }) => {
-  // const [bookmark, setBookmark] = useState(false);
-
-  // const handleBookmark = () => {
-  //   setBookmark(!bookmark);
-  // };
   const navigate = useNavigate();
-
   const { user } = useSelector((state) => state.auth);
-
   const { data, isSuccess } = useGetMyObservationsQuery();
   const [seeMore, setSeeMore] = useState(250);
 
@@ -91,16 +84,19 @@ const SingleAnnouncement = ({ item }) => {
               <p className="position text-capitalize">{item.sports}</p>
               <div
                 className="d-flex gap-3 flex-wrap"
-                style={{ marginBottom: "31px" }}>
+                style={{ marginBottom: "31px" }}
+              >
                 <div
                   className="d-flex align-items-center"
-                  style={{ gap: "6px" }}>
+                  style={{ gap: "6px" }}
+                >
                   <img src={location} alt="" />
                   <span className="text-capitalize">{item.location}</span>
                 </div>
                 <div
                   className="d-flex  align-items-center"
-                  style={{ gap: "6px" }}>
+                  style={{ gap: "6px" }}
+                >
                   <img src={dollar} alt="" />
                   <span>USD {item.budget}</span>
                 </div>
@@ -114,7 +110,8 @@ const SingleAnnouncement = ({ item }) => {
             <div>
               <button
                 className="bg-none"
-                onClick={() => bookmarkOrRedirectHandler(item?._id)}>
+                onClick={() => bookmarkOrRedirectHandler(item?._id)}
+              >
                 {isBookmarked ? (
                   <img
                     style={{ width: "18px", height: "25px" }}
