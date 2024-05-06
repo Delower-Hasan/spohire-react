@@ -1,18 +1,15 @@
 import { useState } from "react";
-import a1 from "../../assets/a11.png";
-import flag from "../../assets/flag.png";
-import dollar from "../../assets/coin-dollar.png";
-import location from "../../assets/location.png";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import bookmark1 from "../../assets/bookmark11.png";
 import bookmark2 from "../../assets/bookmark12.svg";
-import JobCategory from "./JobCategory";
+import dollar from "../../assets/coin-dollar.png";
+import location from "../../assets/location.png";
 import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
 } from "../../features/observation/observationApi";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Swal from "sweetalert2";
 
 const SingleAnnouncement = ({ item }) => {
   // const [bookmark, setBookmark] = useState(false);
@@ -76,7 +73,7 @@ const SingleAnnouncement = ({ item }) => {
       <div className="announcelist_wrapper">
         <div className="d-flex justify-content-between align-items-start">
           <div
-            className="d-flex flex-wrap align-items-center"
+            className="d-flex align-items-center"
             style={{ gap: "36px" }}
           >
             <div className="announcement_pic">
