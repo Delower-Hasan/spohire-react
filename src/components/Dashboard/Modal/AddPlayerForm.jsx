@@ -111,7 +111,6 @@ const AddPlayerForm = ({
   let mainAndAditionPostions = postions.filter(
     (item) => item.type === sportsType
   );
-  console.log("mainAndAditionPostions", mainAndAditionPostions);
   return (
     <div>
       <div className="row">

@@ -71,14 +71,13 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       experienceFormData.club_name
     ) {
       const newData = [...playerData?.experience, experienceFormData];
-      setPlayerData({ ...playerData, ["experience"]: [...newData] });
+      setPlayerData({ ...playerData, ["experience"]: newData });
     } else {
       alert("Please fill up the experience data properly");
     }
   };
 
   const socialMediaArray = Object.values(socialMedia);
-
   const [playerData, setPlayerData] = useState({
     experience: "",
   });
