@@ -2,6 +2,80 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+const postions = [
+  {
+    type: "Football",
+    mainPositions: ["goalkeeper", "defender", "midfielder", "forward"],
+    alternativePositions: [
+      "goalkeeper",
+      "sweeper",
+      "centre-back",
+      "left-back",
+      "right-back",
+      "central-midfielder",
+      "left-midfielder",
+      "right-midfielder",
+      "left-wing-forward",
+      "right-wing-forward",
+      "centre-forward",
+    ],
+  },
+  {
+    type: "Basketball",
+    mainPositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+    alternativePositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+  },
+  {
+    type: "Handball",
+    mainPositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+    alternativePositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+  },
+  {
+    type: "Volleyball",
+    mainPositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+    alternativePositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+  },
+];
 
 const AddPlayerForm = ({
   handleInputChange,
@@ -32,6 +106,12 @@ const AddPlayerForm = ({
       });
   }, []);
 
+  const [sportsType, setSportsType] = useState("Football");
+
+  let mainAndAditionPostions = postions.filter(
+    (item) => item.type === sportsType
+  );
+  console.log("mainAndAditionPostions", mainAndAditionPostions);
   return (
     <div>
       <div className="row">
@@ -144,7 +224,7 @@ const AddPlayerForm = ({
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="  pb-4">
+              <div className="pb-4">
                 <label htmlFor="name" className="d-block label_name mb-2">
                   Nationality *
                 </label>
@@ -273,7 +353,10 @@ const AddPlayerForm = ({
               required
               className="select_form"
               name="sports"
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e);
+                setSportsType(e.target.value);
+              }}
             >
               <option selected disabled>
                 Select Here
@@ -289,7 +372,7 @@ const AddPlayerForm = ({
         <div className="col-lg-4">
           <div className="pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
-              Dominant Hand *
+              Dominant Hand/Foot *
             </label>
             <select
               required
@@ -315,16 +398,17 @@ const AddPlayerForm = ({
             <select
               required
               className="select_form"
-              name="position"
+              name="mainPosition"
               onChange={handleInputChange}
             >
               <option selected disabled>
                 Select Here
               </option>
-              <option value={"Goalkeeper"}>Goalkeeper</option>
-              <option value={"Defender"}>Defender</option>
-              <option value={"Midfielder"}>Midfielder</option>
-              <option value={"Forward"}>Forward</option>
+              {mainAndAditionPostions[0]?.mainPositions?.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -344,10 +428,13 @@ const AddPlayerForm = ({
               <option selected disabled>
                 Select Here
               </option>
-              <option value={"Goalkeeper"}>Goalkeeper</option>
-              <option value={"Defender"}>Defender</option>
-              <option value={"Midfielder"}>Midfielder</option>
-              <option value={"Forward"}>Forward</option>
+              {mainAndAditionPostions[0]?.alternativePositions?.map(
+                (item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                )
+              )}
             </select>
           </div>
         </div>
@@ -377,6 +464,7 @@ const AddPlayerForm = ({
               name="age"
               onChange={handleInputChange}
               type="number"
+              min={10}
               placeholder="Age"
             />
           </div>

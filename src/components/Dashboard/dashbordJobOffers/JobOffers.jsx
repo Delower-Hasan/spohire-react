@@ -26,15 +26,13 @@ import Pagination from "../../Pagination/Pagination";
 const JobOffers = () => {
   const { data: allJobs } = useGetAllJobsQuery();
   const { user } = useSelector((state) => state.auth);
-  const { jobType, JobLocation, jobCategory } = useSelector(
-    (state) => state.job
-  );
+  const { JobfilterParams } = useSelector((state) => state.job);
 
   const [deleteJob, { isLoading }] = useDeleteJobMutation();
 
   const [jobOffersType, setJobOffersType] = useState("All");
 
-  // console.log(allJobs?.data, "allJobs?.data");
+  console.log(allJobs?.data, "allJobs?.data");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
@@ -52,7 +50,7 @@ const JobOffers = () => {
     if (jobOffersType === "My") {
       return data?.creator === user?._id;
     } else {
-      return data?.creator !== user?._id;
+      return data;
     }
   };
 
@@ -80,18 +78,29 @@ const JobOffers = () => {
     });
   };
 
-  const filteredJobs = allJobs?.data.filter(offerTypeFilter).filter((value) => {
-    if (jobType || JobLocation || jobCategory) {
+  const handleFilter = (value) => {
+    if (
+      JobfilterParams?.jobType ||
+      JobfilterParams?.JobLocation ||
+      JobfilterParams?.workplaceType
+    ) {
       return (
-        (jobType && jobType == value.workplaceType) ||
-        (JobLocation && JobLocation == value.job_location) ||
-        (jobCategory && jobCategory == value.role)
+        (JobfilterParams?.jobType &&
+          JobfilterParams?.jobType === value.jobType) ||
+        (JobfilterParams?.JobLocation &&
+          JobfilterParams?.JobLocation === value.country) ||
+        (JobfilterParams?.workplaceType &&
+          JobfilterParams?.workplaceType === value.workplaceType)
       );
     } else {
       return true;
     }
-  });
+  };
 
+  const filteredJobs =
+    allJobs?.data?.filter(offerTypeFilter).filter(handleFilter) || [];
+
+  console.log("filteredJobs", filteredJobs);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -110,7 +119,8 @@ const JobOffers = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "All" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("All")}>
+              onClick={() => setJobOffersType("All")}
+            >
               All
             </button>
 
@@ -118,7 +128,8 @@ const JobOffers = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "My" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("My")}>
+              onClick={() => setJobOffersType("My")}
+            >
               My Job Offers
             </button>
           </div>
@@ -139,7 +150,8 @@ const JobOffers = () => {
           ) : (
             <div
               className="d-flex justify-content-center align-items-center fs-4"
-              style={{ height: "70vh" }}>
+              style={{ height: "70vh" }}
+            >
               No job offer
             </div>
           )}

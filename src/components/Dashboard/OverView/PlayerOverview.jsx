@@ -47,7 +47,8 @@ const PlayerOverview = ({ user }) => {
                 user?.role === "manager" || user?.role === "coach"
                   ? "/dashboard/players"
                   : null
-              }`}>
+              }`}
+            >
               <img src={more} alt="more" />
             </Link>
           )}
@@ -57,7 +58,8 @@ const PlayerOverview = ({ user }) => {
           className="players_desk content overview_table1"
           style={{
             background: "#FFFDFD",
-          }}>
+          }}
+        >
           <thead>
             <tr className="players_table_head">
               <th scope="col">Name</th>
@@ -108,7 +110,7 @@ const PlayerOverview = ({ user }) => {
                               </div>
                               <div class="player_name">
                                 <p className="text_color_36 fw-medium mb-0">
-                                  {item?.fullName}
+                                  {item?.firstName} {item?.lastName}
                                 </p>
                               </div>
                             </div>
@@ -129,7 +131,7 @@ const PlayerOverview = ({ user }) => {
 
                         <td>
                           <p className="text_color_55 fw-normal ">
-                            {item?.position ? item?.position : "N/A"}
+                            {item?.mainPosition ? item?.mainPosition : "N/A"}
                           </p>
                         </td>
 
@@ -149,7 +151,8 @@ const PlayerOverview = ({ user }) => {
                                   : item?.subscriptionName === "Bronze"
                                   ? "#CD7F32"
                                   : "inherit",
-                            }}>
+                            }}
+                          >
                             {item?.subscriptionName
                               ? item?.subscriptionName
                               : "N/A"}
@@ -160,7 +163,8 @@ const PlayerOverview = ({ user }) => {
                           <div className="d-flex align-items-center">
                             <p className="text_color_55 fw-normal ">
                               <Link
-                                to={`/dashboard/messages/${item?.referral}`}>
+                                to={`/dashboard/messages/${item?.referral}`}
+                              >
                                 {" "}
                                 <img
                                   src={messageIcon}

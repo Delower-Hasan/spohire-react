@@ -83,14 +83,10 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setPlayerData({ ...playerData, [name]: value });
   };
-
   const fileInputRef = useRef(null);
-
   const [image, setImage] = useState("");
-
   const [selectedPackages, setSelectedPackages] = useState({
     duration: 1,
     price: 10,
@@ -107,11 +103,9 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const handleSubmit = async () => {
     setLoading(true);
     const date = new Date();
-
     const playerInfo = {
       ...playerData,
       image: selectedProfileFile,
-      gallary: selectedGalleryFiles,
       social_media: socialMediaArray,
       subscriptionDate: date,
       subscriptionName: subscriptions.subscriptionName,
@@ -122,11 +116,13 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       referral: user?._id,
       role: "Player",
     };
-
     const formData = new FormData();
-
     Object.entries(playerInfo).forEach(([key, value]) => {
       formData.append(key, value);
+    });
+
+    selectedGalleryFiles?.forEach((img, index) => {
+      formData.append(`gallary`, img);
     });
 
     try {
@@ -140,11 +136,11 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
         setLoading(false);
         return true;
       }
-      if (response?.error?.data?.message) {
+      if (!response?.success) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: `${response?.error?.data?.message}`,
+          text: `${response?.message}`,
         });
         setLoading(false);
         return false;
@@ -161,8 +157,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       setLoading(false);
     }
   };
-
-  console.log("playerDatad", playerData);
 
   return (
     <div className="addplayer_modal">
@@ -227,7 +221,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                   !playerData.city ||
                   !playerData.sports ||
                   !playerData.dominantHand ||
-                  !playerData.position
+                  !playerData.mainPosition
                 }
                 onClick={() => setStep((prevStep) => prevStep + 1)}
               >

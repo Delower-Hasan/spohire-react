@@ -6,6 +6,7 @@ const initialState = {
   filterParams: {
     location: "",
     category: "",
+    sports: "",
   },
   dashboardFilterParams: {
     sports: null,

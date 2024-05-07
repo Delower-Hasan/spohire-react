@@ -43,15 +43,15 @@ const AnnouncementOverview = () => {
                 >
                   <div className="announcement_pic">
                     <img
-                      src={a1}
-                      // src={
-                      //   item?.image
-                      //     ? `${process.env.NODE_ENV !== "production"
-                      //       ? import.meta.env.VITE_LOCAL_API_URL
-                      //       : import.meta.env.VITE_LIVE_API_URL
-                      //     }/api/v1/uploads/${item?.image}`
-                      //     : a1
-                      // }
+                      src={
+                        item?.image
+                          ? `${
+                              process.env.NODE_ENV !== "production"
+                                ? import.meta.env.VITE_LOCAL_API_URL
+                                : import.meta.env.VITE_LIVE_API_URL
+                            }/api/v1/uploads/${item?.image}`
+                          : a1
+                      }
                       alt=""
                       style={{
                         height: "46px",

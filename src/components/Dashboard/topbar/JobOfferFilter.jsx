@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { setFilterParams } from "../../../features/announcement/announcementSlice";
+// import { setFilterParams } from "../../../features/announcement/announcementSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { setJobFilterParams } from "../../../features/job/jobSlice";
 
 function JobOfferFilter() {
   const dispatch = useDispatch();
   const [countryNames, setCountryNames] = useState([]);
   // State object to store the selected values
   const [formData, setFormData] = useState({
-    location: "",
-    category: "",
+    jobType: "",
+    JobLocation: "",
+    workplaceType: "",
   });
 
   useEffect(() => {
@@ -27,24 +29,29 @@ function JobOfferFilter() {
 
   // Event handler for location change
   const handleLocationChange = (e) => {
-    setFormData({ ...formData, location: e.target.value });
+    setFormData({ ...formData, JobLocation: e.target.value });
   };
 
   // Event handler for category change
-  const handleCategoryChange = (e) => {
-    setFormData({ ...formData, category: e.target.value });
+  const handleJobTypeChange = (e) => {
+    setFormData({ ...formData, jobType: e.target.value });
+  };
+  // Event handler for category change
+  const handleWorkplaceTypeChange = (e) => {
+    setFormData({ ...formData, workplaceType: e.target.value });
   };
 
   // Event handler for applying age filter
   const handleAgeApply = () => {
-    dispatch(setFilterParams({ data: formData }));
+    dispatch(setJobFilterParams({ data: formData }));
   };
   const handleResetFilter = () => {
     const formDatas = {
-      location: "",
-      category: "",
+      jobType: "",
+      JobLocation: "",
+      jobCategory: "",
     };
-    dispatch(setFilterParams({ data: formDatas }));
+    dispatch(setJobFilterParams({ data: formDatas }));
     setFormData(formDatas);
   };
 
@@ -57,7 +64,8 @@ function JobOfferFilter() {
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleLocationChange}>
+            onChange={handleLocationChange}
+          >
             {countryNames.map((name, index) => (
               <option value={name.name} key={index}>
                 {name.name}
@@ -69,12 +77,13 @@ function JobOfferFilter() {
 
       {/* Categories */}
       <div className="position_wrapper pb-4">
-        <h2>Categories</h2>
+        <h2>job Type</h2>
         <div className="position_btn_wrapper location">
           <select
             className="form-select"
             aria-label="Default select example"
-            onChange={handleCategoryChange}>
+            onChange={handleJobTypeChange}
+          >
             <option disabled selected>
               Select
             </option>
@@ -85,6 +94,25 @@ function JobOfferFilter() {
                 </option>
               )
             )}
+          </select>
+        </div>
+      </div>
+      <div className="position_wrapper pb-4">
+        <h2>Workplace Type</h2>
+        <div className="position_btn_wrapper location">
+          <select
+            className="form-select"
+            aria-label="Default select example"
+            onChange={handleWorkplaceTypeChange}
+          >
+            <option disabled selected>
+              Select
+            </option>
+            {["On-site", "Hybrid", "Remote"].map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
           </select>
         </div>
       </div>

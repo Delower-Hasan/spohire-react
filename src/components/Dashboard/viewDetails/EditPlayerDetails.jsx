@@ -410,26 +410,6 @@ const EditPlayerDetails = () => {
             </div>
 
             <div className="col-12 col-lg-9">
-              <div className="edit_profile_input">
-                <div className="mb-4 position-relative">
-                  {/* <label
-                        htmlFor="exampleFormControlInput1"
-                        className="form-label">
-                        Sports Type
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="sportsTypeInput"
-                        placeholder="Basketball"
-                        value={userInfo?.sports}
-                        onChange={(e) =>
-                          handleInputChange("sports", e.target.value)
-                        }
-                      /> */}
-                </div>
-              </div>
-
               <div className="personalInfo editpersonal_info">
                 <div className="row">
                   {inputFieldData.map((field, index) => (

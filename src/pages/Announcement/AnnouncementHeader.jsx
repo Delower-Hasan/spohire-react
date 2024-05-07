@@ -3,16 +3,14 @@ import axios from "axios";
 import CustomSelect from "../JobOffer/CustomSelect";
 
 const options = [
-  { value: "Coach", label: "Coach" },
-  { value: "Administration", label: "Administration" },
-  { value: "Marketing", label: "Marketing" },
-  { value: "Betting", label: "Betting" },
-  { value: "Customer service", label: "Customer service" },
-  { value: "Manager", label: "Manager" },
-  { value: "Agent", label: "Agent" },
-  { value: "Journalist", label: "Journalist" },
-  { value: "Scout", label: "Scout" },
-  { value: "Referee", label: "Referee" },
+  { value: "Friendly-matches", label: "Friendly-matches" },
+  { value: "Camps", label: "Camps" },
+  {
+    value: "Tournaments",
+    label: "Tournaments",
+  },
+  { value: "Player-recruitment", label: "Player-recruitment" },
+  { value: "Others", label: "Others" },
 ];
 
 const sportOptions = [
@@ -39,7 +37,6 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
       });
   }, []);
 
- 
   return (
     <>
       <div className="container job_header_wrapper">
