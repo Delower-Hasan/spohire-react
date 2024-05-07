@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const NewsCard = ({ data }) => {
   const path = useLocation();
-  console.log(data);
 
   const date = new Date(data?.createdAt);
   const month = date.toLocaleString("default", { month: "long" });
@@ -44,8 +43,7 @@ const NewsCard = ({ data }) => {
                 }
                 alt=""
                 style={{
-                  maxWidth: "540px",
-                  width: "100%",
+                  width: "540px",
                   maxHeight: "421px",
                   height: "100%",
                 }}
