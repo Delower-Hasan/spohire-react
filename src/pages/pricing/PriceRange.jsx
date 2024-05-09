@@ -92,7 +92,10 @@ const PriceRange = ({ component }) => {
 
       // }
       className={`${
-        location.pathname === "/dashboard/players" ? "" : "price_range"
+        location.pathname === "/dashboard/players" ||
+        location.pathname === "/dashboard"
+          ? ""
+          : "price_range"
       }`}>
       {component}
 

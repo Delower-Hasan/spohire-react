@@ -43,7 +43,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const [imageFile, setImageFIle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -134,7 +134,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
   return (
     <div className={`addplayer_modal`}>
-      <div ref={addJobOfferRef} className="inner">
+      <div className="inner">
         <div className="p-0 add_job_offer_admin">
           <div className="personal_info_edit_wrapper add_job_offer">
             {errorData && (
