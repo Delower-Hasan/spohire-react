@@ -24,7 +24,6 @@ const MakePaymenModal = ({
   ];
   const stripePromise = loadStripe(STRIPE_PK);
   const { subscriptions } = useSelector((state) => state.auth);
-  console.log("subscriptions", subscriptions);
 
   return (
     <div className="">

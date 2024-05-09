@@ -20,6 +20,7 @@ import v3 from "../../assets/v3.png";
 import v4 from "../../assets/v4.png";
 import { STRIPE_SK } from "../../config/config";
 import { useCreatePaymentMutation } from "../../features/payment/paymentApi";
+import { useGetCouponsQuery } from "../../features/coupon/apiSlice";
 
 const PlayerCoachAddPayment = ({
   handleSubmit,
@@ -47,10 +48,15 @@ const PlayerCoachAddPayment = ({
   };
 
   const [selectedOption, setSelectedOption] = useState("card");
+  const { data: coupons } = useGetCouponsQuery();
 
   const { packageInfo } = useSelector((state) => state.payment);
   const { user, subscriptions } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [price, setPrice] = useState(
+    subscriptions?.price + selectedPackages?.price
+  );
 
   const [createPayment, { isLoading: paymentCreating }] =
     useCreatePaymentMutation();
@@ -70,6 +76,11 @@ const PlayerCoachAddPayment = ({
     });
   };
 
+  const isCouponFound = coupons?.data.filter(
+    (item) => item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim()
+  );
+
+  // console.log("isCouponFound", isCouponFound);
   const handlePayment = async () => {
     setIsLoading(true);
 
@@ -78,14 +89,9 @@ const PlayerCoachAddPayment = ({
       return;
     }
 
-    // if (!adding) {
-    //   setIsLoading(false);
-    //   return;
-    // }
-
     try {
       const clientSecret = await createPaymentIntent(
-        (selectedPackages?.price + subscriptions?.price) * 100,
+        price.toFixed(2) * 100,
         "usd"
       );
 
@@ -157,6 +163,16 @@ const PlayerCoachAddPayment = ({
       });
   }, []);
 
+  const [isCouponUsed, setCouponUsed] = useState(false);
+  const upDatePriceHandler = () => {
+    if (!isCouponUsed) {
+      setPrice((prev) => prev - prev * (isCouponFound[0].discount / 100));
+      setCouponUsed(true);
+    } else {
+      alert("Coupon already Used");
+    }
+  };
+
   return (
     <>
       <div className="container mb-2 pb-5">
@@ -166,26 +182,39 @@ const PlayerCoachAddPayment = ({
               Payment Details
             </p>
 
-            <div className="gift_voucher d-flex align-items-center gap-4">
-              <div className="input_form pb-4">
-                <label htmlFor="name" className="d-block label_name mb-2">
-                  Gift Card / Voucher code
-                </label>
-                <input id="name" style={{height: "40px"}} type="text" placeholder="Enter code number" />
+            <div className="mb-4 pb-4">
+              <div className="gift_voucher d-flex align-items-center gap-4">
+                <div className="input_form">
+                  <label htmlFor="name" className="d-block label_name mb-2 ">
+                    Gift Card / Voucher code
+                  </label>
+                  <input
+                    id="name"
+                    style={{ height: "40px" }}
+                    type="text"
+                    onChange={(e) => setCoupon(e.target.value)}
+                    placeholder="Enter code number"
+                  />
+                </div>
+                <button className="yes mt-4" onClick={upDatePriceHandler}>
+                  Yes
+                </button>
               </div>
-
-              <button className="yes">Yes</button>
             </div>
 
             <div className="after_voucher pb-4">
               <div className="voucher d-flex justify-content-between pb-4">
                 <p>Voucher</p>
-                <p>$0.00</p>
+                {isCouponFound && isCouponFound.length > 0 ? (
+                  <p>{isCouponFound[0].discount}%</p>
+                ) : (
+                  <p>$0.00</p>
+                )}
               </div>
 
               <div className="total d-flex justify-content-between">
                 <p>Total</p>
-                <p>${subscriptions?.price + selectedPackages?.price}</p>
+                <p>${price.toFixed(2)}</p>
               </div>
             </div>
 
@@ -277,7 +306,8 @@ const PlayerCoachAddPayment = ({
                     className="form-select"
                     aria-label="Default select example"
                     onChange={handleInputChange}
-                    name="nationality">
+                    name="nationality"
+                  >
                     <option disabled selected>
                       {" "}
                       Select country
@@ -314,21 +344,22 @@ const PlayerCoachAddPayment = ({
       <div className="d-flex gap-4 justify-content-end">
         <button
           onClick={() => setMakePaymentClose(false)}
-          className="bg-none mt-0 text_clr_bc">
+          className="bg-none mt-0 text_clr_bc"
+        >
           Cancel order
         </button>
 
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={
-            isLoading || paymentCreating || !stripe || addPlayerLoading
-          }>
+          disabled={isLoading || paymentCreating || !stripe || addPlayerLoading}
+        >
           {isLoading || addPlayerLoading ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
-                role="status">
+                role="status"
+              >
                 <span className="visually-hidden">Loading...</span>
               </div>
               Loading...

@@ -19,7 +19,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
   //  my code
-
   const [isProfileUploaded, setIsProfileUploaded] = useState(false);
   const [selectedProfileFile, setSelectedProfileFile] = useState(null);
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
@@ -98,6 +97,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     setImage(selectedFile.name);
     setPlayerData({ ...playerData, image: selectedFile });
   };
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -209,9 +209,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
                 className="addplayer_btn"
-
-                onClick={() =>
-                {
+                onClick={() => {
                   const requiredFields = [
                     "firstName",
                     "lastName",
@@ -236,11 +234,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                   } else {
                     setStep((prevStep) => prevStep + 1);
                   }
-
-                  }
-
-
-                }
+                }}
               >
                 {step === 2 ? "Next" : "Add Player"}
               </button>
