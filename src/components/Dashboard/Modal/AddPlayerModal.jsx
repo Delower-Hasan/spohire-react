@@ -218,13 +218,11 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                     "gender",
                     "date_of_birth",
                     "nationality",
-                    "country",
                     "email",
                     "phone_number",
                     "city",
                     "sports",
-                    "dominantHand",
-                    "position",
+                    "dominantHand",,
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]
