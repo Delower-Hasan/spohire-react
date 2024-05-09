@@ -84,15 +84,16 @@ import React, { useState } from "react";
 import PricingCard from "./PricingCard";
 
 const PriceRange = ({ component }) => {
-  
+
   return (
     <div
       // ${
       //   location.pathname === "/dashboard/players" || "/dashboard"
 
       // }
-      className={`price_range`}
-    >
+      className={`${
+        location.pathname === "/dashboard/players" ? "" : "price_range"
+      }`}>
       {component}
 
       {/* <div className="row g-4">

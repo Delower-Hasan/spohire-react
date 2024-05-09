@@ -291,6 +291,7 @@ const AddPlayerForm = ({
               required
               id="name"
               type="number"
+              min={0}
               name="phone_number"
               onChange={handleInputChange}
               placeholder="Phone number"
@@ -321,6 +322,7 @@ const AddPlayerForm = ({
             <input
               id="name"
               name="weight"
+              min={0}
               onChange={handleInputChange}
               type="number"
               placeholder="Weight"
@@ -337,6 +339,7 @@ const AddPlayerForm = ({
               id="name"
               type="number"
               name="height"
+              min={0}
               onChange={handleInputChange}
               placeholder="Height"
             />
@@ -453,7 +456,7 @@ const AddPlayerForm = ({
           </div>
         </div>
 
-        <div className="col-lg-4">
+        {/* <div className="col-lg-4">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
               Age
@@ -461,13 +464,14 @@ const AddPlayerForm = ({
             <input
               id="name"
               name="age"
+              min={0}
               onChange={handleInputChange}
               type="number"
               min={10}
               placeholder="Age"
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="col-lg-4">
           <div className="input_form pb-4">

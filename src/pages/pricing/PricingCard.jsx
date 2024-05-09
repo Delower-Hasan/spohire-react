@@ -143,7 +143,8 @@ const PricingCard = () => {
                       fontWeight: "500",
                       fontSize: "20px",
                     }}>
-                    {location.pathname === "/dashboard/coaches"
+                    {location.pathname === "/dashboard/coaches" ||
+                    location.pathname === "/dashboard/players"
                       ? "Choose"
                       : "Subscribe"}
                   </button>

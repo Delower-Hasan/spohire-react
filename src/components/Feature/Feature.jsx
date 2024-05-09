@@ -20,9 +20,10 @@ const Feature = () => {
             </div>
             <div className="">
               <p>
-                I can tell you first hand, ChainGPT is absolutely amazing. They
-                have helped me and my team speed up our working process by 125%.
-                The access to blockchain information was never easier.
+                Spohire is a platform designed for the sports industry. With its
+                simple and intuitive interface, athletes, coaches, and office
+                staff can easily find new opportunities and new job within
+                sports clubs or companies.
               </p>
             </div>
           </div>
@@ -32,16 +33,14 @@ const Feature = () => {
             <div className="col-12 col-md-6 col-xl-4">
               <div
                 className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg1})` }}
-              >
+                style={{ background: `url(${featureBg1})` }}>
                 <div className="row align-items-end p-0 h-100 ">
                   <div className="col-6 p-0">
-                    <h4 className="">Confidentiality</h4>
+                    <h4 className="">Only in Sport</h4>
                     <p>
-                      I can tell you first hand, ChainGPT is absolutely amazing.
-                      They have helped me and my team speed up our working
-                      process by 125%. The access to blockchain information was
-                      never easier.
+                      We are solely focused on the sports sector, dedicating all
+                      our efforts and resources to serving its unique needs and
+                      demands.
                     </p>
                   </div>
                   <div className="col-6 feature_card p-0">
@@ -57,16 +56,13 @@ const Feature = () => {
             <div className="col-12 col-md-6 col-xl-4">
               <div
                 className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg2})` }}
-              >
+                style={{ background: `url(${featureBg2})` }}>
                 <div className="row align-items-end p-0 h-100">
                   <div className="col-6 p-0">
-                    <h4 className="">Stay in Touch</h4>
+                    <h4 className="">Diverse Offerings</h4>
                     <p>
-                      I can tell you first hand, ChainGPT is absolutely amazing.
-                      They have helped me and my team speed up our working
-                      process by 125%. The access to blockchain information was
-                      never easier.
+                      Website aggregates announcements from various levels of
+                      play, ranging from amateur leagues to professional teams.
                     </p>
                   </div>
                   <div className="col-6 feature_card p-0">
@@ -82,16 +78,14 @@ const Feature = () => {
             <div className="col-12 col-md-6 col-xl-4 ">
               <div
                 className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg3})` }}
-              >
+                style={{ background: `url(${featureBg3})` }}>
                 <div className="row align-items-end p-0 h-100">
                   <div className="col-6">
-                    <h4 className="">Confidentiality</h4>
+                    <h4 className="">High anonymity </h4>
                     <p>
-                      I can tell you first hand, ChainGPT is absolutely amazing.
-                      They have helped me and my team speed up our working
-                      process by 125%. The access to blockchain information was
-                      never easier.
+                      Various packages ensures that professional players can add
+                      a profile through a recognizable athlete, allowing only
+                      desired individuals to learn about the announcement.
                     </p>
                   </div>
                   <div className="col-6 feature_card p-0">
