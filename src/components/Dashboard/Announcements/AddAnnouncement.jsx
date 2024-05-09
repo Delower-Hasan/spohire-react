@@ -1,23 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import brows from "../../../assets/brows1.png";
-import region from "../../../assets/aregion.png";
-import salary from "../../../assets/asalary.png";
-import AddJobOfferModal from "../AddJobOffer/AddJobOfferModal.jsx";
-import AddJobOfferModalTwo from "../AddJobOffer/AddJobOfferModalTwo.jsx";
-import CreateAnnouncemnetModal from "./CreateAnnouncemnetModal.jsx";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useAddJobMutation } from "../../../features/job/jobApi.js";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import PaymentProcess from "./PaymentProcess.jsx";
 import { useAddAnnouncementMutation } from "../../../features/announcement/announcementApi.js";
 import useClickOutside from "../../../hooks/useClickOutside.jsx";
 import { setExpireDate } from "../../../utils/setExpireDate.js";
+import CreateAnnouncemnetModal from "./CreateAnnouncemnetModal.jsx";
+import PaymentProcess from "./PaymentProcess.jsx";
 
 const options = [
   { value: "Friendly-matches", label: "Friendly-matches" },
@@ -174,12 +168,10 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
+              style={{ marginBottom: "40px" }}>
               <div
                 // onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0"
-              >
+                className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <CreateAnnouncemnetModal
                     fileInputRef={fileInputRef}
@@ -214,19 +206,31 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                     </button>
 
                     <button
-                      onClick={() => setStep((prevStep) => prevStep + 1)}
+                      onClick={() => {
+                        const requiredFields = [
+                          "title",
+                          "sports",
+                          "category",
+                          "location",
+                          "country",
+                          "budget",
+                          "description",
+                        ];
+                        const missingFields = requiredFields.filter(
+                          (field) => !announcementData[field]
+                        );
+                        if (missingFields.length > 0) {
+                          alert(
+                            `Fill up the required fields: ${missingFields.join(
+                              ", "
+                            )}`
+                          );
+                        } else {
+                          setStep((prevStep) => prevStep + 1);
+                        }
+                      }}
                       className="submit_now_btn m-0"
-                      type="button"
-                      disabled={
-                        !announcementData.title ||
-                        !announcementData.sports ||
-                        !announcementData.category ||
-                        !announcementData.location ||
-                        !announcementData.country ||
-                        !announcementData.budget ||
-                        !announcementData.description
-                      }
-                    >
+                      type="button">
                       Next
                     </button>
                   </div>
