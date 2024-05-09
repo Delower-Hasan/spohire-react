@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
 import { useAddPlayerMutation } from "../../../features/auth/authApi";
-import useClickOutside from "../../../hooks/useClickOutside";
 import { setExpireDate } from "../../../utils/setExpireDate";
 import AddPlayerForm from "./AddPlayerForm";
 import MakePaymenModal from "./MakePaymenModal";
@@ -14,7 +13,7 @@ import PricingModal from "./PricingModal";
 const AddPlayerModal = ({ setAddPlayerModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
 
-  const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
+  // const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
   const [step, setStep] = useState(1);
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
@@ -158,12 +157,19 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     }
   };
 
+
+
   return (
     <div className="addplayer_modal">
-      <div ref={wrapperRef} className="inner">
+      <div className="inner">
         {step === 1 && (
-          <div className="modal_heading">
+          <div className="modal_heading d-flex justify-content-between">
             <h2>Add Player</h2>
+            <p
+              className="fs-6 pointer"
+              onClick={() => setAddPlayerModal(false)}>
+              X
+            </p>
           </div>
         )}
         {step === 1 ? (
@@ -203,15 +209,12 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}
-          >
+            } `}>
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
                 className="addplayer_btn"
-
-                onClick={() =>
-                {
+                onClick={() => {
                   const requiredFields = [
                     "firstName",
                     "lastName",
@@ -222,7 +225,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                     "phone_number",
                     "city",
                     "sports",
-                    "dominantHand",,
+                    "dominantHand",
+                    ,
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]
@@ -234,12 +238,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                   } else {
                     setStep((prevStep) => prevStep + 1);
                   }
-
-                  }
-
-
-                }
-              >
+                }}>
                 {step === 2 ? "Next" : "Add Player"}
               </button>
             </div>

@@ -150,7 +150,7 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
 
   return (
     <div className="addplayer_modal">
-      <div ref={annoucnementRef} className="inner">
+      <div className="inner">
         <div className="modal_head">
           <div className="justify-content-start p-0">
             <h2>{step === 1 ? "Create Announcement" : "Payment Process"}</h2>

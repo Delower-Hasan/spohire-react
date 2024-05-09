@@ -125,7 +125,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           <div>
             <h3
               style={{ color: "#2B3674", fontSize: "36px", fontWeight: "700" }}
-              className="d-flex">
+              className="d-flex justify-content-end">
               Total : {selectedPrice}$
             </h3>
           </div>
