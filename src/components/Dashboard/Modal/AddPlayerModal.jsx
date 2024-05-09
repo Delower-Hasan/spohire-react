@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
 import { useAddPlayerMutation } from "../../../features/auth/authApi";
-import useClickOutside from "../../../hooks/useClickOutside";
 import { setExpireDate } from "../../../utils/setExpireDate";
 import AddPlayerForm from "./AddPlayerForm";
 import MakePaymenModal from "./MakePaymenModal";
@@ -14,8 +13,8 @@ import PricingModal from "./PricingModal";
 const AddPlayerModal = ({ setAddPlayerModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
 
-  const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
-  const [step, setStep] = useState(3);
+  // const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
+  const [step, setStep] = useState(1);
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
   //  my code
@@ -175,10 +174,16 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
   return (
     <div className="addplayer_modal">
-      <div ref={wrapperRef} className="inner">
+      <div className="inner">
         {step === 1 && (
-          <div className="modal_heading">
+          <div className="modal_heading d-flex justify-content-between">
             <h2>Add Player</h2>
+            <p
+              className="fs-6 pointer"
+              onClick={() => setAddPlayerModal(false)}
+            >
+              X
+            </p>
           </div>
         )}
         {step === 1 ? (

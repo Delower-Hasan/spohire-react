@@ -8,6 +8,7 @@ import { setSubscription } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import MakePaymenModal from "../../components/Dashboard/Modal/MakePaymenModal";
 import MakePaymenModalForUpgradeSubscription from "../../components/Dashboard/Modal/MakePaymenModalForUpgradeSubscription";
+import { useLocation } from "react-router-dom";
 
 const priceOptions = [
   {
@@ -71,6 +72,7 @@ const PricingCard = () => {
   };
 
   const isPricingPage = location.pathname === "/pricing";
+  const route = useLocation();
 
   return (
     <div>
@@ -97,7 +99,14 @@ const PricingCard = () => {
                 className={` mb-3 ${
                   activeCard === index ? "active_price" : "price"
                 }`}>
-                ${data.price} <span>/month</span>
+                ${data.price}{" "}
+                {location.pathname === "/dashboard" ||
+                location.pathname === "/dashboard/coaches" ||
+                location.pathname === "/dashboard/players" ? (
+                  ""
+                ) : (
+                  <span>/month</span>
+                )}
               </p>
 
               <p
@@ -143,7 +152,8 @@ const PricingCard = () => {
                       fontWeight: "500",
                       fontSize: "20px",
                     }}>
-                    {location.pathname === "/dashboard/coaches" ||
+                    {location.pathname === "/dashboard" ||
+                    location.pathname === "/dashboard/coaches" ||
                     location.pathname === "/dashboard/players"
                       ? "Choose"
                       : "Subscribe"}

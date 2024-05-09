@@ -14,7 +14,6 @@ import PricingModal from "./PricingModal";
 const AddCoachModal = ({ setAddCoachModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
 
-  const wrapperRef = useClickOutside(() => setAddCoachModal(false));
   const [step, setStep] = useState(1);
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
@@ -185,10 +184,13 @@ const AddCoachModal = ({ setAddCoachModal }) => {
 
   return (
     <div className="addplayer_modal">
-      <div ref={wrapperRef} className="inner">
+      <div className="inner">
         {step === 1 && (
-          <div className="modal_heading">
+          <div className="modal_heading d-flex justify-content-between">
             <h2>Add Coach</h2>
+            <p className="fs-6 pointer" onClick={() => setAddCoachModal(false)}>
+              X
+            </p>
           </div>
         )}
         {step === 1 ? (

@@ -40,11 +40,14 @@ const PaymentProcess = ({
   //   setTotal(subscriptions[index].price);
   // };
 
+
+
   return (
     <>
       <div className="d-flex gap-4">
         <div className="gift">
           <div className={"selected_subs"}>
+
             <p className="text-start text-black fs-5 fw-medium pb-4">
               How long will the add be active?
             </p>
