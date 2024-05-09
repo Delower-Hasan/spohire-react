@@ -21,7 +21,7 @@ import {
 } from "../../../features/observation/observationApi";
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import Pagination from "../../Pagination/Pagination";
 
@@ -65,7 +65,7 @@ const DashboardAnnouncements = () => {
     if (announcementType === "My") {
       return data?.creator === user?._id;
     } else {
-      return data?.creator !== user?._id;
+      return data;
     }
   };
 
@@ -83,9 +83,14 @@ const DashboardAnnouncements = () => {
   // };
 
   const handleFilter = (value) => {
-    if (filterParams?.location || filterParams?.category) {
+    if (
+      filterParams?.location ||
+      filterParams?.category ||
+      filterParams.sports
+    ) {
       return (
         (filterParams?.location && filterParams?.location === value?.country) ||
+        (filterParams?.sports && filterParams?.sports === value?.sports) ||
         (filterParams?.category && filterParams?.category === value?.category)
       );
     } else {
@@ -111,14 +116,16 @@ const DashboardAnnouncements = () => {
     <>
       <div
         className="announcement bg-white rounded-2"
-        style={{ margin: "30px", padding: "30px" }}>
+        style={{ margin: "30px", padding: "30px" }}
+      >
         <div className="job_offers_topBtn d-flex align-items-center justify-content-between mb-3">
           <div className="job_offers_topBtn_left d-flex gap-4">
             <button
               className={`fs-6 fw-medium text_color_80 ${
                 announcementType === "All" && "activeBtn"
               }`}
-              onClick={() => setAnnouncementType("All")}>
+              onClick={() => setAnnouncementType("All")}
+            >
               All
             </button>
 
@@ -134,7 +141,8 @@ const DashboardAnnouncements = () => {
               className={`fs-6 fw-medium text_color_80 ${
                 announcementType === "My" && "activeBtn"
               }`}
-              onClick={() => setAnnouncementType("My")}>
+              onClick={() => setAnnouncementType("My")}
+            >
               My Announcement
             </button>
           </div>
@@ -159,7 +167,8 @@ const DashboardAnnouncements = () => {
           ) : (
             <div
               className="d-flex justify-content-center align-items-center fs-4"
-              style={{ height: "70vh" }}>
+              style={{ height: "70vh" }}
+            >
               No Announcements
             </div>
           )}
@@ -184,6 +193,8 @@ export default DashboardAnnouncements;
 
 const SingleAnnouncement = ({ announcement, handleDelete }) => {
   const { user } = useSelector((state) => state.auth);
+
+  const path = useLocation();
 
   const { data, isSuccess } = useGetMyObservationsQuery();
   const [seeMore, setSeeMore] = useState(250);
@@ -251,8 +262,14 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
               />
             </div>
             <div className="recruiment f_sfPro">
-              <p style={{ color: "#3378ff" }}>{announcement?.title}</p>
-              <div className="d-flex align-items-center mb-2 mt-1 ">
+              <h5
+                className="fw-medium fs-6 text_color_36 mb-1"
+                style={{ cursor: "pointer", color: "#3378ff" }}
+              >
+                {announcement?.title}
+              </h5>
+
+              <div className="d-flex align-items-center mb-2 mt-1 fw-normal  ">
                 <span>{announcement?.sports}</span>
               </div>
               <div className="d-flex gap-3 flex-wrap">
@@ -272,7 +289,14 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
                   <span>USD {announcement?.budget}</span>
                 </div>
               </div>
-              <p className="announcement_details f_sfPro">
+              <p
+                className="announcement_details f_sfPro"
+                style={{
+                  fontSize: `${
+                    path.pathname === "/dashboard/announcements" ? "12px" : ""
+                  }`,
+                }}
+              >
                 {announcement?.description.slice(0, seeMore)}{" "}
                 {announcement?.description?.length > seeMore && (
                   <>

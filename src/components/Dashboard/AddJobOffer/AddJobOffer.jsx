@@ -62,6 +62,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   });
 
   const [jobData, setJobData] = useState({});
+  const [errorData, setErrorData] = useState();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,18 +85,17 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     });
     try {
       const response = await addJob(formData);
+      console.log("resss", response);
       if (response?.data?.success) {
         setLoading(false);
-        return true;
-      }
-      if (response?.error?.data?.message) {
+        setAddJobOffer(false);
+        navigate("/dashboard");
         Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: `${response?.error?.data?.message}`,
+          icon: "success",
+          title: "Success",
+          text: `Job Created successfully`,
         });
-        setLoading(false);
-        return false;
+        return true;
       }
     } catch (error) {
       Swal.fire({
@@ -103,6 +103,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
         title: "Oops...",
         text: `${error?.message}`,
       });
+      setErrorData(error?.message);
       setLoading(false);
       return false;
     } finally {
@@ -115,7 +116,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
     setImageFIle(selectedFile);
-    setJobData({ ...jobData, image: selectedFile });
+    setJobData({ ...jobData, club_logo: selectedFile });
   };
 
   useEffect(() => {
@@ -131,12 +132,15 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       });
   }, []);
 
-  console.log("jobData", jobData);
   return (
     <div className={`addplayer_modal`}>
       <div ref={addJobOfferRef} className="inner">
         <div className="p-0 add_job_offer_admin">
           <div className="personal_info_edit_wrapper add_job_offer">
+            {errorData && (
+              <p style={{ color: "red", textAlign: "center" }}>{errorData}</p>
+            )}
+
             <div
               className="d-flex flex-column align-items-start gap-3"
               style={{ marginBottom: "40px" }}

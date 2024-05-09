@@ -22,7 +22,8 @@ const Players = () => {
   const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
   const { user, playerFilterParams } = useSelector((state) => state.auth);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
+
+  const itemsPerPage = 5;
 
   const allowedPlans =
     user?.subscriptionName === "Gold"
@@ -284,7 +285,8 @@ const SinglePlayer = ({ player }) => {
                   : player?.subscriptionName === "Gold"
                   ? "#FFC21B"
                   : "inherit",
-            }}>
+            }}
+          >
             {player?.subscriptionName ?? "N/A"}
           </p>
         </td>
@@ -295,7 +297,8 @@ const SinglePlayer = ({ player }) => {
               className="bg-none me-3"
               onClick={(e) => handleBookmark(e, player?._id)}
               style={{ width: "20px" }}
-              disabled={isLoading}>
+              disabled={isLoading}
+            >
               {isBookmarked ? (
                 <img
                   style={{ width: "12px", height: "17px" }}
@@ -312,7 +315,8 @@ const SinglePlayer = ({ player }) => {
             </button>
             <span
               onClick={(e) => handleMessageRoute(e, player?.referral)}
-              className="text_color_55 fw-normal fs_14">
+              className="text_color_55 fw-normal fs_14"
+            >
               <img src={messageIcon} alt="message-icon" className="ms-2" />
             </span>
           </div>

@@ -14,6 +14,7 @@ import { userLoggedIn } from "../../../features/auth/authSlice";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
+import axios from "axios";
 
 // data
 const inputFieldData = [
@@ -21,7 +22,7 @@ const inputFieldData = [
     label: "Name",
     placeholderText: "Your name",
     type: "text",
-    name: "fullName",
+    name: "firstName",
   },
   {
     label: "Date of Birth",
@@ -29,25 +30,7 @@ const inputFieldData = [
     type: "date",
     name: "date_of_birth",
   },
-  // { label: "Age", placeholderText: "Your Age", type: "number" },
-  {
-    label: "Nationality",
-    placeholderText: "Your Nationality",
-    type: "text",
-    name: "nationality",
-  },
-  {
-    label: "Position",
-    placeholderText: "Your Position",
-    type: "text",
-    name: "mainPosition",
-  },
-  {
-    label: "Dominant ",
-    placeholderText: "Your Dominant Hand",
-    type: "text",
-    name: "dominantHand",
-  },
+
   {
     label: "Height",
     placeholderText: "You Height",
@@ -85,7 +68,7 @@ const EditAddedPlayerDetails = () => {
       playerName: "",
       sportsType: "",
       selectedImage: null,
-      experiences: [{ startYear: "", endYear: "" }],
+      experiences: [{ startYear: "", endYear: "", club_name: "" }],
       clubName: "",
       socialMedia: {
         facebook: "",
@@ -94,6 +77,7 @@ const EditAddedPlayerDetails = () => {
       },
       strengthsAdvantages: "",
       aboutMe: "",
+      mainPosition: "",
       expectationsFromClub: "",
     }
   );
@@ -191,16 +175,11 @@ const EditAddedPlayerDetails = () => {
   // form submit data
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     const socialMediaArray = Object.values(socialMedia);
-
     const infoData = { ...editedInfo, social_media: socialMediaArray };
-
     const formData = new FormData();
-
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
-
       if (Array.isArray(propertyValue)) {
         propertyValue.forEach((element, index) => {
           if (typeof element === "object") {
@@ -253,7 +232,7 @@ const EditAddedPlayerDetails = () => {
 
   useEffect(() => {
     const newData = {
-      fullName: user?.fullName,
+      firstName: user?.firstName,
       date_of_birth: user?.date_of_birth,
       nationality: user?.nationality,
       mainPosition: user?.mainPosition,
@@ -290,6 +269,21 @@ const EditAddedPlayerDetails = () => {
 
     setSocialMedia(values);
   }, [user, id]);
+
+  const [countryNames, setCountryNames] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <form className="" onSubmit={handleUpdate}>
@@ -409,6 +403,72 @@ const EditAddedPlayerDetails = () => {
                       </div>
                     </div>
                   ))}
+
+                  <div className="col-lg-4 mt-3">
+                    <div className="input_form pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Main position *
+                      </label>
+
+                      <select
+                        required
+                        className="select_form"
+                        name="mainPosition"
+                        value={userInfo["mainPosition"] || ""}
+                        onChange={(e) =>
+                          handleInputChange("mainPosition", e.target.value)
+                        }
+                      >
+                        <option value={"Goalkeeper"}>Goalkeeper</option>
+                        <option value={"Defender"}>Defender</option>
+                        <option value={"Midfielder"}>Midfielder</option>
+                        <option value={"Forward"}>Forward</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-4">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Dominant Hand *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="dominantHand"
+                        value={userInfo["dominantHand"] || ""}
+                        onChange={(e) =>
+                          handleInputChange("dominantHand", e.target.value)
+                        }
+                      >
+                        <option value={"Left"}>Left</option>
+                        <option value={"Right"}>Right</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Nationality *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="nationality"
+                        value={userInfo["nationality"] || ""}
+                        onChange={(e) =>
+                          handleInputChange("nationality", e.target.value)
+                        }
+                      >
+                        {countryNames?.map((country, index) => (
+                          <option value={country.name} className="" key={index}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -549,24 +609,3 @@ const EditAddedPlayerDetails = () => {
 };
 
 export default EditAddedPlayerDetails;
-
-// {
-//     "playerName": "sdfsdf",
-//     "sportsType": "dsfds",
-//     "selectedImage": null,
-//     "name": "sdfsd",
-//     "date of birth": "",
-//     "age": "",
-//     "nationality": "",
-//     "position": "",
-//     "dominant hand": "",
-//     "height": "",
-//     "weight": "",
-//     "race": "",
-//     experiences:[{startYear:"",endYear:""}],
-//     clubName:"",
-//     strengthsAbout:"",
-//     aboutme:"",
-//     expectationFromClub:"",
-//     gallary:[]
-// }

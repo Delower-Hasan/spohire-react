@@ -4,12 +4,22 @@ const initialState = {
   jobType: null,
   JobLocation: null,
   jobCategory: null,
+
+  JobfilterParams: {
+    jobType: "",
+    JobLocation: "",
+    workplaceType: "",
+  },
 };
 
 const jobSlice = createSlice({
   name: "job",
   initialState,
   reducers: {
+    setJobFilterParams: (state, action) => {
+      const { data } = action.payload;
+      state.JobfilterParams = data;
+    },
     setJobType: (state, action) => {
       state.jobType = action.payload;
     },
@@ -22,5 +32,10 @@ const jobSlice = createSlice({
   },
 });
 
-export const { setJobType, setJobLocation, setJobCategory } = jobSlice.actions;
+export const {
+  setJobType,
+  setJobLocation,
+  setJobCategory,
+  setJobFilterParams,
+} = jobSlice.actions;
 export default jobSlice.reducer;

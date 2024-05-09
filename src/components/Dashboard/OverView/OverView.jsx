@@ -1,21 +1,9 @@
 import { useEffect, useState } from "react";
-import AnnouncementOverview from "./AnnouncementOverview";
-import JobOfferOverview from "./JobOfferOverview";
-import MessagesOverview from "./MessagesOverview";
 import "./OverView.css";
-import PlayerOverview from "./PlayerOverview";
-import RecentlyObserved from "./RecentlyObserved";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import silver from "../../../assets/silver1.png";
-import bronze from "../../../assets/bronze.png";
-import gold from "../../../assets/gold.png";
-import { convertDate } from "../../../utils/TimeConverter";
 import OverviewTransferMarket from "./OverviewTransferMarket";
-import Topbar from "../topbar/Topbar";
 const OverView = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -23,15 +11,7 @@ const OverView = () => {
     }, 86400000);
     return () => clearInterval(intervalId);
   }, []);
-  // Extract individual components
-  const dayOfMonth = currentDate.getDate();
-  const month = currentDate.toLocaleDateString("en-US", { month: "long" });
-  const year = currentDate.getFullYear();
-  const dayOfWeek = currentDate.toLocaleDateString("en-US", {
-    weekday: "long",
-  });
 
-  // console.log(user.subscriptionName,'subscriptionName');
 
   return (
     <>

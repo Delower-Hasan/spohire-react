@@ -203,7 +203,7 @@ const CreateAnnouncemnetModal = ({
                 $
               </button> */}
               <input
-                type="text"
+                type="number"
                 className="form-control border-0"
                 style={{
                   cursor: "pointer",
