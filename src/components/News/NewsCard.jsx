@@ -1,24 +1,33 @@
 import React from "react";
-import RightButton from "../../assets/news/RightButton.png";
 import { Link, useLocation } from "react-router-dom";
+import RightButton from "../../assets/news/RightButton.png";
 
 const NewsCard = ({ data }) => {
   const path = useLocation();
-  console.log(data);
-
   const date = new Date(data?.createdAt);
+  const currentDate = new Date(); // Current date and time
+  const timeDifference = currentDate - date; // Difference in milliseconds
+  const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+
   const month = date.toLocaleString("default", { month: "long" });
   const day = date.getDate();
+
+  // Depending on the days passed, you might want to format the output differently
+  let timePassedString = "";
+  if (daysPassed === 0) {
+    timePassedString = "today";
+  } else if (daysPassed === 1) {
+    timePassedString = "1 day ago";
+  } else {
+    timePassedString = `${daysPassed} days ago`;
+  }
 
   return (
     <>
       <div className="news_card">
-        <div
-          className="d-flex flex-lg-nowrap flex-wrap"
-          style={{ gap: "64px" }}
-        >
-          <div className="">
-            <div className="d-flex flex-wrap" style={{ gap: "61px" }}>
+        <div className="row">
+          <div className="col-lg-7">
+            <div className="d-flex gap-5">
               {path.pathname === "/articles" ? (
                 ""
               ) : (
@@ -31,38 +40,42 @@ const NewsCard = ({ data }) => {
                 </>
               )}
 
-              <img
-                className="news_img"
-                src={
-                  data?.image
-                    ? `${
-                        process.env.NODE_ENV !== "production"
-                          ? import.meta.env.VITE_LOCAL_API_URL
-                          : import.meta.env.VITE_LIVE_API_URL
-                      }/api/v1/uploads/${data?.image}`
-                    : profileImage
-                }
-                alt=""
+              <div
                 style={{
-                  maxWidth: "540px",
+                  maxWidth: "770px",
                   width: "100%",
-                  maxHeight: "421px",
-                  height: "100%",
-                }}
-              />
+                }}>
+                <img
+                  className=" img-fluid"
+                  src={
+                    data?.image
+                      ? `${
+                          process.env.NODE_ENV !== "production"
+                            ? import.meta.env.VITE_LOCAL_API_URL
+                            : import.meta.env.VITE_LIVE_API_URL
+                        }/api/v1/uploads/${data?.image}`
+                      : profileImage
+                  }
+                  alt=""
+                />
+              </div>
             </div>
           </div>
-          <div className="col-lg-6 col-12">
+
+          <div className="col-lg-5">
             <div className="card_details">
-              <h2>{data?.title}</h2>
-              <span>{data.time}</span>
+              <div className="pb-4">
+                <h2 className="text-capitalize">{data?.title}</h2>
+                <span className="text-black">{timePassedString}</span>
+              </div>
+
               <p
                 dangerouslySetInnerHTML={{ __html: data?.short_description }}
               />
+
               <div className="desc_line"></div>
               <div className="view_morebtn">
                 <Link to={`/newsDetails/${data._id}`}>
-                  {" "}
                   <button>
                     View More <img src={RightButton} alt="RightButton" />{" "}
                   </button>

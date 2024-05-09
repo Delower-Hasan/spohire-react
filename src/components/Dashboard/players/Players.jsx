@@ -241,6 +241,7 @@ const SinglePlayer = ({ player }) => {
             </div>
           </div>
         </td>
+        
         <td>
           <p className="text_color_55 fw-normal fs_14 d-flex align-items-center gap-2">
             {" "}

@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-import "./Modal.css";
-import PricingModal from "./PricingModal";
-import useClickOutside from "../../../hooks/useClickOutside";
-import MakePaymenModal from "./MakePaymenModal";
-import AddPlayerForm from "./AddPlayerForm";
-import { setExpireDate } from "../../../utils/setExpireDate";
-import { useAddPlayerMutation } from "../../../features/auth/authApi";
 import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
+import { useAddPlayerMutation } from "../../../features/auth/authApi";
+import useClickOutside from "../../../hooks/useClickOutside";
+import { setExpireDate } from "../../../utils/setExpireDate";
+import AddPlayerForm from "./AddPlayerForm";
+import MakePaymenModal from "./MakePaymenModal";
+import "./Modal.css";
+import PricingModal from "./PricingModal";
 
 const AddPlayerModal = ({ setAddPlayerModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
@@ -215,21 +215,38 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
                 className="addplayer_btn"
-                disabled={
-                  !playerData.firstName ||
-                  !playerData.lastName ||
-                  !playerData.gender ||
-                  !playerData.date_of_birth ||
-                  !playerData.nationality ||
-                  !playerData.country ||
-                  !playerData.email ||
-                  !playerData.phone_number ||
-                  !playerData.city ||
-                  !playerData.sports ||
-                  !playerData.dominantHand ||
-                  !playerData.position
+
+                onClick={() =>
+                {
+                  const requiredFields = [
+                    "firstName",
+                    "lastName",
+                    "gender",
+                    "date_of_birth",
+                    "nationality",
+                    "country",
+                    "email",
+                    "phone_number",
+                    "city",
+                    "sports",
+                    "dominantHand",
+                    "position",
+                  ];
+                  const missingFields = requiredFields.filter(
+                    (field) => !playerData[field]
+                  );
+                  if (missingFields.length > 0) {
+                    alert(
+                      `Fill up the required fields: ${missingFields.join(", ")}`
+                    );
+                  } else {
+                    setStep((prevStep) => prevStep + 1);
+                  }
+
+                  }
+
+
                 }
-                onClick={() => setStep((prevStep) => prevStep + 1)}
               >
                 {step === 2 ? "Next" : "Add Player"}
               </button>

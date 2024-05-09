@@ -167,6 +167,29 @@ const PlayerCoachAddPayment = ({
               Payment Details
             </p>
 
+            <div className="gift_voucher d-flex align-items-center gap-4">
+              <div className="input_form pb-4">
+                <label htmlFor="name" className="d-block label_name mb-2">
+                  Gift Card / Voucher code
+                </label>
+                <input id="name" style={{height: "40px"}} type="text" placeholder="Enter code number" />
+              </div>
+
+              <button className="yes">Yes</button>
+            </div>
+
+            <div className="after_voucher pb-4">
+              <div className="voucher d-flex justify-content-between pb-4">
+                <p>Voucher</p>
+                <p>$0.00</p>
+              </div>
+
+              <div className="total d-flex justify-content-between">
+                <p>Total</p>
+                <p>${subscriptions?.price + selectedPackages?.price}</p>
+              </div>
+            </div>
+
             {/* <div className="d-flex justify-content-between align-items-center mb-5">
               <p className="text-black">Use saved card</p>
               <div className="payment_country_select">
@@ -255,8 +278,7 @@ const PlayerCoachAddPayment = ({
                     className="form-select"
                     aria-label="Default select example"
                     onChange={handleInputChange}
-                    name="nationality"
-                  >
+                    name="nationality">
                     <option disabled selected>
                       {" "}
                       Select country
@@ -293,22 +315,21 @@ const PlayerCoachAddPayment = ({
       <div className="d-flex gap-4 justify-content-end">
         <button
           onClick={() => setMakePaymentClose(false)}
-          className="bg-none mt-0 text_clr_bc"
-        >
+          className="bg-none mt-0 text_clr_bc">
           Cancel order
         </button>
 
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={isLoading || paymentCreating || !stripe || addPlayerLoading}
-        >
+          disabled={
+            isLoading || paymentCreating || !stripe || addPlayerLoading
+          }>
           {isLoading || addPlayerLoading ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
-                role="status"
-              >
+                role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
               Loading...

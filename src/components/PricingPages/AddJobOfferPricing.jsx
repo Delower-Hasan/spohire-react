@@ -37,8 +37,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
             ? "15px"
             : null,
       }}
-      className={`addjoboffer_pricing_wrapper`}
-    >
+      className={`addjoboffer_pricing_wrapper`}>
       {location.pathname === "/pricing" ? (
         <h2>
           add job offer <br />
@@ -56,12 +55,10 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
             location.pathname === "/dashboard/players" || "/dashboard"
               ? "50px"
               : "128px",
-        }}
-      >
+        }}>
         <div
           className={`monthly_cards ${activeCard === 0 ? "active" : ""}`}
-          onClick={() => handleCardClick(0, 10)}
-        >
+          onClick={() => handleCardClick(0, 10)}>
           <div>
             <h3>
               $10 <span>/ 1 month</span>
@@ -70,8 +67,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
         </div>
         <div
           className={`monthly_cards ${activeCard === 1 ? "active" : ""}`}
-          onClick={() => handleCardClick(1, 15)}
-        >
+          onClick={() => handleCardClick(1, 15)}>
           <div>
             <h3>
               $15 <span>/ 2 month</span>
@@ -80,8 +76,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
         </div>
         <div
           className={`monthly_cards ${activeCard === 2 ? "active" : ""}`}
-          onClick={() => handleCardClick(2, 20)}
-        >
+          onClick={() => handleCardClick(2, 20)}>
           <div>
             <h3>
               $20 <span>/ 3 month</span>
@@ -95,8 +90,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
             : ""
-        }`}
-      >
+        }`}>
         {location.pathname === "/pricing" ? (
           <h2>price of announcement</h2>
         ) : null}
@@ -118,8 +112,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
               justifyContent: `${
                 location.pathname === "/dashboard/players" ? "end" : "center"
               }`,
-            }}
-          >
+            }}>
             {location.pathname === "/pricing" ? (
               <div>
                 <h3>$15</h3>
@@ -132,8 +125,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           <div>
             <h3
               style={{ color: "#2B3674", fontSize: "36px", fontWeight: "700" }}
-              className="d-flex"
-            >
+              className="d-flex">
               Total : {selectedPrice}$
             </h3>
           </div>
