@@ -91,6 +91,22 @@ const ViewDetails = () => {
       })
       .catch((error) => console.error("Failed to copy:", error));
   };
+
+  const calculateAge = (dateOfBirth) => {
+    const currentDate = new Date();
+    const dob = new Date(dateOfBirth);
+
+    let age = currentDate.getFullYear() - dob.getFullYear();
+    const monthDiff = currentDate.getMonth() - dob.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && currentDate.getDate() < dob.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
   return (
     <div className="details_information">
       <div className="profile_cover">
@@ -179,7 +195,9 @@ const ViewDetails = () => {
           <div className="bio_graphy2 d-flex gap-4">
             <div className="age text-center">
               <p className="bio_title">Age</p>
-              <p className="bio_info">{user?.age ?? "N/A"}</p>
+              <p className="bio_info">
+                {calculateAge(user?.date_of_birth) ?? "N/A"}
+              </p>
               <p className="bio_footer_title">years</p>
             </div>
 

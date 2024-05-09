@@ -55,6 +55,7 @@ const PlayerCoachAddPayment = ({
   const { user, subscriptions } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
   const [coupon, setCoupon] = useState("");
+
   const [price, setPrice] = useState(
     subscriptions?.price + selectedPackages?.price
   );
@@ -83,7 +84,6 @@ const PlayerCoachAddPayment = ({
       item.couponFor === PlayerType
   );
 
-  console.log("isCouponFound", isCouponFound);
   const handlePayment = async () => {
     setIsLoading(true);
 
@@ -99,7 +99,6 @@ const PlayerCoachAddPayment = ({
       );
 
       const cardElement = elements.getElement(CardNumberElement);
-
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
@@ -167,12 +166,20 @@ const PlayerCoachAddPayment = ({
   }, []);
 
   const [isCouponUsed, setCouponUsed] = useState(false);
+
   const upDatePriceHandler = () => {
     if (!isCouponUsed) {
-      setPrice((prev) => prev - prev * (isCouponFound[0].discount / 100));
-      setCouponUsed(true);
+      // Assuming isCouponFound is defined and contains the coupon details
+      const discount = isCouponFound[0]?.discount;
+      if (discount) {
+        setPrice((prev) => prev - prev * (discount / 100));
+        setCouponUsed(true);
+      } else {
+        console.error("Coupon details not found!");
+      }
     } else {
-      alert("Coupon already Used");
+      // Inform the user that the coupon has already been used
+      alert("Coupon has already been used.");
     }
   };
 

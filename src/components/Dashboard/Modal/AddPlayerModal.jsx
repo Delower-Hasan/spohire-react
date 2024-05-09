@@ -15,7 +15,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const { user, subscriptions } = useSelector((state) => state.auth);
 
   const wrapperRef = useClickOutside(() => setAddPlayerModal(false));
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
   //  my code
@@ -40,6 +40,13 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
+
+  const removeGallaryImage = (index) => {
+    // Handle image removal
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
   //  my code
 
   const [socialMedia, setSocialMedia] = useState({
@@ -73,6 +80,15 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       alert("Please fill up the experience data properly");
     }
   };
+  const handleRemove = (itemToRemove) => {
+    // Filter out the item to remove from the experience array
+    const newExperienceData = playerData.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    console.log("newExperienceData", newExperienceData);
+    // Update playerData with the new experience data
+    setPlayerData({ ...playerData, ["experience"]: newExperienceData });
+  };
 
   const socialMediaArray = Object.values(socialMedia);
 
@@ -99,7 +115,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   };
 
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = async () => {
     setLoading(true);
     const date = new Date();
@@ -185,6 +200,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             galleryInputProps={galleryInputProps}
             isProfileUploaded={isProfileUploaded}
             setIsProfileUploaded={setIsProfileUploaded}
+            handleRemove={handleRemove}
+            removeGallaryImage={removeGallaryImage}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />

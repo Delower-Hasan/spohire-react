@@ -90,6 +90,8 @@ const AddPlayerForm = ({
   galleryRootProps,
   galleryInputProps,
   isProfileUploaded,
+  handleRemove,
+  removeGallaryImage,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
 
@@ -111,6 +113,8 @@ const AddPlayerForm = ({
   let mainAndAditionPostions = postions.filter(
     (item) => item.type === sportsType
   );
+
+  const [isBelongClub, setBelongclub] = useState(true);
   return (
     <div>
       <div className="row">
@@ -317,7 +321,7 @@ const AddPlayerForm = ({
         <div className="col-lg-4">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
-              Weight
+              Weight (kg)
             </label>
             <input
               id="name"
@@ -333,7 +337,7 @@ const AddPlayerForm = ({
         <div className="col-lg-4">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
-              Height
+              Height (cm)
             </label>
             <input
               id="name"
@@ -407,7 +411,7 @@ const AddPlayerForm = ({
                 Select Here
               </option>
               {mainAndAditionPostions[0]?.mainPositions?.map((item, index) => (
-                <option key={index} value={item}>
+                <option key={index} value={item} className="text-capitalize">
                   {item}
                 </option>
               ))}
@@ -432,7 +436,7 @@ const AddPlayerForm = ({
               </option>
               {mainAndAditionPostions[0]?.alternativePositions?.map(
                 (item, index) => (
-                  <option key={index} value={item}>
+                  <option key={index} value={item} className="text-capitalize">
                     {item}
                   </option>
                 )
@@ -451,7 +455,7 @@ const AddPlayerForm = ({
               name="additional_passport"
               onChange={handleInputChange}
               type="text"
-              placeholder="Select here"
+              placeholder="Additional Passport"
             />
           </div>
         </div>
@@ -486,7 +490,10 @@ const AddPlayerForm = ({
                 className="yes"
                 value={"yes"}
                 name="belong_to_the_club"
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  setBelongclub(true);
+                  handleInputChange(e);
+                }}
               />{" "}
               <label htmlFor="yes">YES</label>
               <input
@@ -494,6 +501,10 @@ const AddPlayerForm = ({
                 className="no"
                 value={"no"}
                 id="no"
+                onChange={(e) => {
+                  setBelongclub(false);
+                  handleInputChange(e);
+                }}
                 name="belong_to_the_club"
               />{" "}
               <label htmlFor="no">NO</label>
@@ -502,32 +513,42 @@ const AddPlayerForm = ({
             </div>
           </div>
         </div>
-
-        <div className="col-lg-8">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Club name
-            </label>
-            <input
-              id="name"
-              name="club_name"
-              onChange={handleInputChange}
-              type="text"
-              placeholder="Club name"
-            />
+        {isBelongClub && (
+          <div className="col-lg-8">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Club name
+              </label>
+              <input
+                id="name"
+                name="club_name"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Club name"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="col-lg-6">
           <div className="overflow-hidden bg-white">
             <div className="experience_information">
               <div className="ei_left">
                 <p className="f_sfPro text_color_36 fs-4 mb-4">Experience</p>
-                <ul className="mb-4">
+                <ul className="mb-4" style={{ listStyle: "none" }}>
                   {exp &&
                     exp?.map((item, index) => (
-                      <li className="f_sfPro text_color_36 fs-6" key={index}>
-                        {item?.start_year}-{item?.end_year} {item?.club_name}
+                      <li
+                        className="f_sfPro text_color_36 fs-6 my-1"
+                        key={index}
+                      >
+                        {item?.start_year}-{item?.end_year} {item?.club_name} -{" "}
+                        <button
+                          className="text-black"
+                          onClick={() => handleRemove(item)}
+                        >
+                          X
+                        </button>
                       </li>
                     ))}
                 </ul>
@@ -679,9 +700,9 @@ const AddPlayerForm = ({
 
         <div className="other_information mt-5 p-4">
           <div className="row">
-            <div className="d-flex justify-content-end">
+            {/* <div className="d-flex justify-content-end">
               <button className="py-2 px-4 btn_save">Save</button>
-            </div>
+            </div> */}
 
             <div className="col-lg-4">
               <div className="oi_title pb-2">
@@ -733,14 +754,28 @@ const AddPlayerForm = ({
               <h2 className="fs-4">Gallery</h2>
               <button className="py-2 px-4 btn_save">Save</button>
             </div>
-            <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+            <div className="upload-images d-flex gap-4 flex-wrap mb-4 ">
               {selectedGalleryFiles.map((file, index) => (
-                <img
-                  style={{ width: "130px", height: "130px" }}
-                  key={index}
-                  src={URL.createObjectURL(file)}
-                  alt={`Uploaded file ${index}`}
-                />
+                <div className="position-relative">
+                  <img
+                    style={{ width: "130px", height: "130px" }}
+                    key={index}
+                    src={URL.createObjectURL(file)}
+                    alt={`Uploaded file ${index}`}
+                  />
+                  <button
+                    className="position-absolute p-1 px-2  bg-black text-white"
+                    style={{
+                      right: "5px",
+                      top: "5px",
+                      fontSize: "10px",
+                      borderRadius: "100%",
+                    }}
+                    onClick={() => removeGallaryImage(index)}
+                  >
+                    X
+                  </button>
+                </div>
               ))}
             </div>
             <div>

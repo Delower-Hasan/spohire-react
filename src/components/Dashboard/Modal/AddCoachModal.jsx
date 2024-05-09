@@ -46,6 +46,13 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     useDropzone({ onDrop: onProfileDrop });
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
+
+  const removeGallaryImage = (index) => {
+    // Handle image removal
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
   //  my code
 
   const handleSocialLinkChange = (e) => {
@@ -75,6 +82,15 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     } else {
       alert("Please fill up the experience data properly");
     }
+  };
+  const handleRemove = (itemToRemove) => {
+    // Filter out the item to remove from the experience array
+    const newExperienceData = playerData.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    console.log("newExperienceData", newExperienceData);
+    // Update playerData with the new experience data
+    setPlayerData({ ...playerData, ["experience"]: newExperienceData });
   };
 
   const socialMediaArray = Object.values(socialMedia);
@@ -194,6 +210,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             galleryInputProps={galleryInputProps}
             isProfileUploaded={isProfileUploaded}
             setIsProfileUploaded={setIsProfileUploaded}
+            handleRemove={handleRemove}
+            removeGallaryImage={removeGallaryImage}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />
