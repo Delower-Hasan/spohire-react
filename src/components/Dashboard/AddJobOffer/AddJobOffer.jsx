@@ -43,7 +43,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [imageFile, setImageFIle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
