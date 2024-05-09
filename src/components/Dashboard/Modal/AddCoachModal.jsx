@@ -203,6 +203,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             handleSubmit={handleSubmit}
             addPlayerLoading={addPlayerLoading}
             selectedPackages={selectedPackages}
+            PlayerType={"Coach"}
           />
         ) : null}
 
@@ -243,7 +244,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                   } else {
                     setStep((prevStep) => prevStep + 1);
                   }
-
                 }}
               >
                 {step === 2 ? "Next" : "Add Coach"}

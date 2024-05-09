@@ -194,6 +194,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             handleSubmit={handleSubmit}
             addPlayerLoading={addPlayerLoading}
             selectedPackages={selectedPackages}
+            PlayerType={"Player"}
           />
         ) : null}
 
@@ -220,7 +221,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                     "phone_number",
                     "city",
                     "sports",
-                    "dominantHand",,
+                    "dominantHand",
+                    ,
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]

@@ -14,7 +14,7 @@ const MakePaymenModal = ({
   handleSubmit,
   selectedPackages,
   addPlayerLoading,
-  modalRef,
+  PlayerType,
 }) => {
   const options = [
     "All analytics features",
@@ -150,6 +150,7 @@ const MakePaymenModal = ({
                     addPlayerLoading={addPlayerLoading}
                     selectedPackages={selectedPackages}
                     setMakePaymentClose={setMakePaymentClose}
+                    PlayerType={PlayerType}
                   />
                 </Elements>
 

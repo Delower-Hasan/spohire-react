@@ -27,6 +27,7 @@ const PlayerCoachAddPayment = ({
   selectedPackages,
   setMakePaymentClose,
   addPlayerLoading,
+  PlayerType,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -77,10 +78,12 @@ const PlayerCoachAddPayment = ({
   };
 
   const isCouponFound = coupons?.data.filter(
-    (item) => item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim()
+    (item) =>
+      item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
+      item.couponFor === PlayerType
   );
 
-  // console.log("isCouponFound", isCouponFound);
+  console.log("isCouponFound", isCouponFound);
   const handlePayment = async () => {
     setIsLoading(true);
 

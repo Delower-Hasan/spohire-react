@@ -143,7 +143,8 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
@@ -174,15 +175,15 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     <button
                       onClick={() => setAddJobOffer(false)}
                       className="submit_now_btn cancel m-0"
-                      type="button">
+                      type="button"
+                    >
                       Cancel
                     </button>
 
                     <button
                       className="submit_now_btn m-0"
                       type="button"
-                      onClick=
-                      {() => {
+                      onClick={() => {
                         const requiredFields = [
                           "job_title",
                           "workplaceType",
@@ -208,7 +209,9 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                           setStep((prevStep) => prevStep + 1);
                         }
                       }}
-                      > Next
+                    >
+                      {" "}
+                      Next
                     </button>
                   </div>
                 )}
