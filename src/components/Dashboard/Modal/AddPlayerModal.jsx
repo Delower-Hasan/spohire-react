@@ -244,7 +244,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                     "city",
                     "sports",
                     "dominantHand",
-                    ,
+                    "mainPosition",
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]

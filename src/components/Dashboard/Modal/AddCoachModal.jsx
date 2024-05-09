@@ -252,7 +252,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                     "city",
                     "sports",
                     "dominantHand",
-                    "position",
+                    "mainPosition",
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]
