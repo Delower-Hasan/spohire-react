@@ -34,7 +34,7 @@ const Feature = () => {
               <div
                 className="featureBoxInner h-100"
                 style={{ background: `url(${featureBg1})` }}>
-                <div className="row align-items-end p-0 h-100 ">
+                <div className="row p-0 h-100 ">
                   <div className="col-6 p-0">
                     <h4 className="">Only in Sport</h4>
                     <p>
@@ -57,7 +57,7 @@ const Feature = () => {
               <div
                 className="featureBoxInner h-100"
                 style={{ background: `url(${featureBg2})` }}>
-                <div className="row align-items-end p-0 h-100">
+                <div className="row p-0 h-100">
                   <div className="col-6 p-0">
                     <h4 className="">Diverse Offerings</h4>
                     <p>
@@ -79,7 +79,7 @@ const Feature = () => {
               <div
                 className="featureBoxInner h-100"
                 style={{ background: `url(${featureBg3})` }}>
-                <div className="row align-items-end p-0 h-100">
+                <div className="row p-0 h-100">
                   <div className="col-6">
                     <h4 className="">High anonymity </h4>
                     <p>

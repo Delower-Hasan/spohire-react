@@ -143,8 +143,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
+              style={{ marginBottom: "40px" }}>
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
@@ -175,28 +174,41 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     <button
                       onClick={() => setAddJobOffer(false)}
                       className="submit_now_btn cancel m-0"
-                      type="button"
-                    >
+                      type="button">
                       Cancel
                     </button>
 
                     <button
                       className="submit_now_btn m-0"
                       type="button"
-                      disabled={
-                        !jobData.job_title ||
-                        !jobData.workplaceType ||
-                        !jobData.job_location ||
-                        !jobData.country ||
-                        !jobData.category ||
-                        !jobData.jobType ||
-                        !jobData.language ||
-                        !jobData.salary ||
-                        !jobData.description
-                      }
-                      onClick={() => setStep((prevStep) => prevStep + 1)}
-                    >
-                      Next
+                      onClick=
+                      {() => {
+                        const requiredFields = [
+                          "job_title",
+                          "workplaceType",
+                          "job_location",
+                          "country",
+                          "category",
+                          "country",
+                          "jobType",
+                          "language",
+                          "salary",
+                          "description",
+                        ];
+                        const missingFields = requiredFields.filter(
+                          (field) => !jobData[field]
+                        );
+                        if (missingFields.length > 0) {
+                          alert(
+                            `Fill up the required fields: ${missingFields.join(
+                              ", "
+                            )}`
+                          );
+                        } else {
+                          setStep((prevStep) => prevStep + 1);
+                        }
+                      }}
+                      > Next
                     </button>
                   </div>
                 )}
