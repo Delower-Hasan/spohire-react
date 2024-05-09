@@ -25,16 +25,15 @@ const JobOfferOverview = () => {
                 <div key={idx} className="d-flex align-items-center gap-2 ">
                   <div className="job_offer_item_img">
                     <img
-                      src={footBallCoachImg}
-                      // src={
-                      //   item?.club_logo
-                      //     ? `${
-                      //         process.env.NODE_ENV !== "production"
-                      //           ? import.meta.env.VITE_LOCAL_API_URL
-                      //           : import.meta.env.VITE_LIVE_API_URL
-                      //       }/api/v1/uploads/${item?.club_logo}`
-                      //     : footBallCoachImg
-                      // }
+                      src={
+                        item?.club_logo
+                          ? `${
+                              process.env.NODE_ENV !== "production"
+                                ? import.meta.env.VITE_LOCAL_API_URL
+                                : import.meta.env.VITE_LIVE_API_URL
+                            }/api/v1/uploads/${item?.club_logo}`
+                          : footBallCoachImg
+                      }
                       alt="img"
                       style={{
                         height: "47px",

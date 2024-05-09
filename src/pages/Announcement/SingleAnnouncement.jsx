@@ -68,7 +68,14 @@ const SingleAnnouncement = ({ item }) => {
           <div className="d-flex align-items-center" style={{ gap: "36px" }}>
             <div className="announcement_pic">
               <img
-                src={item.image}
+                src={
+                  item?.image &&
+                  `${
+                    process.env.NODE_ENV !== "production"
+                      ? import.meta.env.VITE_LOCAL_API_URL
+                      : import.meta.env.VITE_LIVE_API_URL
+                  }/api/v1/uploads/${item?.image}`
+                }
                 alt=""
                 style={{
                   height: "213px",

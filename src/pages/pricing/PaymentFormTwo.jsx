@@ -130,10 +130,6 @@ const PaymentFormTwo = ({
         };
         await createPayment(createPaymentData);
         await handleSubmit();
-        // navigation
-        window.location.reload();
-        // closeModal();
-        navigate("/dashboard");
       }
     } catch (error) {
       setIsLoading(false);

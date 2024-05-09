@@ -31,14 +31,13 @@ const RecentlyObserved = () => {
                   <div className="job_offer_item_img">
                     <img
                       src={
-                        // item?.target_id?.club_logo
-                        //   ? `${
-                        //       process.env.NODE_ENV !== "production"
-                        //         ? import.meta.env.VITE_LOCAL_API_URL
-                        //         : import.meta.env.VITE_LIVE_API_URL
-                        //     }/api/v1/uploads/${item?.target_id?.club_logo}`
-                        //   :
-                        footBallCoachImg
+                        item?.target_id?.club_logo
+                          ? `${
+                              process.env.NODE_ENV !== "production"
+                                ? import.meta.env.VITE_LOCAL_API_URL
+                                : import.meta.env.VITE_LIVE_API_URL
+                            }/api/v1/uploads/${item?.target_id?.club_logo}`
+                          : footBallCoachImg
                       }
                       alt="img"
                       style={{
@@ -76,14 +75,13 @@ const RecentlyObserved = () => {
                       <div className="announcement_pic">
                         <img
                           src={
-                            // item?.target_id?.image
-                            //   ? `${
-                            //       process.env.NODE_ENV !== "production"
-                            //         ? import.meta.env.VITE_LOCAL_API_URL
-                            //         : import.meta.env.VITE_LIVE_API_URL
-                            //     }/api/v1/uploads/${item?.target_id?.image}`
-                            //   :
-                            a1
+                            item?.target_id?.image
+                              ? `${
+                                  process.env.NODE_ENV !== "production"
+                                    ? import.meta.env.VITE_LOCAL_API_URL
+                                    : import.meta.env.VITE_LIVE_API_URL
+                                }/api/v1/uploads/${item?.target_id?.image}`
+                              : a1
                           }
                           alt=""
                           style={{

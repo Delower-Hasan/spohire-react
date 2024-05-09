@@ -128,7 +128,6 @@ const PlayerCoachAddPayment = ({
         await handleSubmit();
         await createPayment(createPaymentData);
         // navigation
-
         setMakePaymentClose();
         navigate("/dashboard");
       }

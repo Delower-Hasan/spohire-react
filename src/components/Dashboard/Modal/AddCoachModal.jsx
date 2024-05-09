@@ -52,12 +52,16 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     const { name, value } = e.target;
     setSocialMedia({ ...socialMedia, [name]: value });
   };
-
-  const [experienceFormData, setExperienceFormData] = useState({});
+  const [experienceFormData, setExperienceFormData] = useState([]);
 
   const handleExperienceChange = (e) => {
     const { name, value } = e.target;
-    setExperienceFormData({ ...experienceFormData, [name]: value });
+    setExperienceFormData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
   };
 
   const handleAddMore = () => {
@@ -74,7 +78,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
   };
 
   const socialMediaArray = Object.values(socialMedia);
-
   const [playerData, setPlayerData] = useState({
     experience: "",
   });
@@ -110,7 +113,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     const playerInfo = {
       ...playerData,
       image: selectedProfileFile,
-      gallary: selectedGalleryFiles,
       social_media: socialMediaArray,
       subscriptionDate: date,
       subscriptionName: subscriptions.subscriptionName,
@@ -128,7 +130,9 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       formData.append(key, value);
     });
 
-    console.log("coach Info", playerInfo);
+    selectedGalleryFiles?.forEach((img, index) => {
+      formData.append(`gallary`, img);
+    });
 
     try {
       const response = await addPlayer(formData);
@@ -226,7 +230,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                   !playerData.city ||
                   !playerData.sports ||
                   !playerData.dominantHand ||
-                  !playerData.position
+                  !playerData.mainPosition
                 }
                 onClick={() => setStep((prevStep) => prevStep + 1)}
               >

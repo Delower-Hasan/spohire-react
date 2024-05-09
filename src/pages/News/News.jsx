@@ -40,8 +40,8 @@ const News = () => {
   return (
     <div className="container">
       <NewsHeader />
-      {displayedNews.map((data) => (
-        <NewsCard key={data.id} data={data} />
+      {displayedNews.map((data, index) => (
+        <NewsCard key={index} data={data} />
       ))}
 
       {totalPages > 1 && (

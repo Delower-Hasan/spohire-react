@@ -20,13 +20,14 @@ import useClickOutside from "../../../hooks/useClickOutside.jsx";
 import { setExpireDate } from "../../../utils/setExpireDate.js";
 
 const options = [
-  { value: "Full-time", label: "Full-time" },
-  { value: "Part-time", label: "Part-time" },
+  { value: "Friendly-matches", label: "Friendly-matches" },
+  { value: "Camps", label: "Camps" },
   {
-    value: "Contract",
-    label: "Contract",
+    value: "Tournaments",
+    label: "Tournaments",
   },
-  { value: "Temporary", label: "Temporary" },
+  { value: "Player-recruitment", label: "Player-recruitment" },
+  { value: "Others", label: "Others" },
 ];
 
 const categoryOptions = [
@@ -100,19 +101,14 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
     try {
       const response = await addAnnouncement(fromData);
       if (response?.data?.success) {
-        // closeModal();
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: `Anouncement Created successfully`,
+        });
         setLoading(false);
         setAnnouncementIsModalOpen(false);
         return true;
-      }
-      if (response?.error?.data?.message) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: `${response?.error?.data?.message}`,
-        });
-        setLoading(false);
-        return false;
       }
     } catch (error) {
       Swal.fire({
