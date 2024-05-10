@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
+import { useSelector } from "react-redux";
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 const postions = [
   {
@@ -92,6 +93,7 @@ const AddPlayerForm = ({
   isProfileUploaded,
   handleRemove,
   removeGallaryImage,
+  PlayerType,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
 
@@ -109,10 +111,34 @@ const AddPlayerForm = ({
   }, []);
 
   const [sportsType, setSportsType] = useState("Football");
+  const { user } = useSelector((store) => store.auth);
 
   let mainAndAditionPostions = postions.filter(
     (item) => item.type === sportsType
   );
+
+  const [mainPositionType, setMainPositionType] = useState("");
+  const [altPositions, setAltPostions] = useState([]);
+
+  function filterAlternativePositions(mainPositionType) {
+    return mainAndAditionPostions.map((position) => {
+      if (position.mainPositions.includes(mainPositionType)) {
+        return {
+          ...position,
+          alternativePositions: position.alternativePositions.filter(
+            (altPosition) => altPosition !== mainPositionType
+          ),
+        };
+      } else {
+        return position;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const altPostions = filterAlternativePositions(mainPositionType);
+    setAltPostions(altPostions);
+  }, [mainPositionType]);
 
   const [isBelongClub, setBelongclub] = useState(true);
   return (
@@ -318,37 +344,41 @@ const AddPlayerForm = ({
           </div>
         </div>
 
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Weight (kg)
-            </label>
-            <input
-              id="name"
-              name="weight"
-              min={0}
-              onChange={handleInputChange}
-              type="number"
-              placeholder="Weight"
-            />
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Weight (kg)
+              </label>
+              <input
+                id="name"
+                name="weight"
+                min={0}
+                onChange={handleInputChange}
+                type="number"
+                placeholder="Weight"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Height (cm)
-            </label>
-            <input
-              id="name"
-              type="number"
-              name="height"
-              min={0}
-              onChange={handleInputChange}
-              placeholder="Height"
-            />
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Height (cm)
+              </label>
+              <input
+                id="name"
+                type="number"
+                name="height"
+                min={0}
+                onChange={handleInputChange}
+                placeholder="Height"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="col-lg-4">
           <div className="pb-4">
@@ -364,9 +394,6 @@ const AddPlayerForm = ({
                 setSportsType(e.target.value);
               }}
             >
-              <option selected disabled>
-                Select Here
-              </option>
               {sportsDatas.map((item, index) => (
                 <option key={index} value={item}>
                   {item}
@@ -375,107 +402,109 @@ const AddPlayerForm = ({
             </select>
           </div>
         </div>
-        <div className="col-lg-4">
-          <div className="pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Dominant Hand/Foot *
-            </label>
-            <select
-              required
-              className="select_form"
-              name="dominantHand"
-              onChange={handleInputChange}
-            >
-              <option selected disabled>
-                Select Here
-              </option>
-              <option value={"Left"}>Left</option>
-              <option value={"Right"}>Right</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Main position *
-            </label>
-
-            <select
-              required
-              className="select_form"
-              name="mainPosition"
-              onChange={handleInputChange}
-            >
-              <option selected disabled>
-                Select Here
-              </option>
-              {mainAndAditionPostions[0]?.mainPositions?.map((item, index) => (
-                <option key={index} value={item} className="text-capitalize">
-                  {item}
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
+              </label>
+              <select
+                required
+                className="select_form"
+                name="dominantHand"
+                onChange={handleInputChange}
+              >
+                <option selected disabled>
+                  Select Here
                 </option>
-              ))}
-            </select>
+                <option value={"Left"}>Left</option>
+                <option value={"Right"}>Right</option>
+              </select>
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Alternative position
-            </label>
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Main position *
+              </label>
 
-            <select
-              required
-              className="select_form"
-              name="alterPosition"
-              onChange={handleInputChange}
-            >
-              <option selected disabled>
-                Select Here
-              </option>
-              {mainAndAditionPostions[0]?.alternativePositions?.map(
-                (item, index) => (
+              <select
+                required
+                className="select_form text-capitalize"
+                name="mainPosition"
+                onChange={(e) => {
+                  handleInputChange(e);
+                  setMainPositionType(e.target.value);
+                }}
+              >
+                <option selected disabled>
+                  Select Here
+                </option>
+                {mainAndAditionPostions[0]?.mainPositions?.map(
+                  (item, index) => (
+                    <option
+                      key={index}
+                      value={item}
+                      className="text-capitalize"
+                    >
+                      {item}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          </div>
+        )}
+
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Alternative position
+              </label>
+
+              <select
+                required
+                className="select_form text-capitalize"
+                name="alterPosition"
+                onChange={handleInputChange}
+              >
+                <option selected disabled>
+                  Select Here
+                </option>
+                {altPositions[0]?.alternativePositions?.map((item, index) => (
                   <option key={index} value={item} className="text-capitalize">
                     {item}
                   </option>
-                )
-              )}
-            </select>
+                ))}
+              </select>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="col-lg-4">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
               Additional passport
             </label>
-            <input
-              id="name"
+            <select
+              required
+              className="select_form"
               name="additional_passport"
               onChange={handleInputChange}
-              type="text"
-              placeholder="Additional Passport"
-            />
+            >
+              <option disabled>Select Here</option>
+              {countryNames?.map((country, index) => (
+                <option value={country.name} className="" key={index}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
-
-        {/* <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Age
-            </label>
-            <input
-              id="name"
-              name="age"
-              min={0}
-              onChange={handleInputChange}
-              type="number"
-              min={10}
-              placeholder="Age"
-            />
-          </div>
-        </div> */}
 
         <div className="col-lg-4">
           <div className="input_form pb-4">

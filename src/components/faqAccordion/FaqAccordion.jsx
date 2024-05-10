@@ -18,10 +18,7 @@ const FaqAccordion = ({ fontSize }) => {
       ques: "For which sports does the transfer market operate?",
       ans: "The transfer market operates for football, basketball, volleyball, and handball.",
     },
-    {
-      ques: "How can I book my Ride?",
-      ans: "Through a selection of ingenious residential projects –in which materials are immersed into a transformation, maintenance, or renovation process–, the article opens a discussion on how good architecture is durable and reusable.",
-    },
+
     {
       ques: "Can announcements be added for other sports?",
       ans: "Of course, announcements can be added for all sports.",

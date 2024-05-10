@@ -23,6 +23,7 @@ import {
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
 import Swal from "sweetalert2";
+import { getCountryFlag } from "../../../utils/getFlag";
 
 const ViewDetails = () => {
   const { id } = useParams();
@@ -126,6 +127,13 @@ const ViewDetails = () => {
             <p className="nickname pb-3">{user?.lastName}</p>
             <div className="country d-flex gap-2 align-items-center pb-3">
               {/* <img src={Germany} alt="" /> */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: getCountryFlag(
+                    user?.country ? user?.country : user?.nationality
+                  ),
+                }}
+              />{" "}
               <p>{user?.country ? user?.country : user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
@@ -155,11 +163,24 @@ const ViewDetails = () => {
                 style={{ width: "20px" }}
                 disabled={observeLoading}
               >
-                {isBookmarked ? (
-                  <FaRegBookmark style={{ color: "#FFF" }} />
-                ) : (
-                  <FaRegBookmark style={{ color: "#333" }} />
-                )}
+                {isBookmarked !== undefined &&
+                  (isBookmarked ? (
+                    <FaRegBookmark
+                      style={{
+                        color: "#FFF",
+                        fontSize: "35px",
+                        strokeWidth: "1",
+                      }}
+                    />
+                  ) : (
+                    <FaRegBookmark
+                      style={{
+                        color: "#FFF",
+                        fontSize: "35px",
+                        strokeWidth: "1",
+                      }}
+                    />
+                  ))}
               </button>
             </div>
           </div>
@@ -241,7 +262,7 @@ const ViewDetails = () => {
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">residence </p>
-              <p className="info_des">{user?.city ?? "N/A"}</p>
+              <p className="info_des text-uppercase">{user?.city ?? "N/A"}</p>
             </div>
             <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
               <p className="info_title">sport </p>

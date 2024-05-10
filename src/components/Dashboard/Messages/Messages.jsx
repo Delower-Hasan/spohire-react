@@ -217,7 +217,7 @@ const Messages = () => {
                                     {/* <span>
                                       {formatMessageTime(item?.createdAt)}
                                     </span> */}
-                                    <img src={senticon} alt="sent" />
+                                    {/* <img src={senticon} alt="sent" /> */}
                                   </div>
                                 </div>
                                 <p className="message_time position-absolute">

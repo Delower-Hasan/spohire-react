@@ -939,6 +939,7 @@
     line-height: normal;
     letter-spacing: -0.36px;
     text-transform: uppercase;
+    opacity: .6;
 }
 
 .other_information .info_des {

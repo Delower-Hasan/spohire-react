@@ -47,13 +47,16 @@ const Header = () => {
     navigate.pathname = "/login";
   };
 
+  console.log("navigate", navigate.pathname);
+
   return (
     <header
       className={`${!user && "pt-4 pb-4"} ${
         navigate.pathname === "/"
           ? "header_position position-absolute w-100"
           : ""
-      }`}>
+      }`}
+    >
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
           <Navbar.Brand href="#home" className="d-flex align-items-center">
@@ -70,7 +73,8 @@ const Header = () => {
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"
-                fill="none">
+                fill="none"
+              >
                 <g clipPath="url(#clip0_239_167)">
                   <path
                     d="M2.5 8H13.5"
@@ -118,7 +122,8 @@ const Header = () => {
                 <Link
                   to="/dashboard/jobOffers"
                   type="submit"
-                  className="text-decoration-none ms-3 profilename">
+                  className="text-decoration-none ms-3 profilename"
+                >
                   {user.firstName}
                 </Link>
               </div>
@@ -131,7 +136,8 @@ const Header = () => {
                   <Link
                     to="/signup"
                     type="submit"
-                    className="text-decoration-none">
+                    className="text-decoration-none"
+                  >
                     <button className="authBtn btnNone visibility-lg-hidden visually-visible">
                       Sign Up
                     </button>
@@ -153,7 +159,8 @@ const Header = () => {
                 <button
                   className="modal_link "
                   data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
+                  data-bs-target="#staticBackdrop"
+                >
                   Transfer Market
                 </button>
               )}
@@ -165,7 +172,8 @@ const Header = () => {
                 data-bs-keyboard="false"
                 tabIndex="-1"
                 aria-labelledby="staticBackdropLabel"
-                aria-hidden="true">
+                aria-hidden="true"
+              >
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
@@ -173,7 +181,8 @@ const Header = () => {
                         type="button"
                         className="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                        aria-label="Close"
+                      ></button>
                     </div>
                     <div className="modal-body">
                       <h2>
@@ -194,7 +203,8 @@ const Header = () => {
                       {/* login */}
                       <Link
                         to={"/pricing"}
-                        className="btn unlock_btn d-inline-flex align-items-center justify-content-center">
+                        className="btn unlock_btn d-inline-flex align-items-center justify-content-center"
+                      >
                         unlock now
                       </Link>
                     </div>
@@ -203,25 +213,42 @@ const Header = () => {
               </div>
               {/* modal hbe */}
               <Nav.Link href="/jobOffer">
-                <Link to="/jobOffer" className="nav-link">
+                <Link
+                  to="/jobOffer"
+                  className={`nav-link ${
+                    navigate.pathname === "/jobOffer" && "active"
+                  }`}
+                >
                   Job Offers
                 </Link>
               </Nav.Link>
-
               <Nav.Link href="/announcements">
-                <Link to="/announcements" className="nav-link">
+                <Link
+                  to="/announcements"
+                  className={`nav-link ${
+                    navigate.pathname === "/announcements" && "active"
+                  }`}
+                >
                   Announcements
                 </Link>
               </Nav.Link>
-
               <Nav.Link href="/pricing">
-                <Link to="/pricing" className="nav-link">
+                <Link
+                  to="/pricing"
+                  className={`nav-link ${
+                    navigate.pathname === "/pricing" && "active"
+                  }`}
+                >
                   Pricing
                 </Link>
               </Nav.Link>
-
               <Nav.Link href="/news">
-                <Link to="/news" style={{ color: "white" }}>
+                <Link
+                  to="/news"
+                  className={`nav-link ${
+                    navigate.pathname === "/news" && "active"
+                  }`}
+                >
                   News
                 </Link>
               </Nav.Link>
@@ -231,7 +258,8 @@ const Header = () => {
                 <div
                   type="button"
                   onClick={(event) => handleButtonClick(event)}
-                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative">
+                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative"
+                >
                   <Link to="/dashboard/viewProfile">
                     <img
                       className="profile_picture d-lg-block d-none"
@@ -285,7 +313,8 @@ const Header = () => {
                 <Link
                   to="/signup"
                   type="submit"
-                  className="text-decoration-none">
+                  className="text-decoration-none"
+                >
                   <button className="authBtn btnNone">
                     <span> Sign Up</span>
                   </button>

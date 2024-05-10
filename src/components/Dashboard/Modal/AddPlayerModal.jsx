@@ -207,6 +207,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             setIsProfileUploaded={setIsProfileUploaded}
             handleRemove={handleRemove}
             removeGallaryImage={removeGallaryImage}
+            PlayerType={"Player"}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />
@@ -217,6 +218,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             addPlayerLoading={addPlayerLoading}
             selectedPackages={selectedPackages}
             PlayerType={"Player"}
+            setStep={setStep}
           />
         ) : null}
 

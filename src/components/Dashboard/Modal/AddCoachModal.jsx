@@ -214,6 +214,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             setIsProfileUploaded={setIsProfileUploaded}
             handleRemove={handleRemove}
             removeGallaryImage={removeGallaryImage}
+            PlayerType={"Coach"}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />
@@ -224,6 +225,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             addPlayerLoading={addPlayerLoading}
             selectedPackages={selectedPackages}
             PlayerType={"Coach"}
+            setStep={setStep}
           />
         ) : null}
 
@@ -251,8 +253,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                     "phone_number",
                     "city",
                     "sports",
-                    "dominantHand",
-                    "mainPosition",
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]
