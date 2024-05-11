@@ -10,7 +10,10 @@ const Banner = () => {
         <div className="row banner_top_pd align-items-center">
           <div className="col-12 col-md-6">
             <div className="bannerContent">
-              <span>Sports + Announcements only for you</span>
+              {/* <span>Sports + Announcements only for you</span> */}
+              <span style={{ color: "red", fontSize: "32px" }}>
+                Launching on June 7th, 2024
+              </span>
 
               <img
                 className="mb-5 img-fluid d-none d-md-block"
@@ -24,12 +27,10 @@ const Banner = () => {
                   alt="Ready to get"
                 />
               </div>
-
-              <h1>Launching on June 7th, 2024</h1>
-              {/* <h1>
+              <h1>
                 Get matched with <br className="d-block d-md-none" /> new sports
                 club
-              </h1> */}
+              </h1>
               <p>Add your profile and join a new sports team</p>
               <Link to="/login" className="text-decoration">
                 Get Started Now
