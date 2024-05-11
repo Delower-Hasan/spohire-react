@@ -28,14 +28,16 @@ const Feature = () => {
             </div>
           </div>
         </div>
+
         <div className="featureBottom">
           <div className="row gy-3 justify-content-center">
             <div className="col-12 col-md-6 col-xl-4">
               <div
                 className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg1})` }}>
+                style={{ background: `url(${featureBg1})` }}
+              >
                 <div className="row p-0 h-100 ">
-                  <div className="col-6 p-0">
+                  <div className="col-6 pt-5">
                     <h4 className="">Only in Sport</h4>
                     <p>
                       We are solely focused on the sports sector, dedicating all
@@ -56,9 +58,10 @@ const Feature = () => {
             <div className="col-12 col-md-6 col-xl-4">
               <div
                 className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg2})` }}>
+                style={{ background: `url(${featureBg2})` }}
+              >
                 <div className="row p-0 h-100">
-                  <div className="col-6 p-0">
+                  <div className="col-6 pt-5">
                     <h4 className="">Diverse Offerings</h4>
                     <p>
                       Website aggregates announcements from various levels of
@@ -78,9 +81,10 @@ const Feature = () => {
             <div className="col-12 col-md-6 col-xl-4 ">
               <div
                 className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg3})` }}>
+                style={{ background: `url(${featureBg3})` }}
+              >
                 <div className="row p-0 h-100">
-                  <div className="col-6">
+                  <div className="col-6 pt-5">
                     <h4 className="">High anonymity </h4>
                     <p>
                       Various packages ensures that professional players can add

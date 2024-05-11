@@ -10,6 +10,7 @@ import MobileMarqueeSlider from "../components/marqueeSlider/MobileMarqueeSlider
 import Trusted from "../components/trusted/Trusted";
 import WhatPeopleSay from "../components/whatPeopleSay/WhatPeopleSay";
 import WhyWe from "../components/whyWe/WhyWe";
+import video from "../assets/spohire_2d_video.mp4";
 const Home = () => {
   return (
     <>
@@ -18,7 +19,14 @@ const Home = () => {
         <MarqueeSlider />
         <MobileMarqueeSlider />
         <Feature />
-        <HowItWorks />
+        {/* <HowItWorks /> */}
+        <div className="container mb-5">
+          <div className="row justify-content-center mb-5">
+            <video autoPlay muted height="500">
+              <source type="video/mp4" src={video} />
+            </video>
+          </div>
+        </div>
         <WhatPeopleSay color="#2D2D2D" />
         <Trusted />
         <WhyWe />

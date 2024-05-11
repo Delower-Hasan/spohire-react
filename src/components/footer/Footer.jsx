@@ -37,7 +37,7 @@ const Footer = () => {
             <ul className="text-center text-lg-start list-unstyled">
               <li>Contact</li>
               <li>
-                <Link to="#">spohire@gmail.com</Link>
+                <Link to="mailto:contact@spohire.com">contact@spohire.com</Link>
               </li>
               <li>
                 <Link to="#">+48 565 25 654</Link>

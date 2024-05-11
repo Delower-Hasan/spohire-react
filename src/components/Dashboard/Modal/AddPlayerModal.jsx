@@ -60,12 +60,19 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     setSocialMedia({ ...socialMedia, [name]: value });
   };
 
+  const [playerData, setPlayerData] = useState({
+    experience: "",
+  });
+
   const [experienceFormData, setExperienceFormData] = useState({});
 
   const handleExperienceChange = (e) => {
     const { name, value } = e.target;
     setExperienceFormData({ ...experienceFormData, [name]: value });
   };
+  const [userExperience, setUserExperience] = useState([
+    ...playerData["experience"],
+  ]);
 
   const handleAddMore = () => {
     if (
@@ -74,7 +81,11 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       experienceFormData.club_name
     ) {
       const newData = [...playerData?.experience, experienceFormData];
-      setPlayerData({ ...playerData, ["experience"]: newData });
+      setUserExperience(newData);
+      setPlayerData((prevInfo) => ({
+        ...prevInfo,
+        experience: newData, // Update editedInfo with new experience data
+      }));
     } else {
       alert("Please fill up the experience data properly");
     }
@@ -84,16 +95,12 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     const newExperienceData = playerData.experience.filter(
       (item) => item !== itemToRemove
     );
-    console.log("newExperienceData", newExperienceData);
+    setUserExperience(newExperienceData);
     // Update playerData with the new experience data
     setPlayerData({ ...playerData, ["experience"]: newExperienceData });
   };
 
   const socialMediaArray = Object.values(socialMedia);
-
-  const [playerData, setPlayerData] = useState({
-    experience: "",
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -122,6 +129,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       image: selectedProfileFile,
       social_media: socialMediaArray,
       subscriptionDate: date,
+      experience: userExperience,
       subscriptionName: subscriptions.subscriptionName,
       expirationDate: setExpireDate(selectedPackages?.month),
       packageChoosed: selectedPackages?.month,

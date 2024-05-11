@@ -951,6 +951,7 @@
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.24px;
+    text-transform: capitalize;
 }
 
 .details_information .social_media {

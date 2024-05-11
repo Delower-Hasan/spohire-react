@@ -134,12 +134,13 @@ function PlayerFilter() {
       {/* Age */}
       <div className="position_wrapper pb-4">
         <h2>Age</h2>
-        <div className="position_btn_wrapper age d-flex">
+        <div className="position_btn_wrapper age d-flex gap-2">
           <input
             type="number"
             name="minAge"
             placeholder="Min"
             onChange={handleChange}
+            className="w-100"
             min={"0"}
           />
           <input
@@ -147,6 +148,7 @@ function PlayerFilter() {
             name="maxAge"
             placeholder="Max"
             onChange={handleChange}
+            className="w-100"
             min={"0"}
           />
         </div>
@@ -155,11 +157,12 @@ function PlayerFilter() {
       {/* Height */}
       <div className="position_wrapper pb-4">
         <h2>Height</h2>
-        <div className="position_btn_wrapper age d-flex">
+        <div className="position_btn_wrapper age d-flex gap-2">
           <input
             type="number"
             name="minHeight"
             placeholder="Min"
+            className="w-100"
             onChange={handleChange}
             min={"0"}
           />
@@ -167,6 +170,7 @@ function PlayerFilter() {
             type="number"
             name="maxHeight"
             placeholder="Max"
+            className="w-100"
             onChange={handleChange}
             min={"0"}
           />
@@ -188,10 +192,12 @@ function PlayerFilter() {
           </select>
         </div>
       </div>
-      <button onClick={handleApplyFilter} className="me-2">
-        Apply
-      </button>
-      <button onClick={handleResetFilter}>Reset</button>
+      <div className="position_btn_wrapper age d-flex align-items-center">
+        <button onClick={handleApplyFilter} className="me-2">
+          Apply
+        </button>
+        <button onClick={handleResetFilter}>Reset</button>
+      </div>
     </div>
   );
 }

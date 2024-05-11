@@ -7,11 +7,11 @@ import Googlesm from "../../assets/googlesm.png";
 import { Carousel } from "react-bootstrap";
 import CaousalHeader from "./CaousalHeader";
 
-const WhatPeopleSay = ({color}) => {
+const WhatPeopleSay = ({ color }) => {
   return (
     <section>
       <div className="container say_container all_mb">
-        <CaousalHeader color={color}/>
+        <CaousalHeader color={color} />
 
         <Carousel data-bs-theme="dark">
           <Carousel.Item>
@@ -26,13 +26,14 @@ const WhatPeopleSay = ({color}) => {
                         alt="Profile"
                       />
                       <div>
-                        <p>Joe Elia</p>
-                        <span>User Interface Design</span>
+                        <p>John Mott</p>
+                        <span>Fotball Coach</span>
                       </div>
                     </div>
                     <h5 className="mb-3 mb-lg-5">
-                      “In urna, non nisl tincidunt gravida elementum turpis.
-                      Risus, ac ultrices tincie quam arcu odio volutpat.”
+                      “Their commitment to innovation is evident in every aspect
+                      of their platform. Can't wait to see what they come up
+                      with next!”
                     </h5>
                     <div className="d-flex  flex-md-row justify-content-start align-items-center gap-1 gap-lg-3 google_mobile">
                       <img
@@ -69,13 +70,13 @@ const WhatPeopleSay = ({color}) => {
                         alt="Profile"
                       />
                       <div>
-                        <p>Joe Elia</p>
-                        <span>User Interface Design</span>
+                        <p>Giovanni Rossi</p>
+                        <span>Volleyball Player</span>
                       </div>
                     </div>
                     <h5 className="mb-3 mb-lg-5">
-                      “In urna, non nisl tincidunt gravida elementum turpis.
-                      Risus, ac ultrices tincie quam arcu odio volutpat.”
+                      “Spohire has truly changed the game for me. Finding a new
+                      team was never this easy!”
                     </h5>
                     <div className="d-flex flex-md-row justify-content-start align-items-center gap-1 gap-lg-3 google_mobile">
                       <img
@@ -105,7 +106,7 @@ const WhatPeopleSay = ({color}) => {
               </div>
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          {/* <Carousel.Item>
             <Carousel.Caption>
               <div className="row gy-3">
                 <div className="col-12 col-lg-6">
@@ -195,7 +196,7 @@ const WhatPeopleSay = ({color}) => {
                 </div>
               </div>
             </Carousel.Caption>
-          </Carousel.Item>
+          </Carousel.Item> */}
         </Carousel>
       </div>
     </section>

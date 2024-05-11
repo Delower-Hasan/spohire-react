@@ -63,6 +63,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
   const [jobData, setJobData] = useState({});
   const [errorData, setErrorData] = useState();
+  const [description, setDescription] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +76,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     const jobDataInfo = {
       ...jobData,
       subscriptionDate: date,
+      description: description,
       expirationDate: setExpireDate(selectedSubscription?.month),
       packagechoose: selectedSubscription?.month,
       creator: user?._id,
@@ -157,6 +159,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     WorkplaceOptions={WorkplaceOptions}
                     categoryOptions={categoryOptions}
                     handleInputChange={handleInputChange}
+                    setDescription={setDescription}
                   />
                 ) : step === 2 ? (
                   <AddJobOfferModalTwo
@@ -194,16 +197,16 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                           "jobType",
                           "language",
                           "salary",
-                          "description",
                         ];
+
                         const missingFields = requiredFields.filter(
                           (field) => !jobData[field]
                         );
-                        if (missingFields.length > 0) {
+                        if (missingFields.length > 0 || !description) {
                           alert(
                             `Fill up the required fields: ${missingFields.join(
                               ", "
-                            )}`
+                            )}  ${!description && "Description"}`
                           );
                         } else {
                           setStep((prevStep) => prevStep + 1);

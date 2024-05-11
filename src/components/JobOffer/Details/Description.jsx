@@ -4,9 +4,13 @@ import Mendatory from "./Mendatory";
 const Description = ({ data }) => {
   return (
     <div className="description_outline">
-      <Mendatory />
+      {/* <Mendatory /> */}
       <div className="description">
-        {data?.description}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: data?.description,
+          }}
+        ></div>
 
         {/* <h5>Description of requirements</h5>
         <p>

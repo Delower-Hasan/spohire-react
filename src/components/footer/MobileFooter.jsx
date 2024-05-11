@@ -11,7 +11,7 @@ const MobileFooter = () => {
         <div className="row gy-2">
           <div className="col-12 col-xl-3 text-center">
             <Link to="/">
-            <img className="mx-auto" src={FooterLogo} alt="LOGO" />
+              <img className="mx-auto" src={FooterLogo} alt="LOGO" />
             </Link>
           </div>
           <div className="col-12 col-lg-6 col-xl-4">
@@ -34,7 +34,12 @@ const MobileFooter = () => {
           </div>
           <div
             className="d-flex justify-content-between "
-            style={{ paddingLeft: "64.5px", paddingRight: "65.4px",marginTop:"24px",marginBottom:"24px" }}
+            style={{
+              paddingLeft: "64.5px",
+              paddingRight: "65.4px",
+              marginTop: "24px",
+              marginBottom: "24px",
+            }}
           >
             <div className="">
               <ul className="text-center text-lg-start list-unstyled">
@@ -52,7 +57,9 @@ const MobileFooter = () => {
               <ul className="text-center text-lg-start list-unstyled">
                 <li>Contact</li>
                 <li>
-                  <Link to="#">spohire@gmail.com</Link>
+                  <Link to="mailto:contact@spohire.com">
+                    contact@spohire.com
+                  </Link>
                 </li>
                 <li>
                   <Link to="#">+48 565 25 654</Link>

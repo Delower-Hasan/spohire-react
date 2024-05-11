@@ -149,7 +149,7 @@ const Header = () => {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="m-auto">
-              {user ? (
+              {/* {user ? (
                 <Nav.Link href="#home">
                   <Link to="/dashboard" className="nav-link">
                     Transfer Market
@@ -163,7 +163,7 @@ const Header = () => {
                 >
                   Transfer Market
                 </button>
-              )}
+              )} */}
               {/* transfer market modal */}
               <div
                 className="modal fade"
@@ -212,7 +212,7 @@ const Header = () => {
                 </div>
               </div>
               {/* modal hbe */}
-              <Nav.Link href="/jobOffer">
+              {/* <Nav.Link href="/jobOffer">
                 <Link
                   to="/jobOffer"
                   className={`nav-link ${
@@ -241,7 +241,7 @@ const Header = () => {
                 >
                   Pricing
                 </Link>
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link href="/news">
                 <Link
                   to="/news"
