@@ -16,7 +16,10 @@ import observedIcon from "../../../assets/observed-icon.svg";
 import overviewIcon from "../../../assets/overview-icon.svg";
 import rightArrow from "../../../assets/rightClosemenuicon.svg";
 import settingsIcon from "../../../assets/settings-icon.svg";
+import passwordIcon from "../../../assets/passwordDropDown.svg";
 import transfarIcon from "../../../assets/transfar-icon.svg";
+import billingIcon from "../../../assets/billing.svg";
+import helpIcon from "../../../assets/help_icon.svg";
 import "./DashbordSidebar.css";
 
 import { useState } from "react";
@@ -316,13 +319,13 @@ const DashbordSidebar = ({ user }) => {
                   </li>
                 </Accordion.Header>
 
-                <Accordion.Body className="pb-0">
+                <Accordion.Body className="pb-0 px-4">
                   <ul className="list-unstyled">
                     <li className="nav_item">
                       <Link
                         to="/dashboard/settings"
                         className="text-decoration-none d-flex align-items-center gap-3">
-                        <img src={coach} alt="icon" />
+                        <img src={settingsIcon} alt="icon" />
                         <span className="text_color_E3 text-capitalize fs-6">
                           Settings
                         </span>
@@ -332,7 +335,7 @@ const DashbordSidebar = ({ user }) => {
                       <Link
                         to="/dashboard/password"
                         className="text-decoration-none d-flex align-items-center gap-3">
-                        <img src={coach} alt="icon" />
+                        <img src={passwordIcon} alt="icon" />
                         <span className="text_color_E3 text-capitalize fs-6">
                           Password
                         </span>
@@ -356,7 +359,7 @@ const DashbordSidebar = ({ user }) => {
                       <Link
                         to="/dashboard/billing"
                         className="text-decoration-none d-flex align-items-center gap-3">
-                        <img src={billing} alt="icon" />
+                        <img src={billingIcon} alt="icon" />
                         <span
                           to={"#"}
                           className="text_color_E3 text-capitalize fs-6">
@@ -368,7 +371,7 @@ const DashbordSidebar = ({ user }) => {
                       <Link
                         to="/dashboard/help-and-support"
                         className="text-decoration-none d-flex align-items-center gap-3">
-                        <img src={billing} alt="icon" />
+                        <img src={notificationIcon} alt="icon" />
                         <span
                           to={"#"}
                           className="text_color_E3 text-capitalize fs-6">

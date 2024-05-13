@@ -61,12 +61,12 @@ const MobileFooter = () => {
                     contact@spohire.com
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="#">+48 565 25 654</Link>
                 </li>
                 <li>
                   <Link to="#">+12 485 54684</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

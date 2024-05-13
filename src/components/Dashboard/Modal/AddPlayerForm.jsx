@@ -472,8 +472,8 @@ const AddPlayerForm = ({
                 name="alterPosition"
                 onChange={handleInputChange}
               >
-                <option selected disabled>
-                  Select Here
+                <option value={"N/A"} selected>
+                  Select
                 </option>
                 {altPositions[0]?.alternativePositions?.map((item, index) => (
                   <option key={index} value={item} className="text-capitalize">
@@ -496,7 +496,9 @@ const AddPlayerForm = ({
               name="additional_passport"
               onChange={handleInputChange}
             >
-              <option disabled>Select Here</option>
+              <option value={"N/A"} select>
+                Select
+              </option>
               {countryNames?.map((country, index) => (
                 <option value={country.name} className="" key={index}>
                   {country.name}
@@ -512,7 +514,7 @@ const AddPlayerForm = ({
               Do you currently belong to a club? *
             </label>
 
-            <div className="btn_group d-flex gap-3">
+            <div className="btn_group d-flex gap-3 mt-2">
               <input
                 type="radio"
                 id="yes"
@@ -523,8 +525,18 @@ const AddPlayerForm = ({
                   setBelongclub(true);
                   handleInputChange(e);
                 }}
+                style={{ display: "none" }}
               />{" "}
-              <label htmlFor="yes">YES</label>
+              <label
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "#05CD99",
+                }}
+                className="yes_btn"
+                htmlFor="yes"
+              >
+                YES
+              </label>
               <input
                 type="radio"
                 className="no"
@@ -535,10 +547,15 @@ const AddPlayerForm = ({
                   handleInputChange(e);
                 }}
                 name="belong_to_the_club"
+                style={{ display: "none" }} // Hide the radio input visually
               />{" "}
-              <label htmlFor="no">NO</label>
-              {/* <button className="yes">Yes</button>
-              <button className="no">No</button> */}
+              <label
+                style={{ cursor: "pointer" }}
+                htmlFor="no"
+                className="yes_btn"
+              >
+                NO
+              </label>
             </div>
           </div>
         </div>

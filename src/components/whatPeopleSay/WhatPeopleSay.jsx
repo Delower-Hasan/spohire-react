@@ -55,7 +55,7 @@ const WhatPeopleSay = ({ color }) => {
                           <img src={Start} alt="star" />
                           <img src={Start} alt="star" />
                         </div>
-                        <span>previews from Elia Joe</span>
+                        <span>Previews from John Mott</span>
                       </div>
                     </div>
                   </div>
@@ -76,7 +76,7 @@ const WhatPeopleSay = ({ color }) => {
                     </div>
                     <h5 className="mb-3 mb-lg-5">
                       “Spohire has truly changed the game for me. Finding a new
-                      team was never this easy!”
+                      team was never this easy! I recommend it to everyone.”
                     </h5>
                     <div className="d-flex flex-md-row justify-content-start align-items-center gap-1 gap-lg-3 google_mobile">
                       <img
@@ -98,7 +98,7 @@ const WhatPeopleSay = ({ color }) => {
                           <img src={Start} alt="star" />
                           <img src={Start} alt="star" />
                         </div>
-                        <span>previews from Elia Joe</span>
+                        <span>Previews from Giovanni Rossi</span>
                       </div>
                     </div>
                   </div>

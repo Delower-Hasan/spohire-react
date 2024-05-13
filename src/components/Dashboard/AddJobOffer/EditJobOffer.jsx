@@ -211,6 +211,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                         type="file"
                         className="form-control"
                         id="exampleFormControlInput1"
+                        accept=".jpeg, .jpg, .png"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         style={{ display: "none" }} // Hide the default file input

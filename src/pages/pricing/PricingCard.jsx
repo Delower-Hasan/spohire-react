@@ -39,8 +39,9 @@ const options = [
 ];
 
 const PricingCard = () => {
+  const isPricingPage = location.pathname === "/pricing";
   const dispatch = useDispatch();
-  const [activeCard, setActiveCard] = useState(1);
+  const [activeCard, setActiveCard] = useState(isPricingPage ? 1 : 0);
   const [modalOpen, setModalOpen] = useState(false);
 
   const modalRef = useRef(null);
@@ -71,7 +72,6 @@ const PricingCard = () => {
     dispatch(setSubscription(index));
   };
 
-  const isPricingPage = location.pathname === "/pricing";
   const route = useLocation();
 
   return (

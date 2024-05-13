@@ -66,6 +66,7 @@ const AddJobOfferModal = ({
               className="form-control"
               id="exampleFormControlInput1"
               ref={fileInputRef}
+              accept=".jpeg, .jpg, .png"
               onChange={handleFileChange}
               style={{ display: "none" }} // Hide the default file input
             />

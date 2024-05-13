@@ -3,9 +3,10 @@ import Mendatory from "./Mendatory";
 
 const Description = ({ data }) => {
   return (
-    <div className="description_outline">
+    <div className="description_outline bg-white">
       {/* <Mendatory /> */}
       <div className="description">
+        <h5>Description of requirements</h5>
         <div
           dangerouslySetInnerHTML={{
             __html: data?.description,

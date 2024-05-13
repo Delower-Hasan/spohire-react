@@ -322,7 +322,7 @@ const EditAddedPlayerDetails = () => {
                   <input
                     type="file"
                     ref={fileInputRef}
-                    accept="image/*"
+                    accept=".jpeg, .jpg, .png"
                     style={{ display: "none" }}
                     onChange={handleImageChange}
                   />

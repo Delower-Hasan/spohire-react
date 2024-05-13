@@ -8,8 +8,8 @@ import useClickOutside from "../../hooks/useClickOutside";
 import { useSelector } from "react-redux";
 
 const AddJobOfferPricing = ({ setSelectedPackages }) => {
-  const [activeCard, setActiveCard] = useState(1);
-  const [selectedPrice, setSelectedPrice] = useState(15);
+  const [activeCard, setActiveCard] = useState(0);
+  const [selectedPrice, setSelectedPrice] = useState(10);
   const [nextPaymentModal, setNextPaymentModal] = useState(false);
   const wrapperRef = useClickOutside(() => setNextPaymentModal(false));
   const { subscriptions } = useSelector((store) => store.auth);
@@ -64,8 +64,8 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           onClick={() => handleCardClick(0, 10)}
         >
           <div>
-            <h3>
-              $10 <span>/ 1 month</span>
+            <h3 style={{ lineHeight: 1 }}>
+              + $10 <br /> <span> 1 month</span>
             </h3>
           </div>
         </div>
@@ -74,8 +74,8 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           onClick={() => handleCardClick(1, 15)}
         >
           <div>
-            <h3>
-              $15 <span>/ 2 month</span>
+            <h3 style={{ lineHeight: 1 }}>
+              + $15 <br /> <span> 2 month</span>
             </h3>
           </div>
         </div>
@@ -84,8 +84,8 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           onClick={() => handleCardClick(2, 20)}
         >
           <div>
-            <h3>
-              $20 <span>/ 3 month</span>
+            <h3 style={{ lineHeight: 1 }}>
+              + $20 <br /> <span> 3 month</span>
             </h3>
           </div>
         </div>

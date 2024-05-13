@@ -4,6 +4,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
 import silverIcon from "../../../assets/silver_icon.svg";
+import goldIcon from "../../../assets/gold_icon.png";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useGetPlayerDetailsQuery } from "../../../features/auth/authApi";
@@ -104,8 +105,6 @@ const CoachesDetails = () => {
             <p className="surname">{user?.firstName}</p>
             <p className="nickname pb-3">{user?.lastName}</p>
             <div className="country d-flex gap-2 align-items-center pb-3">
-              {/* <img src={Germany} alt="" /> */}
-              {/* <p>{user?.country ? user?.country : user?.nationality}</p> */}
               <div
                 dangerouslySetInnerHTML={{
                   __html: getCountryFlag(
@@ -172,21 +171,62 @@ const CoachesDetails = () => {
                   alt="photograph"
                 />
 
-                <div className="subscription_title d-flex align-items-center gap-2 position-absolute">
-                  <p
-                    className="font-bold d-inline-flex gap-2"
-                    style={{
-                      fontSize: "10px",
-                      color: "#CD7F32",
-                      border: "1px solid #CD7F32",
-                      padding: "5px 10px",
-                      borderRadius: "28px",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <img src={silverIcon} alt="silver-icon" />
-                    Silver
-                  </p>
+                <div className="subscription_title  position-absolute">
+                  {user?.isSubsCribed &&
+                    user?.subscriptionName === "Silver" && (
+                      <div className="d-flex align-items-center gap-2 text-uppercase">
+                        <p
+                          className="font-bold d-inline-flex gap-2"
+                          style={{
+                            fontSize: "16px",
+                            color: "#8A8988",
+                            border: "1px solid #8A8988",
+                            padding: "8px 40px",
+                            borderRadius: "13px",
+                          }}
+                        >
+                          <img src={silverIcon} alt="silver-icon" />
+                          {user?.subscriptionName}
+                        </p>
+                      </div>
+                    )}
+
+                  {user?.isSubsCribed && user?.subscriptionName === "Gold" && (
+                    <div className="d-flex align-items-center gap-2 text-uppercase">
+                      <p
+                        className="font-bold d-inline-flex gap-2"
+                        style={{
+                          fontSize: "16px",
+                          color: "#EBB111",
+                          border: "1px solid #FFD029",
+                          padding: "8px 40px",
+                          borderRadius: "13px",
+                        }}
+                      >
+                        <img src={goldIcon} alt="silver-icon" />
+                        {user?.subscriptionName}
+                      </p>
+                    </div>
+                  )}
+
+                  {user?.isSubsCribed &&
+                    user?.subscriptionName === "Bronze" && (
+                      <div className="d-flex align-items-center gap-2 text-uppercase">
+                        <p
+                          className="font-bold d-inline-flex gap-2"
+                          style={{
+                            fontSize: "16px",
+                            color: "#CD7F32",
+                            border: "1px solid #CD7F32",
+                            padding: "8px 40px",
+                            borderRadius: "13px",
+                          }}
+                        >
+                          <img src={silverIcon} alt="silver-icon" />
+                          {user?.subscriptionName}
+                        </p>
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
@@ -204,17 +244,8 @@ const CoachesDetails = () => {
             <div></div>
             <div></div>
             <div></div>
-            <div className=" text-center">
-              {/* <p className="bio_title">height</p>
-              <p className="bio_info">{user?.height ?? "N/A"}</p>
-              <p className="bio_footer_title">CM</p> */}
-            </div>
-
-            <div className=" text-center">
-              {/* <p className="bio_title">Weight</p>
-              <p className="bio_info">{user?.weight ?? "N/A"}</p>
-              <p className="bio_footer_title">Kgs</p> */}
-            </div>
+            <div className=" text-center"></div>
+            <div className=" text-center"></div>
           </div>
         </div>
 
@@ -300,7 +331,7 @@ const CoachesDetails = () => {
         <div className="top d-flex justify-content-between py-4">
           {user?.experience.length > 0 ? (
             user?.experience?.map((item, index) => (
-              <div className="exerience_infomation">
+              <div key={index} className="exerience_infomation">
                 <p className="year">
                   {item.start_year} –{item.end_year}
                 </p>
@@ -399,6 +430,7 @@ const CoachesDetails = () => {
               user?.gallary?.map((item, index) => (
                 <>
                   <img
+                    key={index}
                     src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${item}`}
                     alt=""
                     className="rounded"

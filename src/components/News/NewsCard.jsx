@@ -9,9 +9,13 @@ const NewsCard = ({ data }) => {
   const timeDifference = currentDate - date; // Difference in milliseconds
   const daysPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
 
-  const month = date.toLocaleString("default", { month: "long" });
-  const day = date.getDate();
+  const month = date.toLocaleString("default", {
+    month: "long",
+    timeZone: "America/New_York",
+    locale: "en-US",
+  });
 
+  const day = date.getDate();
   // Depending on the days passed, you might want to format the output differently
   let timePassedString = "";
   if (daysPassed === 0) {
@@ -44,7 +48,8 @@ const NewsCard = ({ data }) => {
                 style={{
                   maxWidth: "770px",
                   width: "100%",
-                }}>
+                }}
+              >
                 <img
                   className=" img-fluid"
                   src={

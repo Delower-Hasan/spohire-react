@@ -541,7 +541,48 @@ const Topbar = ({ onClose }) => {
             ) : location.pathname === "/dashboard/players" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
                 <div className="search_item">
-                  <input id="search_input" type="text" placeholder="Search" />
+                  <div className="search_item position-relative">
+                    <input
+                      id="search_input"
+                      onChange={handleSearch}
+                      type="text"
+                      placeholder="Search"
+                    />
+                    {searchResultDatas?.length > 0 && (
+                      <ul
+                        className="position-absolute bg-dark-subtle p-3 rounded-1 overflow-scrool"
+                        style={{
+                          listStyle: "none",
+                          left: "10px",
+                          top: "100%",
+                          width: "90%",
+                        }}
+                      >
+                        <div
+                          className="position-absolute"
+                          style={{
+                            right: "10px",
+                            top: "10px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setSearchResults([])}
+                        >
+                          X
+                        </div>
+                        {searchResultDatas?.map((item, index) => (
+                          <li key={index}>
+                            <Link
+                              to={`${
+                                item.role === "Coach"
+                                  ? `/dashboard/coacheDetails/${item._id}`
+                                  : `/dashboard/viewDetails/${item._id}`
+                              }`}
+                            >{`${item?.firstName} ${item?.lastName}`}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
 
                 {/* add player */}
@@ -623,8 +664,47 @@ const Topbar = ({ onClose }) => {
               </div>
             ) : location.pathname === "/dashboard/coaches" ? (
               <div className="d-flex justify-content-between align-items-center gap-4">
-                <div className="search_item">
-                  <input id="search_input" type="text" placeholder="Search" />
+                <div className="search_item position-relative">
+                  <input
+                    id="search_input"
+                    onChange={handleSearch}
+                    type="text"
+                    placeholder="Search"
+                  />
+                  {searchResultDatas?.length > 0 && (
+                    <ul
+                      className="position-absolute bg-dark-subtle p-3 rounded-1 overflow-scrool"
+                      style={{
+                        listStyle: "none",
+                        left: "10px",
+                        top: "100%",
+                        width: "90%",
+                      }}
+                    >
+                      <div
+                        className="position-absolute"
+                        style={{
+                          right: "10px",
+                          top: "10px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => setSearchResults([])}
+                      >
+                        X
+                      </div>
+                      {searchResultDatas?.map((item, index) => (
+                        <li key={index}>
+                          <Link
+                            to={`${
+                              item.role === "Coach"
+                                ? `/dashboard/coacheDetails/${item._id}`
+                                : `/dashboard/viewDetails/${item._id}`
+                            }`}
+                          >{`${item?.firstName} ${item?.lastName}`}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
 
                 {/* add coach */}

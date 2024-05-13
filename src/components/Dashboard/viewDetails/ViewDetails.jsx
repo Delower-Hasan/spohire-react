@@ -5,6 +5,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
 import photographImg from "../../../assets/coach_img.png";
+import goldIcon from "../../../assets/gold_icon.png";
 import silverIcon from "../../../assets/silver_icon.svg";
 import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
@@ -193,21 +194,62 @@ const ViewDetails = () => {
                   alt="photograph"
                 />
 
-                <div className="subscription_title d-flex align-items-center gap-2 position-absolute">
-                  <p
-                    className="font-bold d-inline-flex gap-2"
-                    style={{
-                      fontSize: "10px",
-                      color: "#CD7F32",
-                      border: "1px solid #CD7F32",
-                      padding: "5px 10px",
-                      borderRadius: "28px",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <img src={silverIcon} alt="silver-icon" />
-                    {user?.subscriptionName}
-                  </p>
+                <div className="subscription_title  position-absolute">
+                  {user?.isSubsCribed &&
+                    user?.subscriptionName === "Silver" && (
+                      <div className="d-flex align-items-center gap-2 text-uppercase">
+                        <p
+                          className="font-bold d-inline-flex gap-2"
+                          style={{
+                            fontSize: "16px",
+                            color: "#8A8988",
+                            border: "1px solid #8A8988",
+                            padding: "8px 40px",
+                            borderRadius: "13px",
+                          }}
+                        >
+                          <img src={silverIcon} alt="silver-icon" />
+                          {user?.subscriptionName}
+                        </p>
+                      </div>
+                    )}
+
+                  {user?.isSubsCribed && user?.subscriptionName === "Gold" && (
+                    <div className="d-flex align-items-center gap-2 text-uppercase">
+                      <p
+                        className="font-bold d-inline-flex gap-2"
+                        style={{
+                          fontSize: "16px",
+                          color: "#EBB111",
+                          border: "1px solid #FFD029",
+                          padding: "8px 40px",
+                          borderRadius: "13px",
+                        }}
+                      >
+                        <img src={goldIcon} alt="silver-icon" />
+                        {user?.subscriptionName}
+                      </p>
+                    </div>
+                  )}
+
+                  {user?.isSubsCribed &&
+                    user?.subscriptionName === "Bronze" && (
+                      <div className="d-flex align-items-center gap-2 text-uppercase">
+                        <p
+                          className="font-bold d-inline-flex gap-2"
+                          style={{
+                            fontSize: "16px",
+                            color: "#CD7F32",
+                            border: "1px solid #CD7F32",
+                            padding: "8px 40px",
+                            borderRadius: "13px",
+                          }}
+                        >
+                          <img src={silverIcon} alt="silver-icon" />
+                          {user?.subscriptionName}
+                        </p>
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
@@ -416,6 +458,8 @@ const ViewDetails = () => {
               user?.gallary?.map((item, index) => (
                 <>
                   <img
+                    key={index}
+                    className="rounded"
                     src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${item}`}
                     alt=""
                     style={{ maxWidth: "150px" }}
