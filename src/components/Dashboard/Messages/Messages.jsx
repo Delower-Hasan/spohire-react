@@ -138,7 +138,6 @@ const Messages = () => {
   };
 
   const hanldeViewProfile = () => {
-    console.log(selectedMsgUser, "selectedMsgUser");
     if (selectedMsgUser.role === "Coach") {
       navigate(`/dashboard/coacheDetails/${selectedMsgUser?._id}`);
     } else {
@@ -149,8 +148,6 @@ const Messages = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  console.log(selectedMsgUser, "selected user");
 
   return (
     <>
@@ -241,7 +238,19 @@ const Messages = () => {
                               </div>
 
                               <div className="position-absolute avatar_img">
-                                <img src={chatAvatar} alt="" />
+                                {/* <img src={chatAvatar} alt="" /> */}
+                                <img
+                                  src={
+                                    user?.image
+                                      ? `${
+                                          process.env.NODE_ENV !== "production"
+                                            ? import.meta.env.VITE_LOCAL_API_URL
+                                            : import.meta.env.VITE_LIVE_API_URL
+                                        }/api/v1/uploads/${user?.image}`
+                                      : chatAvatar
+                                  }
+                                  alt="Avater"
+                                />
                               </div>
                             </div>
 

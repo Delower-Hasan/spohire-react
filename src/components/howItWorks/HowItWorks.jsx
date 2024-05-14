@@ -17,7 +17,7 @@ const HowItWorks = () => {
         <div className="container Work_container">
           <h3>How it works</h3>
           <div className="row gy-4">
-            <video controls autoPlay muted height="600">
+            <video controls muted height="600">
               <source type="video/mp4" src={video} />
             </video>
 

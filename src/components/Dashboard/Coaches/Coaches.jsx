@@ -177,11 +177,8 @@ const SingleCoach = ({ coach }) => {
     const data = {
       user_id: user?._id,
       target_id: id,
-      // target_type: "User",
       target_type: "Player",
     };
-
-    // console.log(data, "jjjDD");
 
     try {
       const response = await toggleObservation(data);
@@ -315,7 +312,8 @@ const SingleCoach = ({ coach }) => {
                   : coach?.subscriptionName === "Gold"
                   ? "#FFC21B"
                   : null,
-            }}>
+            }}
+          >
             {coach?.subscriptionName ?? "N/A"}
           </p>
         </td>
@@ -326,7 +324,8 @@ const SingleCoach = ({ coach }) => {
               className="bg-none me-3"
               onClick={(e) => handleBookmark(e, coach?._id)}
               style={{ width: "20px" }}
-              disabled={isLoading}>
+              disabled={isLoading}
+            >
               {isBookmarked ? (
                 <img src={bookmarkfill} alt="" />
               ) : (
@@ -336,7 +335,8 @@ const SingleCoach = ({ coach }) => {
             <span
               // to={`/dashboard/messages/${coach?._id}`}
               onClick={(e) => hancleMessageLink(e, coach?.referral)}
-              className="text_color_55 fw-normal fs_14">
+              className="text_color_55 fw-normal fs_14"
+            >
               <img src={messageIcon} alt="message-icon" className="ms-2" />
             </span>
           </div>

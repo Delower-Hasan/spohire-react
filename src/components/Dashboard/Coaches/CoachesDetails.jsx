@@ -22,6 +22,7 @@ const CoachesDetails = () => {
   const isBookmarked = observation?.data?.find(
     (i) => i?.target_id?._id === user?._id
   );
+  const authUser = useSelector((item) => item.auth);
 
   const [toggleObservation, { isLoading: observeLoading }] =
     useToggleObservationMutation();
@@ -29,7 +30,7 @@ const CoachesDetails = () => {
   const handleBookmark = async (e, id) => {
     e.stopPropagation();
     const data = {
-      user_id: user?._id,
+      user_id: authUser?.user?._id,
       target_id: id,
       target_type: "Player",
     };
@@ -329,8 +330,10 @@ const CoachesDetails = () => {
           <h3>Experience</h3>
         </div>
         <div className="top d-flex justify-content-between py-4">
-          {user?.experience.length > 0 ? (
-            user?.experience?.map((item, index) => (
+          {user?.experience !== undefined &&
+          user?.experience.length > 0 &&
+          JSON.parse(user?.experience)?.length > 0 ? (
+            JSON.parse(user?.experience)?.map((item, index) => (
               <div key={index} className="exerience_infomation">
                 <p className="year">
                   {item.start_year} –{item.end_year}

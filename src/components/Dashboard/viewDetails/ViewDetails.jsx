@@ -31,12 +31,6 @@ const ViewDetails = () => {
   const authUser = useSelector((item) => item.auth);
   const { data: user, isLoading } = useGetPlayerDetailsQuery(id);
 
-  // console.log("authUser", authUser);
-
-  // if (isLoading) {
-  //   return <p>Loading ...</p>;
-  // }
-
   const { data: observation, isSuccess } = useGetMyObservationsQuery();
 
   const isBookmarked = observation?.data?.find(
@@ -49,7 +43,7 @@ const ViewDetails = () => {
   const handleBookmark = async (e, id) => {
     e.stopPropagation();
     const data = {
-      user_id: user?._id,
+      user_id: authUser?.user?._id,
       target_id: id,
       target_type: "Player",
     };
@@ -70,7 +64,6 @@ const ViewDetails = () => {
           text: `${response?.error?.data?.message}`,
         });
       }
-
       // console.log(response, "ress");
     } catch (error) {
       Swal.fire({
@@ -80,8 +73,8 @@ const ViewDetails = () => {
       });
     }
   };
-  const [copied, setCopied] = useState(false);
 
+  const [copied, setCopied] = useState(false);
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(
@@ -109,6 +102,11 @@ const ViewDetails = () => {
     return age;
   };
 
+  // if (user?.experience !== undefined) {
+  //   console.log("user?.experienceaa", a);
+  // }
+  const a = user?.experience;
+  console.log("a", a);
   return (
     <div className="details_information">
       <div className="profile_cover">
@@ -357,9 +355,11 @@ const ViewDetails = () => {
           <h3>Experience</h3>
         </div>
         <div className="top d-flex justify-content-between py-4">
-          {user?.experience.length > 0 ? (
-            user?.experience?.map((item, index) => (
-              <div className="exerience_infomation">
+          {user?.experience !== undefined &&
+          user?.experience.length > 0 &&
+          JSON.parse(user?.experience)?.length > 0 ? (
+            JSON.parse(user?.experience)?.map((item, index) => (
+              <div key={index} className="exerience_infomation">
                 <p className="year">
                   {item.start_year} –{item.end_year}
                 </p>

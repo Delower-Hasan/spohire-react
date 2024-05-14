@@ -46,7 +46,7 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           period of active job offer
         </h2>
       ) : (
-        <h3 className="pb-4">Longer advertiser options</h3>
+        <h3 className="pb-4 mt-5">Longer advertiser options</h3>
       )}
 
       <div

@@ -16,6 +16,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
+const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+
 // data
 const inputFieldData = [
   {
@@ -48,15 +50,12 @@ const inputFieldData = [
 
 const EditAddedPlayerDetails = () => {
   const { id } = useParams();
-
   const { data: user } = useGetPlayerDetailsQuery(id);
-
   const [updatePlayerDetails, { isLoading }] = useUpdatePlayerDetailsMutation();
   // gallary
   const [selectedImages, setSelectedImages] = useState([]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
-
   const fileInputRef = useRef(null);
   // onchange value
   const initialFormData = inputFieldData.reduce(
@@ -145,10 +144,8 @@ const EditAddedPlayerDetails = () => {
 
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-
     if (file) {
       setUserInfo({ ...userInfo, ["image"]: file });
       setSelectedImage(file);
@@ -195,7 +192,6 @@ const EditAddedPlayerDetails = () => {
         formData.append(key, propertyValue);
       }
     });
-
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
@@ -269,7 +265,6 @@ const EditAddedPlayerDetails = () => {
 
     setSocialMedia(values);
   }, [user, id]);
-
   const [countryNames, setCountryNames] = useState([]);
 
   useEffect(() => {
@@ -349,7 +344,7 @@ const EditAddedPlayerDetails = () => {
                     }
                   />
                 </div> */}
-                <div className="mb-4 position-relative">
+                {/* <div className="mb-4 position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
                     className="form-label"
@@ -366,10 +361,35 @@ const EditAddedPlayerDetails = () => {
                       handleInputChange("sports", e.target.value)
                     }
                   />
-                </div>
+                </div> */}
               </div>
               <div className="personalInfo editpersonal_info">
                 <div className="row mb_40">
+                  <div className="col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Sports *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="sports"
+                        onChange={(e) => {
+                          handleInputChange("sports", e.target.value);
+                        }}
+                      >
+                        {sportsDatas.map((item, index) => (
+                          <option
+                            selected={userInfo["sports"] === item}
+                            key={index}
+                            value={item}
+                          >
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                   {inputFieldData.map((field, index) => (
                     <div key={index} className="col-12 col-md-4">
                       <div className="personal_info_edit_wrapper">

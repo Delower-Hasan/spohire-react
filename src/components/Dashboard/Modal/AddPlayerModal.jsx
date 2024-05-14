@@ -90,18 +90,15 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       alert("Please fill up the experience data properly");
     }
   };
+
   const handleRemove = (itemToRemove) => {
-    // Filter out the item to remove from the experience array
     const newExperienceData = playerData.experience.filter(
       (item) => item !== itemToRemove
     );
     setUserExperience(newExperienceData);
-    // Update playerData with the new experience data
     setPlayerData({ ...playerData, ["experience"]: newExperienceData });
   };
-
   const socialMediaArray = Object.values(socialMedia);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPlayerData({ ...playerData, [name]: value });
@@ -121,7 +118,10 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   };
 
   const [loading, setLoading] = useState(false);
+
   const handleSubmit = async () => {
+    console.log("|playerData| :", playerData);
+
     setLoading(true);
     const date = new Date();
     const playerInfo = {
@@ -138,11 +138,16 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       referral: user?._id,
       role: "Player",
     };
+
     const formData = new FormData();
     Object.entries(playerInfo).forEach(([key, value]) => {
-      formData.append(key, value);
+      key === "experience" &&
+        console.log("experience tab triggered successfully, ");
+      key === "experience"
+        ? formData.append("experience", JSON.stringify(value))
+        : formData.append(key, value);
+      // formData.append(key, value);
     });
-
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });

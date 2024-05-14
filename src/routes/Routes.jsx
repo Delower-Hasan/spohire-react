@@ -280,7 +280,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: " ",
+        path: "/dashboard/viewProfile",
         element: (
           <PrivateRoute>
             <ViewProfile />

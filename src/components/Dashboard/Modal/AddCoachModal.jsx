@@ -82,6 +82,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       alert("Please fill up the experience data properly");
     }
   };
+
   const handleRemove = (itemToRemove) => {
     // Filter out the item to remove from the experience array
     const newExperienceData = playerData.experience.filter(
@@ -121,8 +122,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
   };
 
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = async () => {
+    console.log("palayrdd", playerData);
     setLoading(true);
     const date = new Date();
     const playerInfo = {
@@ -142,7 +143,10 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     const formData = new FormData();
 
     Object.entries(playerInfo).forEach(([key, value]) => {
-      formData.append(key, value);
+      console.log("value from coach infor");
+      key === "experience" && key === "experience"
+        ? formData.append("experience", JSON.stringify(value))
+        : formData.append(key, value);
     });
 
     selectedGalleryFiles?.forEach((img, index) => {
