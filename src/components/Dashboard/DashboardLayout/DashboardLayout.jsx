@@ -24,24 +24,29 @@ const DashboardLayout = () => {
                 <Outlet />
               </div>
 
-              <div
-                style={{
-                  backgroundColor: "#F8F8F8",
-                  padding: "14px 0",
-                  textAlign: "center",
-                  borderTop: "1px solid #8FA1CCB2",
-                }}
-              >
-                <p
+              {location.pathname.startsWith("/dashboard/messages") ? (
+                ""
+              ) : (
+                <div
                   style={{
-                    color: "#505050",
-                    fontWeight: 400,
-                    fontSize: "12px",
+                    backgroundColor: "#F8F8F8",
+                    padding: "14px 0",
+                    textAlign: "center",
+                    borderTop: "1px solid #8FA1CCB2",
                   }}
                 >
-                  © 2024 Spohire. All Rights Reserved
-                </p>
-              </div>
+                  <p
+                    style={{
+                      color: "#505050",
+                      fontWeight: 400,
+                      fontSize: "12px",
+                    }}
+                  >
+                    © 2024 Spohire. All Rights Reserved
+                  </p>
+                </div>
+              )}
+
               {/* </div> */}
             </div>
           </div>

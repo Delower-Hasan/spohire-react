@@ -28,7 +28,6 @@ const ViewProfile = () => {
 
   useEffect(() => {
     let values = {};
-
     for (let i = 0; i < user?.social_media?.length; i++) {
       const element = user?.social_media[i];
       if (element.includes("twitter.com")) {
@@ -45,7 +44,7 @@ const ViewProfile = () => {
     }
     setSocialMedia(values);
   }, [user]);
- 
+
   return (
     <>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">

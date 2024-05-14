@@ -45,16 +45,14 @@ const Feature = () => {
                       demands.
                     </p>
                   </div>
-                  <div className="col-6 feature_card p-0">
-                    <img
-                      className="img-fluid w-100"
-                      src={FeatureOne}
-                      alt="img"
-                    />
+
+                  <div className="col-6 feature_card2 p-0">
+                    <img className="" src={FeatureOne} alt="img" />
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-xl-4">
               <div
                 className="featureBoxInner h-100"
@@ -68,16 +66,14 @@ const Feature = () => {
                       play, ranging from amateur leagues to professional teams.
                     </p>
                   </div>
+
                   <div className="col-6 feature_card p-0">
-                    <img
-                      className="img-fluid w-100"
-                      src={FeatureTwo}
-                      alt="img"
-                    />
+                    <img className="" src={FeatureTwo} alt="img" />
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="col-12 col-md-6 col-xl-4 ">
               <div
                 className="featureBoxInner h-100"
@@ -93,11 +89,7 @@ const Feature = () => {
                     </p>
                   </div>
                   <div className="col-6 feature_card p-0">
-                    <img
-                      className="img-fluid w-100"
-                      src={FeatureThree}
-                      alt="img"
-                    />
+                    <img className="" src={FeatureThree} alt="img" />
                   </div>
                 </div>
               </div>
