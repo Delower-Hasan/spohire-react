@@ -17,8 +17,8 @@ const UpdateexperienceAndMedia = ({
   handleAddMore,
   handleExperienceChange,
   userExperience,
+  handleRemove,
 }) => {
-  // console.log("exp", exp);
   // const [experienceFormData, setExperienceFormData] = useState({});
   // const [userExperience, setUserExperience] = useState([...exp]);
 
@@ -77,11 +77,25 @@ const UpdateexperienceAndMedia = ({
             <div className="col-lg-6 mb-lg-0 mb-4">
               <div className="editpersonal_info experience_update_wrapper">
                 <p>Experience</p>
-                {userExperience?.map((item, index) => (
-                  <p className="f_sfPro text_color_36 fs_18" key={index}>
-                    {item?.start_year}-{item?.end_year} {item?.club_name}
-                  </p>
-                ))}
+                <ul className="mb-4" style={{ listStyle: "none" }}>
+                  {exp &&
+                    exp.length > 0 &&
+                    exp?.map((item, index) => (
+                      <li
+                        className="f_sfPro text_color_36 fs-6 my-1"
+                        key={index}
+                      >
+                        {item?.start_year}-{item?.end_year} {item?.club_name} -{" "}
+                        <button
+                          type="button"
+                          className="text-black"
+                          onClick={() => handleRemove(item)}
+                        >
+                          X
+                        </button>
+                      </li>
+                    ))}
+                </ul>
                 <>
                   <div className="row">
                     <div className="col-lg-4">

@@ -177,7 +177,7 @@ const SinglePlayer = ({ player }) => {
     const data = {
       user_id: user?._id,
       target_id: id,
-      target_type: "Player",
+      target_type: "User",
     };
 
     try {

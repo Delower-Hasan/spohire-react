@@ -798,11 +798,11 @@ const AddPlayerForm = ({
           <div className="row">
             <div className="d-flex justify-content-between pb-5">
               <h2 className="fs-4">Gallery</h2>
-              <button className="py-2 px-4 btn_save">Save</button>
+              {/* <button className="py-2 px-4 btn_save">Save</button> */}
             </div>
             <div className="upload-images d-flex gap-4 flex-wrap mb-4 ">
               {selectedGalleryFiles.map((file, index) => (
-                <div className="position-relative">
+                <div key={index} className="position-relative">
                   <img
                     style={{ width: "130px", height: "130px" }}
                     key={index}

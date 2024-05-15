@@ -134,7 +134,20 @@ const EditPlayerDetails = () => {
     experience: [],
     about_me: "",
   });
+
   const [aboutMe, setAboutMe] = useState("");
+
+  const handleRemove = (itemToRemove) => {
+    const newExperienceData = userInfo.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    setEditedInfo((prevInfo) => ({
+      ...prevInfo,
+      experience: newExperienceData, // Update editedInfo with new experience data
+    }));
+    setUserInfo({ ...userInfo, experience: newExperienceData });
+    setUserExperience(newExperienceData);
+  };
 
   // Inside handleInputChange function
   const handleAboutInputChange = (fieldName, value) => {
@@ -154,7 +167,6 @@ const EditPlayerDetails = () => {
   const [editedInfo, setEditedInfo] = useState({});
 
   const navigate = useNavigate();
-
   const [experienceFormData, setExperienceFormData] = useState({});
 
   const [userExperience, setUserExperience] = useState([
@@ -178,6 +190,7 @@ const EditPlayerDetails = () => {
         ...prevInfo,
         experience: newData, // Update editedInfo with new experience data
       }));
+      setUserInfo({ ...userInfo, experience: newData });
     } else {
       alert("Please fill up the experience data properly");
     }
@@ -223,15 +236,13 @@ const EditPlayerDetails = () => {
     e.preventDefault();
 
     const socialMediaArray = Object.values(socialMedia);
-
     const infoData = {
       ...editedInfo,
-      social_media: socialMediaArray,
-      experience: userExperience,
       about_me: aboutMe,
+      social_media: socialMediaArray,
     };
-    const formData = new FormData();
 
+    const formData = new FormData();
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
       if (Array.isArray(propertyValue)) {
@@ -242,10 +253,11 @@ const EditPlayerDetails = () => {
               formData.append(`${key}[${index}][${elementKey}]`, elementValue);
             });
           } else {
-            formData.append(`${key}[]`, element);
+            formData.append(`${key}[${index}]`, element);
           }
         });
       } else {
+        console.log("down");
         formData.append(key, propertyValue);
       }
     });
@@ -253,6 +265,7 @@ const EditPlayerDetails = () => {
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
+    formData.append("experience", JSON.stringify(userExperience));
 
     try {
       const response = await updatePlayerDetails({
@@ -313,7 +326,6 @@ const EditPlayerDetails = () => {
     setUserInfo(newData);
 
     let values = {};
-
     for (let i = 0; i < user?.social_media?.length; i++) {
       const element = user?.social_media[i];
       if (element.includes("twitter.com")) {
@@ -328,7 +340,6 @@ const EditPlayerDetails = () => {
         values.others = element;
       }
     }
-
     setSocialMedia(values);
   }, [user]);
 
@@ -375,12 +386,12 @@ const EditPlayerDetails = () => {
                   style={{ objectFit: "cover" }}
                 />
                 <div className="profile_img position-relative">
-                  <img
+                  {/* <img
                     className="img-fluid profiles pointer"
                     src={profileImage}
                     alt="Profile"
                     style={{ objectFit: "cover" }}
-                  />
+                  /> */}
 
                   <div>
                     {!selectedImage && (
@@ -543,6 +554,7 @@ const EditPlayerDetails = () => {
           handleAddMore={handleAddMore}
           handleExperienceChange={handleExperienceChange}
           userExperience={userExperience}
+          handleRemove={handleRemove}
         />
 
         <div className="mb_60 experience_wrapper">

@@ -45,7 +45,7 @@ const ViewDetails = () => {
     const data = {
       user_id: authUser?.user?._id,
       target_id: id,
-      target_type: "Player",
+      target_type: "User",
     };
 
     try {
