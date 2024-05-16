@@ -47,13 +47,13 @@ const Header = () => {
     navigate.pathname = "/login";
   };
 
-  console.log("navigate", navigate.pathname);
+
 
   return (
     <header
       className={`${!user && "pt-4 pb-4"} ${navigate.pathname === "/"
-          ? "header_position position-absolute w-100"
-          : ""
+        ? "header_position position-absolute w-100"
+        : ""
         }`}
     >
       <Navbar expand="lg" className="navbar navbar-expand-lg">
@@ -64,42 +64,8 @@ const Header = () => {
               <img className="d-block d-md-none" src={Logosm} alt="Logo" />
             </Link>
           </Navbar.Brand>
-
           <div className=" nav_toggle d-flex align-items-center">
             <Navbar.Toggle aria-controls="basic-navbar-nav">
-              {/* <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
-                <g clipPath="url(#clip0_239_167)">
-                  <path
-                    d="M2.5 8H13.5"
-                    stroke="white"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M2.5 4H13.5"
-                    stroke="white"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M2.5 12H13.5"
-                    stroke="white"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_239_167">
-                    <rect width="16" height="16" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg> */}
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="16" viewBox="0 0 28 16" fill="none">
                 <path d="M0.666016 0H27.3327V2.66667H0.666016V0ZM7.33268 6.66667H27.3327V9.33333H7.33268V6.66667ZM15.666 13.3333H27.3327V16H15.666V13.3333Z" fill="white" />
               </svg>
@@ -120,6 +86,7 @@ const Header = () => {
                     alt=""
                   />
                 </Link>
+
                 <Link
                   to="/dashboard/jobOffers"
                   type="submit"
@@ -127,6 +94,7 @@ const Header = () => {
                 >
                   {user.firstName}
                 </Link>
+                
               </div>
             ) : (
               <>
@@ -200,7 +168,6 @@ const Header = () => {
                       <div style={{ marginBottom: "70px" }}>
                         <img src={TransfarMarket} alt="TransfarMarket" />
                       </div>
-
                       {/* login */}
                       <Link
                         to={"/pricing"}
@@ -250,8 +217,8 @@ const Header = () => {
                   News
                 </Link>
               </Nav.Link>
-              <div className="d-lg-none d-block">
-                <button className="logIn visibility-lg-hidden visually-visible">
+              <div className="d-lg-none d-flex flex-column justify-content-center align-items-center ">
+                <button className="logIn visibility-lg-hidden visually-visible" style={{color:"#9d99a3"}}>
                   Log in
                 </button>
                 <Link

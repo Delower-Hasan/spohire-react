@@ -328,6 +328,12 @@
 
 /*  */
 @media (max-width: 768px) {
+    .pricing_buttons .inactive,.active{
+        font-size: 18px !important;
+    }
+    .price_card .price,.price_card .active_price{
+        font-size: 40px !important;
+    }
     .all_payments_system {
         gap: 0;
     }
@@ -404,6 +410,12 @@
     .page_header p {
         font-size: 16px;
     }
+
+    .addjoboffer_pricing_wrapper h2,.range_header h6{
+        font-size: 28px !important;
+    }
+    
+
 }
 
 .country_select .css-11l6u31-control {

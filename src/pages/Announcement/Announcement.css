@@ -10,6 +10,16 @@
     --color_55: #2B2E55;
 }
 
+
+
+.announcement_pic img {
+
+    height: 213px;
+    width: 213px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
 .page_header {
     background-image: url('/src/assets/announcementheaderbg.png') !important;
 }
@@ -184,7 +194,7 @@
 
 .blue_cat p {
     color: #FFF;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -217,7 +227,7 @@
     gap: 10px;
     text-transform: uppercase;
     color: #5EA9FE;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -226,7 +236,7 @@
 
 .cat_list span {
     color: #747474;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -259,7 +269,7 @@
     background: #3378FF;
     padding: 14px 81px 14px 82px;
     color: #FFF;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -270,7 +280,7 @@
 .best_matched h3 {
     color: #FFF;
     text-align: center;
-    font-family: 'SF Pro Display'sans-serif;
+    font-family: 'SF Pro Display' sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
@@ -290,8 +300,29 @@
     text-transform: uppercase;
 
 }
-
+.announcement_gap{
+    gap: 36px;
+}
 @media(max-width:768px) {
+    .announcement_gap{
+        gap: 15px;
+    }
+    .announcement_pic img {
+
+        height: 103px;
+        width: 103px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .recruiment .position{
+        font-size: 16px !important;
+        margin-bottom: 10px !important;
+    }
+    .recruiment .title{
+        font-size: 20px;
+        margin-bottom: 1px !important;
+    }
     .announcelist_wrapper {
         padding: 18px 10px 16px 16px;
     }

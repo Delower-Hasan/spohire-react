@@ -32,17 +32,14 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
           <div className="col-12 col-lg-3 col-xl-2">
             <ul className="text-center text-lg-start list-unstyled">
               <li>Contact</li>
               <li>
                 <Link to="mailto:contact@spohire.com">contact@spohire.com</Link>
               </li>
-          
             </ul>
           </div>
-
           <div className="col-12 col-lg-6 col-xl-4">
             <div className="followBox d-flex flex-md-row justify-content-between align-items-center gap-3">
               <p className="d-lg:block d-none">Follow us</p>
@@ -59,13 +56,7 @@ const Footer = () => {
                 <img src={Twitter} alt="Twitter" />
               </Link>
             </div>
-
-
-            
           </div>
-
-
-
         </div>
         <hr />
         <div className="fooBottom d-flex  flex-lg-row justify-content-center align-items-center gap-3 gap-lg-5">
