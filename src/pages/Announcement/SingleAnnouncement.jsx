@@ -109,7 +109,7 @@ const SingleAnnouncement = ({ item }) => {
           </div>
           {/* icon div */}
           <div>
-            <div>
+            <div className="announcement_bookmark">
               <button
                 className="bg-none"
                 onClick={() => bookmarkOrRedirectHandler(item?._id)}
@@ -122,6 +122,7 @@ const SingleAnnouncement = ({ item }) => {
                   />
                 ) : (
                   <img
+                  className="unchecked"
                     style={{ width: "23px", height: "30px" }}
                     src={bookmark1}
                     alt=""

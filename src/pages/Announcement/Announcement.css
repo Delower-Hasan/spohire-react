@@ -92,6 +92,7 @@
 
 .detail_span {
     margin-bottom: 24px;
+    gap: 3rem;
 }
 
 .announcement_details {
@@ -308,6 +309,10 @@
     gap: 60px !important;
 }
 @media(max-width:768px) {
+    .detail_span {
+        
+        gap: 1rem !important;
+    }
     .announcement_header_gap{
         gap: 30px !important;
     }
@@ -462,6 +467,10 @@ textarea {
         padding: 10px 20px;
         font-size: 14px;
     }
+    .announcement_bookmark .unchecked{
+        width: 20px !important;
+        height: 24px !important;
+    }
 
 }
 
@@ -517,4 +526,9 @@ textarea {
 .upload_btn {
     background-color: #0177FB;
     color: #FFF !important;
+}
+
+.announcement_bookmark .unchecked{
+    width: 23px;
+    height: 30px;
 }

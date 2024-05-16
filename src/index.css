@@ -436,7 +436,7 @@ button {
   }
 
   .answer {
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: 19px !important;
@@ -503,6 +503,10 @@ button {
 }
 
 @media (max-width: 768px) {
+  .question {
+    font-size: 16px !important;
+  
+  }
   .all_mb {
     margin-bottom: 50px !important;
   }
@@ -537,6 +541,7 @@ button {
 
   .pricing_buttons {
     flex-wrap: wrap;
+    gap: 20px !important;
   }
 
   .range_header {
