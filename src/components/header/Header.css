@@ -134,6 +134,7 @@
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
     color: black !important;
+    font-size: 15px !important;
 }
 
     .bgBanner {

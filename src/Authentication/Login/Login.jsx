@@ -44,10 +44,12 @@ const Login = () => {
       });
     }
   };
+
+
   return (
     <>
       <div className="container">
-        <div className="row align-items-center" style={{ margin: "80px 0" }}>
+        <div className="row align-items-center login_m" >
           <div className="col-lg-6 p-0">
             <div
               className="login-left_bg_img d-none d-lg-block"
@@ -61,7 +63,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-6 p-0" style={{ height: "100vh" }}>
+          <div className="col-lg-6 p-0 login-form-parent">
             <div className="login_wrapper h-100 ">
               <div>
                 <h3>Log in</h3>

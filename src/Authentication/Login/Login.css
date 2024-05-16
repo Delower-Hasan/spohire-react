@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.login_m {
+  margin: 80px 0;
+}
+
 .login-left_bg_img {
   background-image: url(../../assets/login-banner.png);
   background-repeat: no-repeat;
@@ -84,9 +88,11 @@
   padding: 9px 12px;
   pointer-events: none;
 }
-.carousel-inner{
+
+.carousel-inner {
   border-radius: 0px 0px 0px 50px;
 }
+
 .login_input {
   width: 100%;
   padding: 9.903px 10.597px 9.778px 11.318px;
@@ -97,11 +103,13 @@
   border: 0.707px solid rgba(0, 0, 0, 0.02);
   background: #F3F7FF;
 }
-.passlock{
+
+.passlock {
   position: absolute;
   top: 12px;
   left: 15px;
 }
+
 .login_select {
   border-radius: 4px;
   border: 0.707px solid rgba(0, 0, 0, 0.02);
@@ -188,15 +196,28 @@
 .login_slider {
   border-radius: 0px 0px 0px 50px;
 
-  /* height: 300px; */
+  /* height: 300px; */  
 
 }
 
 @media (max-width: 990px) {
+  .login_m {
+    margin: 120px 0 !important;
+  }
+
   .login_wrapper {
     padding: 20px !important;
     margin-bottom: 50px;
   }
+
+  .login-form-parent {
+    height: auto !important;
+
+  }
+}
+
+.login-form-parent {
+  height: 100vh;
 }
 
 .login_wrapper .login-btn {
@@ -341,14 +362,14 @@
   width: 100%;
 }
 
-.home_page_link a{
+.home_page_link a {
   color: var(--Dark-blue, #2B3674);
-font-family: "SF Pro Display";
-font-size: 22px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-margin-top: 30px;
+  font-family: "SF Pro Display";
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 30px;
 }
 
 

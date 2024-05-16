@@ -42,7 +42,7 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
         <h2 className="announcement_heading">Announcements</h2>
         {/* filters */}
         <div className="annuncement_inner_wrapper">
-          <div className="d-flex flex-column flex-lg-row" style={{ gap: "60px" }}>
+          <div className="d-flex flex-column flex-lg-row announcement_header_gap">
             <div className="col">
               <label htmlFor="">Sports</label>
               <select

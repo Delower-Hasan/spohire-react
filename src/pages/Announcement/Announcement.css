@@ -300,13 +300,21 @@
     text-transform: uppercase;
 
 }
-.announcement_gap{
+
+.announcement_gap {
     gap: 36px;
 }
+.announcement_header_gap{
+    gap: 60px !important;
+}
 @media(max-width:768px) {
-    .announcement_gap{
+    .announcement_header_gap{
+        gap: 30px !important;
+    }
+    .announcement_gap {
         gap: 15px;
     }
+
     .announcement_pic img {
 
         height: 103px;
@@ -315,14 +323,16 @@
         object-fit: cover;
     }
 
-    .recruiment .position{
+    .recruiment .position {
         font-size: 16px !important;
         margin-bottom: 10px !important;
     }
-    .recruiment .title{
+
+    .recruiment .title {
         font-size: 20px;
         margin-bottom: 1px !important;
     }
+
     .announcelist_wrapper {
         padding: 18px 10px 16px 16px;
     }

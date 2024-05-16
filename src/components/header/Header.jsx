@@ -94,7 +94,7 @@ const Header = () => {
                 >
                   {user.firstName}
                 </Link>
-                
+
               </div>
             ) : (
               <>
@@ -218,9 +218,9 @@ const Header = () => {
                 </Link>
               </Nav.Link>
               <div className="d-lg-none d-flex flex-column justify-content-center align-items-center ">
-                <button className="logIn visibility-lg-hidden visually-visible" style={{color:"#9d99a3"}}>
+                <Link to="/login">         <button className="logIn visibility-lg-hidden visually-visible" style={{ color: "#9d99a3" }}>
                   Log in
-                </button>
+                </button></Link>
                 <Link
                   to="/signup"
                   type="submit"
