@@ -43,7 +43,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [imageFile, setImageFIle] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -63,6 +63,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
   const [jobData, setJobData] = useState({});
   const [errorData, setErrorData] = useState();
+  const [description, setDescription] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -75,6 +76,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     const jobDataInfo = {
       ...jobData,
       subscriptionDate: date,
+      description: description,
       expirationDate: setExpireDate(selectedSubscription?.month),
       packagechoose: selectedSubscription?.month,
       creator: user?._id,
@@ -143,7 +145,8 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
@@ -156,6 +159,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     WorkplaceOptions={WorkplaceOptions}
                     categoryOptions={categoryOptions}
                     handleInputChange={handleInputChange}
+                    setDescription={setDescription}
                   />
                 ) : step === 2 ? (
                   <AddJobOfferModalTwo
@@ -174,15 +178,15 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     <button
                       onClick={() => setAddJobOffer(false)}
                       className="submit_now_btn cancel m-0"
-                      type="button">
+                      type="button"
+                    >
                       Cancel
                     </button>
 
                     <button
                       className="submit_now_btn m-0"
                       type="button"
-                      onClick=
-                      {() => {
+                      onClick={() => {
                         const requiredFields = [
                           "job_title",
                           "workplaceType",
@@ -193,22 +197,24 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                           "jobType",
                           "language",
                           "salary",
-                          "description",
                         ];
+
                         const missingFields = requiredFields.filter(
                           (field) => !jobData[field]
                         );
-                        if (missingFields.length > 0) {
+                        if (missingFields.length > 0 || !description) {
                           alert(
                             `Fill up the required fields: ${missingFields.join(
                               ", "
-                            )}`
+                            )}  ${!description && "Description"}`
                           );
                         } else {
                           setStep((prevStep) => prevStep + 1);
                         }
                       }}
-                      > Next
+                    >
+                      {" "}
+                      Next
                     </button>
                   </div>
                 )}

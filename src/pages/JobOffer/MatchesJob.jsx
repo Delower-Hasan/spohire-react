@@ -11,7 +11,7 @@ const MatchesJob = ({ filteredData }) => {
   const navigate = useNavigate();
 
   const [selectedJob, setSelectedJob] = useState(null);
-  
+
   const { user } = useSelector((state) => state.auth);
 
   // pagination
@@ -24,13 +24,8 @@ const MatchesJob = ({ filteredData }) => {
   const endIndex = startIndex + itemsPerPage;
 
   const handleDetails = (jobId) => {
-    if (user) {
-      navigate(`/jobDetails/${jobId}`);
-      console.log("details page for job ID:", jobId);
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    } else {
-      navigate("/login");
-    }
+    navigate(`/jobDetails/${jobId}`);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   return (

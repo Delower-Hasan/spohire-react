@@ -21,7 +21,7 @@
   box-shadow: 0px 8px 30px 0px rgba(165, 165, 165, 0.12);
 }
 
-.job_offers_wrapper .job_offer_items_wrapper .job_offers_item:hover{
+.job_offers_wrapper .job_offer_items_wrapper .job_offers_item:hover {
   background-color: #F4F7FE;
   cursor: pointer;
 }
@@ -38,4 +38,8 @@
   border-radius: 20px;
   background: var(--White, #FFF);
   margin: 0 40px;
+}
+
+.ck.ck-reset.ck-editor.ck-rounded-corners {
+  width: 100%;
 }

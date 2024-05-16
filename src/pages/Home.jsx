@@ -10,6 +10,7 @@ import MobileMarqueeSlider from "../components/marqueeSlider/MobileMarqueeSlider
 import Trusted from "../components/trusted/Trusted";
 import WhatPeopleSay from "../components/whatPeopleSay/WhatPeopleSay";
 import WhyWe from "../components/whyWe/WhyWe";
+
 const Home = () => {
   return (
     <>

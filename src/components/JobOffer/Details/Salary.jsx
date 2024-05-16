@@ -2,7 +2,7 @@ import MapTrifold from "../../../assets/MapTrifold.svg";
 
 const Salary = ({ data }) => {
   return (
-    <div className="description_outline salary mb-5 text-center mb-4">
+    <div className="description_outline salary mb-5 text-center mb-4 bg-white">
       <div className="row">
         <div className="col-lg-6 h-100 d-flex flex-column gap-2 justify-content-between">
           <p className="title">Salary (USD)</p>

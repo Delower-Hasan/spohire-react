@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useGetMyObservationsQuery } from "../../../features/observation/observationApi";
 const RecentlyObserved = () => {
   const { data, isLoading, isSuccess } = useGetMyObservationsQuery();
-
+  console.log("data", data);
   return (
     <>
       <div className="job_offer_overrview_wrapper">
@@ -21,7 +21,7 @@ const RecentlyObserved = () => {
           )}
         </div>
         {data?.data && data?.data?.length > 0 ? (
-          data?.data.slice(0, 5).map((item, idx) => (
+          data?.data?.slice(0, 5).map((item, idx) => (
             <div key={idx}>
               {item?.target_type === "Job" && (
                 <div

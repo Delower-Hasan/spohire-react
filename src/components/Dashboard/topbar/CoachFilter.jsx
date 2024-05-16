@@ -89,15 +89,30 @@ function CoachFilter() {
       <div className="position_wrapper pb-4">
         <h2>Status</h2>
         <div className="position_btn_wrapper status d-flex align-items-center gap-3">
-          <button className={ status === "Bronze" ? "bg-warning text-white" : "not-selected" } onClick={() => handleStatus("Bronze")}>
+          <button
+            className={
+              status === "Bronze" ? "bg-warning text-white" : "not-selected"
+            }
+            onClick={() => handleStatus("Bronze")}
+          >
             Bronze
           </button>
 
-          <button className={status === "Silver" ? "bg-warning text-white" : "not-selected"} onClick={() => handleStatus("Silver")}>
+          <button
+            className={
+              status === "Silver" ? "bg-warning text-white" : "not-selected"
+            }
+            onClick={() => handleStatus("Silver")}
+          >
             Silver
           </button>
 
-          <button className={ status === "Gold" ? "bg-warning text-white" : "not-selected" } onClick={() => handleStatus("Gold")}>
+          <button
+            className={
+              status === "Gold" ? "bg-warning text-white" : "not-selected"
+            }
+            onClick={() => handleStatus("Gold")}
+          >
             Gold
           </button>
         </div>

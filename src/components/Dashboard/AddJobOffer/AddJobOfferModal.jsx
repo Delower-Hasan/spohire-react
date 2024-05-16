@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import region from "../../../assets/aregion.png";
 import brows from "../../../assets/brows1.png";
 import salary from "../../../assets/asalary.png";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const AddJobOfferModal = ({
   handleInputChange,
@@ -13,6 +15,7 @@ const AddJobOfferModal = ({
   options,
   WorkplaceOptions,
   categoryOptions,
+  setDescription,
 }) => {
   const [step, setStep] = useState(0);
 
@@ -63,6 +66,7 @@ const AddJobOfferModal = ({
               className="form-control"
               id="exampleFormControlInput1"
               ref={fileInputRef}
+              accept=".jpeg, .jpg, .png"
               onChange={handleFileChange}
               style={{ display: "none" }} // Hide the default file input
             />
@@ -325,7 +329,7 @@ const AddJobOfferModal = ({
               Description *
             </label>
             <div className="input-group mb-3">
-              <textarea
+              {/* <textarea
                 type="text"
                 style={{ height: "65px" }}
                 className="form-control"
@@ -335,6 +339,19 @@ const AddJobOfferModal = ({
                 name="description"
                 required
                 onChange={handleInputChange}
+              /> */}
+              <CKEditor
+                editor={ClassicEditor}
+                className="form-control w-100"
+                onReady={(editor) => {
+                  // You can store the "editor" and use when it is needed.
+                  console.log("Editor is ready to use!", editor);
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setDescription(data);
+                  // console.log(data, "onchange");
+                }}
               />
             </div>
           </div>

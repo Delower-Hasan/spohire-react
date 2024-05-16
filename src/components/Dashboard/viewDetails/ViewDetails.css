@@ -874,7 +874,7 @@
 }
 
 .details_information .personal_info .photograph .photograph_border .photograph_img .subscription_title {
-    bottom: 20px;
+    bottom: 30px;
 }
 
 
@@ -939,6 +939,7 @@
     line-height: normal;
     letter-spacing: -0.36px;
     text-transform: uppercase;
+    opacity: .6;
 }
 
 .other_information .info_des {
@@ -950,6 +951,7 @@
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.24px;
+    text-transform: capitalize;
 }
 
 .details_information .social_media {

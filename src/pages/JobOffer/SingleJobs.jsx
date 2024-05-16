@@ -74,7 +74,12 @@ const SingleJobs = ({ handleDetails, item }) => {
             textOverflow: "ellipsis",
           }}
         >
-          {item.description}
+          {/* {item.description} */}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: item?.description,
+            }}
+          ></div>
         </p>
         <div className="jobOpen_btn">
           <button onClick={() => handleDetails(item?._id)}>Open</button>

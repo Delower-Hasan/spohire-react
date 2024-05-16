@@ -57,9 +57,18 @@
     position: relative;
 }
 
-.feature .featureBoxInner img {
-    /* max-height: 340px; */
-    height: 100%;
+
+
+.feature_card {
+    position: absolute;
+    bottom: 0;
+    right: 24px;
+}
+
+.feature_card2 {
+    position: absolute;
+    bottom: 0;
+    right: 0px;
 }
 
 @media (max-width: 990px) {
@@ -70,6 +79,14 @@
 
     .feature_card {
         padding-right: 0px !important;
+    }
+
+    .feature_card>img {
+        width: 100%;
+    }
+
+    .feature_card2>img {
+        width: 100%;
     }
 
     .feature .featureTop h2 {
@@ -111,4 +128,14 @@
         padding: 0 50px !important;
     }
 
+}
+
+@media (max-width: 768px) {
+    .feature_card>img {
+        width: 60%;
+    }
+
+    .feature_card2>img {
+        width: 60%;
+    }
 }

@@ -16,6 +16,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
+const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+
 // data
 const inputFieldData = [
   {
@@ -48,15 +50,12 @@ const inputFieldData = [
 
 const EditAddedPlayerDetails = () => {
   const { id } = useParams();
-
   const { data: user } = useGetPlayerDetailsQuery(id);
-
   const [updatePlayerDetails, { isLoading }] = useUpdatePlayerDetailsMutation();
   // gallary
   const [selectedImages, setSelectedImages] = useState([]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
-
   const fileInputRef = useRef(null);
   // onchange value
   const initialFormData = inputFieldData.reduce(
@@ -113,42 +112,16 @@ const EditAddedPlayerDetails = () => {
 
   const navigate = useNavigate();
 
-  // const handleGallaryImageChange = (e) => {
-  //   const files = e.target.files;
-  //   setGallaryImage(Array.from(files));
-  //   const newImages = [];
-  //   for (let i = 0; i < files.length; i++) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = (e) => {
-  //       newImages.push(e.target.result);
-  //       if (newImages.length === files.length) {
-  //         setSelectedImages((prevImages) => [...prevImages, ...newImages]);
-  //       }
-  //       setFormData((prevData) => ({
-  //         ...prevData,
-  //         gallary: newImages,
-  //       }));
-  //     };
-  //     reader.readAsDataURL(files[i]);
-  //   }
-  // };
-
-  // handle profile image upload
-
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
 
   const onGalleryDrop = (acceptedFiles) => {
-    // Add the newly selected files to the existing selectedGalleryFiles state
     setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
   };
 
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-
     if (file) {
       setUserInfo({ ...userInfo, ["image"]: file });
       setSelectedImage(file);
@@ -159,7 +132,16 @@ const EditAddedPlayerDetails = () => {
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
+  const [experienceFormData, setExperienceFormData] = useState({});
 
+  const [userExperience, setUserExperience] = useState([
+    ...userInfo["experience"],
+  ]);
+
+  const handleExperienceChange = (e) => {
+    const { name, value } = e.target;
+    setExperienceFormData({ ...experienceFormData, [name]: value });
+  };
   // get all data
   const handleInputChange = (fieldName, value) => {
     setUserInfo((prevData) => ({
@@ -195,10 +177,10 @@ const EditAddedPlayerDetails = () => {
         formData.append(key, propertyValue);
       }
     });
-
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
+    formData.append("experience", JSON.stringify(userExperience));
 
     try {
       const response = await updatePlayerDetails({
@@ -227,6 +209,35 @@ const EditAddedPlayerDetails = () => {
         title: "Oops...",
         text: `${error?.message}`,
       });
+    }
+  };
+  const handleRemove = (itemToRemove) => {
+    const newExperienceData = userInfo.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    setEditedInfo((prevInfo) => ({
+      ...prevInfo,
+      experience: newExperienceData, // Update editedInfo with new experience data
+    }));
+    setUserInfo({ ...userInfo, experience: newExperienceData });
+    setUserExperience(newExperienceData);
+  };
+
+  const handleAddMore = () => {
+    if (
+      experienceFormData.start_year &&
+      experienceFormData.end_year &&
+      experienceFormData.club_name
+    ) {
+      const newData = [...userExperience, experienceFormData]; // Add new experience to userExperience state
+      setUserExperience(newData); // Update local state for immediate UI feedback
+      setEditedInfo((prevInfo) => ({
+        ...prevInfo,
+        experience: newData, // Update editedInfo with new experience data
+      }));
+      setUserInfo({ ...userInfo, experience: newData });
+    } else {
+      alert("Please fill up the experience data properly");
     }
   };
 
@@ -269,7 +280,6 @@ const EditAddedPlayerDetails = () => {
 
     setSocialMedia(values);
   }, [user, id]);
-
   const [countryNames, setCountryNames] = useState([]);
 
   useEffect(() => {
@@ -322,7 +332,7 @@ const EditAddedPlayerDetails = () => {
                   <input
                     type="file"
                     ref={fileInputRef}
-                    accept="image/*"
+                    accept=".jpeg, .jpg, .png"
                     style={{ display: "none" }}
                     onChange={handleImageChange}
                   />
@@ -349,7 +359,7 @@ const EditAddedPlayerDetails = () => {
                     }
                   />
                 </div> */}
-                <div className="mb-4 position-relative">
+                {/* <div className="mb-4 position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
                     className="form-label"
@@ -366,10 +376,35 @@ const EditAddedPlayerDetails = () => {
                       handleInputChange("sports", e.target.value)
                     }
                   />
-                </div>
+                </div> */}
               </div>
               <div className="personalInfo editpersonal_info">
                 <div className="row mb_40">
+                  <div className="col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Sports *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="sports"
+                        onChange={(e) => {
+                          handleInputChange("sports", e.target.value);
+                        }}
+                      >
+                        {sportsDatas.map((item, index) => (
+                          <option
+                            selected={userInfo["sports"] === item}
+                            key={index}
+                            value={item}
+                          >
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                   {inputFieldData.map((field, index) => (
                     <div key={index} className="col-12 col-md-4">
                       <div className="personal_info_edit_wrapper">
@@ -483,6 +518,10 @@ const EditAddedPlayerDetails = () => {
           editedInfo={editedInfo}
           setEditedInfo={setEditedInfo}
           exp={userInfo["experience"] ? userInfo["experience"] : []}
+          handleAddMore={handleAddMore}
+          handleExperienceChange={handleExperienceChange}
+          userExperience={userExperience}
+          handleRemove={handleRemove}
         />
 
         <div className=" mb_60 experience_wrapper">
@@ -570,7 +609,35 @@ const EditAddedPlayerDetails = () => {
           <div className="cover_img">
             {/* <img className="img-fluid" src={coverImg} alt="" /> */}
           </div>
-          <div className="d-flex justify-content-center align-items-center">
+          {/* <div className="d-flex justify-content-center align-items-center">
+            <button
+              type="button"
+              className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+              {...galleryRootProps()}
+            >
+              <div className="add_icon">
+                <img src={plus4} alt="add-icon" />
+              </div>
+              <input {...galleryInputProps()} />
+              Add Photo
+            </button>
+          </div> */}
+          <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+            {user?.gallary?.length > 0 &&
+              user?.gallary?.map((file, index) => (
+                <div key={index}>
+                  <img
+                    style={{ width: "130px", height: "130px" }}
+                    key={index}
+                    src={`${
+                      process.env.NODE_ENV !== "production"
+                        ? import.meta.env.VITE_LOCAL_API_URL
+                        : import.meta.env.VITE_LIVE_API_URL
+                    }/api/v1/uploads/${file}`}
+                    // alt={`Uploaded file ${file}`}
+                  />
+                </div>
+              ))}
             <button
               type="button"
               className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
@@ -583,16 +650,6 @@ const EditAddedPlayerDetails = () => {
               Add Photo
             </button>
           </div>
-          {/* <div className="upload-images d-flex gap-4 flex-wrap mb-4">
-            {selectedGalleryFiles.map((file, index) => (
-              <img
-                style={{ width: "130px", height: "130px" }}
-                key={index}
-                src={URL.createObjectURL(file)}
-                alt={`Uploaded file ${index}`}
-              />
-            ))}
-          </div> */}
         </div>
         <EditGallary images={selectedGalleryFiles} />
 

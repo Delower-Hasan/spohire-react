@@ -17,6 +17,7 @@ import coverImg from "../../../assets/cover_img.png";
 import addNewPhoto from "../../../assets/addNewPhoto.svg";
 import { useDropzone } from "react-dropzone";
 import addIcon from "../../../assets/addIcon.svg";
+import axios from "axios";
 
 // data
 const inputFieldData = [
@@ -34,19 +35,19 @@ const inputFieldData = [
     name: "last_name",
   },
 
-  {
-    label: "Sports",
-    placeholderText: "Basketball",
-    type: "text",
-    name: "sports",
-  },
+  // {
+  //   label: "Sports",
+  //   placeholderText: "Basketball",
+  //   type: "text",
+  //   name: "sports",
+  // },
 
-  {
-    label: "Function",
-    placeholderText: "Manager",
-    type: "text",
-    name: "role",
-  },
+  // {
+  //   label: "Function",
+  //   placeholderText: "Manager",
+  //   type: "text",
+  //   name: "role",
+  // },
 
   {
     label: "Date of Birth",
@@ -55,20 +56,37 @@ const inputFieldData = [
     name: "date_of_birth",
   },
 
-  {
-    label: "Nationality",
-    placeholderText: "Your Nationality",
-    type: "text",
-    name: "nationality",
-  },
+  // {
+  //   label: "Nationality",
+  //   placeholderText: "Your Nationality",
+  //   type: "text",
+  //   name: "nationality",
+  // },
 ];
+
+const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 
 const EditPlayerDetails = () => {
   const { user } = useSelector((state) => state.auth);
   const [updatePlayerDetails] = useUpdateUserMutation();
   // const [updateUser, { isLoading }] = useUpdateUserMutation();
   // gallary
-  const [selectedImages, setSelectedImages] = useState([]);
+
+  const [countryNames, setCountryNames] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   // const [userExperience, setUserExperience] = useState([...exp]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
@@ -96,6 +114,7 @@ const EditPlayerDetails = () => {
       gallary: [],
     }
   );
+
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialFormData);
   const [gallaryImage, setGallaryImage] = useState(null);
@@ -115,7 +134,20 @@ const EditPlayerDetails = () => {
     experience: [],
     about_me: "",
   });
+
   const [aboutMe, setAboutMe] = useState("");
+
+  const handleRemove = (itemToRemove) => {
+    const newExperienceData = userInfo.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    setEditedInfo((prevInfo) => ({
+      ...prevInfo,
+      experience: newExperienceData, // Update editedInfo with new experience data
+    }));
+    setUserInfo({ ...userInfo, experience: newExperienceData });
+    setUserExperience(newExperienceData);
+  };
 
   // Inside handleInputChange function
   const handleAboutInputChange = (fieldName, value) => {
@@ -135,18 +167,17 @@ const EditPlayerDetails = () => {
   const [editedInfo, setEditedInfo] = useState({});
 
   const navigate = useNavigate();
-
   const [experienceFormData, setExperienceFormData] = useState({});
+
   const [userExperience, setUserExperience] = useState([
     ...userInfo["experience"],
   ]);
 
   const handleExperienceChange = (e) => {
-    console.log("experience", e.target.value);
-
     const { name, value } = e.target;
     setExperienceFormData({ ...experienceFormData, [name]: value });
   };
+
   const handleAddMore = () => {
     if (
       experienceFormData.start_year &&
@@ -159,31 +190,12 @@ const EditPlayerDetails = () => {
         ...prevInfo,
         experience: newData, // Update editedInfo with new experience data
       }));
+      setUserInfo({ ...userInfo, experience: newData });
     } else {
       alert("Please fill up the experience data properly");
     }
   };
 
-  // const handleGallaryImageChange = (e) => {
-  //   const files = e.target.files;
-  //   setGallaryImage(Array.from(files));
-  //   const newImages = [];
-  //   for (let i = 0; i < files.length; i++) {
-  //     const reader = new FileReader();
-
-  //     reader.onload = (e) => {
-  //       newImages.push(e.target.result);
-  //       if (newImages.length === files.length) {
-  //         setSelectedImages((prevImages) => [...prevImages, ...newImages]);
-  //       }
-  //       setFormData((prevData) => ({
-  //         ...prevData,
-  //         gallary: newImages,
-  //       }));
-  //     };
-  //     reader.readAsDataURL(files[i]);
-  //   }
-  // };
   // handle profile image upload
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -224,15 +236,13 @@ const EditPlayerDetails = () => {
     e.preventDefault();
 
     const socialMediaArray = Object.values(socialMedia);
-
     const infoData = {
       ...editedInfo,
-      social_media: socialMediaArray,
-      experience: userExperience,
       about_me: aboutMe,
+      social_media: socialMediaArray,
     };
-    const formData = new FormData();
 
+    const formData = new FormData();
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
       if (Array.isArray(propertyValue)) {
@@ -243,10 +253,11 @@ const EditPlayerDetails = () => {
               formData.append(`${key}[${index}][${elementKey}]`, elementValue);
             });
           } else {
-            formData.append(`${key}[]`, element);
+            formData.append(`${key}[${index}]`, element);
           }
         });
       } else {
+        console.log("down");
         formData.append(key, propertyValue);
       }
     });
@@ -254,6 +265,7 @@ const EditPlayerDetails = () => {
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
+    formData.append("experience", JSON.stringify(userExperience));
 
     try {
       const response = await updatePlayerDetails({
@@ -314,7 +326,6 @@ const EditPlayerDetails = () => {
     setUserInfo(newData);
 
     let values = {};
-
     for (let i = 0; i < user?.social_media?.length; i++) {
       const element = user?.social_media[i];
       if (element.includes("twitter.com")) {
@@ -329,7 +340,6 @@ const EditPlayerDetails = () => {
         values.others = element;
       }
     }
-
     setSocialMedia(values);
   }, [user]);
 
@@ -359,29 +369,29 @@ const EditPlayerDetails = () => {
                 className="upload_profile_image d-flex align-items-center justify-content-center"
                 onClick={handleButtonClick}
               >
-                {/* <img
-                    className="img-fluid profiles"
-                    src={
-                      selectedImage
-                        ? URL.createObjectURL(selectedImage)
-                        : userInfo?.image
-                        ? `${
-                            process.env.NODE_ENV !== "production"
-                              ? import.meta.env.VITE_LOCAL_API_URL
-                              : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${userInfo?.image}`
-                        : profileImage
-                    }
-                    alt="Profile"
-                    style={{ objectFit: "cover" }}
-                  /> */}
+                <img
+                  className="img-fluid profiles"
+                  src={
+                    selectedImage
+                      ? URL.createObjectURL(selectedImage)
+                      : userInfo?.image
+                      ? `${
+                          process.env.NODE_ENV !== "production"
+                            ? import.meta.env.VITE_LOCAL_API_URL
+                            : import.meta.env.VITE_LIVE_API_URL
+                        }/api/v1/uploads/${userInfo?.image}`
+                      : profileImage
+                  }
+                  alt="Profile"
+                  style={{ objectFit: "cover" }}
+                />
                 <div className="profile_img position-relative">
-                  <img
+                  {/* <img
                     className="img-fluid profiles pointer"
                     src={profileImage}
                     alt="Profile"
                     style={{ objectFit: "cover" }}
-                  />
+                  /> */}
 
                   <div>
                     {!selectedImage && (
@@ -446,6 +456,87 @@ const EditPlayerDetails = () => {
                       </div>
                     </div>
                   ))}
+
+                  <div className="col-md-6 mt-3">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Function *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="role"
+                        onChange={(e) => {
+                          handleInputChange("role", e.target.value);
+                        }}
+                      >
+                        {["Player", "Manager", "Coach", "Other"].map(
+                          (item, index) => (
+                            <option
+                              selected={userInfo["role"] === item}
+                              key={index}
+                              value={item}
+                            >
+                              {item}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-md-6 mt-3">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Sports *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="sports"
+                        onChange={(e) => {
+                          handleInputChange("sports", e.target.value);
+                        }}
+                      >
+                        {sportsDatas.map((item, index) => (
+                          <option
+                            selected={userInfo["sports"] === item}
+                            key={index}
+                            value={item}
+                          >
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-md-6 mt-3">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Nationality *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="nationality"
+                        onChange={(e) => {
+                          handleInputChange("nationality", e.target.value);
+                        }}
+                      >
+                        {countryNames?.map((country, index) => (
+                          <option
+                            selected={userInfo["nationality"] === country}
+                            value={country.name}
+                            className=""
+                            key={index}
+                          >
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -463,14 +554,15 @@ const EditPlayerDetails = () => {
           handleAddMore={handleAddMore}
           handleExperienceChange={handleExperienceChange}
           userExperience={userExperience}
+          handleRemove={handleRemove}
         />
 
         <div className="mb_60 experience_wrapper">
           <div className="row align-items-center about_part">
             <div className="col-lg-6 p-0">
-              <div className="cover_img">
+              {/* <div className="cover_img">
                 <img className="img-fluid" src={coverImg} alt="" />
-              </div>
+              </div> */}
               <div className="d-flex justify-content-center align-items-center">
                 <button
                   type="button"

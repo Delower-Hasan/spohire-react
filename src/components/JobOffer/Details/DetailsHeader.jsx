@@ -19,7 +19,14 @@ const DetailsHeader = ({
         <div className="container">
           <div className="inner d-flex align-items-center justify-content-between gap-4">
             <div className="d-flex align-items-center gap-4">
-              <img style={{ width: "100px" }} src={google} alt="" />
+              <img
+                style={{ width: "100px" }}
+                className="rounded-4"
+                src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${
+                  data?.club_logo
+                }`}
+                alt=""
+              />
               <div>
                 <h4>{data?.job_title} </h4>
                 <div className="d-flex align-items-center gap-2">

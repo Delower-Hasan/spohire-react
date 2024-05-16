@@ -4,16 +4,24 @@ import localTwo from "../../assets/local2.png";
 import Robert from "../../assets/robert.png";
 import Filter from "../../assets/filter.png";
 import SignUp from "./SignUp";
-
+import video from "../../assets/spohire_2d_video.mp4";
 const HowItWorks = () => {
-
   return (
-    <section className="workBg">
+    <section
+      className="workBg"
+      style={{
+        padding: "60px 0 100px 0",
+      }}
+    >
       <section id="signUp">
         <div className="container Work_container">
           <h3>How it works</h3>
           <div className="row gy-4">
-            <div className="col-12 col-xl-6">
+            <video controls muted height="600">
+              <source type="video/mp4" src={video} />
+            </video>
+
+            {/* <div className="col-12 col-xl-6">
               <div className="d-flex flex-column gap-4 h-100">
                 <div className="innerWhiteBox d-flex  flex-md-nowrap  flex-lg-row justify-content-center align-items-center gap-2 w-100">
                   <div className="local d-flex flex-column align-items-center align-items-lg-start">
@@ -90,9 +98,8 @@ const HowItWorks = () => {
 
             <div className="col-12 col-xl-6">
               <SignUp />
-            </div>
+            </div> */}
           </div>
-
         </div>
       </section>
     </section>

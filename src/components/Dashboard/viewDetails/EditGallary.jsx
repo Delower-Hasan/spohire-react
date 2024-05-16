@@ -21,7 +21,7 @@ const EditGallary = ({ images }) => {
             spaceBetween: 40,
           },
           1024: {
-            slidesPerView: 3,
+            slidesPerView: 5,
             spaceBetween: 50,
           },
         }}

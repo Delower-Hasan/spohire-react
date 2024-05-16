@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import addIcon from "../../../assets/addIcon.svg";
+import { useSelector } from "react-redux";
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 const postions = [
   {
@@ -90,6 +91,9 @@ const AddPlayerForm = ({
   galleryRootProps,
   galleryInputProps,
   isProfileUploaded,
+  handleRemove,
+  removeGallaryImage,
+  PlayerType,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
 
@@ -107,10 +111,36 @@ const AddPlayerForm = ({
   }, []);
 
   const [sportsType, setSportsType] = useState("Football");
+  const { user } = useSelector((store) => store.auth);
 
   let mainAndAditionPostions = postions.filter(
     (item) => item.type === sportsType
   );
+
+  const [mainPositionType, setMainPositionType] = useState("");
+  const [altPositions, setAltPostions] = useState([]);
+
+  function filterAlternativePositions(mainPositionType) {
+    return mainAndAditionPostions.map((position) => {
+      if (position.mainPositions.includes(mainPositionType)) {
+        return {
+          ...position,
+          alternativePositions: position.alternativePositions.filter(
+            (altPosition) => altPosition !== mainPositionType
+          ),
+        };
+      } else {
+        return position;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const altPostions = filterAlternativePositions(mainPositionType);
+    setAltPostions(altPostions);
+  }, [mainPositionType]);
+
+  const [isBelongClub, setBelongclub] = useState(true);
   return (
     <div>
       <div className="row">
@@ -314,37 +344,41 @@ const AddPlayerForm = ({
           </div>
         </div>
 
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Weight
-            </label>
-            <input
-              id="name"
-              name="weight"
-              min={0}
-              onChange={handleInputChange}
-              type="number"
-              placeholder="Weight"
-            />
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Weight (kg)
+              </label>
+              <input
+                id="name"
+                name="weight"
+                min={0}
+                onChange={handleInputChange}
+                type="number"
+                placeholder="Weight"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Height
-            </label>
-            <input
-              id="name"
-              type="number"
-              name="height"
-              min={0}
-              onChange={handleInputChange}
-              placeholder="Height"
-            />
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Height (cm)
+              </label>
+              <input
+                id="name"
+                type="number"
+                name="height"
+                min={0}
+                onChange={handleInputChange}
+                placeholder="Height"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="col-lg-4">
           <div className="pb-4">
@@ -360,9 +394,6 @@ const AddPlayerForm = ({
                 setSportsType(e.target.value);
               }}
             >
-              <option selected disabled>
-                Select Here
-              </option>
               {sportsDatas.map((item, index) => (
                 <option key={index} value={item}>
                   {item}
@@ -371,44 +402,106 @@ const AddPlayerForm = ({
             </select>
           </div>
         </div>
-        <div className="col-lg-4">
-          <div className="pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Dominant Hand/Foot *
-            </label>
-            <select
-              required
-              className="select_form"
-              name="dominantHand"
-              onChange={handleInputChange}
-            >
-              <option selected disabled>
-                Select Here
-              </option>
-              <option value={"Left"}>Left</option>
-              <option value={"Right"}>Right</option>
-            </select>
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
+              </label>
+              <select
+                required
+                className="select_form"
+                name="dominantHand"
+                onChange={handleInputChange}
+              >
+                <option selected disabled>
+                  Select Here
+                </option>
+                <option value={"Left"}>Left</option>
+                <option value={"Right"}>Right</option>
+              </select>
+            </div>
           </div>
-        </div>
+        )}
+
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Main position *
+              </label>
+
+              <select
+                required
+                className="select_form text-capitalize"
+                name="mainPosition"
+                onChange={(e) => {
+                  handleInputChange(e);
+                  setMainPositionType(e.target.value);
+                }}
+              >
+                <option selected disabled>
+                  Select Here
+                </option>
+                {mainAndAditionPostions[0]?.mainPositions?.map(
+                  (item, index) => (
+                    <option
+                      key={index}
+                      value={item}
+                      className="text-capitalize"
+                    >
+                      {item}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          </div>
+        )}
+
+        {PlayerType !== "Coach" && (
+          <div className="col-lg-4">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Alternative position
+              </label>
+
+              <select
+                required
+                className="select_form text-capitalize"
+                name="alterPosition"
+                onChange={handleInputChange}
+              >
+                <option value={"N/A"} selected>
+                  Select
+                </option>
+                {altPositions[0]?.alternativePositions?.map((item, index) => (
+                  <option key={index} value={item} className="text-capitalize">
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
 
         <div className="col-lg-4">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
-              Main position *
+              Additional passport
             </label>
-
             <select
               required
               className="select_form"
-              name="mainPosition"
+              name="additional_passport"
               onChange={handleInputChange}
             >
-              <option selected disabled>
-                Select Here
+              <option value={"N/A"} select>
+                Select
               </option>
-              {mainAndAditionPostions[0]?.mainPositions?.map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
+              {countryNames?.map((country, index) => (
+                <option value={country.name} className="" key={index}>
+                  {country.name}
                 </option>
               ))}
             </select>
@@ -418,116 +511,90 @@ const AddPlayerForm = ({
         <div className="col-lg-4">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
-              Alternative position
-            </label>
-
-            <select
-              required
-              className="select_form"
-              name="alterPosition"
-              onChange={handleInputChange}
-            >
-              <option selected disabled>
-                Select Here
-              </option>
-              {mainAndAditionPostions[0]?.alternativePositions?.map(
-                (item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-        </div>
-
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Additional passport
-            </label>
-            <input
-              id="name"
-              name="additional_passport"
-              onChange={handleInputChange}
-              type="text"
-              placeholder="Select here"
-            />
-          </div>
-        </div>
-
-        {/* <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Age
-            </label>
-            <input
-              id="name"
-              name="age"
-              min={0}
-              onChange={handleInputChange}
-              type="number"
-              min={10}
-              placeholder="Age"
-            />
-          </div>
-        </div> */}
-
-        <div className="col-lg-4">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
               Do you currently belong to a club? *
             </label>
 
-            <div className="btn_group d-flex gap-3">
+            <div className="btn_group d-flex gap-3 mt-2">
               <input
                 type="radio"
                 id="yes"
                 className="yes"
                 value={"yes"}
                 name="belong_to_the_club"
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  setBelongclub(true);
+                  handleInputChange(e);
+                }}
+                style={{ display: "none" }}
               />{" "}
-              <label htmlFor="yes">YES</label>
+              <label
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "#05CD99",
+                }}
+                className="yes_btn"
+                htmlFor="yes"
+              >
+                YES
+              </label>
               <input
                 type="radio"
                 className="no"
                 value={"no"}
                 id="no"
+                onChange={(e) => {
+                  setBelongclub(false);
+                  handleInputChange(e);
+                }}
                 name="belong_to_the_club"
+                style={{ display: "none" }} // Hide the radio input visually
               />{" "}
-              <label htmlFor="no">NO</label>
-              {/* <button className="yes">Yes</button>
-              <button className="no">No</button> */}
+              <label
+                style={{ cursor: "pointer" }}
+                htmlFor="no"
+                className="yes_btn"
+              >
+                NO
+              </label>
             </div>
           </div>
         </div>
-
-        <div className="col-lg-8">
-          <div className="input_form pb-4">
-            <label htmlFor="name" className="d-block label_name mb-2">
-              Club name
-            </label>
-            <input
-              id="name"
-              name="club_name"
-              onChange={handleInputChange}
-              type="text"
-              placeholder="Club name"
-            />
+        {isBelongClub && (
+          <div className="col-lg-8">
+            <div className="input_form pb-4">
+              <label htmlFor="name" className="d-block label_name mb-2">
+                Club name
+              </label>
+              <input
+                id="name"
+                name="club_name"
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Club name"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="col-lg-6">
           <div className="overflow-hidden bg-white">
             <div className="experience_information">
               <div className="ei_left">
                 <p className="f_sfPro text_color_36 fs-4 mb-4">Experience</p>
-                <ul className="mb-4">
+                <ul className="mb-4" style={{ listStyle: "none" }}>
                   {exp &&
                     exp?.map((item, index) => (
-                      <li className="f_sfPro text_color_36 fs-6" key={index}>
-                        {item?.start_year}-{item?.end_year} {item?.club_name}
+                      <li
+                        className="f_sfPro text_color_36 fs-6 my-1"
+                        key={index}
+                      >
+                        {item?.start_year}-{item?.end_year} {item?.club_name} -{" "}
+                        <button
+                          className="text-black"
+                          onClick={() => handleRemove(item)}
+                        >
+                          X
+                        </button>
                       </li>
                     ))}
                 </ul>
@@ -679,9 +746,9 @@ const AddPlayerForm = ({
 
         <div className="other_information mt-5 p-4">
           <div className="row">
-            <div className="d-flex justify-content-end">
+            {/* <div className="d-flex justify-content-end">
               <button className="py-2 px-4 btn_save">Save</button>
-            </div>
+            </div> */}
 
             <div className="col-lg-4">
               <div className="oi_title pb-2">
@@ -731,16 +798,30 @@ const AddPlayerForm = ({
           <div className="row">
             <div className="d-flex justify-content-between pb-5">
               <h2 className="fs-4">Gallery</h2>
-              <button className="py-2 px-4 btn_save">Save</button>
+              {/* <button className="py-2 px-4 btn_save">Save</button> */}
             </div>
-            <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+            <div className="upload-images d-flex gap-4 flex-wrap mb-4 ">
               {selectedGalleryFiles.map((file, index) => (
-                <img
-                  style={{ width: "130px", height: "130px" }}
-                  key={index}
-                  src={URL.createObjectURL(file)}
-                  alt={`Uploaded file ${index}`}
-                />
+                <div key={index} className="position-relative">
+                  <img
+                    style={{ width: "130px", height: "130px" }}
+                    key={index}
+                    src={URL.createObjectURL(file)}
+                    alt={`Uploaded file ${index}`}
+                  />
+                  <button
+                    className="position-absolute p-1 px-2  bg-black text-white"
+                    style={{
+                      right: "5px",
+                      top: "5px",
+                      fontSize: "10px",
+                      borderRadius: "100%",
+                    }}
+                    onClick={() => removeGallaryImage(index)}
+                  >
+                    X
+                  </button>
+                </div>
               ))}
             </div>
             <div>

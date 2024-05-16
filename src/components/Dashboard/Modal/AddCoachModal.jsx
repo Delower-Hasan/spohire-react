@@ -45,6 +45,13 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     useDropzone({ onDrop: onProfileDrop });
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
+
+  const removeGallaryImage = (index) => {
+    // Handle image removal
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
   //  my code
 
   const handleSocialLinkChange = (e) => {
@@ -76,6 +83,16 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     }
   };
 
+  const handleRemove = (itemToRemove) => {
+    // Filter out the item to remove from the experience array
+    const newExperienceData = playerData.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    console.log("newExperienceData", newExperienceData);
+    // Update playerData with the new experience data
+    setPlayerData({ ...playerData, ["experience"]: newExperienceData });
+  };
+
   const socialMediaArray = Object.values(socialMedia);
   const [playerData, setPlayerData] = useState({
     experience: "",
@@ -105,8 +122,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
   };
 
   const [loading, setLoading] = useState(false);
-
   const handleSubmit = async () => {
+    console.log("palayrdd", playerData);
     setLoading(true);
     const date = new Date();
     const playerInfo = {
@@ -126,7 +143,10 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     const formData = new FormData();
 
     Object.entries(playerInfo).forEach(([key, value]) => {
-      formData.append(key, value);
+      console.log("value from coach infor");
+      key === "experience" && key === "experience"
+        ? formData.append("experience", JSON.stringify(value))
+        : formData.append(key, value);
     });
 
     selectedGalleryFiles?.forEach((img, index) => {
@@ -196,6 +216,9 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             galleryInputProps={galleryInputProps}
             isProfileUploaded={isProfileUploaded}
             setIsProfileUploaded={setIsProfileUploaded}
+            handleRemove={handleRemove}
+            removeGallaryImage={removeGallaryImage}
+            PlayerType={"Coach"}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />
@@ -205,6 +228,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             handleSubmit={handleSubmit}
             addPlayerLoading={addPlayerLoading}
             selectedPackages={selectedPackages}
+            PlayerType={"Coach"}
+            setStep={setStep}
           />
         ) : null}
 
@@ -214,7 +239,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}>
+            } `}
+          >
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddCoachModal(false)}>Cancel</button>
               <button
@@ -231,8 +257,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                     "phone_number",
                     "city",
                     "sports",
-                    "dominantHand",
-                    "position",
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]
@@ -244,7 +268,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                   } else {
                     setStep((prevStep) => prevStep + 1);
                   }
-                }}>
+                }}
+              >
                 {step === 2 ? "Next" : "Add Coach"}
               </button>
             </div>

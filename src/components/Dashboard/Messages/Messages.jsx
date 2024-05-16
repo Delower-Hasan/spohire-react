@@ -6,6 +6,8 @@ import chaticon from "../../../assets/chaticon.png";
 import chatclose from "../../../assets/chatclose.png";
 import profile from "../../../assets/chat_info-profile.png";
 import senticon from "../../../assets/sentIcon.png";
+import messageProfile from "../../../assets/coach_img.png";
+import mDetails from "../../../assets/m_details.svg";
 import send from "../../../assets/send.png";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -30,20 +32,15 @@ const Messages = () => {
   const { messages, conversationId, selectedMsgUser } = useSelector(
     (state) => state.chat
   );
-
   const { id } = useParams();
-
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
   const chatContainerRef = useRef(null);
-
   const [createConversation] = useCreateConversationMutation();
   const [addMessages, { isLoading }] = useAddMessagesMutation();
   const [createNotification] = useCreateNotificationMutation();
   const { data: messageUser } = useGetUserByIdQuery(id);
   const [searchText, setSearchText] = useState("");
-
   const [messageText, setMessageText] = useState("");
 
   //   create conversation id
@@ -141,7 +138,6 @@ const Messages = () => {
   };
 
   const hanldeViewProfile = () => {
-    console.log(selectedMsgUser, "selectedMsgUser");
     if (selectedMsgUser.role === "Coach") {
       navigate(`/dashboard/coacheDetails/${selectedMsgUser?._id}`);
     } else {
@@ -175,11 +171,27 @@ const Messages = () => {
                 </div>
               </div>
             </div>
+
             <div className={`col-lg-9 d-flex`}>
               <div className="messaging" style={{ width: "100%" }}>
-                <h2 onClick={close} className="pointer">
-                  {selectedMsgUser?.first_name} {selectedMsgUser?.last_name}
-                </h2>
+                <div className="mplayer_info d-flex justify-content-between align-content-center mb-4">
+                  <div className=" d-flex align-items-center gap-4">
+                    <div className="person_img">
+                      <img src={messageProfile} alt="message-profile" />
+                    </div>
+                    <div className="person_name">
+                      <h2 onClick={close} className="pointer">
+                        {selectedMsgUser?.first_name}{" "}
+                        {selectedMsgUser?.last_name}
+                      </h2>
+                      <p>{selectedMsgUser?.role}</p>
+                    </div>
+                  </div>
+                  <button className="bg-transparent">
+                    <img src={mDetails} alt="details-icon" />
+                  </button>
+                </div>
+
                 <div className="message_content">
                   {messages &&
                     messages?.length > 0 &&
@@ -217,7 +229,7 @@ const Messages = () => {
                                     {/* <span>
                                       {formatMessageTime(item?.createdAt)}
                                     </span> */}
-                                    <img src={senticon} alt="sent" />
+                                    {/* <img src={senticon} alt="sent" /> */}
                                   </div>
                                 </div>
                                 <p className="message_time position-absolute">
@@ -226,7 +238,19 @@ const Messages = () => {
                               </div>
 
                               <div className="position-absolute avatar_img">
-                                <img src={chatAvatar} alt="" />
+                                {/* <img src={chatAvatar} alt="" /> */}
+                                <img
+                                  src={
+                                    user?.image
+                                      ? `${
+                                          process.env.NODE_ENV !== "production"
+                                            ? import.meta.env.VITE_LOCAL_API_URL
+                                            : import.meta.env.VITE_LIVE_API_URL
+                                        }/api/v1/uploads/${user?.image}`
+                                      : chatAvatar
+                                  }
+                                  alt="Avater"
+                                />
                               </div>
                             </div>
 
@@ -249,7 +273,8 @@ const Messages = () => {
                     onChange={(e) => setMessageText(e.target.value)}
                     onKeyPress={handleKeyPress}
                   />
-                  <div className="send_img">
+
+                  <div className="send_img pr-5">
                     <button
                       onClick={handleSendClick}
                       className="bg-none"
@@ -257,6 +282,24 @@ const Messages = () => {
                     >
                       <img src={send} alt="" />
                     </button>
+                  </div>
+
+                  <div className="upload_img">
+                    <label htmlFor="upload">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M16.5 6V17.5C16.5 19.71 14.71 21.5 12.5 21.5C10.29 21.5 8.5 19.71 8.5 17.5V5C8.5 3.62 9.62 2.5 11 2.5C12.38 2.5 13.5 3.62 13.5 5V15.5C13.5 16.05 13.05 16.5 12.5 16.5C11.95 16.5 11.5 16.05 11.5 15.5V6H10V15.5C10 16.88 11.12 18 12.5 18C13.88 18 15 16.88 15 15.5V5C15 2.79 13.21 1 11 1C8.79 1 7 2.79 7 5V17.5C7 20.54 9.46 23 12.5 23C15.54 23 18 20.54 18 17.5V6H16.5Z"
+                          fill="#2B3674"
+                        />
+                      </svg>
+                    </label>
+                    <input id="upload" type="file" className="bg-none d-none" />
                   </div>
                 </div>
               </div>

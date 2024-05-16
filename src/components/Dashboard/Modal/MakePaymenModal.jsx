@@ -14,7 +14,8 @@ const MakePaymenModal = ({
   handleSubmit,
   selectedPackages,
   addPlayerLoading,
-  modalRef,
+  PlayerType,
+  setStep,
 }) => {
   const options = [
     "All analytics features",
@@ -22,10 +23,11 @@ const MakePaymenModal = ({
     "Normal support",
     "Up to 3 team members",
   ];
+
   const stripePromise = loadStripe(STRIPE_PK);
   const { subscriptions } = useSelector((state) => state.auth);
-  console.log("subscriptions", subscriptions);
 
+  console.log("subscriptions", subscriptions);
   return (
     <div className="">
       <div className="">
@@ -72,7 +74,9 @@ const MakePaymenModal = ({
                     </div>
 
                     <div className="d-flex justify-content-end">
-                      <p className="modify_price">Modify</p>
+                      <p className="modify_price" onClick={() => setStep(2)}>
+                        Modify
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -151,6 +155,7 @@ const MakePaymenModal = ({
                     addPlayerLoading={addPlayerLoading}
                     selectedPackages={selectedPackages}
                     setMakePaymentClose={setMakePaymentClose}
+                    PlayerType={PlayerType}
                   />
                 </Elements>
 

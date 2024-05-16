@@ -18,7 +18,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
 
   //  my code
-
   const [isProfileUploaded, setIsProfileUploaded] = useState(false);
   const [selectedProfileFile, setSelectedProfileFile] = useState(null);
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
@@ -40,6 +39,13 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({ onDrop: onGalleryDrop });
+
+  const removeGallaryImage = (index) => {
+    // Handle image removal
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
   //  my code
 
   const [socialMedia, setSocialMedia] = useState({
@@ -54,12 +60,19 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     setSocialMedia({ ...socialMedia, [name]: value });
   };
 
+  const [playerData, setPlayerData] = useState({
+    experience: "",
+  });
+
   const [experienceFormData, setExperienceFormData] = useState({});
 
   const handleExperienceChange = (e) => {
     const { name, value } = e.target;
     setExperienceFormData({ ...experienceFormData, [name]: value });
   };
+  const [userExperience, setUserExperience] = useState([
+    ...playerData["experience"],
+  ]);
 
   const handleAddMore = () => {
     if (
@@ -68,18 +81,24 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       experienceFormData.club_name
     ) {
       const newData = [...playerData?.experience, experienceFormData];
-      setPlayerData({ ...playerData, ["experience"]: newData });
+      setUserExperience(newData);
+      setPlayerData((prevInfo) => ({
+        ...prevInfo,
+        experience: newData, // Update editedInfo with new experience data
+      }));
     } else {
       alert("Please fill up the experience data properly");
     }
   };
 
+  const handleRemove = (itemToRemove) => {
+    const newExperienceData = playerData.experience.filter(
+      (item) => item !== itemToRemove
+    );
+    setUserExperience(newExperienceData);
+    setPlayerData({ ...playerData, ["experience"]: newExperienceData });
+  };
   const socialMediaArray = Object.values(socialMedia);
-
-  const [playerData, setPlayerData] = useState({
-    experience: "",
-  });
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPlayerData({ ...playerData, [name]: value });
@@ -97,9 +116,12 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     setImage(selectedFile.name);
     setPlayerData({ ...playerData, image: selectedFile });
   };
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    console.log("|playerData| :", playerData);
+
     setLoading(true);
     const date = new Date();
     const playerInfo = {
@@ -107,6 +129,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       image: selectedProfileFile,
       social_media: socialMediaArray,
       subscriptionDate: date,
+      experience: userExperience,
       subscriptionName: subscriptions.subscriptionName,
       expirationDate: setExpireDate(selectedPackages?.month),
       packageChoosed: selectedPackages?.month,
@@ -115,11 +138,16 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
       referral: user?._id,
       role: "Player",
     };
+
     const formData = new FormData();
     Object.entries(playerInfo).forEach(([key, value]) => {
-      formData.append(key, value);
+      key === "experience" &&
+        console.log("experience tab triggered successfully, ");
+      key === "experience"
+        ? formData.append("experience", JSON.stringify(value))
+        : formData.append(key, value);
+      // formData.append(key, value);
     });
-
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
@@ -157,8 +185,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     }
   };
 
-
-
   return (
     <div className="addplayer_modal">
       <div className="inner">
@@ -167,7 +193,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             <h2>Add Player</h2>
             <p
               className="fs-6 pointer"
-              onClick={() => setAddPlayerModal(false)}>
+              onClick={() => setAddPlayerModal(false)}
+            >
               X
             </p>
           </div>
@@ -191,6 +218,9 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             galleryInputProps={galleryInputProps}
             isProfileUploaded={isProfileUploaded}
             setIsProfileUploaded={setIsProfileUploaded}
+            handleRemove={handleRemove}
+            removeGallaryImage={removeGallaryImage}
+            PlayerType={"Player"}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />
@@ -200,6 +230,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             handleSubmit={handleSubmit}
             addPlayerLoading={addPlayerLoading}
             selectedPackages={selectedPackages}
+            PlayerType={"Player"}
+            setStep={setStep}
           />
         ) : null}
 
@@ -209,7 +241,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}>
+            } `}
+          >
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
@@ -226,7 +259,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                     "city",
                     "sports",
                     "dominantHand",
-                    ,
+                    "mainPosition",
                   ];
                   const missingFields = requiredFields.filter(
                     (field) => !playerData[field]
@@ -238,7 +271,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                   } else {
                     setStep((prevStep) => prevStep + 1);
                   }
-                }}>
+                }}
+              >
                 {step === 2 ? "Next" : "Add Player"}
               </button>
             </div>

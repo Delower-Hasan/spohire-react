@@ -76,7 +76,7 @@ const JobOverview = ({ data: jobData }) => {
     // },
   ];
   return (
-    <div className="description_outline job_overview">
+    <div className="description_outline job_overview bg-white">
       <p className="title mb-5">Job Overview</p>
       <div className="row g-4 mb-5">
         {details?.map((data, index) => (

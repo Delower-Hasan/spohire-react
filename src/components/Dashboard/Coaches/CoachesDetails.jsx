@@ -4,6 +4,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
 import silverIcon from "../../../assets/silver_icon.svg";
+import goldIcon from "../../../assets/gold_icon.png";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useGetPlayerDetailsQuery } from "../../../features/auth/authApi";
@@ -12,6 +13,7 @@ import {
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
 import Swal from "sweetalert2";
+import { getCountryFlag } from "../../../utils/getFlag";
 
 const CoachesDetails = () => {
   const { id } = useParams();
@@ -20,6 +22,7 @@ const CoachesDetails = () => {
   const isBookmarked = observation?.data?.find(
     (i) => i?.target_id?._id === user?._id
   );
+  const authUser = useSelector((item) => item.auth);
 
   const [toggleObservation, { isLoading: observeLoading }] =
     useToggleObservationMutation();
@@ -27,9 +30,9 @@ const CoachesDetails = () => {
   const handleBookmark = async (e, id) => {
     e.stopPropagation();
     const data = {
-      user_id: user?._id,
+      user_id: authUser?.user?._id,
       target_id: id,
-      target_type: "Player",
+      target_type: "User",
     };
     try {
       const response = await toggleObservation(data);
@@ -70,6 +73,21 @@ const CoachesDetails = () => {
       .catch((error) => console.error("Failed to copy:", error));
   };
 
+  const calculateAge = (dateOfBirth) => {
+    const currentDate = new Date();
+    const dob = new Date(dateOfBirth);
+
+    let age = currentDate.getFullYear() - dob.getFullYear();
+    const monthDiff = currentDate.getMonth() - dob.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && currentDate.getDate() < dob.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
   return (
     <div className="details_information">
       <div className="profile_cover">
@@ -78,7 +96,7 @@ const CoachesDetails = () => {
             <Marquee>
               {user?.fullName
                 ? user?.fullName
-                : `${user?.firstName} ${user?.lastName}`}
+                : `${user?.firstName} ${user?.lastName}`}{" "}
             </Marquee>
           </h2>
         </div>
@@ -88,7 +106,13 @@ const CoachesDetails = () => {
             <p className="surname">{user?.firstName}</p>
             <p className="nickname pb-3">{user?.lastName}</p>
             <div className="country d-flex gap-2 align-items-center pb-3">
-              {/* <img src={Germany} alt="" /> */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: getCountryFlag(
+                    user?.country ? user?.country : user?.nationality
+                  ),
+                }}
+              />{" "}
               <p>{user?.country ? user?.country : user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
@@ -118,11 +142,24 @@ const CoachesDetails = () => {
                 style={{ width: "20px" }}
                 disabled={observeLoading}
               >
-                {isBookmarked ? (
-                  <FaRegBookmark style={{ color: "#FFF" }} />
-                ) : (
-                  <FaRegBookmark style={{ color: "#333" }} />
-                )}
+                {isBookmarked !== undefined &&
+                  (isBookmarked ? (
+                    <FaRegBookmark
+                      style={{
+                        color: "#FFF",
+                        fontSize: "35px",
+                        strokeWidth: "1",
+                      }}
+                    />
+                  ) : (
+                    <FaRegBookmark
+                      style={{
+                        color: "#FFF",
+                        fontSize: "35px",
+                        strokeWidth: "1",
+                      }}
+                    />
+                  ))}
               </button>
             </div>
           </div>
@@ -135,80 +172,118 @@ const CoachesDetails = () => {
                   alt="photograph"
                 />
 
-                <div className="subscription_title d-flex align-items-center gap-2 position-absolute">
-                  <p
-                    className="font-bold d-inline-flex gap-2"
-                    style={{
-                      fontSize: "10px",
-                      color: "#CD7F32",
-                      border: "1px solid #CD7F32",
-                      padding: "5px 10px",
-                      borderRadius: "28px",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <img src={silverIcon} alt="silver-icon" />
-                    Silver
-                  </p>
+                <div className="subscription_title  position-absolute">
+                  {user?.isSubsCribed &&
+                    user?.subscriptionName === "Silver" && (
+                      <div className="d-flex align-items-center gap-2 text-uppercase">
+                        <p
+                          className="font-bold d-inline-flex gap-2"
+                          style={{
+                            fontSize: "16px",
+                            color: "#8A8988",
+                            border: "1px solid #8A8988",
+                            padding: "8px 40px",
+                            borderRadius: "13px",
+                          }}
+                        >
+                          <img src={silverIcon} alt="silver-icon" />
+                          {user?.subscriptionName}
+                        </p>
+                      </div>
+                    )}
+
+                  {user?.isSubsCribed && user?.subscriptionName === "Gold" && (
+                    <div className="d-flex align-items-center gap-2 text-uppercase">
+                      <p
+                        className="font-bold d-inline-flex gap-2"
+                        style={{
+                          fontSize: "16px",
+                          color: "#EBB111",
+                          border: "1px solid #FFD029",
+                          padding: "8px 40px",
+                          borderRadius: "13px",
+                        }}
+                      >
+                        <img src={goldIcon} alt="silver-icon" />
+                        {user?.subscriptionName}
+                      </p>
+                    </div>
+                  )}
+
+                  {user?.isSubsCribed &&
+                    user?.subscriptionName === "Bronze" && (
+                      <div className="d-flex align-items-center gap-2 text-uppercase">
+                        <p
+                          className="font-bold d-inline-flex gap-2"
+                          style={{
+                            fontSize: "16px",
+                            color: "#CD7F32",
+                            border: "1px solid #CD7F32",
+                            padding: "8px 40px",
+                            borderRadius: "13px",
+                          }}
+                        >
+                          <img src={silverIcon} alt="silver-icon" />
+                          {user?.subscriptionName}
+                        </p>
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bio_graphy2 d-flex gap-4">
-            <div className="age text-center">
+          <div className="bio_graphy2 d-flex justify-content-center gap-4">
+            <div className=" text-center">
               <p className="bio_title">Age</p>
-              <p className="bio_info">{user?.age ?? "N/A"}</p>
-              <p className="bio_footer_title">years</p>
+              <p className="bio_info">
+                {calculateAge(user?.date_of_birth) ?? "N/A"}
+              </p>
+              <p className="bio_footer_title text-white">years</p>
             </div>
-
-            <div className="height text-center">
-              <p className="bio_title">height</p>
-              <p className="bio_info">{user?.height ?? "N/A"}</p>
-              <p className="bio_footer_title">CM</p>
-            </div>
-
-            <div className="wight text-center">
-              <p className="bio_title">Weight</p>
-              <p className="bio_info">{user?.weight ?? "N/A"}</p>
-              <p className="bio_footer_title">Kgs</p>
-            </div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div className=" text-center"></div>
+            <div className=" text-center"></div>
           </div>
         </div>
 
         <div className="other_information d-flex justify-content-between">
           <div className="other_info_left">
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
-              <p className="info_title">Main position</p>
-              <p className="info_des">{user?.mainPosition ?? "N/A"}</p>
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
+              <p className="info_title">Nationality</p>
+              <p className="info_des">{user?.nationality ?? "N/A"}</p>
             </div>
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
-              <p className="info_title">Alternative</p>
-              <p className="info_des">{user?.alterPosition ?? "N/A"}</p>
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
+              <p className="info_title">Residence</p>
+              <p className="info_des">{user?.country ?? "N/A"}</p>
             </div>
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
-              <p className="info_title">Date of birth</p>
-              <p className="info_des">{user?.date_of_birth ?? "N/A"}</p>
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
+              <p className="info_title">City</p>
+              <p className="info_des">{user?.city ?? "N/A"}</p>
             </div>
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
               <p className="info_title">Gender</p>
               <p className="info_des">{user?.gender ?? "N/A"}</p>
             </div>
           </div>
           <div className="other_info_right">
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
-              <p className="info_title">Nationality </p>
-              <p className="info_des">{user?.nationality ?? "N/A"}</p>
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
+              <p className="info_title">Date of birth</p>
+              <p className="info_des">{user?.date_of_birth ?? "N/A"}</p>
             </div>
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
-              <p className="info_title">residence </p>
-              <p className="info_des">{user?.city ?? "N/A"}</p>
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
+              <p className="info_title">Curent club </p>
+              <p className="info_des">{user?.club_name ?? "N/A"}</p>
             </div>
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
               <p className="info_title">sport </p>
               <p className="info_des">{user?.sports ?? "N/A"}</p>
             </div>
-            <div className="info d-flex align-items-center justify-content-between pb-2 gap-5">
+            <div className="info d-flex align-items-center justify-content-between pb-4 gap-5">
               <p className="info_title">Added by </p>
               <p className="info_des">{user?.referral?.first_name}</p>
             </div>
@@ -255,9 +330,11 @@ const CoachesDetails = () => {
           <h3>Experience</h3>
         </div>
         <div className="top d-flex justify-content-between py-4">
-          {user?.experience.length > 0 ? (
-            user?.experience?.map((item, index) => (
-              <div className="exerience_infomation">
+          {user?.experience !== undefined &&
+          user?.experience.length > 0 &&
+          JSON.parse(user?.experience)?.length > 0 ? (
+            JSON.parse(user?.experience)?.map((item, index) => (
+              <div key={index} className="exerience_infomation">
                 <p className="year">
                   {item.start_year} –{item.end_year}
                 </p>
@@ -356,8 +433,10 @@ const CoachesDetails = () => {
               user?.gallary?.map((item, index) => (
                 <>
                   <img
+                    key={index}
                     src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${item}`}
                     alt=""
+                    className="rounded"
                     style={{ maxWidth: "150px" }}
                   />
                 </>

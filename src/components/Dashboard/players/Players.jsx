@@ -42,6 +42,20 @@ const Players = () => {
     });
   }
 
+  const calculateAge = (dateOfBirth) => {
+    const currentDate = new Date();
+    const dob = new Date(dateOfBirth);
+
+    let age = currentDate.getFullYear() - dob.getFullYear();
+    const monthDiff = currentDate.getMonth() - dob.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && currentDate.getDate() < dob.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
   const handleFilter = (value) => {
     if (
       playerFilterParams?.position ||
@@ -64,11 +78,15 @@ const Players = () => {
         (playerFilterParams?.gender &&
           playerFilterParams?.gender === value?.gender) ||
         (playerFilterParams?.minHeight &&
-          playerFilterParams?.minHeight >= value?.height) ||
+          playerFilterParams?.minHeight <= value?.height) ||
         (playerFilterParams?.maxHeight &&
-          playerFilterParams?.maxHeight <= value?.height) ||
+          playerFilterParams?.maxHeight >= value?.height) ||
         (playerFilterParams?.dominantHand &&
-          playerFilterParams?.dominantHand === value?.dominantHand)
+          playerFilterParams?.dominantHand === value?.dominantHand) ||
+        (playerFilterParams?.minAge &&
+          playerFilterParams?.minAge <= calculateAge(value?.date_of_birth)) ||
+        (playerFilterParams?.maxAge &&
+          playerFilterParams?.maxAge >= calculateAge(value?.date_of_birth))
       );
     } else {
       return true;
@@ -159,7 +177,7 @@ const SinglePlayer = ({ player }) => {
     const data = {
       user_id: user?._id,
       target_id: id,
-      target_type: "Player",
+      target_type: "User",
     };
 
     try {
@@ -242,7 +260,7 @@ const SinglePlayer = ({ player }) => {
             </div>
           </div>
         </td>
-        
+
         <td>
           <p className="text_color_55 fw-normal fs_14 d-flex align-items-center gap-2">
             {" "}

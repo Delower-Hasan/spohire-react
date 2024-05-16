@@ -39,8 +39,9 @@ const options = [
 ];
 
 const PricingCard = () => {
+  const isPricingPage = location.pathname === "/pricing";
   const dispatch = useDispatch();
-  const [activeCard, setActiveCard] = useState(1);
+  const [activeCard, setActiveCard] = useState(isPricingPage ? 1 : 0);
   const [modalOpen, setModalOpen] = useState(false);
 
   const modalRef = useRef(null);
@@ -71,7 +72,6 @@ const PricingCard = () => {
     dispatch(setSubscription(index));
   };
 
-  const isPricingPage = location.pathname === "/pricing";
   const route = useLocation();
 
   return (
@@ -83,9 +83,11 @@ const PricingCard = () => {
             className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
             onClick={() => {
               handleCardClick(index);
-            }}>
+            }}
+          >
             <div
-              className={`price_card ${activeCard === index ? "active" : ""}`}>
+              className={`price_card ${activeCard === index ? "active" : ""}`}
+            >
               <div className="d-flex align-items-center gap-4 mb-5">
                 <div className="model">
                   <img className="mt-0" src={data.pic} alt="" />
@@ -98,7 +100,8 @@ const PricingCard = () => {
               <p
                 className={` mb-3 ${
                   activeCard === index ? "active_price" : "price"
-                }`}>
+                }`}
+              >
                 ${data.price}{" "}
                 {location.pathname === "/dashboard" ||
                 location.pathname === "/dashboard/coaches" ||
@@ -112,7 +115,8 @@ const PricingCard = () => {
               <p
                 className={` ${
                   activeCard === index ? "active_include" : "include"
-                }`}>
+                }`}
+              >
                 What's included
               </p>
 
@@ -128,7 +132,8 @@ const PricingCard = () => {
                       style={{ fontSize: "18px" }}
                       className={`${
                         activeCard === index ? "active_color" : "active_color2"
-                      }`}>
+                      }`}
+                    >
                       {option}
                     </p>
                   </div>
@@ -138,6 +143,7 @@ const PricingCard = () => {
               {!isPricingPage && (
                 <div className="d-flex">
                   <button
+                    disabled={true}
                     onClick={() => {
                       isPricingPage ? null : openModal();
                     }}
@@ -151,7 +157,8 @@ const PricingCard = () => {
                       color: `${activeCard === index ? "#2B3674" : "#FFFFFF"}`,
                       fontWeight: "500",
                       fontSize: "20px",
-                    }}>
+                    }}
+                  >
                     {location.pathname === "/dashboard" ||
                     location.pathname === "/dashboard/coaches" ||
                     location.pathname === "/dashboard/players"

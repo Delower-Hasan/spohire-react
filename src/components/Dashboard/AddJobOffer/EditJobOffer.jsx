@@ -12,6 +12,8 @@ import {
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const options = [
   { value: "Full-time", label: "Full-time" },
@@ -46,6 +48,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
 
   const [jobDatas, setJobDatas] = useState({});
   const [editingInfo, setEditingInfo] = useState({});
+  const [description, setDescription] = useState();
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -64,6 +67,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
     Object.entries(editingInfo).forEach(([key, value]) => {
       fromData.append(key, value || "");
     });
+    fromData.append("description", description);
 
     try {
       const response = await editJob({ id: editingItem?._id, data: fromData });
@@ -164,7 +168,9 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                 onSubmit={handleSubmit}
                 className="w-100 player_job_form_wrapper"
               >
-                <div className="text-center modal_title">Edit Job offer</div>
+                <div className="text-center modal_title mb-5">
+                  Edit Job offer
+                </div>
                 <div className="row">
                   <div className="col-lg-6">
                     <div
@@ -205,6 +211,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                         type="file"
                         className="form-control"
                         id="exampleFormControlInput1"
+                        accept=".jpeg, .jpg, .png"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         style={{ display: "none" }} // Hide the default file input
@@ -481,17 +488,18 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                         Description
                       </label>
                       <div className="input-group mb-3">
-                        <textarea
-                          type="text"
-                          style={{ height: "65px" }}
-                          className="form-control"
-                          placeholder="Enter Your Description...."
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                          name="description"
-                          required
-                          value={jobDatas?.description}
-                          onChange={handleInputChange}
+                        <CKEditor
+                          style={{ width: "100%" }}
+                          editor={ClassicEditor}
+                          className="form-control w-100"
+                          data={jobDatas?.description}
+                          onReady={(editor) => {
+                            console.log("Editor is ready to use!", editor);
+                          }}
+                          onChange={(event, editor) => {
+                            const data = editor.getData();
+                            setDescription(data);
+                          }}
                         />
                       </div>
                     </div>

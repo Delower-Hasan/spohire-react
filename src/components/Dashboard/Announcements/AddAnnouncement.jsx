@@ -168,10 +168,12 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div
                 // onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0">
+                className="w-100 player_job_form_wrapper mt-0"
+              >
                 {step === 1 ? (
                   <CreateAnnouncemnetModal
                     fileInputRef={fileInputRef}
@@ -230,7 +232,8 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                         }
                       }}
                       className="submit_now_btn m-0"
-                      type="button">
+                      type="button"
+                    >
                       Next
                     </button>
                   </div>

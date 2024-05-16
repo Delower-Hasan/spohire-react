@@ -5,17 +5,18 @@ import bronze from "../../assets/bronze.svg";
 import checkActive from "../../assets/white-check.svg";
 import "./PricingPages.css";
 import useClickOutside from "../../hooks/useClickOutside";
+import { useSelector } from "react-redux";
 
 const AddJobOfferPricing = ({ setSelectedPackages }) => {
-  const [activeCard, setActiveCard] = useState(1);
-  const [selectedPrice, setSelectedPrice] = useState(15);
+  const [activeCard, setActiveCard] = useState(0);
+  const [selectedPrice, setSelectedPrice] = useState(10);
   const [nextPaymentModal, setNextPaymentModal] = useState(false);
   const wrapperRef = useClickOutside(() => setNextPaymentModal(false));
-
+  const { subscriptions } = useSelector((store) => store.auth);
   const packages = [
     { duration: "1 months", price: 10, month: 1 },
-    { duration: "2 months", price: 20, month: 2 },
-    { duration: "3 months", price: 30, month: 3 },
+    { duration: "2 months", price: 15, month: 2 },
+    { duration: "3 months", price: 20, month: 3 },
   ];
 
   const handleCardClick = (index, price) => {
@@ -37,14 +38,15 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
             ? "15px"
             : null,
       }}
-      className={`addjoboffer_pricing_wrapper`}>
+      className={`addjoboffer_pricing_wrapper`}
+    >
       {location.pathname === "/pricing" ? (
         <h2>
           add job offer <br />
           period of active job offer
         </h2>
       ) : (
-        <h3 className="pb-4">Longer advertiser options</h3>
+        <h3 className="pb-4 mt-5">Longer advertiser options</h3>
       )}
 
       <div
@@ -55,31 +57,35 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
             location.pathname === "/dashboard/players" || "/dashboard"
               ? "50px"
               : "128px",
-        }}>
+        }}
+      >
         <div
           className={`monthly_cards ${activeCard === 0 ? "active" : ""}`}
-          onClick={() => handleCardClick(0, 10)}>
+          onClick={() => handleCardClick(0, 10)}
+        >
           <div>
-            <h3>
-              $10 <span>/ 1 month</span>
+            <h3 style={{ lineHeight: 1 }}>
+              + $10 <br /> <span> 1 month</span>
             </h3>
           </div>
         </div>
         <div
           className={`monthly_cards ${activeCard === 1 ? "active" : ""}`}
-          onClick={() => handleCardClick(1, 15)}>
+          onClick={() => handleCardClick(1, 15)}
+        >
           <div>
-            <h3>
-              $15 <span>/ 2 month</span>
+            <h3 style={{ lineHeight: 1 }}>
+              + $15 <br /> <span> 2 month</span>
             </h3>
           </div>
         </div>
         <div
           className={`monthly_cards ${activeCard === 2 ? "active" : ""}`}
-          onClick={() => handleCardClick(2, 20)}>
+          onClick={() => handleCardClick(2, 20)}
+        >
           <div>
-            <h3>
-              $20 <span>/ 3 month</span>
+            <h3 style={{ lineHeight: 1 }}>
+              + $20 <br /> <span> 3 month</span>
             </h3>
           </div>
         </div>
@@ -90,7 +96,8 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           location.pathname === "/dashboard/players"
             ? "d-flex justify-content-end pb-4"
             : ""
-        }`}>
+        }`}
+      >
         {location.pathname === "/pricing" ? (
           <h2>price of announcement</h2>
         ) : null}
@@ -112,7 +119,8 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
               justifyContent: `${
                 location.pathname === "/dashboard/players" ? "end" : "center"
               }`,
-            }}>
+            }}
+          >
             {location.pathname === "/pricing" ? (
               <div>
                 <h3>$15</h3>
@@ -125,8 +133,9 @@ const AddJobOfferPricing = ({ setSelectedPackages }) => {
           <div>
             <h3
               style={{ color: "#2B3674", fontSize: "36px", fontWeight: "700" }}
-              className="d-flex justify-content-end">
-              Total : {selectedPrice}$
+              className="d-flex justify-content-end"
+            >
+              Total : {subscriptions.price + selectedPrice}$
             </h3>
           </div>
         )}
