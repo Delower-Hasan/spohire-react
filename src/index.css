@@ -104,12 +104,12 @@ button {
   }
 
   .section_padding {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
   }
 
   .section_heading {
-    margin-bottom: 32px;
+    margin-bottom: 32px !important;
   }
 
   .nav_form_small {
@@ -177,8 +177,10 @@ button {
 
   .banner .bannerContent a {
     padding: 10px 16px !important;
-    font-size: 9px !important;
+    font-size: 10px !important;
     line-height: 17px !important;
+    font-weight: 400  !important;
+    margin-bottom: 50px;
   }
 
   /* banner */
@@ -502,7 +504,7 @@ button {
 
 @media (max-width: 768px) {
   .all_mb {
-    margin-bottom: 64px;
+    margin-bottom: 50px !important;
   }
 
   .text_color_80 {

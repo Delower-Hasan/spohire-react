@@ -119,6 +119,7 @@
     width: 99px;
     height: 99px;
 
+
 }
 
 @media screen and (max-width:1190px) {
@@ -142,6 +143,15 @@
 }
 
 @media screen and (max-width:991px) {
+
+    .say_container .carousel-control-next {
+        width: unset;
+        left: 5%;
+        top: 47%;
+        transform: translateY(-50%);
+        bottom: unset;
+        opacity: 1;
+    }
     .sayInnerBox {
         padding: 31px 28px;
     }
@@ -177,6 +187,7 @@
         /* background-image: url('../../assets/carousel-control-sm.png') !important; */
         width: 61px;
         height: 61px;
+        transform: rotate(90deg);
 
     }
 

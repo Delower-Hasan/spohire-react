@@ -110,7 +110,7 @@ const FaqAccordion = ({ fontSize }) => {
 
         {!showAll && (
           <div className="d-flex justify-content-center">
-            <button className="more_btn mt-5" onClick={() => setShowAll(true)}>
+            <button className="more_btn mt-lg-5" onClick={() => setShowAll(true)}>
               <img src={add_circle} alt="" /> More
             </button>
           </div>

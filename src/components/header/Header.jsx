@@ -51,11 +51,10 @@ const Header = () => {
 
   return (
     <header
-      className={`${!user && "pt-4 pb-4"} ${
-        navigate.pathname === "/"
+      className={`${!user && "pt-4 pb-4"} ${navigate.pathname === "/"
           ? "header_position position-absolute w-100"
           : ""
-      }`}
+        }`}
     >
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
@@ -68,7 +67,7 @@ const Header = () => {
 
           <div className=" nav_toggle d-flex align-items-center">
             <Navbar.Toggle aria-controls="basic-navbar-nav">
-              <svg
+              {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -100,20 +99,22 @@ const Header = () => {
                     <rect width="16" height="16" fill="white" />
                   </clipPath>
                 </defs>
+              </svg> */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="16" viewBox="0 0 28 16" fill="none">
+                <path d="M0.666016 0H27.3327V2.66667H0.666016V0ZM7.33268 6.66667H27.3327V9.33333H7.33268V6.66667ZM15.666 13.3333H27.3327V16H15.666V13.3333Z" fill="white" />
               </svg>
             </Navbar.Toggle>
             {user ? (
               <div>
                 <Link to="/dashboard/viewProfile">
                   <img
-                    className="d-none"
+                    className=""
                     src={
                       user?.image
-                        ? `${
-                            process.env.NODE_ENV !== "production"
-                              ? import.meta.env.VITE_LOCAL_API_URL
-                              : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${user?.image}`
+                        ? `${process.env.NODE_ENV !== "production"
+                          ? import.meta.env.VITE_LOCAL_API_URL
+                          : import.meta.env.VITE_LIVE_API_URL
+                        }/api/v1/uploads/${user?.image}`
                         : profile
                     }
                     alt=""
@@ -129,7 +130,7 @@ const Header = () => {
               </div>
             ) : (
               <>
-                <div className="d-lg-none d-block">
+                <div className="d-none">
                   <button className="logIn visibility-lg-hidden visually-visible">
                     Log in
                   </button>
@@ -212,12 +213,11 @@ const Header = () => {
                 </div>
               </div>
               {/* modal hbe */}
-              {/* <Nav.Link href="/jobOffer">
+              <Nav.Link href="/jobOffer">
                 <Link
                   to="/jobOffer"
-                  className={`nav-link ${
-                    navigate.pathname === "/jobOffer" && "active"
-                  }`}
+                  className={`nav-link ${navigate.pathname === "/jobOffer" && "active"
+                    }`}
                 >
                   Job Offers
                 </Link>
@@ -225,9 +225,8 @@ const Header = () => {
               <Nav.Link href="/announcements">
                 <Link
                   to="/announcements"
-                  className={`nav-link ${
-                    navigate.pathname === "/announcements" && "active"
-                  }`}
+                  className={`nav-link ${navigate.pathname === "/announcements" && "active"
+                    }`}
                 >
                   Announcements
                 </Link>
@@ -235,23 +234,36 @@ const Header = () => {
               <Nav.Link href="/pricing">
                 <Link
                   to="/pricing"
-                  className={`nav-link ${
-                    navigate.pathname === "/pricing" && "active"
-                  }`}
+                  className={`nav-link ${navigate.pathname === "/pricing" && "active"
+                    }`}
                 >
                   Pricing
                 </Link>
-              </Nav.Link> */}
+              </Nav.Link>
+
               <Nav.Link href="/news">
                 <Link
                   to="/news"
-                  className={`nav-link ${
-                    navigate.pathname === "/news" && "active"
-                  }`}
+                  className={`nav-link ${navigate.pathname === "/news" && "active"
+                    }`}
                 >
                   News
                 </Link>
               </Nav.Link>
+              <div className="d-lg-none d-block">
+                <button className="logIn visibility-lg-hidden visually-visible">
+                  Log in
+                </button>
+                <Link
+                  to="/signup"
+                  type="submit"
+                  className="text-decoration-none"
+                >
+                  <button className="authBtn btnNone visibility-lg-hidden visually-visible">
+                    Sign Up
+                  </button>
+                </Link>
+              </div>
             </Nav>
             {user ? (
               <div>
@@ -265,11 +277,10 @@ const Header = () => {
                       className="profile_picture d-lg-block d-none"
                       src={
                         user?.image
-                          ? `${
-                              process.env.NODE_ENV !== "production"
-                                ? import.meta.env.VITE_LOCAL_API_URL
-                                : import.meta.env.VITE_LIVE_API_URL
-                            }/api/v1/uploads/${user?.image}`
+                          ? `${process.env.NODE_ENV !== "production"
+                            ? import.meta.env.VITE_LOCAL_API_URL
+                            : import.meta.env.VITE_LIVE_API_URL
+                          }/api/v1/uploads/${user?.image}`
                           : profile
                       }
                       alt=""
@@ -288,9 +299,8 @@ const Header = () => {
 
                         <img
                           src={dropdown}
-                          className={`${
-                            isDropdownActive ? "" : "rotate_arrow"
-                          }`}
+                          className={`${isDropdownActive ? "" : "rotate_arrow"
+                            }`}
                           alt="dropdown"
                         />
                       </div>

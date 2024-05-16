@@ -133,6 +133,7 @@
 
     .bgBanner {
         background-position: top right;
+        /* padding-bottom: 50px !; */
     }
 
     .navbar {
