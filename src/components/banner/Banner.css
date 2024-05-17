@@ -75,7 +75,7 @@
     }
 
     .banner .bannerContent {
-        padding-top: 41px !important;
+        padding-top: 140px !important;
     }
 }
 
@@ -131,11 +131,19 @@
     }
 
     .banner .bannerContent h1 {
-        line-height: 46px;
+        color: var(--White, #FFF);
+        text-align: center;
+        font-size: 24px !important;
+        font-style: normal !important;
+        font-weight: 500 !important;
+        line-height: 110% !important;
+        /* 26.4px */
+        letter-spacing: -0.24px;
     }
 
     .banner .bannerContent p {
         color: #B5B3BA;
+        margin-bottom: 20px !important;
         font-size: 10.8px;
     }
 }

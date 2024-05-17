@@ -37,6 +37,17 @@
     letter-spacing: -0.48px;
 }
 
+
+
+@media(max-width:768px) {
+    .more_btn{
+        height: 59px !important;
+    }
+    .more_btn img{
+        height: 26px;
+        width: 26px ;
+    }
+}
 @media(max-width:1023px) {
     .accordion .accordion_items {
         border-radius: 6px;

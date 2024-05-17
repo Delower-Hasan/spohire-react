@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import profile from "../../assets/PROFILE.png";
 import dropdown from "../../assets/dropdownicon.png";
 import Logo from "../../assets/logo.png";
@@ -11,7 +11,8 @@ import { userLoggedOut } from "../../features/auth/authSlice";
 import "./Header.css";
 
 const Header = () => {
-  const navigate = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isDropdownActive, setIsDropdownActive] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Header = () => {
     handleFilterModal();
   };
 
-  const handleLoggout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("spohireAuth");
     dispatch(userLoggedOut());
   };
@@ -44,15 +45,28 @@ const Header = () => {
   }, [isDropdownActive]);
 
   const handleUnlockClick = () => {
-    navigate.pathname = "/login";
+    navigate("/login");
   };
 
-  console.log("navigate", navigate.pathname);
+  const [menuOpen, setMenuOpen] = useState(() => {
+    const storedMenuOpen = localStorage.getItem("menuOpen");
+    return storedMenuOpen === "true";
+  });
+
+  const handleCloseMenu = () => {
+    setMenuOpen(false);
+    localStorage.setItem("menuOpen", "false");
+  };
+
+  const handleToggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    localStorage.setItem("menuOpen", !menuOpen);
+  };
 
   return (
     <header
       className={`${!user && "pt-4 pb-4"} ${
-        navigate.pathname === "/"
+        location.pathname === "/"
           ? "header_position position-absolute w-100"
           : ""
       }`}
@@ -65,194 +79,96 @@ const Header = () => {
               <img className="d-block d-md-none" src={Logosm} alt="Logo" />
             </Link>
           </Navbar.Brand>
-
-          <div className=" nav_toggle d-flex align-items-center">
-            <Navbar.Toggle aria-controls="basic-navbar-nav">
+          <div className="nav_toggle d-flex align-items-center">
+            <Navbar.Toggle
+              onClick={handleToggleMenu}
+              aria-controls="basic-navbar-nav"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
+                width="28"
                 height="16"
-                viewBox="0 0 16 16"
+                viewBox="0 0 28 16"
                 fill="none"
               >
-                <g clipPath="url(#clip0_239_167)">
-                  <path
-                    d="M2.5 8H13.5"
-                    stroke="white"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M2.5 4H13.5"
-                    stroke="white"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M2.5 12H13.5"
-                    stroke="white"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_239_167">
-                    <rect width="16" height="16" fill="white" />
-                  </clipPath>
-                </defs>
+                <path
+                  d="M0.666016 0H27.3327V2.66667H0.666016V0ZM7.33268 6.66667H27.3327V9.33333H7.33268V6.66667ZM15.666 13.3333H27.3327V16H15.666V13.3333Z"
+                  fill="white"
+                />
               </svg>
             </Navbar.Toggle>
-            {user ? (
-              <div>
-                <Link to="/dashboard/viewProfile">
-                  <img
-                    className="d-none"
-                    src={
-                      user?.image
-                        ? `${
-                            process.env.NODE_ENV !== "production"
-                              ? import.meta.env.VITE_LOCAL_API_URL
-                              : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${user?.image}`
-                        : profile
-                    }
-                    alt=""
-                  />
-                </Link>
-                <Link
-                  to="/dashboard/jobOffers"
-                  type="submit"
-                  className="text-decoration-none ms-3 profilename"
-                >
-                  {user.firstName}
-                </Link>
-              </div>
-            ) : (
-              <>
-                <div className="d-lg-none d-block">
-                  <button className="logIn visibility-lg-hidden visually-visible">
-                    Log in
-                  </button>
-                  <Link
-                    to="/signup"
-                    type="submit"
-                    className="text-decoration-none"
-                  >
-                    <button className="authBtn btnNone visibility-lg-hidden visually-visible">
-                      Sign Up
-                    </button>
-                  </Link>
-                </div>
-              </>
-            )}
           </div>
-
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse id="basic-navbar-nav" in={menuOpen}>
             <Nav className="m-auto">
-              {/* {user ? (
-                <Nav.Link href="#home">
-                  <Link to="/dashboard" className="nav-link">
-                    Transfer Market
-                  </Link>
-                </Nav.Link>
-              ) : (
-                <button
-                  className="modal_link "
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  Transfer Market
-                </button>
-              )} */}
-              {/* transfer market modal */}
-              <div
-                className="modal fade"
-                id="staticBackdrop"
-                // data-bs-backdrop="static"
-                data-bs-keyboard="false"
-                tabIndex="-1"
-                aria-labelledby="staticBackdropLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div className="modal-body">
-                      <h2>
-                        Unlock the Gateway to
-                        <span>
-                          Endless <br /> Excitement
-                        </span>
-                      </h2>
-                      <p>
-                        Log in and Dive into a World of Sports Thrills and
-                        Exclusive Content!
-                      </p>
-
-                      <div style={{ marginBottom: "70px" }}>
-                        <img src={TransfarMarket} alt="TransfarMarket" />
-                      </div>
-
-                      {/* login */}
-                      <Link
-                        to={"/pricing"}
-                        className="btn unlock_btn d-inline-flex align-items-center justify-content-center"
-                      >
-                        unlock now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* modal hbe */}
-              {/* <Nav.Link href="/jobOffer">
+              {/* <Nav.Link href="/jobOffer" onClick={handleCloseMenu}>
                 <Link
                   to="/jobOffer"
                   className={`nav-link ${
-                    navigate.pathname === "/jobOffer" && "active"
+                    location.pathname === "/jobOffer" && "active"
                   }`}
                 >
                   Job Offers
                 </Link>
               </Nav.Link>
-              <Nav.Link href="/announcements">
+              <Nav.Link href="/announcements" onClick={handleCloseMenu}>
                 <Link
                   to="/announcements"
                   className={`nav-link ${
-                    navigate.pathname === "/announcements" && "active"
+                    location.pathname === "/announcements" && "active"
                   }`}
                 >
                   Announcements
                 </Link>
               </Nav.Link>
-              <Nav.Link href="/pricing">
+              <Nav.Link href="/pricing" onClick={handleCloseMenu}>
                 <Link
                   to="/pricing"
                   className={`nav-link ${
-                    navigate.pathname === "/pricing" && "active"
+                    location.pathname === "/pricing" && "active"
                   }`}
                 >
                   Pricing
                 </Link>
               </Nav.Link> */}
-              <Nav.Link href="/news">
+              <Nav.Link href="/news" onClick={handleCloseMenu}>
                 <Link
                   to="/news"
                   className={`nav-link ${
-                    navigate.pathname === "/news" && "active"
+                    location.pathname === "/news" && "active"
                   }`}
                 >
                   News
                 </Link>
               </Nav.Link>
+
+              {/* mobile design */}
+              {!user ? (
+                <div className="d-lg-none d-flex flex-column justify-content-center align-items-center ">
+                  <Link to="/login" onClick={handleCloseMenu}>
+                    <button
+                      className="logIn visibility-lg-hidden visually-visible"
+                      style={{ color: "#9d99a3" }}
+                    >
+                      Log in
+                    </button>
+                  </Link>
+                  <Link
+                    to="/signup"
+                    type="submit"
+                    className="text-decoration-none"
+                    onClick={handleCloseMenu}
+                  >
+                    <button className="authBtn btnNone text-white visibility-lg-hidden visually-visible">
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
+              ) : (
+                ""
+              )}
             </Nav>
+
+            {/* desktop design */}
             {user ? (
               <div>
                 <div
@@ -296,9 +212,7 @@ const Header = () => {
                       </div>
                       {isDropdownActive && (
                         <>
-                          <p onClick={handleLoggout}>Log out</p>
-                          {/* <hr className="m-0" /> */}
-                          {/* <p>Admin</p> */}
+                          <p onClick={handleLogout}>Log out</p>
                         </>
                       )}
                     </div>

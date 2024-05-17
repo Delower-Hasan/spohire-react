@@ -108,7 +108,7 @@ const JobOfferHeader = ({ searchText, handleSearch, handleInputChange }) => {
           </div>
         </div>
         {/* filters */}
-        <div className="row">
+        <div className="d-flex flex-column flex-lg-row gap-3 lg:mt-0 mt-5">
           <div className="col">
             <label htmlFor="">Category</label>
             <select

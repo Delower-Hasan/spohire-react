@@ -104,12 +104,12 @@ button {
   }
 
   .section_padding {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
   }
 
   .section_heading {
-    margin-bottom: 32px;
+    margin-bottom: 32px !important;
   }
 
   .nav_form_small {
@@ -140,7 +140,7 @@ button {
 
   /* banner */
   .header_position .navbar-collapse {
-    /* background-color: #221355; */
+    background-color: #221355;
   }
 
   .banner_top_pd {
@@ -177,8 +177,10 @@ button {
 
   .banner .bannerContent a {
     padding: 10px 16px !important;
-    font-size: 9px !important;
+    font-size: 10px !important;
     line-height: 17px !important;
+    font-weight: 400 !important;
+    margin-bottom: 50px;
   }
 
   /* banner */
@@ -434,7 +436,7 @@ button {
   }
 
   .answer {
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: 19px !important;
@@ -501,8 +503,13 @@ button {
 }
 
 @media (max-width: 768px) {
+  .question {
+    font-size: 16px !important;
+
+  }
+
   .all_mb {
-    margin-bottom: 64px;
+    margin-bottom: 50px !important;
   }
 
   .text_color_80 {
@@ -530,11 +537,12 @@ button {
 
   .pricing_inner {
     padding: 35px !important;
-    font-size: 40px !important;
+    font-size: 28px !important;
   }
 
   .pricing_buttons {
     flex-wrap: wrap;
+    gap: 20px !important;
   }
 
   .range_header {
@@ -1305,4 +1313,25 @@ a {
 
 .react-multi-carousel-track {
   gap: 40px;
+}
+
+
+.announcement_details h2 {
+  color: var(--Black-2, #4C4E52);
+  font-family: "SF Pro Display";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.announcement_details p {
+  color: #1C1C1C;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  /* 177.778% */
+
 }

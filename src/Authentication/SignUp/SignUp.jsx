@@ -141,7 +141,7 @@ const SignUp = () => {
   return (
     <>
       <div className="d-flex  flex-lg-row flex-column  overflow-hidden">
-        <div className="" style={{ margin: "60px 0px 80px 100px" }}>
+        <div className="d-lg-block d-none" style={{ margin: "60px 0px 80px 100px" }}>
           <img className="" src={signupImg} alt="image" />
         </div>
 
@@ -257,7 +257,7 @@ const SignUp = () => {
 
                   <input
                     type="date"
-                    className="form-control login_input"
+                    className="form-control login_input "
                     placeholder="Date Of Birth"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
@@ -338,7 +338,7 @@ const SignUp = () => {
                     <button
                       className={`${
                         sports === data ? "function_btn_active" : "function_btn"
-                      } `}
+                        } mb-lg-0 mb-4  `}
                       type="button"
                       onClick={() => setSports(data)}
                     >

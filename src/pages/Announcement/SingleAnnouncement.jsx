@@ -65,7 +65,7 @@ const SingleAnnouncement = ({ item }) => {
     <>
       <div className="announcelist_wrapper">
         <div className="d-flex justify-content-between align-items-start">
-          <div className="d-flex align-items-center" style={{ gap: "36px" }}>
+          <div className="d-flex align-items-center announcement_gap">
             <div className="announcement_pic">
               <img
                 src={
@@ -77,12 +77,7 @@ const SingleAnnouncement = ({ item }) => {
                   }/api/v1/uploads/${item?.image}`
                 }
                 alt=""
-                style={{
-                  height: "213px",
-                  width: "213px",
-                  borderRadius: "8px",
-                  objectFit: "cover",
-                }}
+            
               />
             </div>
 
@@ -114,7 +109,7 @@ const SingleAnnouncement = ({ item }) => {
           </div>
           {/* icon div */}
           <div>
-            <div>
+            <div className="announcement_bookmark">
               <button
                 className="bg-none"
                 onClick={() => bookmarkOrRedirectHandler(item?._id)}
@@ -127,6 +122,7 @@ const SingleAnnouncement = ({ item }) => {
                   />
                 ) : (
                   <img
+                  className="unchecked"
                     style={{ width: "23px", height: "30px" }}
                     src={bookmark1}
                     alt=""

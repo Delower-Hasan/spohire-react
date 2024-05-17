@@ -32,26 +32,17 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
           <div className="col-12 col-lg-3 col-xl-2">
             <ul className="text-center text-lg-start list-unstyled">
               <li>Contact</li>
               <li>
                 <Link to="mailto:contact@spohire.com">contact@spohire.com</Link>
               </li>
-              {/* <li>
-                <Link to="#">+48 565 25 654</Link>
-              </li>
-              <li>
-                <Link to="#">+12 485 54684</Link>
-              </li> */}
             </ul>
           </div>
-
           <div className="col-12 col-lg-6 col-xl-4">
-            <div></div>
             <div className="followBox d-flex flex-md-row justify-content-between align-items-center gap-3">
-              <p>Follow us</p>
+              <p className="d-lg:block d-none">Follow us</p>
               <Link to="#">
                 <img src={Ig} alt="Instagram" />
               </Link>

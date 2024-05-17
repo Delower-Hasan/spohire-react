@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CustomSelect from "../JobOffer/CustomSelect";
 
 const options = [
   { value: "Friendly-matches", label: "Friendly-matches" },
@@ -43,7 +42,7 @@ const AnnouncementHeader = ({ onFiltersChange }) => {
         <h2 className="announcement_heading">Announcements</h2>
         {/* filters */}
         <div className="annuncement_inner_wrapper">
-          <div className="row" style={{ gap: "60px" }}>
+          <div className="d-flex flex-column flex-lg-row announcement_header_gap">
             <div className="col">
               <label htmlFor="">Sports</label>
               <select

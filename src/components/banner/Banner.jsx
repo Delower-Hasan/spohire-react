@@ -3,6 +3,7 @@ import readyToget from "../../assets/readytoget.png";
 import readyTogetsm from "../../assets/readytogetsm.png";
 import bannerImg from "../../assets/bannerImg.png";
 import { Link } from "react-router-dom";
+
 const Banner = () => {
   return (
     <div className="banner mb_40 bgBanner">
@@ -14,7 +15,6 @@ const Banner = () => {
               <span style={{ color: "red", fontSize: "32px" }}>
                 Launching on June 7th, 2024
               </span>
-
               <img
                 className="mb-5 img-fluid d-none d-md-block"
                 src={readyToget}
@@ -27,8 +27,8 @@ const Banner = () => {
                   alt="Ready to get"
                 />
               </div>
-              <h1>
-                Get matched with <br className="d-block d-md-none" /> new sports
+              <h1 className="mb-3">
+                Get matched with  new <br className="d-block d-md-none" /> sports
                 club
               </h1>
               <p>Add your profile and join a new sports team</p>
@@ -38,7 +38,7 @@ const Banner = () => {
             </div>
           </div>
           <div className="col-12 col-md-6">
-            <div className="text-center banner-right-image">
+            <div className="d-lg-block d-none text-center banner-right-image">
               <img
                 className="img-fluid"
                 style={{ marginTop: "50px" }}
