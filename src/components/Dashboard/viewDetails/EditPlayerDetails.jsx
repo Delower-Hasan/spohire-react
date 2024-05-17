@@ -69,8 +69,6 @@ const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 const EditPlayerDetails = () => {
   const { user } = useSelector((state) => state.auth);
   const [updatePlayerDetails] = useUpdateUserMutation();
-  // const [updateUser, { isLoading }] = useUpdateUserMutation();
-  // gallary
 
   const [countryNames, setCountryNames] = useState([]);
 

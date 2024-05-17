@@ -5,9 +5,9 @@ import dollar from "../../../assets/coin-dollar.png";
 import location from "../../../assets/location.png";
 import { Link } from "react-router-dom";
 import { useGetMyObservationsQuery } from "../../../features/observation/observationApi";
+import { ThreeDots } from "react-loader-spinner";
 const RecentlyObserved = () => {
   const { data, isLoading, isSuccess } = useGetMyObservationsQuery();
-  console.log("data", data);
   return (
     <>
       <div className="job_offer_overrview_wrapper">
@@ -20,7 +20,15 @@ const RecentlyObserved = () => {
             <Link to="/dashboard/observed">View More</Link>
           )}
         </div>
-        {data?.data && data?.data?.length > 0 ? (
+        {isLoading ? (
+          <ThreeDots
+            visible={true}
+            height="8"
+            width="100%"
+            color="#2B3674"
+            ariaLabel="line-wave-loading"
+          />
+        ) : data?.data && data?.data?.length > 0 ? (
           data?.data?.slice(0, 5).map((item, idx) => (
             <div key={idx}>
               {item?.target_type === "Job" && (

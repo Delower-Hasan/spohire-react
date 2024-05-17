@@ -23,9 +23,9 @@ const ReferallProfiles = ({
 
   // const [deleteUser, { isLoading }] = useDeleteUserMutation();
   const [deletePlayer, { isLoading }] = useDeletePlayerMutation();
+
   const handleDelete = async (item, e) => {
     e.stopPropagation();
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -54,7 +54,6 @@ const ReferallProfiles = ({
 
   const handleEditPlayerProfile = (item, e) => {
     e.stopPropagation();
-    console.log(item, "iiii");
     navigate(`/dashboard/editDetails/${item?._id}`);
   };
   return (

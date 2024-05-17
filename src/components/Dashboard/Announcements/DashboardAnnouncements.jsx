@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import Pagination from "../../Pagination/Pagination";
+import { ThreeDots } from "react-loader-spinner";
 
 const DashboardAnnouncements = () => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
@@ -154,7 +155,15 @@ const DashboardAnnouncements = () => {
         </div> */}
         </div>
         <div>
-          {allAnnouncements?.data && filteredData?.length > 0 ? (
+          {isLoading ? (
+            <ThreeDots
+              visible={true}
+              height="8"
+              width="100%"
+              color="#2B3674"
+              ariaLabel="line-wave-loading"
+            />
+          ) : allAnnouncements?.data && filteredData?.length > 0 ? (
             filteredData
               .slice(startIndex, endIndex)
               .map((announcement, idx) => (

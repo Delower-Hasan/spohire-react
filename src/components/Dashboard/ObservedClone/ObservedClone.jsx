@@ -16,6 +16,7 @@ import {
 } from "../../../features/observation/observationApi";
 import "./ObservedClone.css";
 import { formatDate } from "../../../utils/formateChatTIme";
+import { ThreeDots } from "react-loader-spinner";
 
 const ObservedClone = () => {
   const { data, isLoading, isSuccess } = useGetMyObservationsQuery();
@@ -71,7 +72,16 @@ const ObservedClone = () => {
   };
 
   if (isLoading) {
-    return <div></div>;
+    return (
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style={{ height: "70vh" }}
+      >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   if (data?.data?.length === 0) {

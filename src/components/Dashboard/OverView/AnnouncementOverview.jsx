@@ -7,6 +7,7 @@ import threedot from "../../../assets/threedot.png";
 import { Link } from "react-router-dom";
 import { useGetAllAnnouncementQuery } from "../../../features/announcement/announcementApi";
 import { useSubscriptionCheck } from "../../../hooks/useSubscriptionCheck";
+import { ThreeDots } from "react-loader-spinner";
 
 const AnnouncementOverview = () => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
@@ -27,9 +28,17 @@ const AnnouncementOverview = () => {
             )}
         </div>
         {/* list */}
-        {isSubscriptionCheck &&
-        allAnnouncements?.data &&
-        allAnnouncements?.data.length > 0 ? (
+        {isLoading ? (
+          <ThreeDots
+            visible={true}
+            height="8"
+            width="100%"
+            color="#2B3674"
+            ariaLabel="line-wave-loading"
+          />
+        ) : isSubscriptionCheck &&
+          allAnnouncements?.data &&
+          allAnnouncements?.data.length > 0 ? (
           allAnnouncements?.data.slice(0, 3).map((item, idx) => (
             <div
               className="announcelist_wrapper1 d-flex  justify-content-between align-items-center"

@@ -17,6 +17,7 @@ import MobileButtons from "./MobileButtons";
 import MobilePlayers from "./MobilePlayers";
 import "./Players.css";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 const Players = () => {
   const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
@@ -111,6 +112,8 @@ const Players = () => {
     currentPage * itemsPerPage
   );
 
+  console.log("isLoading", isLoading);
+
   return (
     <>
       <div className="players">
@@ -133,10 +136,24 @@ const Players = () => {
             </tr>
           </thead>
           <tbody>
-            {user?.role !== "Player" &&
+            {isLoading ? (
+              <tr style={{ textAlign: "center" }}>
+                <td align="centre" colSpan="7">
+                  <ThreeDots
+                    visible={true}
+                    height="10"
+                    width="100%"
+                    color="#2B3674"
+                    ariaLabel="line-wave-loading"
+                  />
+                </td>
+              </tr>
+            ) : (
+              user?.role !== "Player" &&
               currentPageData.map((player, idx) => (
                 <SinglePlayer key={idx} player={player} />
-              ))}
+              ))
+            )}
           </tbody>
         </Table>
 

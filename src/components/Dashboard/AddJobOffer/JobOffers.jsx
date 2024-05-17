@@ -20,9 +20,10 @@ import Pagination from "../../Pagination/Pagination";
 import EditJobOffer from "../AddJobOffer/EditJobOffer";
 import MobileButtons from "../players/MobileButtons";
 import "./jobOffers.css";
+import { ThreeDots } from "react-loader-spinner";
 
 const JobOffers = ({ isActive }) => {
-  const { data: allJobs } = useGetAllJobsQuery();
+  const { data: allJobs, isLoading: jobLoading } = useGetAllJobsQuery();
   const { user } = useSelector((state) => state.auth);
 
   const [deleteJob, { isLoading }] = useDeleteJobMutation();
@@ -90,7 +91,15 @@ const JobOffers = ({ isActive }) => {
   return (
     <>
       <div className="job_offer_items_wrapper">
-        {filterData && filterData?.length > 0 ? (
+        {jobLoading ? (
+          <ThreeDots
+            visible={true}
+            height="8"
+            width="100%"
+            color="#2B3674"
+            ariaLabel="line-wave-loading"
+          />
+        ) : filterData && filterData?.length > 0 ? (
           filterData
             .slice(startIndex, endIndex)
             .map((item, index) => (

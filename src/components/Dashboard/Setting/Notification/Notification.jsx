@@ -8,9 +8,10 @@ import {
 } from "../../../../features/notification/notificationApi";
 import Pagination from "./../../../Pagination/Pagination";
 import "./Notification.css";
+import { ThreeDots } from "react-loader-spinner";
 
 const Notification = () => {
-  const { data } = useGetMyNotificationsQuery();
+  const { data, isLoading } = useGetMyNotificationsQuery();
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -105,7 +106,8 @@ const Notification = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "All" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("All")}>
+            onClick={() => setJobOffersType("All")}
+          >
             All
           </button>
 
@@ -113,7 +115,8 @@ const Notification = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "My" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("My")}>
+            onClick={() => setJobOffersType("My")}
+          >
             My Job Offers
           </button>
         </div>
@@ -126,7 +129,15 @@ const Notification = () => {
       </div>
 
       <div className="job_offer_items_wrapper">
-        {data && data.length > 0 ? (
+        {isLoading ? (
+          <ThreeDots
+            visible={true}
+            height="8"
+            width="100%"
+            color="#2B3674"
+            ariaLabel="line-wave-loading"
+          />
+        ) : data && data.length > 0 ? (
           data
             .slice(startIndex, endIndex)
             .map((item, index) => (
@@ -147,7 +158,6 @@ const Notification = () => {
           currentPage={currentPage}
           totalPages={totalPages}
         />
-        // <div>fsjkjfsk</div>
       )}
 
       {/* <Pagination /> */}

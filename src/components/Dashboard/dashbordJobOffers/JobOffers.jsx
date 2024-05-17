@@ -22,17 +22,16 @@ import Swal from "sweetalert2";
 import EditJobOffer from "../AddJobOffer/EditJobOffer";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../../Pagination/Pagination";
+import { ThreeDots } from "react-loader-spinner";
 
 const JobOffers = () => {
-  const { data: allJobs } = useGetAllJobsQuery();
+  const { data: allJobs, isLoading: isJobLoading } = useGetAllJobsQuery();
   const { user } = useSelector((state) => state.auth);
   const { JobfilterParams } = useSelector((state) => state.job);
 
   const [deleteJob, { isLoading }] = useDeleteJobMutation();
 
   const [jobOffersType, setJobOffersType] = useState("All");
-
-  console.log(allJobs?.data, "allJobs?.data");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
@@ -100,8 +99,6 @@ const JobOffers = () => {
   const filteredJobs =
     allJobs?.data?.filter(offerTypeFilter).filter(handleFilter) || [];
 
-  console.log("filteredJobs", filteredJobs);
-  // pagination
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 10;
@@ -136,7 +133,15 @@ const JobOffers = () => {
         </div>
 
         <div className="job_offer_items_wrapper">
-          {allJobs?.data && filteredJobs.length > 0 ? (
+          {isJobLoading ? (
+            <ThreeDots
+              visible={true}
+              height="8"
+              width="100%"
+              color="#2B3674"
+              ariaLabel="line-wave-loading"
+            />
+          ) : allJobs?.data && filteredJobs.length > 0 ? (
             filteredJobs
               .slice(startIndex, endIndex)
               .map((item, index) => (
