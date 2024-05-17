@@ -13,11 +13,11 @@ const Feature = () => {
         <div className="featureTop">
           <div className="row mb_60 gy-3">
             <div className="">
-              <h2>
-                Some features of <br />{" "}
+              <h2 className="">
+                Some features of <br className="d-lg-block d-none" />
                 <span style={{ color: "#0095FF" }}>spohire</span>
               </h2>
-            </div>
+            </div>  
             <div className="">
               <p>
                 Spohire is a platform designed for the sports industry. With its
@@ -33,11 +33,11 @@ const Feature = () => {
           <div className="row gy-3 justify-content-center">
             <div className="col-12 col-md-6 col-xl-4">
               <div
-                className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg1})` }}
+                className="featureBoxInner featureBg1  h-100"
+                // style={{ background: `url(${featureBg1})` }}
               >
                 <div className="row p-0 h-100 ">
-                  <div className="col-6 pt-5">
+                  <div className="col-lg-6 pt-lg-5 text-lg-start text-center ">
                     <h4 className="">Only in Sport</h4>
                     <p>
                       We are solely focused on the sports sector, dedicating all
@@ -46,8 +46,8 @@ const Feature = () => {
                     </p>
                   </div>
 
-                  <div className="col-6 feature_card2 p-0">
-                    <img className="" src={FeatureOne} alt="img" />
+                  <div className="col-lg-6 feature_card2 p-0 text-lg-start text-center ">
+                    <img className="d-lg-block d-none" src={FeatureOne} alt="img" />
                   </div>
                 </div>
               </div>
@@ -55,11 +55,10 @@ const Feature = () => {
 
             <div className="col-12 col-md-6 col-xl-4">
               <div
-                className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg2})` }}
+                className="featureBoxInner featureBg2 h-100"
               >
                 <div className="row p-0 h-100">
-                  <div className="col-6 pt-5">
+                  <div className="col-lg-6 text-lg-start text-center pt-lg-5">
                     <h4 className="">Diverse Offerings</h4>
                     <p>
                       Website aggregates announcements from various levels of
@@ -67,20 +66,18 @@ const Feature = () => {
                     </p>
                   </div>
 
-                  <div className="col-6 feature_card p-0">
-                    <img className="" src={FeatureTwo} alt="img" />
+                  <div className="col-lg-6 feature_card p-0">
+                    <img className="d-lg-block d-none" src={FeatureTwo} alt="img" />
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="col-12 col-md-6 col-xl-4 ">
               <div
-                className="featureBoxInner h-100"
-                style={{ background: `url(${featureBg3})` }}
+                className="featureBoxInner featureBg3 h-100"
               >
                 <div className="row p-0 h-100">
-                  <div className="col-6 pt-5">
+                  <div className="col-lg-6 text-lg-start text-center pt-lg-5">
                     <h4 className="">High anonymity </h4>
                     <p>
                       Various packages ensures that professional players can add
@@ -88,8 +85,8 @@ const Feature = () => {
                       desired individuals to learn about the announcement.
                     </p>
                   </div>
-                  <div className="col-6 feature_card p-0">
-                    <img className="" src={FeatureThree} alt="img" />
+                  <div className="col-lg-6 feature_card p-0">
+                    <img className="d-lg-block d-none" src={FeatureThree} alt="img" />
                   </div>
                 </div>
               </div>

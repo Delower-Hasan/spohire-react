@@ -8,7 +8,7 @@ const WhyWe = () => {
       <div className="container">
         <div className="row align-items-center why_we_mobile">
           <div className="col-lg-6">
-            <div className="left_img">
+            <div className=" d-lg-block d-none left_img">
               <img
                 className="img-fluid"
                 src={BasketPerson}

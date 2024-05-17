@@ -460,6 +460,16 @@
 
 /*  */
 @media (max-width: 768px) {
+  .addjoboffer_pricing_wrapper {
+    padding: 40px  !important;
+  }
+  
+
+  .price_card{
+    padding: 20px !important;
+  }
+
+
   .all_payments_system {
     gap: 0;
   }

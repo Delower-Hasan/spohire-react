@@ -1,4 +1,4 @@
-.desktop_marquee{
+.desktop_marquee {
     max-width: 2500px;
     margin: auto;
 }
@@ -85,5 +85,13 @@
 
     .mobile_marquee {
         display: block;
+    }
+
+    .playTxt1 {
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
 }

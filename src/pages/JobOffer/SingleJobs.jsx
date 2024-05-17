@@ -37,7 +37,7 @@ const SingleJobs = ({ handleDetails, item }) => {
               <small>{item.company}</small>
             </div>
           </div>
-          <div className="d-flex gap-5 flex-wrap detail_span">
+          <div className="d-flex flex-wrap detail_span">
             <div className="d-flex align-items-center" style={{ gap: "6px" }}>
               <img
                 style={{ width: "20px", height: "20px" }}
