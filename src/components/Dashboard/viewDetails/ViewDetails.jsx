@@ -105,8 +105,7 @@ const ViewDetails = () => {
   // if (user?.experience !== undefined) {
   //   console.log("user?.experienceaa", a);
   // }
-  const a = user?.experience;
-  console.log("a", a);
+
   return (
     <div className="details_information">
       <div className="profile_cover">
@@ -316,7 +315,7 @@ const ViewDetails = () => {
         </div>
       </div>
 
-      {/* <div className="social_media d-flex justify-content-between mb-4">
+      <div className="social_media d-flex justify-content-between mb-4">
         <div className="media text-center">
           <FaInstagram
             style={{ color: "#2B3674", width: "36px", height: "36px" }}
@@ -348,7 +347,49 @@ const ViewDetails = () => {
           <p className="follower_count">26M</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
-      </div> */}
+      </div>
+
+      {/* social  */}
+      <div className="advantages mb-4">
+        <div className="row">
+          <div className="col-lg-3 mb-3">
+            <div className="right text-center py-5">
+              <div className="section_title text-uppercase text-center">
+                <h3>{user?.dominantHand ?? "N/A"}</h3>
+              </div>
+              <p className="advantages_content text-uppercase">Dominant Hand</p>
+            </div>
+          </div>
+          <div className="col-lg-3 mb-3">
+            <div className="right text-center py-5">
+              <div className="section_title text-uppercase text-center">
+                <h3>{user?.city ?? "N/A"}</h3>
+              </div>
+              <p className="advantages_content text-uppercase">
+                City of residence{" "}
+              </p>
+            </div>
+          </div>
+          <div className="col-lg-3 mb-3">
+            <div className="right text-center py-5">
+              <div className="section_title text-uppercase text-center">
+                <h3>{user?.club_name ?? "N/A"}</h3>
+              </div>
+              <p className="advantages_content text-uppercase">Current club </p>
+            </div>
+          </div>
+          <div className="col-lg-3 mb-3">
+            <div className="right text-center py-5">
+              <div className="section_title text-uppercase text-center">
+                <h3>{user?.additional_passport ?? "N/A"}</h3>
+              </div>
+              <p className="advantages_content text-uppercase">
+                Additional passport
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="experience mb-4">
         <div className="section_title">
@@ -356,7 +397,6 @@ const ViewDetails = () => {
         </div>
         <div className="top d-flex justify-content-between py-4">
           {user?.experience !== undefined &&
-          user?.experience.length > 0 &&
           JSON.parse(user?.experience)?.length > 0 ? (
             JSON.parse(user?.experience)?.map((item, index) => (
               <div key={index} className="exerience_infomation">
