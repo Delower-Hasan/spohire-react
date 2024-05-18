@@ -67,7 +67,7 @@ const EditAddedPlayerDetails = () => {
       playerName: "",
       sportsType: "",
       selectedImage: null,
-      experiences: [{ startYear: "", endYear: "", club_name: "" }],
+      experiences: [],
       clubName: "",
       socialMedia: {
         facebook: "",
@@ -134,9 +134,7 @@ const EditAddedPlayerDetails = () => {
   };
   const [experienceFormData, setExperienceFormData] = useState({});
 
-  const [userExperience, setUserExperience] = useState([
-    ...userInfo["experience"],
-  ]);
+  const [userExperience, setUserExperience] = useState([]);
 
   const handleExperienceChange = (e) => {
     const { name, value } = e.target;
@@ -180,7 +178,8 @@ const EditAddedPlayerDetails = () => {
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
-    formData.append("experience", JSON.stringify(userExperience));
+
+    formData.append("experiencenew", JSON.stringify(userExperience));
 
     try {
       const response = await updatePlayerDetails({
@@ -260,7 +259,7 @@ const EditAddedPlayerDetails = () => {
     };
 
     setUserInfo(newData);
-
+    setUserExperience(user?.experience);
     let values = {};
 
     for (let i = 0; i < user?.social_media?.length; i++) {

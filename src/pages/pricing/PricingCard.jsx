@@ -143,7 +143,7 @@ const PricingCard = () => {
               {!isPricingPage && (
                 <div className="d-flex">
                   <button
-                    disabled={true}
+                    // disabled={location.pathname === "/pricing"}
                     onClick={() => {
                       isPricingPage ? null : openModal();
                     }}
