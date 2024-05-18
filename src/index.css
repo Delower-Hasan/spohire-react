@@ -1335,3 +1335,8 @@ a {
   /* 177.778% */
 
 }
+
+.input-error {
+  border: 1px solid red !important;
+  border-radius: 4px;
+}
