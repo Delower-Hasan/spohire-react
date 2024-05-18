@@ -240,6 +240,11 @@ const Messages = () => {
                               <div className="position-absolute avatar_img">
                                 {/* <img src={chatAvatar} alt="" /> */}
                                 <img
+                                  style={{
+                                    height: "35px",
+                                    width: "35px",
+                                    borderRadius: "100%",
+                                  }}
                                   src={
                                     user?.image
                                       ? `${
