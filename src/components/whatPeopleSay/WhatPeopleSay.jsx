@@ -35,7 +35,7 @@ const WhatPeopleSay = ({ color }) => {
                       of their platform. Can't wait to see what they come up
                       with next!”
                     </h5>
-                    <div className="d-flex  flex-md-row justify-content-start align-items-center gap-1 gap-lg-3 google_mobile">
+                    <div className="d-flex flex-md-row justify-content-start align-items-center gap-1 gap-lg-3 google_mobile">
                       <img
                         className="d-none d-lg-block"
                         src={GoogleImg}
@@ -55,7 +55,7 @@ const WhatPeopleSay = ({ color }) => {
                           <img src={Start} alt="star" />
                           <img src={Start} alt="star" />
                         </div>
-                        <span>Previews from John Mott</span>
+                        <span>Previews from Giovanni Rossi</span>
                       </div>
                     </div>
                   </div>

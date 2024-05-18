@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import bronze from "../../assets/bronze.svg";
 import gold from "../../assets/gold.svg";
 import check from "../../assets/indigo-check.svg";
 import silver from "../../assets/silver.svg";
-import checkActive from "../../assets/white-check.svg";
-import { setSubscription } from "../../features/auth/authSlice";
-import { useDispatch } from "react-redux";
-import MakePaymenModal from "../../components/Dashboard/Modal/MakePaymenModal";
 import MakePaymenModalForUpgradeSubscription from "../../components/Dashboard/Modal/MakePaymenModalForUpgradeSubscription";
-import { useLocation } from "react-router-dom";
+import { setSubscription } from "../../features/auth/authSlice";
 
 const priceOptions = [
   {
@@ -83,11 +81,9 @@ const PricingCard = () => {
             className={`col-lg-4 ${modalOpen ? "d-none" : ""}`}
             onClick={() => {
               handleCardClick(index);
-            }}
-          >
+            }}>
             <div
-              className={`price_card ${activeCard === index ? "active" : ""}`}
-            >
+              className={`price_card ${activeCard === index ? "active" : ""}`}>
               <div className="d-flex align-items-center gap-4 mb-5">
                 <div className="model">
                   <img className="mt-0" src={data.pic} alt="" />
@@ -100,8 +96,7 @@ const PricingCard = () => {
               <p
                 className={` mb-3 ${
                   activeCard === index ? "active_price" : "price"
-                }`}
-              >
+                }`}>
                 ${data.price}{" "}
                 {location.pathname === "/dashboard" ||
                 location.pathname === "/dashboard/coaches" ||
@@ -115,8 +110,7 @@ const PricingCard = () => {
               <p
                 className={` ${
                   activeCard === index ? "active_include" : "include"
-                }`}
-              >
+                }`}>
                 What's included
               </p>
 
@@ -132,8 +126,7 @@ const PricingCard = () => {
                       style={{ fontSize: "18px" }}
                       className={`${
                         activeCard === index ? "active_color" : "active_color2"
-                      }`}
-                    >
+                      }`}>
                       {option}
                     </p>
                   </div>
@@ -157,8 +150,7 @@ const PricingCard = () => {
                       color: `${activeCard === index ? "#2B3674" : "#FFFFFF"}`,
                       fontWeight: "500",
                       fontSize: "20px",
-                    }}
-                  >
+                    }}>
                     {location.pathname === "/dashboard" ||
                     location.pathname === "/dashboard/coaches" ||
                     location.pathname === "/dashboard/players"

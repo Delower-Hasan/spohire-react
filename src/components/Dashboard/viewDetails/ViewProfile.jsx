@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { FaLink } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,11 +9,10 @@ import instagram from "../../../assets/instagram.png";
 import nationalityImg from "../../../assets/nationality_flag.png";
 import profileImage from "../../../assets/profile_avatar.png";
 import silver from "../../../assets/silver1.png";
+import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
 import Gallary from "./Gallary";
 import "./ViewDetails.css";
 import ViewDetailsMobile from "./ViewDetailsMobile";
-import { useEffect, useState } from "react";
-import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
 
 const ViewProfile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -24,6 +24,7 @@ const ViewProfile = () => {
     const age = Math.floor(timeDiff / (365.25 * 24 * 60 * 60 * 1000));
     return age;
   };
+
   const [socialMedia, setSocialMedia] = useState([]);
 
   useEffect(() => {
@@ -55,7 +56,6 @@ const ViewProfile = () => {
           </Link>
         </div>
       </div>
-
       <div className="View_details container p-0 overflow-hidden bg-white">
         <div className="personal_information d-flex justify-content-between mb-4">
           <div className="user_information d-flex align-items-center gap-4">
@@ -120,8 +120,7 @@ const ViewProfile = () => {
             <button
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
-              className="update_plan"
-            >
+              className="update_plan">
               Upgrade
             </button>
 

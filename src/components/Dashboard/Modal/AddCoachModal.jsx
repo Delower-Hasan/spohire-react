@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-
 import { useDropzone } from "react-dropzone";
 import Swal from "sweetalert2";
 import { useAddPlayerMutation } from "../../../features/auth/authApi";
@@ -16,7 +15,6 @@ const AddCoachModal = ({ setAddCoachModal }) => {
 
   const [step, setStep] = useState(1);
   const [addPlayer, { isLoading: addPlayerLoading }] = useAddPlayerMutation();
-
   const [socialMedia, setSocialMedia] = useState({
     instagram: "",
     facebook: "",
@@ -24,20 +22,17 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     tiktok: "",
   });
 
-  //  my code
-
   const [isProfileUploaded, setIsProfileUploaded] = useState(false);
   const [selectedProfileFile, setSelectedProfileFile] = useState(null);
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const onProfileDrop = (acceptedFiles) => {
-    // Set the selected profile file
     setSelectedProfileFile(acceptedFiles[0]);
     setIsProfileUploaded(true);
   };
 
   const onGalleryDrop = (acceptedFiles) => {
-    // Add the newly selected files to the existing selectedGalleryFiles state
     setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
   };
 
@@ -47,27 +42,21 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     useDropzone({ onDrop: onGalleryDrop });
 
   const removeGallaryImage = (index) => {
-    // Handle image removal
     const updatedImages = [...selectedGalleryFiles];
     updatedImages.splice(index, 1);
     setSelectedGalleryFiles(updatedImages);
   };
-  //  my code
 
   const handleSocialLinkChange = (e) => {
     const { name, value } = e.target;
     setSocialMedia({ ...socialMedia, [name]: value });
   };
+
   const [experienceFormData, setExperienceFormData] = useState([]);
 
   const handleExperienceChange = (e) => {
     const { name, value } = e.target;
-    setExperienceFormData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    setExperienceFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAddMore = () => {
@@ -76,37 +65,33 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       experienceFormData.end_year &&
       experienceFormData.club_name
     ) {
-      const newData = [...playerData?.experience, experienceFormData];
-      setPlayerData({ ...playerData, ["experience"]: newData });
+      const newData = [...playerData.experience, experienceFormData];
+      setPlayerData({ ...playerData, experience: newData });
     } else {
       alert("Please fill up the experience data properly");
     }
   };
 
   const handleRemove = (itemToRemove) => {
-    // Filter out the item to remove from the experience array
     const newExperienceData = playerData.experience.filter(
       (item) => item !== itemToRemove
     );
-    console.log("newExperienceData", newExperienceData);
-    // Update playerData with the new experience data
-    setPlayerData({ ...playerData, ["experience"]: newExperienceData });
+    setPlayerData({ ...playerData, experience: newExperienceData });
   };
 
   const socialMediaArray = Object.values(socialMedia);
-  const [playerData, setPlayerData] = useState({
-    experience: "",
-  });
+  const [playerData, setPlayerData] = useState({ experience: "" });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPlayerData({ ...playerData, [name]: value });
+    if (errors[name]) {
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: false }));
+    }
   };
 
   const fileInputRef = useRef(null);
-
   const [image, setImage] = useState("");
-  const [imageFile, setImageFIle] = useState(null);
 
   const [selectedPackages, setSelectedPackages] = useState({
     duration: 1,
@@ -117,13 +102,15 @@ const AddCoachModal = ({ setAddCoachModal }) => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setImage(selectedFile.name);
-    setImageFIle(selectedFile);
     setPlayerData({ ...playerData, image: selectedFile });
+    if (errors["image"]) {
+      setErrors((prevErrors) => ({ ...prevErrors, image: false }));
+    }
   };
 
   const [loading, setLoading] = useState(false);
+
   const handleSubmit = async () => {
-    console.log("palayrdd", playerData);
     setLoading(true);
     const date = new Date();
     const playerInfo = {
@@ -141,16 +128,15 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     };
 
     const formData = new FormData();
-
     Object.entries(playerInfo).forEach(([key, value]) => {
-      console.log("value from coach infor");
-      key === "experience" && key === "experience"
-        ? formData.append("experience", JSON.stringify(value))
-        : formData.append(key, value);
+      if (key === "experience") {
+        formData.append("experience", JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
     });
-
-    selectedGalleryFiles?.forEach((img, index) => {
-      formData.append(`gallary`, img);
+    selectedGalleryFiles?.forEach((img) => {
+      formData.append("gallary", img);
     });
 
     try {
@@ -158,7 +144,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       if (response?.data?.success) {
         Swal.fire({
           icon: "success",
-          title: "Succes",
+          title: "Success",
           text: `${response?.data?.message}`,
         });
         setLoading(false);
@@ -174,16 +160,38 @@ const AddCoachModal = ({ setAddCoachModal }) => {
         return false;
       }
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `${error?.message}`,
-      });
+      Swal.fire({ icon: "error", title: "Oops...", text: `${error?.message}` });
       setLoading(false);
       return false;
     } finally {
       setLoading(false);
     }
+  };
+
+  const validateFields = () => {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "gender",
+      "date_of_birth",
+      "nationality",
+      "email",
+      "phone_number",
+      "city",
+      "sports",
+    ];
+
+    const newErrors = {};
+
+    requiredFields.forEach((field) => {
+      if (!playerData[field]) {
+        newErrors[field] = true;
+      }
+    });
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   return (
@@ -219,6 +227,7 @@ const AddCoachModal = ({ setAddCoachModal }) => {
             handleRemove={handleRemove}
             removeGallaryImage={removeGallaryImage}
             PlayerType={"Coach"}
+            errors={errors}
           />
         ) : step === 2 ? (
           <PricingModal setSelectedPackages={setSelectedPackages} />
@@ -239,37 +248,18 @@ const AddCoachModal = ({ setAddCoachModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}
-          >
+            } `}>
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddCoachModal(false)}>Cancel</button>
               <button
                 className="addplayer_btn"
                 onClick={() => {
-                  const requiredFields = [
-                    "firstName",
-                    "lastName",
-                    "gender",
-                    "date_of_birth",
-                    "nationality",
-                    "country",
-                    "email",
-                    "phone_number",
-                    "city",
-                    "sports",
-                  ];
-                  const missingFields = requiredFields.filter(
-                    (field) => !playerData[field]
-                  );
-                  if (missingFields.length > 0) {
-                    alert(
-                      `Fill up the required fields: ${missingFields.join(", ")}`
-                    );
-                  } else {
+                  if (validateFields()) {
                     setStep((prevStep) => prevStep + 1);
+                  } else {
+                    alert("Please fill up the required fields.");
                   }
-                }}
-              >
+                }}>
                 {step === 2 ? "Next" : "Add Coach"}
               </button>
             </div>
