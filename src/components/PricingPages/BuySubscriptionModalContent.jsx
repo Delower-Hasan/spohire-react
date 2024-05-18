@@ -38,20 +38,17 @@ const BuySubscriptionModalContent = ({ user, openModal }) => {
       <div className="pricing_buttons">
         <button
           className={activeButton === "MONTHLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("MONTHLY")}
-        >
+          onClick={() => handleButtonClick("MONTHLY")}>
           MONTHLY
         </button>
         <button
           className={activeButton === "QUARTERLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("QUARTERLY")}
-        >
+          onClick={() => handleButtonClick("QUARTERLY")}>
           QUARTERLY
         </button>
         <button
           className={activeButton === "YEARLY" ? "active" : "inactive"}
-          onClick={() => handleButtonClick("YEARLY")}
-        >
+          onClick={() => handleButtonClick("YEARLY")}>
           YEARLY
         </button>
       </div>
