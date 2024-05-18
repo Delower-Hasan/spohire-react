@@ -14,6 +14,7 @@ import {
 } from "../../../features/observation/observationApi";
 import Swal from "sweetalert2";
 import { getCountryFlag } from "../../../utils/getFlag";
+import { RotatingLines } from "react-loader-spinner";
 
 const CoachesDetails = () => {
   const { id } = useParams();
@@ -87,6 +88,28 @@ const CoachesDetails = () => {
     }
     return age;
   };
+
+  if (isLoading) {
+    return (
+      <div
+        style={{ height: "70vh", width: "100%" }}
+        className="d-flex justify-content-center align-items-center"
+      >
+        {" "}
+        <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          color="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="details_information">

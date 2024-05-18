@@ -1042,8 +1042,8 @@
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.28px;
-    text-transform: capitalize;
-    border-bottom: 2px solid rgba(64, 80, 172, 0.11);
+    /* text-transform: capitalize; */
+    /* border-bottom: 2px solid rgba(64, 80, 172, 0.11); */
     padding-bottom: 10px;
 }
 

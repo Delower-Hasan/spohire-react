@@ -4,6 +4,7 @@ import "./Announcement.css";
 import AnnouncementHeader from "./AnnouncementHeader";
 import AnnouncementList from "./AnnouncementList";
 import { useGetAllAnnouncementQuery } from "../../features/announcement/announcementApi";
+import { RotatingLines } from "react-loader-spinner";
 
 const Announcements = () => {
   const { data: allAnnouncements, isLoading } = useGetAllAnnouncementQuery();
@@ -56,8 +57,30 @@ const Announcements = () => {
 
   return (
     <>
-      <AnnouncementHeader onFiltersChange={handleInputChange} />
-      <AnnouncementList filteredData={filteredData} />
+      {isLoading ? (
+        <div
+          style={{ height: "70vh", width: "100%" }}
+          className="d-flex justify-content-center align-items-center"
+        >
+          {" "}
+          <RotatingLines
+            visible={true}
+            height="96"
+            width="96"
+            strokeColor="#2B3674"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      ) : (
+        <>
+          <AnnouncementHeader onFiltersChange={handleInputChange} />
+          <AnnouncementList filteredData={filteredData} />
+        </>
+      )}
     </>
   );
 };

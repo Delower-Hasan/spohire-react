@@ -18,6 +18,7 @@ import { getCountryFlag } from "../../../utils/getFlag";
 import Pagination from "../../Pagination/Pagination";
 import MobileButtons from "../players/MobileButtons";
 import MobilePlayers from "../players/MobilePlayers";
+import { ThreeDots } from "react-loader-spinner";
 const Coaches = () => {
   const { data: coachs, isLoading } = useGetFilteredUsersQuery("role=Coach");
   const { user, coachFilterParams } = useSelector((state) => state.auth);
@@ -136,10 +137,24 @@ const Coaches = () => {
               <tr className="mx-auto">No Coaches Found</tr>
             )} */}
 
-            {(user?.role !== "Player" || user?.role !== "Coach") &&
+            {isLoading ? (
+              <tr style={{ textAlign: "center" }}>
+                <td align="centre" colSpan="7">
+                  <ThreeDots
+                    visible={true}
+                    height="10"
+                    width="100%"
+                    color="#2B3674"
+                    ariaLabel="line-wave-loading"
+                  />
+                </td>
+              </tr>
+            ) : (
+              (user?.role !== "Player" || user?.role !== "Coach") &&
               currentPageData.map((coach, idx) => (
                 <SingleCoach key={idx} coach={coach} />
-              ))}
+              ))
+            )}
           </tbody>
         </Table>
         <MobilePlayers></MobilePlayers>

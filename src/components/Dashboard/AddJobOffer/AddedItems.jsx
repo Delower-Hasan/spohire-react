@@ -17,7 +17,7 @@ const AddedItems = () => {
   const { user } = useSelector((state) => state.auth);
   const [filterData, setFilterData] = useState([]);
 
-  const [cancleSubscription, { isLoading }] = useCancleSubscriptionMutation();
+  const [cancleSubscription] = useCancleSubscriptionMutation();
 
   const { data } = useGetUserReferallsQuery();
 

@@ -3,8 +3,9 @@ import { useGetAllJobsQuery } from "../../features/job/jobApi";
 import "./JobOffer.css";
 import JobOfferHeader from "./JobOfferHeader";
 import MatchesJob from "./MatchesJob";
+import { RotatingLines } from "react-loader-spinner";
 const JobOffer = () => {
-  const { data: allJobs } = useGetAllJobsQuery();
+  const { data: allJobs, isLoading } = useGetAllJobsQuery();
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
@@ -93,6 +94,28 @@ const JobOffer = () => {
     );
     setFilteredData(filtered);
   };
+
+  if (isLoading) {
+    return (
+      <div
+        style={{ height: "70vh", width: "100%" }}
+        className="d-flex justify-content-center align-items-center"
+      >
+        {" "}
+        <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          strokeColor="#2B3674"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <>

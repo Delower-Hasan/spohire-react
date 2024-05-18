@@ -4,9 +4,10 @@ import threedot from "../../../assets/threedot.png";
 import { useGetAllJobsQuery } from "../../../features/job/jobApi";
 import React from "react";
 import { useSubscriptionCheck } from "../../../hooks/useSubscriptionCheck";
+import { ThreeDots } from "react-loader-spinner";
 
 const JobOfferOverview = () => {
-  const { data: allJobs } = useGetAllJobsQuery();
+  const { data: allJobs, isLoading } = useGetAllJobsQuery();
   const { isSubscriptionCheck } = useSubscriptionCheck();
 
   return (
@@ -18,7 +19,17 @@ const JobOfferOverview = () => {
             <Link to="/dashboard/jobOffers">View More</Link>
           )}
         </div>
-        {isSubscriptionCheck && allJobs?.data && allJobs?.data?.length > 0 ? (
+        {isLoading ? (
+          <ThreeDots
+            visible={true}
+            height="8"
+            width="100%"
+            color="#2B3674"
+            ariaLabel="line-wave-loading"
+          />
+        ) : isSubscriptionCheck &&
+          allJobs?.data &&
+          allJobs?.data?.length > 0 ? (
           allJobs?.data.slice(0, 3).map((item, idx) => (
             <React.Fragment key={idx}>
               <div className="d-flex align-items-center justify-content-between joboffer_ov_wrapper">

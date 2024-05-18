@@ -7,6 +7,7 @@ import nosubplayer from "../../../assets/nosubplayer.png";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
+import { ThreeDots } from "react-loader-spinner";
 
 const PlayerOverview = ({ user }) => {
   const { data, isLoading } = useGetFilteredUsersQuery(
@@ -35,13 +36,6 @@ const PlayerOverview = ({ user }) => {
           <h4 className="players_title"> Players</h4>
 
           {data && data?.length > 0 && (
-            // <Link
-            //   to={`${
-            //     user?.role === "Manager" || user?.role === "Coach"
-            //       ? "/dashboard/players"
-            //       : "/dashboard/coaches"
-            //   }`}
-            // >
             <Link
               to={`${
                 user?.role === "manager" || user?.role === "coach"
@@ -71,8 +65,21 @@ const PlayerOverview = ({ user }) => {
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody>
-            {data &&
+          <tbody align="center">
+            {isLoading ? (
+              <tr style={{ textAlign: "center" }}>
+                <td align="centre" colSpan="7">
+                  <ThreeDots
+                    visible={true}
+                    height="8"
+                    width="100%"
+                    color="#2B3674"
+                    ariaLabel="line-wave-loading"
+                  />
+                </td>
+              </tr>
+            ) : (
+              data &&
               data?.length > 0 &&
               data
                 ?.filter(
@@ -182,7 +189,8 @@ const PlayerOverview = ({ user }) => {
                       </td>
                     )}
                   </tr>
-                ))}
+                ))
+            )}
           </tbody>
         </Table>
         <MobilePlayers className="m-lg-0 ms-4 me-4"></MobilePlayers>

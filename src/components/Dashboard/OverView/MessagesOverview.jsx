@@ -8,6 +8,7 @@ import startmessage from "../../../assets/startmessage.png";
 import { useGetUserAllConversationsQuery } from "../../../features/chat/chatApi";
 import { useSelector } from "react-redux";
 import React, { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 const chatData = [
   {
@@ -43,7 +44,7 @@ const chatData = [
 ];
 const MessagesOverview = () => {
   const { user } = useSelector((state) => state.auth);
-  const { data } = useGetUserAllConversationsQuery(user?._id);
+  const { data, isLoading } = useGetUserAllConversationsQuery(user?._id);
   const [imageSrc, setImageSrc] = useState(startmessage); // Initial image source state
   const [isBookmarked, setIsBookmarked] = useState(false); // Initial bookmark state
 
@@ -67,7 +68,15 @@ const MessagesOverview = () => {
         </div>
 
         <div className="messages_list">
-          {data && data?.length > 0 ? (
+          {isLoading ? (
+            <ThreeDots
+              visible={true}
+              height="8"
+              width="100%"
+              color="#2B3674"
+              ariaLabel="line-wave-loading"
+            />  
+          ) : data && data?.length > 0 ? (
             data.slice(1, 4).map((item, index) => (
               <React.Fragment key={index}>
                 <div
@@ -79,10 +88,11 @@ const MessagesOverview = () => {
                       <img
                         src={
                           item?.image
-                            ? `${process.env.NODE_ENV !== "production"
-                              ? import.meta.env.VITE_LOCAL_API_URL
-                              : import.meta.env.VITE_LIVE_API_URL
-                            }/api/v1/uploads/${item?.image}`
+                            ? `${
+                                process.env.NODE_ENV !== "production"
+                                  ? import.meta.env.VITE_LOCAL_API_URL
+                                  : import.meta.env.VITE_LIVE_API_URL
+                              }/api/v1/uploads/${item?.image}`
                             : profile
                         }
                         alt="profile"
@@ -99,12 +109,16 @@ const MessagesOverview = () => {
                         {item.first_name}
                         {/* {item?.last_name} */}
                       </h5>
-                      <span>  @adelapark</span>
+                      <span> @adelapark</span>
                     </div>
                   </div>
 
                   <div className="d-flex" style={{ gap: "20px" }}>
-                    <img style={{ height: "19px", width: "19px" }} src={chatmessage} alt="chatmessage" />
+                    <img
+                      style={{ height: "19px", width: "19px" }}
+                      src={chatmessage}
+                      alt="chatmessage"
+                    />
                     {/* <img style={{ height: "19px", width: "19px" }} src={startmessage} alt="startmessage" /> */}
                     <img
                       style={{ height: "19px", width: "19px" }}

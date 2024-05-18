@@ -133,7 +133,7 @@
     
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
-    color: black !important;
+    color: white !important;
     font-size: 15px !important;
 }
 
@@ -150,7 +150,7 @@
     .navbar-nav {
         margin-top: 20px !important;
         gap: 20px;
-        background-color: white;
+        /* background-color: white; */
         padding: 20px;
     }
 
@@ -259,6 +259,7 @@
 
 /* .profile_dropdown {
 
+
 } */
 
 .profile_dropdown {
@@ -341,7 +342,8 @@
 
 @media(max-width:375px) {
     .profile_dropdown {
-        right: 25% !important;
+
+        right: 19% !important;
     }
 }
 
@@ -351,8 +353,9 @@
     }
 
     .profile_dropdown {
-        top: 83% !important;
+        top: 0% !important;
         right: 35%;
+        z-index: 9999999999999999 !important;
     }
 
     .profile_drop_mobilepadding {
