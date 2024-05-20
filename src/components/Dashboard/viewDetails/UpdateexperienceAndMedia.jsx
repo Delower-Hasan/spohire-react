@@ -67,7 +67,6 @@ const UpdateexperienceAndMedia = ({
   //   setEditedInfo({ ...editedInfo, ["experience"]: newData });
   //   setUserExperience(newData);
   // };
-  // console.log(userExperience,'userExperience')
 
   return (
     <>

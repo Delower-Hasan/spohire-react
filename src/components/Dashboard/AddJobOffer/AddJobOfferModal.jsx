@@ -18,6 +18,34 @@ const AddJobOfferModal = ({
   errors,
 }) => {
   const [step, setStep] = useState(0);
+  const customConfig = {
+    fontFamily: {
+      options: [
+        "default",
+        "SF Pro Display,sans-serif", // Add your custom font here
+      ],
+    },
+    toolbar: [
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "fontFamily",
+      "fontSize",
+      "fontColor",
+      "fontBackgroundColor",
+      "|",
+      "link",
+      "bulletedList",
+      "numberedList",
+      "blockQuote",
+      "|",
+      "insertTable",
+      "mediaEmbed",
+      "undo",
+      "redo",
+    ],
+  };
 
   return (
     <>
@@ -342,6 +370,7 @@ const AddJobOfferModal = ({
               /> */}
               <CKEditor
                 editor={ClassicEditor}
+                config={customConfig}
                 className="form-control w-100"
                 onReady={(editor) => {
                   // You can store the "editor" and use when it is needed.

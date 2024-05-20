@@ -122,8 +122,6 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    console.log("|playerData| :", playerData);
-
     setLoading(true);
     const date = new Date();
     const playerInfo = {
