@@ -14,10 +14,11 @@ import {
 } from "../../features/observation/observationApi";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { RotatingLines } from "react-loader-spinner";
 
 const JobOfferDetails = () => {
   const { id } = useParams();
-  const { data: jobDetails } = useGetJobByIdQuery(id);
+  const { data: jobDetails, isLoading } = useGetJobByIdQuery(id);
   const { data: appliedJobs } = useGetMyAppliedJobsQuery();
 
   const { user } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ const JobOfferDetails = () => {
     (i) => i?.target_id?._id === jobDetails?.data?._id
   );
 
-  const [toggleObservation, { isLoading }] = useToggleObservationMutation();
+  const [toggleObservation] = useToggleObservationMutation();
 
   const handleBookmark = async (id) => {
     const data = {
@@ -64,6 +65,28 @@ const JobOfferDetails = () => {
   const isApplied = appliedJobs?.some((item) => item.job._id === id);
 
   const isCreator = jobDetails?.data.creator === user?._id;
+
+  if (isLoading) {
+    return (
+      <div
+        style={{ height: "70vh", width: "100%" }}
+        className="d-flex justify-content-center align-items-center"
+      >
+        {" "}
+        <RotatingLines
+          visible={true}
+          height="96"
+          width="96"
+          color="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  }
 
   return (
     <div>
