@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
-import insta from "../../../assets/insta1.png";
 import fb from "../../../assets/fb1.png";
+import insta from "../../../assets/insta1.png";
+import plus from "../../../assets/plus3.png";
 import Twitter from "../../../assets/twiter1.png";
 import youtubeIcon from "../../../assets/youtube.png";
-import plus from "../../../assets/plus3.png";
-import { useState } from "react";
 
 const UpdateexperienceAndMedia = ({
   socialMedia,
@@ -76,20 +75,20 @@ const UpdateexperienceAndMedia = ({
             <div className="col-lg-6 mb-lg-0 mb-4">
               <div className="editpersonal_info experience_update_wrapper">
                 <p>Experience</p>
-                <ul className="mb-4" style={{ listStyle: "none" }}>
+                <ul
+                  className="mb-4"
+                  style={{ listStyle: "none", display: `${exp.length > 0 ? 'block' : "none"}` }}>
                   {exp &&
                     exp.length > 0 &&
                     exp?.map((item, index) => (
                       <li
-                        className="f_sfPro text_color_36 fs-6 my-1"
-                        key={index}
-                      >
+                        className="f_sfPro text_color_36 fs-6 mb-2"
+                        key={index}>
                         {item?.start_year}-{item?.end_year} {item?.club_name} -{" "}
                         <button
                           type="button"
                           className="text-black"
-                          onClick={() => handleRemove(item)}
-                        >
+                          onClick={() => handleRemove(item)}>
                           X
                         </button>
                       </li>
@@ -131,8 +130,7 @@ const UpdateexperienceAndMedia = ({
                       <div className="w-100">
                         <label
                           htmlFor="exampleFormControlInput1"
-                          className="form-label"
-                        >
+                          className="form-label">
                           Club Name
                         </label>
                         <input
@@ -151,8 +149,7 @@ const UpdateexperienceAndMedia = ({
                       <button
                         className="add_more_btn"
                         type="button"
-                        onClick={handleAddMore}
-                      >
+                        onClick={handleAddMore}>
                         <span>Add more</span>
                         <img src={plus} alt="" />
                       </button>
@@ -167,8 +164,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Instagram
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -188,8 +184,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Facebook
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -208,8 +203,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Twitter
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -229,8 +223,7 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     Youtube
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
