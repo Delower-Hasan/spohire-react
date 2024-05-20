@@ -40,7 +40,6 @@ const WorkplaceOptions = [
 ];
 
 const AddJobOffer = ({ setAddJobOffer }) => {
-  // const [nextOption, setNextOption] = useState("AddJobOfferModal");
   const { user } = useSelector((state) => state.auth);
   const [image, setImage] = useState("");
   const [step, setStep] = useState(1);
@@ -64,10 +63,14 @@ const AddJobOffer = ({ setAddJobOffer }) => {
   const [jobData, setJobData] = useState({});
   const [errorData, setErrorData] = useState();
   const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setJobData({ ...jobData, [name]: value });
+    if (value) {
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    }
   };
 
   const handleSubmit = async () => {
@@ -87,7 +90,6 @@ const AddJobOffer = ({ setAddJobOffer }) => {
     });
     try {
       const response = await addJob(formData);
-      console.log("resss", response);
       if (response?.data?.success) {
         setLoading(false);
         setAddJobOffer(false);
@@ -134,6 +136,33 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       });
   }, []);
 
+  const validateFields = () => {
+    const requiredFields = [
+      "job_title",
+      "workplaceType",
+      "job_location",
+      "country",
+      "category",
+      "jobType",
+      "language",
+      "salary",
+    ];
+
+    const newErrors = {};
+    requiredFields.forEach((field) => {
+      if (!jobData[field]) {
+        newErrors[field] = "This field is required";
+      }
+    });
+
+    if (!description) {
+      newErrors.description = "Description is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   return (
     <div className={`addplayer_modal`}>
       <div className="inner">
@@ -145,8 +174,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
 
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
+              style={{ marginBottom: "40px" }}>
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <AddJobOfferModal
@@ -160,16 +188,15 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     categoryOptions={categoryOptions}
                     handleInputChange={handleInputChange}
                     setDescription={setDescription}
+                    errors={errors}
                   />
                 ) : step === 2 ? (
                   <AddJobOfferModalTwo
                     handleSubmit={handleSubmit}
                     addingJob={addingJob}
-                    // setNextOption={setNextOption}
                     selectedSubscription={selectedSubscription}
                     setSelectedSubscription={setSelectedSubscription}
                     setAddJobOffer={setAddJobOffer}
-                    // closeModal={closeModal}
                   />
                 ) : null}
 
@@ -178,8 +205,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                     <button
                       onClick={() => setAddJobOffer(false)}
                       className="submit_now_btn cancel m-0"
-                      type="button"
-                    >
+                      type="button">
                       Cancel
                     </button>
 
@@ -187,32 +213,12 @@ const AddJobOffer = ({ setAddJobOffer }) => {
                       className="submit_now_btn m-0"
                       type="button"
                       onClick={() => {
-                        const requiredFields = [
-                          "job_title",
-                          "workplaceType",
-                          "job_location",
-                          "country",
-                          "category",
-                          "country",
-                          "jobType",
-                          "language",
-                          "salary",
-                        ];
-
-                        const missingFields = requiredFields.filter(
-                          (field) => !jobData[field]
-                        );
-                        if (missingFields.length > 0 || !description) {
-                          alert(
-                            `Fill up the required fields: ${missingFields.join(
-                              ", "
-                            )}  ${!description && "Description"}`
-                          );
-                        } else {
+                        if (validateFields()) {
                           setStep((prevStep) => prevStep + 1);
+                        } else {
+                          alert("Please fill in all required fields.");
                         }
-                      }}
-                    >
+                      }}>
                       {" "}
                       Next
                     </button>

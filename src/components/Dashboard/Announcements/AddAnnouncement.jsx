@@ -12,14 +12,12 @@ import useClickOutside from "../../../hooks/useClickOutside.jsx";
 import { setExpireDate } from "../../../utils/setExpireDate.js";
 import CreateAnnouncemnetModal from "./CreateAnnouncemnetModal.jsx";
 import PaymentProcess from "./PaymentProcess.jsx";
+import "./Announcements.css";
 
 const options = [
   { value: "Friendly-matches", label: "Friendly-matches" },
   { value: "Camps", label: "Camps" },
-  {
-    value: "Tournaments",
-    label: "Tournaments",
-  },
+  { value: "Tournaments", label: "Tournaments" },
   { value: "Player-recruitment", label: "Player-recruitment" },
   { value: "Others", label: "Others" },
 ];
@@ -40,10 +38,7 @@ const categoryOptions = [
 const WorkplaceOptions = [
   { value: "On-site", label: "On-site" },
   { value: "Hybrid", label: "Hybrid" },
-  {
-    value: "Remote",
-    label: "Remote",
-  },
+  { value: "Remote", label: "Remote" },
 ];
 
 const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
@@ -59,25 +54,34 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
   const [jobType, setJobType] = useState("");
   const [addAnnouncement, { isLoading: addingAnnounement }] =
     useAddAnnouncementMutation();
-
   const navigate = useNavigate();
-
   const [announcementData, setAnnouncementData] = useState({});
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setAnnouncementData({ ...announcementData, [name]: value });
-  };
+  const [errors, setErrors] = useState({});
   const [selectedSubscription, setSelectedSubscription] = useState({
     duration: 1,
     price: 10,
     month: 1,
   });
+  const fileInputRef = useRef(null);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setAnnouncementData({ ...announcementData, [name]: value });
+    if (value) {
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setImage(selectedFile.name);
+    setImageFIle(selectedFile);
+    setAnnouncementData({ ...announcementData, image: selectedFile });
+  };
 
   const handleSubmit = async (e) => {
     setLoading(true);
     const date = new Date();
-
     const jobDataInfo = {
       ...announcementData,
       subscriptionDate: date,
@@ -85,20 +89,18 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
       packagechoose: selectedSubscription?.month,
       creator: user?._id,
     };
-
-    const fromData = new FormData();
-
+    const formData = new FormData();
     Object.entries(jobDataInfo).forEach(([key, value]) => {
-      fromData.append(key, value);
+      formData.append(key, value);
     });
 
     try {
-      const response = await addAnnouncement(fromData);
+      const response = await addAnnouncement(formData);
       if (response?.data?.success) {
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: `Anouncement Created successfully`,
+          text: `Announcement Created successfully`,
         });
         setLoading(false);
         setAnnouncementIsModalOpen(false);
@@ -117,35 +119,43 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
     }
   };
 
-  const fileInputRef = useRef(null);
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setImage(selectedFile.name);
-    setImageFIle(selectedFile);
-    setAnnouncementData({ ...announcementData, image: selectedFile });
-  };
-
   useEffect(() => {
     axios
       .get(
         "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
       )
-      .then(function (response) {
-        setCountryNames(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .then((response) => setCountryNames(response.data))
+      .catch((error) => console.log(error));
   }, []);
+
+  const validateFields = () => {
+    const requiredFields = [
+      "title",
+      "sports",
+      "category",
+      "location",
+      "country",
+      "budget",
+      "description",
+    ];
+    const newErrors = {};
+    requiredFields.forEach((field) => {
+      if (!announcementData[field]) {
+        newErrors[field] = "This field is required";
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleNextOption = () => {
     setNextOption("AddJobOfferModalTwo");
   };
+
   const annoucnementRef = useClickOutside(() =>
     setAnnouncementIsModalOpen(false)
   );
-
   const [step, setStep] = useState(1);
 
   return (
@@ -168,12 +178,8 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}
-            >
-              <div
-                // onSubmit={handleSubmit}
-                className="w-100 player_job_form_wrapper mt-0"
-              >
+              style={{ marginBottom: "40px" }}>
+              <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <CreateAnnouncemnetModal
                     fileInputRef={fileInputRef}
@@ -185,6 +191,7 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                     WorkplaceOptions={WorkplaceOptions}
                     categoryOptions={categoryOptions}
                     handleInputChange={handleInputChange}
+                    errors={errors}
                   />
                 ) : step === 2 ? (
                   <PaymentProcess
@@ -201,39 +208,19 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                     <button
                       className="submit_now_btn cancel m-0"
                       type="button"
-                      onClick={() => setAnnouncementIsModalOpen(false)}
-                      // disabled={loading || isLoading}
-                    >
+                      onClick={() => setAnnouncementIsModalOpen(false)}>
                       Cancel
                     </button>
-
                     <button
                       onClick={() => {
-                        const requiredFields = [
-                          "title",
-                          "sports",
-                          "category",
-                          "location",
-                          "country",
-                          "budget",
-                          "description",
-                        ];
-                        const missingFields = requiredFields.filter(
-                          (field) => !announcementData[field]
-                        );
-                        if (missingFields.length > 0) {
-                          alert(
-                            `Fill up the required fields: ${missingFields.join(
-                              ", "
-                            )}`
-                          );
-                        } else {
+                        if (validateFields()) {
                           setStep((prevStep) => prevStep + 1);
+                        } else {
+                          alert("Please fill in all required fields.");
                         }
                       }}
                       className="submit_now_btn m-0"
-                      type="button"
-                    >
+                      type="button">
                       Next
                     </button>
                   </div>

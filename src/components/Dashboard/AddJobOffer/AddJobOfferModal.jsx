@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import region from "../../../assets/aregion.png";
-import brows from "../../../assets/brows1.png";
-import salary from "../../../assets/asalary.png";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import React, { useState } from "react";
+import salary from "../../../assets/asalary.png";
+import brows from "../../../assets/brows1.png";
 
 const AddJobOfferModal = ({
   handleInputChange,
@@ -16,6 +15,7 @@ const AddJobOfferModal = ({
   WorkplaceOptions,
   categoryOptions,
   setDescription,
+  errors,
 }) => {
   const [step, setStep] = useState(0);
   const customConfig = {
@@ -62,8 +62,7 @@ const AddJobOfferModal = ({
         <div className="col-lg-6">
           <div
             className="position-relative text-start"
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               {" "}
               Job Title *{" "}
@@ -74,7 +73,9 @@ const AddJobOfferModal = ({
             </div> */}
             <input
               type="text"
-              className="form-control"
+              className={`${
+                errors.job_title ? "input-error" : ""
+              } form-control`}
               id="exampleFormControlInput1"
               placeholder="Enter Job Title"
               name="job_title"
@@ -84,8 +85,7 @@ const AddJobOfferModal = ({
           </div>
           <div
             className="position-relative text-start"
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Company Logo
             </label>
@@ -117,13 +117,15 @@ const AddJobOfferModal = ({
               <div className="col-lg-6 job_location_select">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Country *
                 </label>
 
                 <select
-                  className="form-select"
+                  required
+                  className={`${
+                    errors.country ? "input-error" : ""
+                  } form-control`}
                   aria-label="Default select example"
                   style={{
                     minHeight: "44px",
@@ -133,8 +135,7 @@ const AddJobOfferModal = ({
                   }}
                   name="country"
                   value={selectedCountry}
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select country
                   </option>
@@ -142,8 +143,7 @@ const AddJobOfferModal = ({
                     <option
                       defaultValue={country.name}
                       className=""
-                      key={index}
-                    >
+                      key={index}>
                       {country.name}
                     </option>
                   ))}
@@ -153,18 +153,18 @@ const AddJobOfferModal = ({
               <div className="col-lg-6">
                 <div
                   className="position-relative text-start "
-                  style={{ marginBottom: "32px" }}
-                >
+                  style={{ marginBottom: "32px" }}>
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     City *
                   </label>
 
                   <input
                     type="text"
-                    className="form-control"
+                    className={`${
+                      errors.job_location ? "input-error" : ""
+                    } form-control`}
                     id="exampleFormControlInput1"
                     placeholder="Type Here"
                     name="job_location"
@@ -179,14 +179,14 @@ const AddJobOfferModal = ({
 
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Job type*
             </label>
 
             <select
-              className="form-select"
+              required
+              className={`${errors.jobType ? "input-error" : ""} form-control`}
               aria-label="Default select example"
               style={{
                 minHeight: "44px",
@@ -196,8 +196,7 @@ const AddJobOfferModal = ({
               }}
               name="jobType"
               // value={jobType}
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select Type
               </option>
@@ -212,8 +211,7 @@ const AddJobOfferModal = ({
         <div className="col-lg-6 ">
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Company
             </label>
@@ -222,7 +220,7 @@ const AddJobOfferModal = ({
             </div> */}
             <input
               type="text"
-              className="form-control"
+              className={`${errors.company ? "input-error" : ""} form-control`}
               id="exampleFormControlInput1"
               placeholder="Enter your company"
               name="company"
@@ -232,14 +230,16 @@ const AddJobOfferModal = ({
           </div>
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Workplace Type *
             </label>
 
             <select
-              className="form-select"
+              required
+              className={`${
+                errors.workplaceType ? "input-error" : ""
+              } form-control`}
               aria-label="Default select example"
               style={{
                 minHeight: "44px",
@@ -248,8 +248,7 @@ const AddJobOfferModal = ({
                 padding: "0 14px",
               }}
               name="workplaceType"
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select Type
               </option>
@@ -262,18 +261,19 @@ const AddJobOfferModal = ({
           </div>
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <div className="row">
               <div className="col-lg-6">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Category *
                 </label>
                 <select
-                  className="form-select"
+                  required
+                  className={`${
+                    errors.category ? "input-error" : ""
+                  } form-control`}
                   aria-label="Default select example"
                   style={{
                     minHeight: "44px",
@@ -282,8 +282,7 @@ const AddJobOfferModal = ({
                     padding: "0 14px",
                   }}
                   name="category"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select Type
                   </option>
@@ -291,8 +290,7 @@ const AddJobOfferModal = ({
                     <option
                       defaultValue={category.value}
                       className=""
-                      key={index}
-                    >
+                      key={index}>
                       {category.value}
                     </option>
                   ))}
@@ -302,12 +300,14 @@ const AddJobOfferModal = ({
               <div className="col-lg-6">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Language *
                 </label>
                 <select
-                  className="form-select"
+                  required
+                  className={`${
+                    errors.language ? "input-error" : ""
+                  } form-control`}
                   aria-label="Default select example"
                   style={{
                     minHeight: "44px",
@@ -316,8 +316,7 @@ const AddJobOfferModal = ({
                     padding: "0 14px",
                   }}
                   name="language"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select Language
                   </option>
@@ -330,8 +329,7 @@ const AddJobOfferModal = ({
 
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Salary *
             </label>
@@ -340,7 +338,9 @@ const AddJobOfferModal = ({
             </div>
             <input
               type="number"
-              className="form-control ps-5"
+              className={`${
+                errors.job_location ? "input-error" : ""
+              } form-control ps-5`}
               id="exampleFormControlInput1"
               placeholder="Numerical digit only"
               required
