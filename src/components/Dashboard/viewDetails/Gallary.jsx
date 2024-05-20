@@ -44,8 +44,6 @@ function SamplePrevArrow(props) {
 }
 
 const Gallary = ({ gallary, user }) => {
-  console.log(user, "user from galllary");
-
   var settings = {
     dots: false,
     infinite: true,

@@ -102,7 +102,7 @@ const ViewDetails = () => {
     }
     return age;
   };
-
+  console.log("user?.experienceaa", user?.experience);
   // if (user?.experience !== undefined) {
   //   console.log("user?.experienceaa", a);
   // }
@@ -418,9 +418,8 @@ const ViewDetails = () => {
           <h3>Experience</h3>
         </div>
         <div className="top d-flex justify-content-between py-4">
-          {user?.experience !== undefined &&
-          JSON.parse(user?.experience)?.length > 0 ? (
-            JSON.parse(user?.experience)?.map((item, index) => (
+          {user?.experience !== undefined && user?.experience?.length > 0 ? (
+            user?.experience?.map((item, index) => (
               <div key={index} className="exerience_infomation">
                 <p className="year">
                   {item.start_year} –{item.end_year}

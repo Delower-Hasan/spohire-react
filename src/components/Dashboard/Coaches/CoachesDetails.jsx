@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Marquee from "react-fast-marquee";
 import { AiOutlineMessage } from "react-icons/ai";
-import { FaLink } from "react-icons/fa6";
+import { FaFacebookF, FaInstagram, FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
 import silverIcon from "../../../assets/silver_icon.svg";
 import goldIcon from "../../../assets/gold_icon.png";
@@ -15,6 +15,7 @@ import {
 import Swal from "sweetalert2";
 import { getCountryFlag } from "../../../utils/getFlag";
 import { RotatingLines } from "react-loader-spinner";
+import { BsTiktok, BsTwitterX } from "react-icons/bs";
 
 const CoachesDetails = () => {
   const { id } = useParams();
@@ -313,7 +314,7 @@ const CoachesDetails = () => {
           </div>
         </div>
       </div>
-      {/* 
+
       <div className="social_media d-flex justify-content-between mb-4">
         <div className="media text-center">
           <FaInstagram
@@ -346,17 +347,15 @@ const CoachesDetails = () => {
           <p className="follower_count">26M</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
-      </div> */}
+      </div>
 
       <div className="experience mb-4">
         <div className="section_title">
           <h3>Experience</h3>
         </div>
         <div className="top d-flex justify-content-between py-4">
-          {user?.experience !== undefined &&
-          user?.experience.length > 0 &&
-          JSON.parse(user?.experience)?.length > 0 ? (
-            JSON.parse(user?.experience)?.map((item, index) => (
+          {user?.experience !== undefined && user?.experience?.length > 0 ? (
+            user?.experience?.map((item, index) => (
               <div key={index} className="exerience_infomation">
                 <p className="year">
                   {item.start_year} –{item.end_year}

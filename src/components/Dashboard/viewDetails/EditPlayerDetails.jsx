@@ -85,8 +85,6 @@ const EditPlayerDetails = () => {
       });
   }, []);
 
-  // const [userExperience, setUserExperience] = useState([...exp]);
-  // profile
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   // onchange value
@@ -99,7 +97,7 @@ const EditPlayerDetails = () => {
       playerName: "",
       sportsType: "",
       selectedImage: null,
-      experiences: [{ startYear: "", endYear: "" }],
+      experiences: [],
       clubName: "",
       socialMedia: {
         facebook: "",
@@ -114,14 +112,15 @@ const EditPlayerDetails = () => {
   );
 
   const dispatch = useDispatch();
+
   const [formData, setFormData] = useState(initialFormData);
-  const [gallaryImage, setGallaryImage] = useState(null);
   const [socialMedia, setSocialMedia] = useState({
     facebook: "",
     twitter: "",
     instagram: "",
     youtube: "",
   });
+
   const [userInfo, setUserInfo] = useState({
     first_name: "",
     last_name: "",
@@ -233,11 +232,12 @@ const EditPlayerDetails = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    const socialMediaArray = Object.values(socialMedia);
+    // const socialMediaArray = Object.values(socialMedia);
+
     const infoData = {
       ...editedInfo,
       about_me: aboutMe,
-      social_media: socialMediaArray,
+      social_media: JSON.stringify(socialMedia),
     };
 
     const formData = new FormData();
@@ -255,7 +255,6 @@ const EditPlayerDetails = () => {
           }
         });
       } else {
-        console.log("down");
         formData.append(key, propertyValue);
       }
     });
@@ -263,13 +262,15 @@ const EditPlayerDetails = () => {
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
-    formData.append("experience", JSON.stringify(userExperience));
+    
+    formData.append("experiencenew", JSON.stringify(userExperience));
 
     try {
       const response = await updatePlayerDetails({
         userId: user?._id,
         data: formData,
       });
+
       if (response?.data?.status) {
         Swal.fire({
           icon: "success",
@@ -322,6 +323,7 @@ const EditPlayerDetails = () => {
     };
     setAboutMe(user?.about_me);
     setUserInfo(newData);
+    setUserExperience(user?.experience);
 
     let values = {};
     for (let i = 0; i < user?.social_media?.length; i++) {

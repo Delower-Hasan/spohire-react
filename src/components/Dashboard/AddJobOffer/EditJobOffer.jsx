@@ -138,14 +138,36 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
       workplaceType: editingItem?.workplaceType,
     };
 
-    // category
-    // jobType
-    // language
-    // salary
-    // description
-
     setJobDatas(data);
   }, [editingItem]);
+  const customConfig = {
+    fontFamily: {
+      options: [
+        "default",
+        "SF Pro Display,sans-serif", // Add your custom font here
+      ],
+    },
+    toolbar: [
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "fontFamily",
+      "fontSize",
+      "fontColor",
+      "fontBackgroundColor",
+      "|",
+      "link",
+      "bulletedList",
+      "numberedList",
+      "blockQuote",
+      "|",
+      "insertTable",
+      "mediaEmbed",
+      "undo",
+      "redo",
+    ],
+  };
 
   return (
     <div className={` ${styles.addJob_wrapper}`}>
@@ -491,6 +513,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                         <CKEditor
                           style={{ width: "100%" }}
                           editor={ClassicEditor}
+                          config={customConfig}
                           className="form-control w-100"
                           data={jobDatas?.description}
                           onReady={(editor) => {
