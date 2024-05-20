@@ -1,7 +1,6 @@
 import React from "react";
-import region from "../../../assets/aregion.png";
-import brows from "../../../assets/brows.svg";
 import dollarImg from "../../../assets/asalary.png";
+import brows from "../../../assets/brows.svg";
 
 const CreateAnnouncemnetModal = ({
   fileInputRef,
@@ -13,6 +12,7 @@ const CreateAnnouncemnetModal = ({
   WorkplaceOptions,
   categoryOptions,
   handleInputChange,
+  errors,
 }) => {
   return (
     <>
@@ -21,8 +21,7 @@ const CreateAnnouncemnetModal = ({
           {/*title*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Title *
             </label>
@@ -32,7 +31,7 @@ const CreateAnnouncemnetModal = ({
             {/*</div>*/}
             <input
               type="text"
-              className="form-control"
+              className={`${errors.title ? "input-error" : ""} form-control`}
               id="exampleFormControlInput1"
               placeholder="From the list"
               name="title"
@@ -44,14 +43,13 @@ const CreateAnnouncemnetModal = ({
           {/*category type*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Category *
             </label>
 
             <select
-              className="form-select"
+              className={`${errors.category ? "input-error" : ""} form-control`}
               aria-label="Default select example"
               style={{
                 minHeight: "44px",
@@ -60,8 +58,7 @@ const CreateAnnouncemnetModal = ({
                 padding: "0 14px",
               }}
               name="category"
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select here
               </option>
@@ -80,13 +77,15 @@ const CreateAnnouncemnetModal = ({
               <div className="col-lg-6 job_location_select">
                 <label
                   htmlFor="exampleFormControlInput1"
-                  className="form-label"
-                >
+                  className="form-label">
                   Country *
                 </label>
 
                 <select
-                  className="form-select"
+                  required
+                  className={`${
+                    errors.country ? "input-error" : ""
+                  } form-control`}
                   aria-label="Default select example"
                   style={{
                     minHeight: "44px",
@@ -95,8 +94,7 @@ const CreateAnnouncemnetModal = ({
                     padding: "0 14px",
                   }}
                   name="country"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option selected disabled>
                     Select here
                   </option>
@@ -110,18 +108,18 @@ const CreateAnnouncemnetModal = ({
               <div className="col-lg-6">
                 <div
                   className="position-relative text-start "
-                  style={{ marginBottom: "32px" }}
-                >
+                  style={{ marginBottom: "32px" }}>
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
+                    className="form-label">
                     City *
                   </label>
 
                   <input
                     type="text"
-                    className="form-control"
+                    className={`${
+                      errors.location ? "input-error" : ""
+                    } form-control`}
                     id="exampleFormControlInput1"
                     placeholder="Write here"
                     name="location"
@@ -151,14 +149,14 @@ const CreateAnnouncemnetModal = ({
           {/*category type*/}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Sports *
             </label>
 
             <select
-              className="form-select"
+              required
+              className={`${errors.sports ? "input-error" : ""} form-control`}
               aria-label="Default select example"
               style={{
                 minHeight: "44px",
@@ -168,8 +166,7 @@ const CreateAnnouncemnetModal = ({
               }}
               name="sports"
               // value={jobType}
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option selected disabled>
                 Select here
               </option>
@@ -187,8 +184,7 @@ const CreateAnnouncemnetModal = ({
           {/*    budget */}
           <div
             className="position-relative text-start "
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Budget *
             </label>
@@ -204,7 +200,9 @@ const CreateAnnouncemnetModal = ({
               </button> */}
               <input
                 type="number"
-                className="form-control border-0"
+                className={`${
+                  errors.budget ? "input-error" : ""
+                } form-control border-0`}
                 style={{
                   cursor: "pointer",
                   backgroundImage: `url(${dollarImg})`,
@@ -225,8 +223,7 @@ const CreateAnnouncemnetModal = ({
           {/*image*/}
           <div
             className="position-relative text-start"
-            style={{ marginBottom: "32px" }}
-          >
+            style={{ marginBottom: "32px" }}>
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Image
             </label>
@@ -285,7 +282,9 @@ const CreateAnnouncemnetModal = ({
             <textarea
               type="text"
               style={{ height: "120px", boxShadow: "none" }}
-              className="form-control"
+              className={`${
+                errors.description ? "input-error" : ""
+              } form-control`}
               placeholder="Enter Your Description...."
               aria-label="Username"
               aria-describedby="basic-addon1"
