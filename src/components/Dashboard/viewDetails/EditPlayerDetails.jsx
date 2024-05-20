@@ -262,7 +262,7 @@ const EditPlayerDetails = () => {
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
-    
+
     formData.append("experiencenew", JSON.stringify(userExperience));
 
     try {
@@ -347,8 +347,7 @@ const EditPlayerDetails = () => {
     <form
       className="p-5 bg-white"
       onSubmit={handleUpdate}
-      style={{ borderRadius: "20px" }}
-    >
+      style={{ borderRadius: "20px" }}>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
@@ -358,6 +357,7 @@ const EditPlayerDetails = () => {
           </Link>
         </div>
       </div>
+
       <div className="View_details container p-0 overflow-hidden">
         <div className="job_offer desktop_vd edit_player_details_wrapper">
           <div className="row" style={{ margin: "0 40px" }}>
@@ -367,8 +367,7 @@ const EditPlayerDetails = () => {
 
               <div
                 className="upload_profile_image d-flex align-items-center justify-content-center"
-                onClick={handleButtonClick}
-              >
+                onClick={handleButtonClick}>
                 <img
                   className="img-fluid profiles"
                   src={
@@ -424,19 +423,17 @@ const EditPlayerDetails = () => {
                 <div className="row">
                   {inputFieldData.map((field, index) => (
                     <div key={index} className="col-12 col-md-6">
-                      <div className="personal_info_edit_wrapper">
+                      <div className="personal_info_edit_wrapper pb-4">
                         <div
                           className="d-flex flex-column align-items-start gap-3"
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "40px" : "0",
-                          }}
-                        >
+                          }}>
                           <div className="w-100">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label"
-                            >
+                              className="form-label">
                               {" "}
                               {field.label}{" "}
                             </label>
@@ -457,7 +454,7 @@ const EditPlayerDetails = () => {
                     </div>
                   ))}
 
-                  <div className="col-md-6 mt-3">
+                  <div className="col-12 col-md-6">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
                         Function *
@@ -468,15 +465,13 @@ const EditPlayerDetails = () => {
                         name="role"
                         onChange={(e) => {
                           handleInputChange("role", e.target.value);
-                        }}
-                      >
+                        }}>
                         {["Player", "Manager", "Coach", "Other"].map(
                           (item, index) => (
                             <option
                               selected={userInfo["role"] === item}
                               key={index}
-                              value={item}
-                            >
+                              value={item}>
                               {item}
                             </option>
                           )
@@ -485,7 +480,7 @@ const EditPlayerDetails = () => {
                     </div>
                   </div>
 
-                  <div className="col-md-6 mt-3">
+                  <div className="col-12 col-md-6">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
                         Sports *
@@ -496,14 +491,12 @@ const EditPlayerDetails = () => {
                         name="sports"
                         onChange={(e) => {
                           handleInputChange("sports", e.target.value);
-                        }}
-                      >
+                        }}>
                         {sportsDatas.map((item, index) => (
                           <option
                             selected={userInfo["sports"] === item}
                             key={index}
-                            value={item}
-                          >
+                            value={item}>
                             {item}
                           </option>
                         ))}
@@ -511,7 +504,7 @@ const EditPlayerDetails = () => {
                     </div>
                   </div>
 
-                  <div className="col-md-6 mt-3">
+                  <div className="col-12 col-md-6">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
                         Nationality *
@@ -522,15 +515,13 @@ const EditPlayerDetails = () => {
                         name="nationality"
                         onChange={(e) => {
                           handleInputChange("nationality", e.target.value);
-                        }}
-                      >
+                        }}>
                         {countryNames?.map((country, index) => (
                           <option
                             selected={userInfo["nationality"] === country}
                             value={country.name}
                             className=""
-                            key={index}
-                          >
+                            key={index}>
                             {country.name}
                           </option>
                         ))}
@@ -567,8 +558,7 @@ const EditPlayerDetails = () => {
                 <button
                   type="button"
                   className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                  {...galleryRootProps()}
-                >
+                  {...galleryRootProps()}>
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>

@@ -297,7 +297,7 @@ const EditAddedPlayerDetails = () => {
   return (
     <form className="" onSubmit={handleUpdate}>
       <div className="View_details container p-0 overflow-hidden">
-        <div className="job_offer desktop_vd edit_player_details_wrapper  ps-lg-0 pe-lg-0">
+        <div className="job_offer desktop_vd edit_player_details_wrapper ps-lg-0 pe-lg-0 mb-4">
           <div className="row" style={{ margin: "0 40px" }}>
             <div className="col-12 col-lg-3 ps-lg-5">
               <div className="upload_profile_image" onClick={handleButtonClick}>
@@ -315,7 +315,7 @@ const EditAddedPlayerDetails = () => {
                       : profileImage
                   }
                   alt="Profile"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "cover", maxWidth:'323px', width: "100%" }}
                 />
                 <div>
                   {!selectedImage && (
@@ -381,7 +381,7 @@ const EditAddedPlayerDetails = () => {
                 <div className="row mb_40">
                   <div className="col-md-6">
                     <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
+                      <label htmlFor="name" className="d-block label_name mb-3">
                         Sports *
                       </label>
                       <select
@@ -414,7 +414,7 @@ const EditAddedPlayerDetails = () => {
                               index < inputFieldData.length - 3 ? "40px" : "0",
                           }}
                         >
-                          <div className="w-100">
+                          <div className="w-100 pb-4">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
                               className="form-label"
@@ -438,7 +438,7 @@ const EditAddedPlayerDetails = () => {
                     </div>
                   ))}
 
-                  <div className="col-lg-4 mt-3">
+                  <div className="col-lg-4">
                     <div className="input_form pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
                         Main position *
