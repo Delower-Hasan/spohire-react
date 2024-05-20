@@ -52,6 +52,7 @@ const PaymentFormTwo = ({
   const { packageInfo } = useSelector((state) => state.payment);
   const { user } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [createPayment, { isLoading: paymentCreating }] =
     useCreatePaymentMutation();
@@ -113,13 +114,14 @@ const PaymentFormTwo = ({
 
       if (error) {
         setIsLoading(false);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: `${error?.message}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "error",
+        //   title: `${error?.message}`,
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
+        setErrorMessage(error?.message);
       } else if (paymentIntent.status === "succeeded") {
         setIsLoading(false);
         const createPaymentData = {
@@ -129,17 +131,19 @@ const PaymentFormTwo = ({
           purpose: "Add Job",
         };
         await createPayment(createPaymentData);
+        setErrorMessage("");
         await handleSubmit();
       }
     } catch (error) {
       setIsLoading(false);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: `${error?.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "error",
+      //   title: `${error?.message}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      setErrorMessage(error?.message);
     }
   };
   const [countryNames, setCountryNames] = useState([]);
@@ -285,6 +289,7 @@ const PaymentFormTwo = ({
                 />
               </div>
             </div>
+            {errorMessage && <p className="my-2 text-danger">{errorMessage}</p>}
           </div>
         </div>
       </div>

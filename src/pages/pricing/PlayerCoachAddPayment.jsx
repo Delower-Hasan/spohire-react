@@ -55,6 +55,7 @@ const PlayerCoachAddPayment = ({
   const { user, subscriptions } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
   const [coupon, setCoupon] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [price, setPrice] = useState(
     subscriptions?.price + selectedPackages?.price
@@ -118,13 +119,14 @@ const PlayerCoachAddPayment = ({
 
       if (error) {
         setIsLoading(false);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: `${error?.message}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "error",
+        //   title: `${error?.message}`,
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
+        setErrorMessage(error?.message);
       } else if (paymentIntent.status === "succeeded") {
         setIsLoading(false);
         const createPaymentData = {
@@ -133,6 +135,7 @@ const PlayerCoachAddPayment = ({
           amount: subscriptions?.price,
           purpose: "Successfully added",
         };
+        setErrorMessage("");
         await handleSubmit();
         await createPayment(createPaymentData);
         // navigation
@@ -141,13 +144,14 @@ const PlayerCoachAddPayment = ({
       }
     } catch (error) {
       setIsLoading(false);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: `${error?.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "error",
+      //   title: `${error?.message}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      setErrorMessage(error?.message);
     }
   };
   const [countryNames, setCountryNames] = useState([]);
@@ -347,6 +351,7 @@ const PlayerCoachAddPayment = ({
                 />
               </div>
             </div>
+            {errorMessage && <p className="my-2 text-danger">{errorMessage}</p>}
           </div>
         </div>
       </div>
