@@ -30,7 +30,7 @@ const DetailsHeader = ({
               <div>
                 <h4>{data?.job_title} </h4>
                 <div className="d-flex align-items-center gap-2">
-                  <p className="at">at {data?.job_location} </p>
+                  <p className="at">at {data?.company} </p>
                   <button className="time_btn text-uppercase">
                     {data?.jobType}
                   </button>

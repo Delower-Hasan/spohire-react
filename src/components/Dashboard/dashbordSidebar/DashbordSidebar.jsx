@@ -239,7 +239,7 @@ const DashbordSidebar = ({ user }) => {
                           to="/dashboard/addedItems"
                           className="text-decoration-none d-flex align-items-center gap-3"
                         >
-                          <img src={settingsIcon} alt="icon" />
+                          <img src={basketBallIcon} alt="icon" />
                           <span
                             to={"#"}
                             className="text_color_E3 text-capitalize fs-6"

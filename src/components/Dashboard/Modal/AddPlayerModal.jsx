@@ -220,7 +220,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             <h2>Add Player</h2>
             <p
               className="fs-6 pointer"
-              onClick={() => setAddPlayerModal(false)}>
+              onClick={() => setAddPlayerModal(false)}
+            >
               X
             </p>
           </div>
@@ -268,7 +269,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}>
+            } `}
+          >
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
@@ -279,7 +281,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                   } else {
                     alert("Please fill up the required fields.");
                   }
-                }}>
+                }}
+              >
                 {step === 2 ? "Next" : "Add Player"}
               </button>
             </div>

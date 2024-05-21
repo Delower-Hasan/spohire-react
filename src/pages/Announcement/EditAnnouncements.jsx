@@ -120,6 +120,13 @@ const EditAnnouncements = () => {
     <>
       <div className="container">
         <div className=" editAnnouncement_wrapper pt-5">
+          <button
+            className="submit_now_btn cancel m-0"
+            type="button"
+            onClick={() => window.history.back()}
+          >
+            Back
+          </button>
           <form action="" className="mt-5" onSubmit={handleUpdateClick}>
             <div className="row mt_30 mb_56">
               <div className="col-lg-6">
@@ -272,17 +279,21 @@ const EditAnnouncements = () => {
                     <option selected disabled>
                       Select sports
                     </option>
-                    {["Football", "Basketball", "Volleyball", "Handball"].map(
-                      (name, index) => (
-                        <option
-                          value={name}
-                          key={index}
-                          selected={announcementDatas?.sports === name}
-                        >
-                          {name}
-                        </option>
-                      )
-                    )}
+                    {[
+                      "Football",
+                      "Basketball",
+                      "Volleyball",
+                      "Handball",
+                      "Others",
+                    ].map((name, index) => (
+                      <option
+                        value={name}
+                        key={index}
+                        selected={announcementDatas?.sports === name}
+                      >
+                        {name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>

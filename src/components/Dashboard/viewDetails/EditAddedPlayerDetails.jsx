@@ -16,7 +16,83 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
+// const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+const postions = [
+  {
+    type: "Football",
+    mainPositions: ["goalkeeper", "defender", "midfielder", "forward"],
+    alternativePositions: [
+      "goalkeeper",
+      "sweeper",
+      "centre-back",
+      "left-back",
+      "right-back",
+      "central-midfielder",
+      "left-midfielder",
+      "right-midfielder",
+      "left-wing-forward",
+      "right-wing-forward",
+      "centre-forward",
+    ],
+  },
+  {
+    type: "Basketball",
+    mainPositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+    alternativePositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+  },
+  {
+    type: "Handball",
+    mainPositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+    alternativePositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+  },
+  {
+    type: "Volleyball",
+    mainPositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+    alternativePositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+  },
+];
 
 // data
 const inputFieldData = [
@@ -53,6 +129,7 @@ const EditAddedPlayerDetails = () => {
   const { data: user } = useGetPlayerDetailsQuery(id);
   const [updatePlayerDetails, { isLoading }] = useUpdatePlayerDetailsMutation();
   // gallary
+
   const [selectedImages, setSelectedImages] = useState([]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
@@ -77,6 +154,7 @@ const EditAddedPlayerDetails = () => {
       strengthsAdvantages: "",
       aboutMe: "",
       mainPosition: "",
+      alterPosition: "",
       expectationsFromClub: "",
     }
   );
@@ -157,6 +235,7 @@ const EditAddedPlayerDetails = () => {
     e.preventDefault();
     const socialMediaArray = Object.values(socialMedia);
     const infoData = { ...editedInfo, social_media: socialMediaArray };
+    console.log("infoData", infoData);
     const formData = new FormData();
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
@@ -246,6 +325,7 @@ const EditAddedPlayerDetails = () => {
       date_of_birth: user?.date_of_birth,
       nationality: user?.nationality,
       mainPosition: user?.mainPosition,
+      alterPosition: user?.alterPosition,
       dominantHand: user?.dominantHand,
       height: user?.height,
       weight: user?.weight,
@@ -257,8 +337,9 @@ const EditAddedPlayerDetails = () => {
       expectations_from_new_club: user?.expectations_from_new_club,
       sports: user?.sports,
     };
-
     setUserInfo(newData);
+    setSportsType(user?.sports);
+    // setMainPositionType(user?.mainPosition);
     setUserExperience(user?.experience);
     let values = {};
 
@@ -294,6 +375,37 @@ const EditAddedPlayerDetails = () => {
       });
   }, []);
 
+  // players
+  const [sportsType, setSportsType] = useState("");
+
+  let mainAndAditionPostions = postions.filter(
+    (item) => item.type === sportsType
+  );
+
+  const [mainPositionType, setMainPositionType] = useState("");
+  const [altPositions, setAltPostions] = useState([]);
+
+  function filterAlternativePositions(mainPositionType) {
+    return mainAndAditionPostions.map((position) => {
+      if (position.mainPositions.includes(mainPositionType)) {
+        return {
+          ...position,
+          alternativePositions: position.alternativePositions.filter(
+            (altPosition) => altPosition !== mainPositionType
+          ),
+        };
+      } else {
+        return position;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const altPostions = filterAlternativePositions(mainPositionType);
+    setAltPostions(altPostions);
+  }, [mainPositionType]);
+  // players
+
   return (
     <form className="" onSubmit={handleUpdate}>
       <div className="View_details container p-0 overflow-hidden">
@@ -315,7 +427,11 @@ const EditAddedPlayerDetails = () => {
                       : profileImage
                   }
                   alt="Profile"
-                  style={{ objectFit: "cover", maxWidth:'323px', width: "100%" }}
+                  style={{
+                    objectFit: "cover",
+                    maxWidth: "323px",
+                    width: "100%",
+                  }}
                 />
                 <div>
                   {!selectedImage && (
@@ -390,6 +506,7 @@ const EditAddedPlayerDetails = () => {
                         name="sports"
                         onChange={(e) => {
                           handleInputChange("sports", e.target.value);
+                          setSportsType(e.target.value);
                         }}
                       >
                         {sportsDatas.map((item, index) => (
@@ -438,33 +555,87 @@ const EditAddedPlayerDetails = () => {
                     </div>
                   ))}
 
-                  <div className="col-lg-4">
-                    <div className="input_form pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Main position *
-                      </label>
+                  {user?.role !== "Coach" && (
+                    <>
+                      <div className="col-lg-4">
+                        <div className="input_form pb-4">
+                          <label
+                            htmlFor="name"
+                            className="d-block label_name mb-2"
+                          >
+                            Main position *
+                          </label>
 
-                      <select
-                        required
-                        className="select_form"
-                        name="mainPosition"
-                        value={userInfo["mainPosition"] || ""}
-                        onChange={(e) =>
-                          handleInputChange("mainPosition", e.target.value)
-                        }
-                      >
-                        <option value={"Goalkeeper"}>Goalkeeper</option>
+                          <select
+                            required
+                            className="select_form"
+                            name="mainPosition"
+                            value={userInfo["mainPosition"] || ""}
+                            onChange={(e) => {
+                              handleInputChange("mainPosition", e.target.value);
+                              setMainPositionType(e.target.value);
+                            }}
+                          >
+                            {/* <option value={"Goalkeeper"}>Goalkeeper</option>
                         <option value={"Defender"}>Defender</option>
                         <option value={"Midfielder"}>Midfielder</option>
-                        <option value={"Forward"}>Forward</option>
-                      </select>
-                    </div>
-                  </div>
+                        <option value={"Forward"}>Forward</option> */}
+                            {mainAndAditionPostions[0]?.mainPositions?.map(
+                              (item, index) => (
+                                <option
+                                  key={index}
+                                  value={item}
+                                  className="text-capitalize"
+                                >
+                                  {item}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4">
+                        <div className="input_form pb-4">
+                          <label
+                            htmlFor="name"
+                            className="d-block label_name mb-2"
+                          >
+                            Alternative position
+                          </label>
+
+                          <select
+                            required
+                            className={`select_form text-capitalize`}
+                            name="alterPosition"
+                            onChange={(e) =>
+                              handleInputChange("alterPosition", e.target.value)
+                            }
+                          >
+                            <option value={"N/A"} selected>
+                              Select
+                            </option>
+                            {altPositions[0]?.alternativePositions?.map(
+                              (item, index) => (
+                                <option
+                                  key={index}
+                                  value={item}
+                                  className="text-capitalize"
+                                >
+                                  {item}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                   <div className="col-lg-4">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
-                        Dominant Hand *
+                        Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
                       </label>
                       <select
                         required

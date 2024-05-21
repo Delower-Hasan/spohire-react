@@ -80,6 +80,7 @@ function SingleRelatedJob({ item, user }) {
         <div className="d-flex  w-100 align-items-center justify-content-between gap-4">
           <div className="d-flex align-items-center   gap-4">
             <img
+              style={{ maxHeight: "60px" }}
               src={
                 item?.club_logo
                   ? `${

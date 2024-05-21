@@ -132,12 +132,10 @@ const CoachesDetails = () => {
             <div className="country d-flex gap-2 align-items-center pb-3">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: getCountryFlag(
-                    user?.country ? user?.country : user?.nationality
-                  ),
+                  __html: getCountryFlag(user?.nationality),
                 }}
               />{" "}
-              <p>{user?.country ? user?.country : user?.nationality}</p>
+              <p>{user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
               <Link to={`/dashboard/messages/${user?._id}`}>

@@ -30,6 +30,7 @@ import { RotatingLines } from "react-loader-spinner";
 const ViewDetails = () => {
   const { id } = useParams();
   const authUser = useSelector((item) => item.auth);
+
   const { data: user, isLoading } = useGetPlayerDetailsQuery(id);
 
   const { data: observation, isSuccess } = useGetMyObservationsQuery();
@@ -102,7 +103,6 @@ const ViewDetails = () => {
     }
     return age;
   };
-  console.log("user?.experienceaa", user?.experience);
   // if (user?.experience !== undefined) {
   //   console.log("user?.experienceaa", a);
   // }
@@ -149,12 +149,10 @@ const ViewDetails = () => {
               {/* <img src={Germany} alt="" /> */}
               <div
                 dangerouslySetInnerHTML={{
-                  __html: getCountryFlag(
-                    user?.country ? user?.country : user?.nationality
-                  ),
+                  __html: getCountryFlag(user?.nationality),
                 }}
               />{" "}
-              <p>{user?.country ? user?.country : user?.nationality}</p>
+              <p>{user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
               <Link to={`/dashboard/messages/${user?._id}`}>

@@ -13,6 +13,7 @@ import BuySubscriptionModal from "../Modal/BuySubscriptionModal";
 import Gallary from "./Gallary";
 import "./ViewDetails.css";
 import ViewDetailsMobile from "./ViewDetailsMobile";
+import { getCountryFlag } from "../../../utils/getFlag";
 
 const ViewProfile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -90,7 +91,14 @@ const ViewProfile = () => {
                 {user?.sports}
               </span>
               <p className="nationality d-flex align-items-center gap-2">
-                <img src={nationalityImg} alt="nationaliy" />
+                {/* <img src={nationalityImg} alt="nationaliy" /> */}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: getCountryFlag(
+                      user?.country ? user?.country : user?.nationality
+                    ),
+                  }}
+                />
                 {user?.nationality}
               </p>
             </div>
@@ -117,18 +125,21 @@ const ViewProfile = () => {
               )}
             </div>
 
-            <button
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-              className="update_plan">
-              Upgrade
-            </button>
+            {user?.subscriptionName !== "Gold" && (
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+                className="update_plan"
+              >
+                Upgrade
+              </button>
+            )}
 
             {/* buy subscription coatch */}
             <BuySubscriptionModal user={user} />
             {/* buy subscription coatch */}
 
-            <div className="social_media_icon d-flex items-center gap-3">
+            <div className="social_media_icon d-flex items-center gap-3 mt-2">
               <Link className="link_btn" to="#">
                 <FaLink /> Copy Profile Link
               </Link>

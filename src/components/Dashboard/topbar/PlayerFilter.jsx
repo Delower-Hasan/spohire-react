@@ -156,7 +156,7 @@ function PlayerFilter() {
 
       {/* Height */}
       <div className="position_wrapper pb-4">
-        <h2>Height</h2>
+        <h2>Height (cm) </h2>
         <div className="position_btn_wrapper age d-flex gap-2">
           <input
             type="number"

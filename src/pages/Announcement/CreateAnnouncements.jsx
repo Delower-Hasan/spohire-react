@@ -224,13 +224,17 @@ const CreateAnnouncements = () => {
                     <option selected disabled>
                       Select sports
                     </option>
-                    {["Football", "Basketball", "Volleyball", "Handball"].map(
-                      (name, index) => (
-                        <option value={name} key={index}>
-                          {name}
-                        </option>
-                      )
-                    )}
+                    {[
+                      "Football",
+                      "Basketball",
+                      "Volleyball",
+                      "Handball",
+                      "Others",
+                    ].map((name, index) => (
+                      <option value={name} key={index}>
+                        {name}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
