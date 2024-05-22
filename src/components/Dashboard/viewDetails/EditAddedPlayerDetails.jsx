@@ -97,10 +97,35 @@ const postions = [
 // data
 const inputFieldData = [
   {
-    label: "Name",
+    label: "First Name",
     placeholderText: "Your name",
     type: "text",
     name: "firstName",
+  },
+  {
+    label: "Last Name",
+    placeholderText: "LastName",
+    type: "text",
+    name: "lastName",
+  },
+  {
+    label: "Email",
+    placeholderText: "email",
+    type: "email",
+    name: "email",
+  },
+  {
+    label: "Phone Number",
+    placeholderText: "Phone Number",
+    type: "text",
+    name: "phone_number",
+  },
+  {
+    label: "Country of Residence",
+    placeholderText: "Residence",
+    type: "text",
+    name: "city",
+    name: "city",
   },
   {
     label: "Date of Birth",
@@ -141,6 +166,11 @@ const EditAddedPlayerDetails = () => {
       return acc;
     },
     {
+      firstName: "",
+      lastName: "",
+      city: "",
+      email: "",
+      phone_number: "",
       playerName: "",
       sportsType: "",
       selectedImage: null,
@@ -171,7 +201,6 @@ const EditAddedPlayerDetails = () => {
   });
 
   const [userInfo, setUserInfo] = useState({
-    fullName: "",
     date_of_birth: "",
     nationality: "",
     mainPosition: "",
@@ -189,6 +218,8 @@ const EditAddedPlayerDetails = () => {
   const [editedInfo, setEditedInfo] = useState({});
 
   const navigate = useNavigate();
+
+  const [isBelongClub, setBelongclub] = useState(true);
 
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
 
@@ -235,7 +266,6 @@ const EditAddedPlayerDetails = () => {
     e.preventDefault();
     const socialMediaArray = Object.values(socialMedia);
     const infoData = { ...editedInfo, social_media: socialMediaArray };
-    console.log("infoData", infoData);
     const formData = new FormData();
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
@@ -322,6 +352,10 @@ const EditAddedPlayerDetails = () => {
   useEffect(() => {
     const newData = {
       firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
+      additional_passport: user?.additional_passport,
+      phone_number: user?.phone_number,
       date_of_birth: user?.date_of_birth,
       nationality: user?.nationality,
       mainPosition: user?.mainPosition,
@@ -336,9 +370,12 @@ const EditAddedPlayerDetails = () => {
       about_me: user?.about_me,
       expectations_from_new_club: user?.expectations_from_new_club,
       sports: user?.sports,
+      club_name: user?.club_name,
+      city: user?.city,
     };
     setUserInfo(newData);
     setSportsType(user?.sports);
+    setBelongclub(user?.belong_to_the_club);
     // setMainPositionType(user?.mainPosition);
     setUserExperience(user?.experience);
     let values = {};
@@ -406,6 +443,8 @@ const EditAddedPlayerDetails = () => {
   }, [mainPositionType]);
   // players
 
+  console.log("userINfo", userInfo);
+
   return (
     <form className="" onSubmit={handleUpdate}>
       <div className="View_details container p-0 overflow-hidden">
@@ -455,72 +494,8 @@ const EditAddedPlayerDetails = () => {
               </div>
             </div>
             <div className="col-12 col-lg-9">
-              <div className="edit_profile_input">
-                {/* <div className="mb-4 position-relative">
-                  <label
-                    htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
-                    Player Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="playerNameInput"
-                    placeholder="Your name"
-                    value={formData.playerName}
-                    onChange={(e) =>
-                      handleInputChange("playerName", e.target.value)
-                    }
-                  />
-                </div> */}
-                {/* <div className="mb-4 position-relative">
-                  <label
-                    htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
-                    Sports Type
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="sportsTypeInput"
-                    placeholder="Basketball"
-                    value={userInfo?.sports}
-                    onChange={(e) =>
-                      handleInputChange("sports", e.target.value)
-                    }
-                  />
-                </div> */}
-              </div>
               <div className="personalInfo editpersonal_info">
                 <div className="row mb_40">
-                  <div className="col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-3">
-                        Sports *
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="sports"
-                        onChange={(e) => {
-                          handleInputChange("sports", e.target.value);
-                          setSportsType(e.target.value);
-                        }}
-                      >
-                        {sportsDatas.map((item, index) => (
-                          <option
-                            selected={userInfo["sports"] === item}
-                            key={index}
-                            value={item}
-                          >
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
                   {inputFieldData.map((field, index) => (
                     <div key={index} className="col-12 col-md-4">
                       <div className="personal_info_edit_wrapper">
@@ -555,6 +530,32 @@ const EditAddedPlayerDetails = () => {
                     </div>
                   ))}
 
+                  <div className="col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-3">
+                        Sports *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="sports"
+                        onChange={(e) => {
+                          handleInputChange("sports", e.target.value);
+                          setSportsType(e.target.value);
+                        }}
+                      >
+                        {sportsDatas.map((item, index) => (
+                          <option
+                            selected={userInfo["sports"] === item}
+                            key={index}
+                            value={item}
+                          >
+                            {item}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                   {user?.role !== "Coach" && (
                     <>
                       <div className="col-lg-4">
@@ -674,6 +675,109 @@ const EditAddedPlayerDetails = () => {
                       </select>
                     </div>
                   </div>
+                  <div className="col-lg-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Additional Passport *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="additional_passport"
+                        value={userInfo["additional_passport"] || ""}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "additional_passport",
+                            e.target.value
+                          )
+                        }
+                      >
+                        {countryNames?.map((country, index) => (
+                          <option value={country.name} className="" key={index}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6">
+                    <div className="input_form pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Do you currently belong to a club? *
+                      </label>
+
+                      <div className="btn_group d-flex gap-3 mt-2">
+                        <input
+                          type="radio"
+                          id="yes"
+                          className="yes"
+                          value={"yes"}
+                          name="belong_to_the_club"
+                          onChange={(e) => {
+                            setBelongclub(true);
+                            handleInputChange(
+                              "belong_to_the_club",
+                              e.target.value
+                            );
+                          }}
+                          style={{ display: "none" }}
+                        />{" "}
+                        <label
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#05CD99",
+                          }}
+                          className="yes_btn"
+                          htmlFor="yes"
+                        >
+                          YES
+                        </label>
+                        <input
+                          type="radio"
+                          className="no"
+                          value={"no"}
+                          id="no"
+                          onChange={(e) => {
+                            setBelongclub(false);
+                            handleInputChange(e);
+                          }}
+                          name="belong_to_the_club"
+                          style={{ display: "none" }} // Hide the radio input visually
+                        />{" "}
+                        <label
+                          style={{ cursor: "pointer" }}
+                          htmlFor="no"
+                          className="yes_btn"
+                        >
+                          NO
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  {isBelongClub && (
+                    <div className="col-lg-6">
+                      <div className="input_form pb-4">
+                        <label
+                          htmlFor="name"
+                          className="d-block label_name mb-2"
+                        >
+                          Club name
+                        </label>
+                        <input
+                          id="name"
+                          name="club_name"
+                          value={userInfo["club_name"] || ""}
+                          onChange={(e) =>
+                            handleInputChange("club_name", e.target.value)
+                          }
+                          type="text"
+                          placeholder="Club name"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

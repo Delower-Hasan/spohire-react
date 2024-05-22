@@ -81,7 +81,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      providesTags: ["ReferralUsers"],
+      invalidatesTags: ["ReferralUsers"],
     }),
     updateProfileCreationStatus: builder.mutation({
       query: (userId) => ({

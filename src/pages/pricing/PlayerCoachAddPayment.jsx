@@ -82,17 +82,16 @@ const PlayerCoachAddPayment = ({
   const isCouponFound = coupons?.data.filter(
     (item) =>
       item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
-      item.couponFor === PlayerType
+      item.couponFor === PlayerType &&
+      item.status === true
   );
 
   const handlePayment = async () => {
     setIsLoading(true);
-
     if (!stripe) {
       setIsLoading(false);
       return;
     }
-
     try {
       const clientSecret = await createPaymentIntent(
         price.toFixed(2) * 100,

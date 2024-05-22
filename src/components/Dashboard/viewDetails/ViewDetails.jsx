@@ -219,10 +219,11 @@ const ViewDetails = () => {
                           className="font-bold d-inline-flex gap-2"
                           style={{
                             fontSize: "16px",
-                            color: "#8A8988",
-                            border: "1px solid #8A8988",
+                            color: "#2B3674",
+                            border: "1px solid #F2F2F2",
                             padding: "8px 40px",
                             borderRadius: "13px",
+                            backgroundColor: "#F2F2F2",
                           }}
                         >
                           <img src={silverIcon} alt="silver-icon" />
@@ -237,10 +238,11 @@ const ViewDetails = () => {
                         className="font-bold d-inline-flex gap-2"
                         style={{
                           fontSize: "16px",
-                          color: "#EBB111",
+                          color: "#fff",
                           border: "1px solid #FFD029",
                           padding: "8px 40px",
                           borderRadius: "13px",
+                          backgroundColor: "#FFD029",
                         }}
                       >
                         <img src={goldIcon} alt="silver-icon" />
@@ -256,10 +258,11 @@ const ViewDetails = () => {
                           className="font-bold d-inline-flex gap-2"
                           style={{
                             fontSize: "16px",
-                            color: "#CD7F32",
-                            border: "1px solid #CD7F32",
+                            color: "#fff",
+                            border: "1px solid #FB5A00",
                             padding: "8px 40px",
                             borderRadius: "13px",
+                            backgroundColor: "#FB5A00",
                           }}
                         >
                           <img src={silverIcon} alt="silver-icon" />

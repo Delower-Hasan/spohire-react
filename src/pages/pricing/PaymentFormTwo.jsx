@@ -28,6 +28,7 @@ const PaymentFormTwo = ({
   closeModal,
   setAddJobOfferClose,
   setNextOption,
+  price,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -88,10 +89,7 @@ const PaymentFormTwo = ({
     // }
 
     try {
-      const clientSecret = await createPaymentIntent(
-        selectedSubscription?.price * 100,
-        "usd"
-      );
+      const clientSecret = await createPaymentIntent(price * 100, "usd");
 
       const cardElement = elements.getElement(CardNumberElement);
 
