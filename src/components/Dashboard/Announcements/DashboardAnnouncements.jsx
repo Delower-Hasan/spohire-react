@@ -287,7 +287,7 @@ const SingleAnnouncement = ({ announcement, handleDelete }) => {
                   style={{ gap: "4px" }}
                 >
                   <img src={location} alt="" />
-                  <span>{announcement?.location}</span>
+                  <span>{announcement?.country}</span>
                 </div>
 
                 <div

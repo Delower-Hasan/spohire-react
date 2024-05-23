@@ -125,7 +125,6 @@ const inputFieldData = [
     placeholderText: "Residence",
     type: "text",
     name: "city",
-    name: "city",
   },
   {
     label: "Date of Birth",

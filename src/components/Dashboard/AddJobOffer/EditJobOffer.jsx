@@ -123,21 +123,41 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
       });
   }, []);
 
+  const [languages, setLanguages] = useState([]);
+  // Languages
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then((response) => response.json())
+      .then((data) => {
+        const languages = new Set();
+        data.forEach((country) => {
+          if (country.languages) {
+            Object.values(country.languages).forEach((language) => {
+              languages.add(language);
+            });
+          }
+        });
+        setLanguages(Array.from(languages));
+        // console.log(Array.from(languages));
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  });
+
   useEffect(() => {
     const data = {
       club_logo: editingItem?.club_logo,
       company: editingItem?.company,
       country: editingItem?.country,
       language: editingItem?.language,
-      description: editingItem?.description,
       jobType: editingItem?.jobType,
       job_location: editingItem?.job_location,
       job_title: editingItem?.job_title,
       category: editingItem?.category,
       salary: editingItem?.salary,
+      short_description: editingItem?.short_description,
       workplaceType: editingItem?.workplaceType,
     };
-
+    setDescription(editingItem?.description);
     setJobDatas(data);
   }, [editingItem]);
   const customConfig = {
@@ -460,7 +480,7 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                             ))}
                           </select>
                         </div>
-                        <div className="col-lg-6">
+                        {/* <div className="col-lg-6">
                           <label htmlFor="language" className="form-label">
                             Language
                           </label>
@@ -474,6 +494,41 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                             value={jobDatas?.language}
                             onChange={handleInputChange}
                           />
+                        </div> */}
+
+                        <div className="col-lg-6">
+                          <label
+                            htmlFor="exampleFormControlInput1"
+                            className="form-label"
+                          >
+                            Language *
+                          </label>
+                          <select
+                            required
+                            className={`form-control`}
+                            aria-label="Default select example"
+                            style={{
+                              minHeight: "44px",
+                              width: "100%",
+                              backgroundColor: "#FFFFFF",
+                              padding: "0 14px",
+                            }}
+                            name="language"
+                            onChange={handleInputChange}
+                          >
+                            <option selected disabled>
+                              Select Language
+                            </option>
+                            {languages?.map((lang) => (
+                              <option
+                                defaultValue={lang}
+                                className=""
+                                key={lang}
+                              >
+                                {lang}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -501,6 +556,30 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                       />
                     </div>
                   </div>
+
+                  <div className="position-relative text-start">
+                    <div className="mb-3">
+                      <label
+                        htmlFor="exampleFormControlInput1"
+                        className="form-label"
+                      >
+                        Short Description *
+                      </label>
+                      <div className="input-group mb-3">
+                        <textarea
+                          type="text"
+                          style={{ height: "65px" }}
+                          className={`form-control`}
+                          placeholder="Enter Your Description...."
+                          aria-label="Short Description"
+                          aria-describedby="basic-addon1"
+                          name="short_description"
+                          required
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className="position-relative text-start">
                     <div className="mb-3">
                       <label
@@ -515,9 +594,9 @@ const EditJobOffer = ({ onHide, isModalOpen, closeModal, editingItem }) => {
                           editor={ClassicEditor}
                           config={customConfig}
                           className="form-control w-100"
-                          data={jobDatas?.description}
+                          data={description}
                           onReady={(editor) => {
-                            console.log("Editor is ready to use!", editor);
+                            // console.log("Editor is ready to use!", editor);
                           }}
                           onChange={(event, editor) => {
                             const data = editor.getData();

@@ -284,7 +284,7 @@ function SingleJob({ item, handleEditJobOfferClick, handleDelete }) {
                 <div className="job_offer_location  d-flex align-items-center gap-1">
                   <img src={locationIcon} alt="icon" />
                   <span className="fs-14 fw-normal text_color_80">
-                    {item?.job_location}
+                    {item?.country}
                   </span>
                 </div>
                 {/* <div className="job_offer_flag d-flex align-items-center gap-1">

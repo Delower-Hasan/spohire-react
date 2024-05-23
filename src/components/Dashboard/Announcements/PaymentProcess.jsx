@@ -56,7 +56,6 @@ const PaymentProcess = ({
   const isCouponFound = coupons?.data.filter(
     (item) =>
       item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
-      item.couponFor === "Announcement" &&
       item.status === true
   );
 

@@ -45,7 +45,6 @@ const AddJobOfferModalTwo = ({
   const isCouponFound = coupons?.data.filter(
     (item) =>
       item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
-      item.couponFor === "Job" &&
       item.status === true
   );
 

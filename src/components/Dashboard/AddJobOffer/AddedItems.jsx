@@ -55,7 +55,7 @@ const AddedItems = () => {
             }`}
             onClick={() => setActive("expired")}
           >
-            expired
+            Expired
           </button>
         </div>
 

@@ -72,26 +72,29 @@ function SingleRelatedJob({ item, user }) {
   return (
     <>
       <div className="jobs">
-        <p className="name">{item?.job_title}</p>
+        <p className="name text-capitalize">{item?.job_title}</p>
         <div className="d-flex align-items-center gap-2 mb-4">
           <button className="status_btn">{item?.jobType}</button>
-          <p className="secondary_text">Salary: {item?.salary}</p>
+          <p className="secondary_text">Salary: ${item?.salary}</p>
         </div>
         <div className="d-flex  w-100 align-items-center justify-content-between gap-4">
           <div className="d-flex align-items-center   gap-4">
-            <img
-              style={{ maxHeight: "60px" }}
-              src={
-                item?.club_logo
-                  ? `${
-                      process.env.NODE_ENV !== "production"
-                        ? import.meta.env.VITE_LOCAL_API_URL
-                        : import.meta.env.VITE_LIVE_API_URL
-                    }/api/v1/uploads/${item?.club_logo}`
-                  : google
-              }
-              alt=""
-            />
+            <div>
+              <img
+                style={{ maxHeight: "60px" }}
+                className="rounded-2"
+                src={
+                  item?.club_logo
+                    ? `${
+                        process.env.NODE_ENV !== "production"
+                          ? import.meta.env.VITE_LOCAL_API_URL
+                          : import.meta.env.VITE_LIVE_API_URL
+                      }/api/v1/uploads/${item?.club_logo}`
+                    : google
+                }
+                alt=""
+              />
+            </div>
             <div>
               <p>{item?.company}</p>
               <div className="d-flex align-items-center gap-1">

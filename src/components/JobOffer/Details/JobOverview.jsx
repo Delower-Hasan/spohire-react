@@ -13,11 +13,10 @@ import { TfiEmail } from "react-icons/tfi";
 import moment from "moment";
 import { useLocation } from "react-router-dom";
 const JobOverview = ({ data: jobData }) => {
-  const location = useLocation();
-
-  function copyTextToClipboard(text) {
+  function copyTextToClipboard() {
     var textArea = document.createElement("textarea");
-    textArea.value = import.meta.env.VITE_DOMAIN_URL + text;
+    textArea.value =
+      import.meta.env.VITE_DOMAIN_URL + `/jobDetails/${jobData._id}`;
     // Make textarea non-editable to be able to copy text
     textArea.setAttribute("readonly", "");
     textArea.style.position = "absolute";
@@ -30,23 +29,23 @@ const JobOverview = ({ data: jobData }) => {
     alert("Link Copied");
   }
 
-  const jobLabelHandler = () => {
-    switch (jobData?.packagechoose) {
-      case 1:
-        return "Entry Level";
-        break;
-      case 2:
-        return "Mid Level";
-        break;
-      case 3:
-        return "Mid Level";
-        break;
+  // const jobLabelHandler = () => {
+  //   switch (jobData?.packagechoose) {
+  //     case 1:
+  //       return "Entry Level";
+  //       break;
+  //     case 2:
+  //       return "Mid Level";
+  //       break;
+  //     case 3:
+  //       return "Mid Level";
+  //       break;
 
-      default:
-        return "Entry Level";
-        break;
-    }
-  };
+  //     default:
+  //       return "Entry Level";
+  //       break;
+  //   }
+  // };
 
   const details = [
     {
@@ -61,27 +60,27 @@ const JobOverview = ({ data: jobData }) => {
     },
     {
       pic: stack,
-      label: "Job Level:",
-      result: jobLabelHandler(),
+      label: "Remote:",
+      result: jobData?.workplaceType,
     },
     {
       pic: wallet,
       label: "Language",
       result: jobData?.language,
     },
-    // {
-    //   pic: briefcase,
-    //   label: "Education",
-    //   result: "Entry Level",
-    // },
+    {
+      pic: briefcase,
+      label: "job Type",
+      result: jobData?.jobType,
+    },
   ];
   return (
     <div className="description_outline job_overview bg-white">
-      <p className="title mb-5">Job Overview</p>
+      <p className="title mb-4">Job Overview</p>
       <div className="row g-4 mb-5">
         {details?.map((data, index) => (
-          <div className="col-lg-4" key={index}>
-            <img className="mb-3" src={data?.pic} alt="" />
+          <div className="col-lg-4 mb-2" key={index}>
+            <img className="mb-2" src={data?.pic} alt="" />
             <p className="label mb-1">{data?.label}</p>
             <p className="result">{data?.result}</p>
           </div>
@@ -91,7 +90,7 @@ const JobOverview = ({ data: jobData }) => {
       <div className="d-flex items-center gap-1">
         <button
           style={{ color: "#05CD99", fontSize: "16px" }}
-          onClick={() => copyTextToClipboard(`${location.pathname}`)}
+          onClick={() => copyTextToClipboard()}
         >
           <PiLinkSimpleThin /> Copy Links
         </button>

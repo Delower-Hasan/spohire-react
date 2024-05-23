@@ -82,7 +82,6 @@ const PlayerCoachAddPayment = ({
   const isCouponFound = coupons?.data.filter(
     (item) =>
       item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
-      item.couponFor === PlayerType &&
       item.status === true
   );
 

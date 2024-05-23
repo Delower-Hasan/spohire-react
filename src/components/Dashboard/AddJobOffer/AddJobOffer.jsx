@@ -146,6 +146,7 @@ const AddJobOffer = ({ setAddJobOffer }) => {
       "jobType",
       "language",
       "salary",
+      "short_description",
     ];
 
     const newErrors = {};

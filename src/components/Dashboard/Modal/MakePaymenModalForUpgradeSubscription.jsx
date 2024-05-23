@@ -38,7 +38,6 @@ const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
   const isCouponFound = coupons?.data.filter(
     (item) =>
       item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
-      item.couponFor === "Subscription" &&
       item.status === true
   );
 
