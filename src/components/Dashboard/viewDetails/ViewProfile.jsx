@@ -187,12 +187,10 @@ const ViewProfile = () => {
                   <p className="user_data_info fs-6">{user?.nationality}</p>
                 </div>
 
-                {/* <div>
-                  <span className="user_name">Position</span>
-                  <p className="user_data_info fs-6">
-                    {user?.position ? user?.position : "N/A"}
-                  </p>
-                </div> */}
+                <div>
+                  <span className="user_name">Function</span>
+                  <p className="user_data_info fs-6">{user?.role ?? "N/A"}</p>
+                </div>
               </div>
             </div>
           </div>
