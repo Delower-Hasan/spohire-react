@@ -5,15 +5,13 @@ import { setPlayerFilterParams } from "../../../features/auth/authSlice";
 import "./Topbar.css";
 import { positions } from "../../../utils/PlayersSports";
 
-
-
 function PlayerFilter() {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
 
   const [countryNames, setCountryNames] = useState([]);
   const [formData, setFormData] = useState({
-    position: "",
+    positions: [],
     status: "",
     location: "",
     gender: "",
@@ -42,12 +40,25 @@ function PlayerFilter() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [selectedPositions, setSelectedPositions] = useState([]);
+
+  const selectedPositionsHander = (item) => {
+    setSelectedPositions((prev) => {
+      if (prev?.includes(item)) {
+        return prev?.filter((position) => position !== item);
+      } else {
+        return [...prev, item];
+      }
+    });
+  };
+
   const handleApplyFilter = () => {
-    dispatch(setPlayerFilterParams({ data: formData }));
+    const datas = { data: { ...formData, positions: selectedPositions } };
+    dispatch(setPlayerFilterParams(datas));
   };
   const handleResetFilter = () => {
     const formDatas = {
-      position: "",
+      positions: [],
       status: "",
       location: "",
       gender: "",
@@ -75,11 +86,13 @@ function PlayerFilter() {
             <button
               key={pos}
               className={
-                formData.position === pos
-                  ? "bg-success text-white"
-                  : "not-selected"
+                selectedPositions.includes(pos)
+                  ? // formData.position === pos
+                    "bg-success text-white text-capitalize"
+                  : "not-selected text-capitalize"
               }
-              onClick={() => setFormData({ ...formData, position: pos })}
+              // onClick={() => setFormData({ ...formData, position: pos })}
+              onClick={() => selectedPositionsHander(pos)}
             >
               {pos}
             </button>

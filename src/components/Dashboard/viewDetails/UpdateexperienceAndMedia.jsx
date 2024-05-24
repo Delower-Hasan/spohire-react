@@ -6,67 +6,13 @@ import Twitter from "../../../assets/twiter1.png";
 import youtubeIcon from "../../../assets/youtube.png";
 
 const UpdateexperienceAndMedia = ({
-  socialMedia,
-  setSocialMedia,
   userInfo,
-  setUserInfo,
-  editedInfo,
-  setEditedInfo,
   exp,
   handleAddMore,
   handleExperienceChange,
-  userExperience,
+  handleInputChange,
   handleRemove,
 }) => {
-  // const [experienceFormData, setExperienceFormData] = useState({});
-  // const [userExperience, setUserExperience] = useState([...exp]);
-
-  const handleSocialLinkChange = (e) => {
-    const { name, value } = e.target;
-    setSocialMedia({ ...socialMedia, [name]: value });
-  };
-  // const handleExperienceChange = (e) => {
-  //   console.log('experience',e.target.value)
-
-  //   const { name, value } = e.target;
-  //   setExperienceFormData({ ...experienceFormData, [name]: value });
-  // };
-  // console.log(experienceFormData)
-
-  // console.log(userInfo?.experience, "userInfo");
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     console.log("dff");
-
-  //     const form = e.target;
-  //     const club_name = form.club_name.value;
-  //     const start_year = Number(form.start_year.value);
-  //     const end_year = Number(form.end_year.value);
-
-  //     const data = {
-  //       club_name,
-  //       start_year,
-  //       end_year,
-  //     };
-
-  //     const newData = {
-  //       ...userInfo,
-  //       experience: [...userInfo[experience], experienceFormData],
-  //     };
-  //     console.log(newData, "jkjk");
-
-  //     // setUserInfo({ ...userInfo, experience: [...userInfo[experience], data] });
-  //   };
-
-  // const handleAddMore = () => {
-  //   const newData = [...userInfo?.experience, experienceFormData];
-
-  //   setEditedInfo({ ...editedInfo, ["experience"]: newData });
-  //   setUserExperience(newData);
-  // };
-
   return (
     <>
       <div className="container">
@@ -77,18 +23,24 @@ const UpdateexperienceAndMedia = ({
                 <p>Experience</p>
                 <ul
                   className="mb-4"
-                  style={{ listStyle: "none", display: `${exp.length > 0 ? 'block' : "none"}` }}>
+                  style={{
+                    listStyle: "none",
+                    display: `${exp.length > 0 ? "block" : "none"}`,
+                  }}
+                >
                   {exp &&
                     exp.length > 0 &&
                     exp?.map((item, index) => (
                       <li
                         className="f_sfPro text_color_36 fs-6 mb-2"
-                        key={index}>
+                        key={index}
+                      >
                         {item?.start_year}-{item?.end_year} {item?.club_name} -{" "}
                         <button
                           type="button"
                           className="text-black"
-                          onClick={() => handleRemove(item)}>
+                          onClick={() => handleRemove(item)}
+                        >
                           X
                         </button>
                       </li>
@@ -130,7 +82,8 @@ const UpdateexperienceAndMedia = ({
                       <div className="w-100">
                         <label
                           htmlFor="exampleFormControlInput1"
-                          className="form-label">
+                          className="form-label"
+                        >
                           Club Name
                         </label>
                         <input
@@ -149,7 +102,8 @@ const UpdateexperienceAndMedia = ({
                       <button
                         className="add_more_btn"
                         type="button"
-                        onClick={handleAddMore}>
+                        onClick={handleAddMore}
+                      >
                         <span>Add more</span>
                         <img src={plus} alt="" />
                       </button>
@@ -164,7 +118,8 @@ const UpdateexperienceAndMedia = ({
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Instagram
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -172,38 +127,44 @@ const UpdateexperienceAndMedia = ({
                   </div>
 
                   <input
-                    onChange={(e) => handleSocialLinkChange(e)}
+                    onChange={(e) =>
+                      handleInputChange("instagram", e.target.value)
+                    }
                     type="text"
                     className="form-control ps-5"
                     name="instagram"
                     id="exampleFormControlInput1"
                     placeholder="johnkawalski05"
-                    value={socialMedia?.instagram}
+                    value={userInfo?.instagram}
                   />
                 </div>
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Facebook
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
                     <img className="mt-0" src={fb} alt="user" />
                   </div>
                   <input
-                    onChange={(e) => handleSocialLinkChange(e)}
+                    onChange={(e) =>
+                      handleInputChange("facebook", e.target.value)
+                    }
                     type="text"
                     className="form-control ps-5"
                     name="facebook"
                     id="exampleFormControlInput1"
                     placeholder="johnkawalski05"
-                    value={socialMedia?.facebook}
+                    value={userInfo?.facebook}
                   />
                 </div>
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Twitter
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -211,19 +172,22 @@ const UpdateexperienceAndMedia = ({
                   </div>
 
                   <input
-                    onChange={(e) => handleSocialLinkChange(e)}
+                    onChange={(e) =>
+                      handleInputChange("twitter", e.target.value)
+                    }
                     type="text"
                     className="form-control ps-5"
                     name="twitter"
                     id="exampleFormControlInput1"
                     placeholder="johnkawalski05"
-                    value={socialMedia?.twitter}
+                    value={userInfo?.twitter}
                   />
                 </div>
                 <div className="position-relative">
                   <label
                     htmlFor="exampleFormControlInput1"
-                    className="form-label">
+                    className="form-label"
+                  >
                     Youtube
                   </label>
                   <div className="form_icons " style={{ top: "46px" }}>
@@ -231,13 +195,15 @@ const UpdateexperienceAndMedia = ({
                   </div>
 
                   <input
-                    onChange={(e) => handleSocialLinkChange(e)}
+                    onChange={(e) =>
+                      handleInputChange("youtube", e.target.value)
+                    }
                     type="text"
                     className="form-control ps-5"
                     name="youtube"
                     id="exampleFormControlInput1"
                     placeholder="johnkawalski05"
-                    value={socialMedia?.youtube}
+                    value={userInfo?.youtube}
                   />
                 </div>
               </div>

@@ -77,6 +77,7 @@ const ViewDetails = () => {
   };
 
   const [copied, setCopied] = useState(false);
+  
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(

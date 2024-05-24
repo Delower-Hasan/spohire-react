@@ -64,8 +64,6 @@ const inputFieldData = [
   // },
 ];
 
-const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
-
 const EditPlayerDetails = () => {
   const { user } = useSelector((state) => state.auth);
   const [updatePlayerDetails, { isLoading }] = useUpdateUserMutation();
@@ -99,11 +97,11 @@ const EditPlayerDetails = () => {
       selectedImage: null,
       experiences: [],
       clubName: "",
-      socialMedia: {
-        facebook: "",
-        instagram: "",
-        twitter: "",
-      },
+      // socialMedia: {
+      //   facebook: "",
+      //   instagram: "",
+      //   twitter: "",
+      // },
       strengthsAdvantages: "",
       aboutMe: "",
       expectationsFromClub: "",
@@ -113,13 +111,13 @@ const EditPlayerDetails = () => {
 
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState(initialFormData);
-  const [socialMedia, setSocialMedia] = useState({
-    facebook: "",
-    twitter: "",
-    instagram: "",
-    youtube: "",
-  });
+  // const [formData, setFormData] = useState(initialFormData);
+  // const [socialMedia, setSocialMedia] = useState({
+  //   facebook: "",
+  //   twitter: "",
+  //   instagram: "",
+  //   youtube: "",
+  // });
 
   const [userInfo, setUserInfo] = useState({
     first_name: "",
@@ -237,7 +235,7 @@ const EditPlayerDetails = () => {
     const infoData = {
       ...editedInfo,
       about_me: aboutMe,
-      social_media: JSON.stringify(socialMedia),
+      // social_media: JSON.stringify(socialMedia),
     };
 
     const formData = new FormData();
@@ -320,27 +318,31 @@ const EditPlayerDetails = () => {
       about_me: user?.about_me,
       sports: user?.sports,
       role: user?.role,
+      facebook: user?.facebook,
+      instagram: user?.instagram,
+      youtube: user?.youtube,
+      twitter: user?.twitter,
     };
     setAboutMe(user?.about_me);
     setUserInfo(newData);
     setUserExperience(user?.experience);
 
-    let values = {};
-    for (let i = 0; i < user?.social_media?.length; i++) {
-      const element = user?.social_media[i];
-      if (element.includes("twitter.com")) {
-        values.twitter = element;
-      } else if (element?.includes("instagram.com")) {
-        values.instagram = element;
-      } else if (element?.includes("facebook.com")) {
-        values.facebook = element;
-      } else if (element?.includes("youtube.com")) {
-        values.youtube = element;
-      } else {
-        values.others = element;
-      }
-    }
-    setSocialMedia(values);
+    // let values = {};
+    // for (let i = 0; i < user?.social_media?.length; i++) {
+    //   const element = user?.social_media[i];
+    //   if (element.includes("twitter.com")) {
+    //     values.twitter = element;
+    //   } else if (element?.includes("instagram.com")) {
+    //     values.instagram = element;
+    //   } else if (element?.includes("facebook.com")) {
+    //     values.facebook = element;
+    //   } else if (element?.includes("youtube.com")) {
+    //     values.youtube = element;
+    //   } else {
+    //     values.others = element;
+    //   }
+    // }
+    // setSocialMedia(values);
   }, [user]);
 
   return (
@@ -387,13 +389,6 @@ const EditPlayerDetails = () => {
                   style={{ objectFit: "cover" }}
                 />
                 <div className="profile_img position-relative">
-                  {/* <img
-                    className="img-fluid profiles pointer"
-                    src={profileImage}
-                    alt="Profile"
-                    style={{ objectFit: "cover" }}
-                  /> */}
-
                   <div>
                     {!selectedImage && (
                       <button
@@ -543,8 +538,8 @@ const EditPlayerDetails = () => {
         </div>
 
         <UpdateexperienceAndMedia
-          socialMedia={socialMedia}
-          setSocialMedia={setSocialMedia}
+       
+          handleInputChange={handleInputChange}
           userInfo={userInfo}
           setUserInfo={setUserInfo}
           editedInfo={editedInfo}
