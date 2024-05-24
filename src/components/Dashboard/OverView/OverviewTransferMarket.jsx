@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import add2icon from "../../../assets/add2icon.png";
@@ -14,7 +15,6 @@ import JobOfferOverview from "./JobOfferOverview";
 import MessagesOverview from "./MessagesOverview";
 import PlayerOverview from "./PlayerOverview";
 import RecentlyObserved from "./RecentlyObserved";
-import moment from "moment";
 
 const OverviewTransferMarket = () => {
   const { user } = useSelector((state) => state.auth);
@@ -76,8 +76,7 @@ const OverviewTransferMarket = () => {
                 <button
                   className="modal_link"
                   data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
+                  data-bs-target="#staticBackdrop">
                   <img src={add3icon} alt="addpicon" />
                   <span>Upgrade Subscription</span>
                 </button>
@@ -108,8 +107,7 @@ const OverviewTransferMarket = () => {
               <button
                 className="modal_link"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-              >
+                data-bs-target="#staticBackdrop">
                 <img src={add3icon} alt="addpicon" />
                 <span>Buy Subscription</span>
               </button>

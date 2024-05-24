@@ -3,11 +3,8 @@ import AddJobOfferPricing from "../../PricingPages/AddJobOfferPricing";
 import SubsCriptionPricing from "../../PricingPages/SubsCriptionPricing";
 
 const PricingModal = ({ setShowPricing, setSelectedPackages }) => {
-
-
   return (
     <div className="">
-
       <div className="">
         <SubsCriptionPricing />
         <AddJobOfferPricing setSelectedPackages={setSelectedPackages} />

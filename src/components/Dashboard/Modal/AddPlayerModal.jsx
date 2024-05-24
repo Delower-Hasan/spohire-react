@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
+import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { useAddPlayerMutation } from "../../../features/auth/authApi";
 import { setExpireDate } from "../../../utils/setExpireDate";
