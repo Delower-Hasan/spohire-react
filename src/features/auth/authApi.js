@@ -91,6 +91,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     getFilteredUsers: builder.query({
       query: (queryString) => `/api/v1/users/filteredUsers?${queryString}`,
+      providesTags: ["ReferralUsers"],
     }),
     cancleSubscription: builder.mutation({
       query: () => ({
@@ -154,6 +155,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
     getPlayerDetails: builder.query({
       query: (id) => `/api/v1/players/${id}`,
+      providesTags: ["ReferralUsers"],
     }),
   }),
 });

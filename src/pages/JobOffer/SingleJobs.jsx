@@ -6,7 +6,10 @@ import tennis from "../../assets/tennis.png";
 const SingleJobs = ({ handleDetails, item }) => {
   return (
     <>
-      <div className="announcelist_wrapper">
+      <div
+        className="announcelist_wrapper d-flex flex-column"
+        style={{ minHeight: 360 }}
+      >
         <div>
           <div
             className="d-flex align-items-center"
@@ -75,13 +78,9 @@ const SingleJobs = ({ handleDetails, item }) => {
           }}
         >
           {/* {item.description} */}
-          <div
-            dangerouslySetInnerHTML={{
-              __html: item?.description,
-            }}
-          ></div>
+          <div>{item?.short_description}</div>
         </p>
-        <div className="jobOpen_btn">
+        <div className="jobOpen_btn mt-auto">
           <button onClick={() => handleDetails(item?._id)}>Open</button>
         </div>
         <div className="d-flex gap-3 d-lg-none d-block justify-content-end">

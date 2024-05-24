@@ -28,6 +28,7 @@ const PaymentFormTwo = ({
   closeModal,
   setAddJobOfferClose,
   setNextOption,
+  price,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -52,6 +53,7 @@ const PaymentFormTwo = ({
   const { packageInfo } = useSelector((state) => state.payment);
   const { user } = useSelector((state) => state.auth);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [createPayment, { isLoading: paymentCreating }] =
     useCreatePaymentMutation();
@@ -87,10 +89,7 @@ const PaymentFormTwo = ({
     // }
 
     try {
-      const clientSecret = await createPaymentIntent(
-        selectedSubscription?.price * 100,
-        "usd"
-      );
+      const clientSecret = await createPaymentIntent(price * 100, "usd");
 
       const cardElement = elements.getElement(CardNumberElement);
 
@@ -113,13 +112,14 @@ const PaymentFormTwo = ({
 
       if (error) {
         setIsLoading(false);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: `${error?.message}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "error",
+        //   title: `${error?.message}`,
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
+        setErrorMessage(error?.message);
       } else if (paymentIntent.status === "succeeded") {
         setIsLoading(false);
         const createPaymentData = {
@@ -129,17 +129,19 @@ const PaymentFormTwo = ({
           purpose: "Add Job",
         };
         await createPayment(createPaymentData);
+        setErrorMessage("");
         await handleSubmit();
       }
     } catch (error) {
       setIsLoading(false);
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: `${error?.message}`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "error",
+      //   title: `${error?.message}`,
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      // });
+      setErrorMessage(error?.message);
     }
   };
   const [countryNames, setCountryNames] = useState([]);
@@ -285,6 +287,7 @@ const PaymentFormTwo = ({
                 />
               </div>
             </div>
+            {errorMessage && <p className="my-2 text-danger">{errorMessage}</p>}
           </div>
         </div>
       </div>

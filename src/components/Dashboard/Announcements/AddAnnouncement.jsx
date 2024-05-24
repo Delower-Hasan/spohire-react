@@ -178,7 +178,8 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
           <div className="personal_info_edit_wrapper add_job_offer">
             <div
               className="d-flex flex-column align-items-start gap-3"
-              style={{ marginBottom: "40px" }}>
+              style={{ marginBottom: "40px" }}
+            >
               <div className="w-100 player_job_form_wrapper mt-0">
                 {step === 1 ? (
                   <CreateAnnouncemnetModal
@@ -203,12 +204,13 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                   />
                 ) : null}
 
-                {step !== 2 && (
+                {/* {step !== 2 && (
                   <div className="d-flex gap-3 justify-content-center">
                     <button
                       className="submit_now_btn cancel m-0"
                       type="button"
-                      onClick={() => setAnnouncementIsModalOpen(false)}>
+                      onClick={() => setAnnouncementIsModalOpen(false)}
+                    >
                       Cancel
                     </button>
                     <button
@@ -220,11 +222,48 @@ const AddAnnouncement = ({ setAnnouncementIsModalOpen }) => {
                         }
                       }}
                       className="submit_now_btn m-0"
-                      type="button">
+                      type="button"
+                    >
                       Next
                     </button>
                   </div>
-                )}
+                )} */}
+
+                {/* stepers */}
+                <div
+                  className={`d-flex gap-3 justify-content-center ${
+                    step === 2 && "mt-5"
+                  }`}
+                >
+                  <button
+                    className="submit_now_btn cancel m-0"
+                    type="button"
+                    onClick={() => {
+                      if (step === 2) {
+                        setStep(1);
+                      } else {
+                        setAnnouncementIsModalOpen(false);
+                      }
+                    }}
+                  >
+                    {step === 2 ? "Back" : "Cancel"}
+                  </button>
+                  {step === 1 && (
+                    <button
+                      onClick={() => {
+                        if (validateFields()) {
+                          setStep((prevStep) => prevStep + 1);
+                        } else {
+                          alert("Please fill in all required fields.");
+                        }
+                      }}
+                      className="submit_now_btn m-0"
+                      type="button"
+                    >
+                      Next
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>

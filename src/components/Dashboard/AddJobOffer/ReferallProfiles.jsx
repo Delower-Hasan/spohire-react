@@ -94,7 +94,7 @@ function SingleJob({
 }) {
   const [bookmark, setBookmark] = useState(false);
 
-  console.log(item, "jkj");
+ 
   const { user } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();

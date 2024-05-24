@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PaymentForm from "../../../pages/pricing/PaymentForm.jsx";
 import { loadStripe } from "@stripe/stripe-js";
 import { STRIPE_PK } from "../../../config/config.js";
@@ -10,6 +10,7 @@ import credit from "../../../assets/creditcard.png";
 import paypal from "../../../assets/paypal.svg";
 
 import personImg from "../../../assets/person.png";
+import { useGetCouponsQuery } from "../../../features/coupon/apiSlice.js";
 
 const PaymentProcess = ({
   handleSubmit,
@@ -40,14 +41,47 @@ const PaymentProcess = ({
   //   setTotal(subscriptions[index].price);
   // };
 
+  // coupons
 
+  const { data: coupons } = useGetCouponsQuery();
+  const [coupon, setCoupon] = useState("");
+
+  const [price, setPrice] = useState(10);
+
+  useEffect(() => {
+    setPrice(selectedSubscription?.price);
+    setCouponUsed(false);
+  }, [selectedSubscription?.price]);
+
+  const isCouponFound = coupons?.data.filter(
+    (item) =>
+      item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
+      item.status === true
+  );
+
+  const [isCouponUsed, setCouponUsed] = useState(false);
+
+  const upDatePriceHandler = () => {
+    if (!isCouponUsed) {
+      // Assuming isCouponFound is defined and contains the coupon details
+      const discount = isCouponFound[0]?.discount;
+      if (discount) {
+        setPrice((prev) => prev - prev * (discount / 100));
+        setCouponUsed(true);
+      } else {
+        console.error("Coupon details not found!");
+      }
+    } else {
+      // Inform the user that the coupon has already been used
+      alert("Coupon has already been used.");
+    }
+  };
 
   return (
     <>
       <div className="d-flex gap-4">
         <div className="gift">
           <div className={"selected_subs"}>
-
             <p className="text-start text-black fs-5 fw-medium pb-4">
               How long will the add be active?
             </p>
@@ -95,7 +129,7 @@ const PaymentProcess = ({
               </div>
             </div>
 
-            {/* <div className="sub_total mb-4">
+            <div className="sub_total mb-4">
               <p className="fs-6 text-black text-start fw-normal mb-2">
                 Gift Card / Voucher code
               </p>
@@ -104,28 +138,38 @@ const PaymentProcess = ({
                   style={{ backgroundColor: "#F3F7FF", width: "240px" }}
                   className=""
                   type="text"
+                  onChange={(e) => setCoupon(e.target.value)}
                   placeholder="Enter code number"
                 />
 
-                <button className="bg_clr_99 px-4 rounded-1 text-white">
+                <button
+                  className="bg_clr_99 px-4 rounded-1 text-white"
+                  onClick={upDatePriceHandler}
+                >
                   Apply
                 </button>
               </div>
-            </div> */}
+            </div>
 
             <div className="sub_total d-flex justify-content-between mb-4">
               <p className="fs-6 text-black fw-normal mb-0 text_clr_99">
                 Voucher
               </p>
-              <p className={"fs-6 text-black fw-normal mb-0 text_clr_99"}>
-                ${selectedSubscription?.price}
-              </p>
+              {isCouponFound && isCouponFound.length > 0 ? (
+                <p className={"fs-6 text-black fw-normal mb-0 text_clr_99"}>
+                  {isCouponFound[0].discount}%
+                </p>
+              ) : (
+                <p className={"fs-6 text-black fw-normal mb-0 text_clr_99"}>
+                  $0.00
+                </p>
+              )}
             </div>
 
             <div className="sub_total d-flex justify-content-between bg_clr_ff px-4 py-2 rounded">
               <p className="fs-5 text-white fw-normal mb-0">Total</p>
               <p className={"fs-5 text-white fw-normal mb-0"}>
-                ${selectedSubscription?.price}
+                ${price.toFixed(2)}
               </p>
             </div>
           </div>
@@ -145,6 +189,7 @@ const PaymentProcess = ({
                   selectedSubscription={selectedSubscription}
                   setAddJobOfferClose={setAnnouncementIsModalOpen}
                   closeModal={closeModal}
+                  price={price.toFixed(2)}
                 />
               </Elements>
             ) : (

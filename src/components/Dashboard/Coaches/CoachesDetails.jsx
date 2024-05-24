@@ -132,12 +132,10 @@ const CoachesDetails = () => {
             <div className="country d-flex gap-2 align-items-center pb-3">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: getCountryFlag(
-                    user?.country ? user?.country : user?.nationality
-                  ),
+                  __html: getCountryFlag(user?.nationality),
                 }}
               />{" "}
-              <p>{user?.country ? user?.country : user?.nationality}</p>
+              <p>{user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
               <Link to={`/dashboard/messages/${user?._id}`}>
@@ -204,10 +202,11 @@ const CoachesDetails = () => {
                           className="font-bold d-inline-flex gap-2"
                           style={{
                             fontSize: "16px",
-                            color: "#8A8988",
-                            border: "1px solid #8A8988",
+                            color: "#2B3674",
+                            border: "1px solid #F2F2F2",
                             padding: "8px 40px",
                             borderRadius: "13px",
+                            backgroundColor: "#F2F2F2",
                           }}
                         >
                           <img src={silverIcon} alt="silver-icon" />
@@ -222,10 +221,11 @@ const CoachesDetails = () => {
                         className="font-bold d-inline-flex gap-2"
                         style={{
                           fontSize: "16px",
-                          color: "#EBB111",
+                          color: "#fff",
                           border: "1px solid #FFD029",
                           padding: "8px 40px",
                           borderRadius: "13px",
+                          backgroundColor: "#FFD029",
                         }}
                       >
                         <img src={goldIcon} alt="silver-icon" />
@@ -241,10 +241,11 @@ const CoachesDetails = () => {
                           className="font-bold d-inline-flex gap-2"
                           style={{
                             fontSize: "16px",
-                            color: "#CD7F32",
-                            border: "1px solid #CD7F32",
+                            color: "#fff",
+                            border: "1px solid #FB5A00",
                             padding: "8px 40px",
                             borderRadius: "13px",
+                            backgroundColor: "#FB5A00",
                           }}
                         >
                           <img src={silverIcon} alt="silver-icon" />

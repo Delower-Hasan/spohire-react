@@ -25,7 +25,7 @@ import {
 } from "../../features/payment/paymentApi";
 import { setExpireDate } from "../../utils/setExpireDate";
 
-const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
+const BuySubscriptionAddPayment = ({ modalRef, closeModal, price }) => {
   const stripe = useStripe();
   const elements = useElements();
   const CARD_OPTIONS = {
@@ -52,14 +52,13 @@ const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
     (state) => state.auth
   );
 
-  console.log("subscriptionTimeline", subscriptionTimeline);
-  console.log("subscriptions", subscriptions);
-
   const [isLoading, setIsLoading] = useState(false);
 
-  const [createPayment, { isLoading: paymentCreating }] = useCreatePaymentMutation();
+  const [createPayment, { isLoading: paymentCreating }] =
+    useCreatePaymentMutation();
 
-  const [updatePaymentStatus, { isLoading: updating }] = useUpdatePaymentStatusMutation();
+  const [updatePaymentStatus, { isLoading: updating }] =
+    useUpdatePaymentStatusMutation();
 
   const navigate = useNavigate();
 
@@ -90,10 +89,7 @@ const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
     // }
 
     try {
-      const clientSecret = await createPaymentIntent(
-        subscriptions?.price * 100,
-        "usd"
-      );
+      const clientSecret = await createPaymentIntent(price * 100, "usd");
 
       const cardElement = elements.getElement(CardNumberElement);
 
@@ -279,7 +275,8 @@ const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
                     className="form-select"
                     aria-label="Default select example"
                     onChange={handleInputChange}
-                    name="nationality">
+                    name="nationality"
+                  >
                     <option disabled selected>
                       {" "}
                       Select country
@@ -324,12 +321,14 @@ const BuySubscriptionAddPayment = ({ modalRef, closeModal }) => {
         <button
           onClick={handlePayment}
           className="pay_nowbtn_two mt-0"
-          disabled={isLoading || paymentCreating || !stripe}>
+          disabled={isLoading || paymentCreating || !stripe}
+        >
           {isLoading ? (
             <>
               <div
                 className="spinner-border spinner-border-sm me-2"
-                role="status">
+                role="status"
+              >
                 <span className="visually-hidden">Loading...</span>
               </div>
               Loading...

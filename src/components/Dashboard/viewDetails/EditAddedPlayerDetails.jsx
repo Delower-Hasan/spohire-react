@@ -16,15 +16,115 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 
+// const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+const postions = [
+  {
+    type: "Football",
+    mainPositions: ["goalkeeper", "defender", "midfielder", "forward"],
+    alternativePositions: [
+      "goalkeeper",
+      "sweeper",
+      "centre-back",
+      "left-back",
+      "right-back",
+      "central-midfielder",
+      "left-midfielder",
+      "right-midfielder",
+      "left-wing-forward",
+      "right-wing-forward",
+      "centre-forward",
+    ],
+  },
+  {
+    type: "Basketball",
+    mainPositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+    alternativePositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+  },
+  {
+    type: "Handball",
+    mainPositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+    alternativePositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+  },
+  {
+    type: "Volleyball",
+    mainPositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+    alternativePositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+  },
+];
 
 // data
 const inputFieldData = [
   {
-    label: "Name",
+    label: "First Name",
     placeholderText: "Your name",
     type: "text",
     name: "firstName",
+  },
+  {
+    label: "Last Name",
+    placeholderText: "LastName",
+    type: "text",
+    name: "lastName",
+  },
+  {
+    label: "Email",
+    placeholderText: "email",
+    type: "email",
+    name: "email",
+  },
+  {
+    label: "Phone Number",
+    placeholderText: "Phone Number",
+    type: "text",
+    name: "phone_number",
+  },
+  {
+    label: "Country of Residence",
+    placeholderText: "Residence",
+    type: "text",
+    name: "city",
   },
   {
     label: "Date of Birth",
@@ -53,6 +153,7 @@ const EditAddedPlayerDetails = () => {
   const { data: user } = useGetPlayerDetailsQuery(id);
   const [updatePlayerDetails, { isLoading }] = useUpdatePlayerDetailsMutation();
   // gallary
+
   const [selectedImages, setSelectedImages] = useState([]);
   // profile
   const [selectedImage, setSelectedImage] = useState(null);
@@ -64,6 +165,11 @@ const EditAddedPlayerDetails = () => {
       return acc;
     },
     {
+      firstName: "",
+      lastName: "",
+      city: "",
+      email: "",
+      phone_number: "",
       playerName: "",
       sportsType: "",
       selectedImage: null,
@@ -77,6 +183,7 @@ const EditAddedPlayerDetails = () => {
       strengthsAdvantages: "",
       aboutMe: "",
       mainPosition: "",
+      alterPosition: "",
       expectationsFromClub: "",
     }
   );
@@ -93,7 +200,6 @@ const EditAddedPlayerDetails = () => {
   });
 
   const [userInfo, setUserInfo] = useState({
-    fullName: "",
     date_of_birth: "",
     nationality: "",
     mainPosition: "",
@@ -111,6 +217,8 @@ const EditAddedPlayerDetails = () => {
   const [editedInfo, setEditedInfo] = useState({});
 
   const navigate = useNavigate();
+
+  const [isBelongClub, setBelongclub] = useState(true);
 
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState([]);
 
@@ -243,9 +351,14 @@ const EditAddedPlayerDetails = () => {
   useEffect(() => {
     const newData = {
       firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
+      additional_passport: user?.additional_passport,
+      phone_number: user?.phone_number,
       date_of_birth: user?.date_of_birth,
       nationality: user?.nationality,
       mainPosition: user?.mainPosition,
+      alterPosition: user?.alterPosition,
       dominantHand: user?.dominantHand,
       height: user?.height,
       weight: user?.weight,
@@ -256,9 +369,13 @@ const EditAddedPlayerDetails = () => {
       about_me: user?.about_me,
       expectations_from_new_club: user?.expectations_from_new_club,
       sports: user?.sports,
+      club_name: user?.club_name,
+      city: user?.city,
     };
-
     setUserInfo(newData);
+    setSportsType(user?.sports);
+    setBelongclub(user?.belong_to_the_club);
+    // setMainPositionType(user?.mainPosition);
     setUserExperience(user?.experience);
     let values = {};
 
@@ -294,6 +411,39 @@ const EditAddedPlayerDetails = () => {
       });
   }, []);
 
+  // players
+  const [sportsType, setSportsType] = useState("");
+
+  let mainAndAditionPostions = postions.filter(
+    (item) => item.type === sportsType
+  );
+
+  const [mainPositionType, setMainPositionType] = useState("");
+  const [altPositions, setAltPostions] = useState([]);
+
+  function filterAlternativePositions(mainPositionType) {
+    return mainAndAditionPostions.map((position) => {
+      if (position.mainPositions.includes(mainPositionType)) {
+        return {
+          ...position,
+          alternativePositions: position.alternativePositions.filter(
+            (altPosition) => altPosition !== mainPositionType
+          ),
+        };
+      } else {
+        return position;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const altPostions = filterAlternativePositions(mainPositionType);
+    setAltPostions(altPostions);
+  }, [mainPositionType]);
+  // players
+
+  console.log("userINfo", userInfo);
+
   return (
     <form className="" onSubmit={handleUpdate}>
       <div className="View_details container p-0 overflow-hidden">
@@ -315,7 +465,11 @@ const EditAddedPlayerDetails = () => {
                       : profileImage
                   }
                   alt="Profile"
-                  style={{ objectFit: "cover", maxWidth:'323px', width: "100%" }}
+                  style={{
+                    objectFit: "cover",
+                    maxWidth: "323px",
+                    width: "100%",
+                  }}
                 />
                 <div>
                   {!selectedImage && (
@@ -339,71 +493,8 @@ const EditAddedPlayerDetails = () => {
               </div>
             </div>
             <div className="col-12 col-lg-9">
-              <div className="edit_profile_input">
-                {/* <div className="mb-4 position-relative">
-                  <label
-                    htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
-                    Player Name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="playerNameInput"
-                    placeholder="Your name"
-                    value={formData.playerName}
-                    onChange={(e) =>
-                      handleInputChange("playerName", e.target.value)
-                    }
-                  />
-                </div> */}
-                {/* <div className="mb-4 position-relative">
-                  <label
-                    htmlFor="exampleFormControlInput1"
-                    className="form-label"
-                  >
-                    Sports Type
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="sportsTypeInput"
-                    placeholder="Basketball"
-                    value={userInfo?.sports}
-                    onChange={(e) =>
-                      handleInputChange("sports", e.target.value)
-                    }
-                  />
-                </div> */}
-              </div>
               <div className="personalInfo editpersonal_info">
                 <div className="row mb_40">
-                  <div className="col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-3">
-                        Sports *
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="sports"
-                        onChange={(e) => {
-                          handleInputChange("sports", e.target.value);
-                        }}
-                      >
-                        {sportsDatas.map((item, index) => (
-                          <option
-                            selected={userInfo["sports"] === item}
-                            key={index}
-                            value={item}
-                          >
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
                   {inputFieldData.map((field, index) => (
                     <div key={index} className="col-12 col-md-4">
                       <div className="personal_info_edit_wrapper">
@@ -438,33 +529,113 @@ const EditAddedPlayerDetails = () => {
                     </div>
                   ))}
 
-                  <div className="col-lg-4">
-                    <div className="input_form pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Main position *
+                  <div className="col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-3">
+                        Sports *
                       </label>
-
                       <select
                         required
                         className="select_form"
-                        name="mainPosition"
-                        value={userInfo["mainPosition"] || ""}
-                        onChange={(e) =>
-                          handleInputChange("mainPosition", e.target.value)
-                        }
+                        name="sports"
+                        onChange={(e) => {
+                          handleInputChange("sports", e.target.value);
+                          setSportsType(e.target.value);
+                        }}
                       >
-                        <option value={"Goalkeeper"}>Goalkeeper</option>
-                        <option value={"Defender"}>Defender</option>
-                        <option value={"Midfielder"}>Midfielder</option>
-                        <option value={"Forward"}>Forward</option>
+                        {sportsDatas.map((item, index) => (
+                          <option
+                            selected={userInfo["sports"] === item}
+                            key={index}
+                            value={item}
+                          >
+                            {item}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
+                  {user?.role !== "Coach" && (
+                    <>
+                      <div className="col-lg-4">
+                        <div className="input_form pb-4">
+                          <label
+                            htmlFor="name"
+                            className="d-block label_name mb-2"
+                          >
+                            Main position *
+                          </label>
+
+                          <select
+                            required
+                            className="select_form"
+                            name="mainPosition"
+                            value={userInfo["mainPosition"] || ""}
+                            onChange={(e) => {
+                              handleInputChange("mainPosition", e.target.value);
+                              setMainPositionType(e.target.value);
+                            }}
+                          >
+                            {/* <option value={"Goalkeeper"}>Goalkeeper</option>
+                        <option value={"Defender"}>Defender</option>
+                        <option value={"Midfielder"}>Midfielder</option>
+                        <option value={"Forward"}>Forward</option> */}
+                            {mainAndAditionPostions[0]?.mainPositions?.map(
+                              (item, index) => (
+                                <option
+                                  key={index}
+                                  value={item}
+                                  className="text-capitalize"
+                                >
+                                  {item}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="col-lg-4">
+                        <div className="input_form pb-4">
+                          <label
+                            htmlFor="name"
+                            className="d-block label_name mb-2"
+                          >
+                            Alternative position
+                          </label>
+
+                          <select
+                            required
+                            className={`select_form text-capitalize`}
+                            name="alterPosition"
+                            onChange={(e) =>
+                              handleInputChange("alterPosition", e.target.value)
+                            }
+                          >
+                            <option value={"N/A"} selected>
+                              Select
+                            </option>
+                            {altPositions[0]?.alternativePositions?.map(
+                              (item, index) => (
+                                <option
+                                  key={index}
+                                  value={item}
+                                  className="text-capitalize"
+                                >
+                                  {item}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                   <div className="col-lg-4">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
-                        Dominant Hand *
+                        Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
                       </label>
                       <select
                         required
@@ -503,6 +674,109 @@ const EditAddedPlayerDetails = () => {
                       </select>
                     </div>
                   </div>
+                  <div className="col-lg-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Additional Passport *
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="additional_passport"
+                        value={userInfo["additional_passport"] || ""}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "additional_passport",
+                            e.target.value
+                          )
+                        }
+                      >
+                        {countryNames?.map((country, index) => (
+                          <option value={country.name} className="" key={index}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-6">
+                    <div className="input_form pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Do you currently belong to a club? *
+                      </label>
+
+                      <div className="btn_group d-flex gap-3 mt-2">
+                        <input
+                          type="radio"
+                          id="yes"
+                          className="yes"
+                          value={"yes"}
+                          name="belong_to_the_club"
+                          onChange={(e) => {
+                            setBelongclub(true);
+                            handleInputChange(
+                              "belong_to_the_club",
+                              e.target.value
+                            );
+                          }}
+                          style={{ display: "none" }}
+                        />{" "}
+                        <label
+                          style={{
+                            cursor: "pointer",
+                            backgroundColor: "#05CD99",
+                          }}
+                          className="yes_btn"
+                          htmlFor="yes"
+                        >
+                          YES
+                        </label>
+                        <input
+                          type="radio"
+                          className="no"
+                          value={"no"}
+                          id="no"
+                          onChange={(e) => {
+                            setBelongclub(false);
+                            handleInputChange(e);
+                          }}
+                          name="belong_to_the_club"
+                          style={{ display: "none" }} // Hide the radio input visually
+                        />{" "}
+                        <label
+                          style={{ cursor: "pointer" }}
+                          htmlFor="no"
+                          className="yes_btn"
+                        >
+                          NO
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  {isBelongClub && (
+                    <div className="col-lg-6">
+                      <div className="input_form pb-4">
+                        <label
+                          htmlFor="name"
+                          className="d-block label_name mb-2"
+                        >
+                          Club name
+                        </label>
+                        <input
+                          id="name"
+                          name="club_name"
+                          value={userInfo["club_name"] || ""}
+                          onChange={(e) =>
+                            handleInputChange("club_name", e.target.value)
+                          }
+                          type="text"
+                          placeholder="Club name"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

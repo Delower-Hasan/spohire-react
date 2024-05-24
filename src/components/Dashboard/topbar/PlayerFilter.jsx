@@ -1,11 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPlayerFilterParams } from "../../../features/auth/authSlice";
 import "./Topbar.css";
+import { positions } from "../../../utils/PlayersSports";
+
+
 
 function PlayerFilter() {
   const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth);
+
   const [countryNames, setCountryNames] = useState([]);
   const [formData, setFormData] = useState({
     position: "",
@@ -56,27 +61,29 @@ function PlayerFilter() {
     setFormData(formDatas);
   };
 
+  const playerPositions = positions.filter(
+    (item) => item.type === user?.sports
+  );
+
   return (
     <div>
       {/* Position */}
       <div className="position_wrapper pb-4">
         <h2>Position</h2>
-        <div className="position_btn_wrapper d-flex gap-3">
-          {["All", "Goalkeeper", "Defender", "Midfielder", "Forward"].map(
-            (pos) => (
-              <button
-                key={pos}
-                className={
-                  formData.position === pos
-                    ? "bg-success text-white"
-                    : "not-selected"
-                }
-                onClick={() => setFormData({ ...formData, position: pos })}
-              >
-                {pos}
-              </button>
-            )
-          )}
+        <div className="position_btn_wrapper d-flex flex-wrap gap-3">
+          {playerPositions[0].mainPositions.map((pos) => (
+            <button
+              key={pos}
+              className={
+                formData.position === pos
+                  ? "bg-success text-white"
+                  : "not-selected"
+              }
+              onClick={() => setFormData({ ...formData, position: pos })}
+            >
+              {pos}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -156,7 +163,7 @@ function PlayerFilter() {
 
       {/* Height */}
       <div className="position_wrapper pb-4">
-        <h2>Height</h2>
+        <h2>Height (cm) </h2>
         <div className="position_btn_wrapper age d-flex gap-2">
           <input
             type="number"
