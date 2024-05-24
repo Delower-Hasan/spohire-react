@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import bronze from "../../../assets/bronze.svg";
@@ -9,6 +9,7 @@ import { STRIPE_PK } from "../../../config/config";
 import { Elements } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
 import BuySubscriptionAddPayment from "../../../pages/pricing/BuySubscriptionAddPayment";
+import { useGetCouponsQuery } from "../../../features/coupon/apiSlice";
 
 const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
   const options = [
@@ -22,6 +23,41 @@ const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
   const { subscriptions, subscriptionTimeline } = useSelector(
     (state) => state.auth
   );
+
+  // coupons
+  const { data: coupons } = useGetCouponsQuery();
+  const [coupon, setCoupon] = useState("");
+
+  const [price, setPrice] = useState(10);
+
+  useEffect(() => {
+    setPrice(subscriptions?.price);
+    setCouponUsed(false);
+  }, [subscriptions?.price]);
+
+  const isCouponFound = coupons?.data.filter(
+    (item) =>
+      item.code.toLowerCase().trim() === coupon?.toLowerCase()?.trim() &&
+      item.status === true
+  );
+
+  const [isCouponUsed, setCouponUsed] = useState(false);
+
+  const upDatePriceHandler = () => {
+    if (!isCouponUsed) {
+      // Assuming isCouponFound is defined and contains the coupon details
+      const discount = isCouponFound[0]?.discount;
+      if (discount) {
+        setPrice((prev) => prev - prev * (discount / 100));
+        setCouponUsed(true);
+      } else {
+        console.error("Coupon details not found!");
+      }
+    } else {
+      // Inform the user that the coupon has already been used
+      alert("Coupon has already been used.");
+    }
+  };
 
   return (
     <div className="">
@@ -70,15 +106,18 @@ const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
                       ))}
                     </div>
 
-                    <div className="d-flex justify-content-end">
+                    {/* <div
+                      className="d-flex justify-content-end"
+                   
+                    >
                       <p className="modify_price">Modify</p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
-                <div className="auto_renewal">
+                {/* <div className="auto_renewal">
                   <p className="text-start py-2">Auto - renewal</p>
-                </div>
+                </div> */}
                 <div className="terms_conditions">
                   <p className="py-4">
                     Lorem Ipsum is simply dummy text of the printing and
@@ -95,38 +134,49 @@ const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
             <div className="col-lg-6">
               <div className="make_payment_right">
                 <div className="heading mb-5">
-                  <h3>Make the payment </h3>
+                  <h3>Make the payment</h3>
                 </div>
 
                 {/* <div className="sub_total py-4">
                   <p>Sub total</p>
-                  <p>${subscriptions?.price + selectedPackages?.price}</p>
+                  <p>${subscriptions?.price}</p>
                 </div> */}
 
-                {/* <div className="gift_voucher d-flex align-items-center gap-4">
+                <div className="gift_voucher d-flex align-items-center gap-4">
                   <div className="input_form pb-4">
                     <label htmlFor="name" className="d-block label_name mb-2">
                       Gift Card / Voucher code
                     </label>
                     <input
                       id="name"
+                      onChange={(e) => setCoupon(e.target.value)}
                       type="text"
                       placeholder="Enter code number"
                     />
                   </div>
 
-                  <button className="yes">Yes</button>
+                  <button className="yes" onClick={upDatePriceHandler}>
+                    Yes
+                  </button>
                 </div>
 
                 <div className="voucher d-flex justify-content-between pb-4">
                   <p>Voucher</p>
-                  <p>$0.00</p>
-                </div> */}
+                  {isCouponFound && isCouponFound.length > 0 ? (
+                    <p className={"fs-6 text-black fw-normal mb-0 text_clr_99"}>
+                      {isCouponFound[0].discount}%
+                    </p>
+                  ) : (
+                    <p className={"fs-6 text-black fw-normal mb-0 text_clr_99"}>
+                      $0.00
+                    </p>
+                  )}
+                </div>
 
-                {/* <div className="total d-flex justify-content-between">
+                <div className="total d-flex justify-content-between">
                   <p>Total</p>
-                  <p>${subscriptions?.price + selectedPackages?.price}</p>
-                </div> */}
+                  <p>${price.toFixed(2)}</p>
+                </div>
 
                 <div className="payment_details pt-5">
                   {/* <div className="heading pb-4">
@@ -148,6 +198,7 @@ const MakePaymenModalForUpgradeSubscription = ({ modalRef, closeModal }) => {
                   <BuySubscriptionAddPayment
                     modalRef={modalRef}
                     closeModal={closeModal}
+                    price={price.toFixed(2)}
                   />
                 </Elements>
 

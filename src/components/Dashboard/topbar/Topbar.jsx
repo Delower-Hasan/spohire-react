@@ -488,7 +488,7 @@ const Topbar = ({ onClose }) => {
                     </button>
 
                     <div className="user_designation">
-                      <p>{`${user?.role}`}</p>
+                      <p>{`${user?.sports}/${user?.role}`}</p>
                     </div>
                   </div>
                   {/* Dropdown here */}

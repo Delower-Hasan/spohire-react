@@ -36,13 +36,17 @@ const PlayerOverview = ({ user }) => {
           <h4 className="players_title"> Players</h4>
 
           {data && data?.length > 0 && (
-            <Link
-              to={`${
-                user?.role === "manager" || user?.role === "coach"
-                  ? "/dashboard/players"
-                  : null
-              }`}
-            >
+            // <Link
+            //   to={`${
+            //     user?.role.toLowerCase() === "manager" ||
+            //     user?.role.toLowerCase() === "coach"
+            //       ? "/dashboard/players"
+            //       : null
+            //   }`}
+            // >
+            //   <img src={more} alt="more" />
+            // </Link>
+            <Link to={`/dashboard/players`}>
               <img src={more} alt="more" />
             </Link>
           )}

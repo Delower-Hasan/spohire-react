@@ -7,6 +7,7 @@ import n1 from "../../assets/news/n1.png";
 import NewsSlider from "./NewsSlider";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
 
 const NewsDetails = () => {
   const { id } = useParams();
@@ -29,7 +30,7 @@ const NewsDetails = () => {
     return () => {};
   }, [id]);
 
-  console.log("blog", blog);
+  const formattedDate = moment(blog?.createdAt).format("MMMM DD, YYYY");
 
   return (
     <>
@@ -37,7 +38,7 @@ const NewsDetails = () => {
         <div className="news_details_wrapper">
           <h2>{blog?.title}</h2>
           <div className="d-flex flex-wrap align-items-center date">
-            <p className="">March 21, 2024 17:00 IST</p>
+            <p className="">{formattedDate}</p>
             <div className="d-flex flex-wrap gap-4">
               {blog?.fb && (
                 <Link to={`${blog?.fb && blog?.fb}`}>

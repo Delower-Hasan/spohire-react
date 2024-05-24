@@ -7,14 +7,14 @@ const Salary = ({ data }) => {
         <div className="col-lg-6 h-100 d-flex flex-column gap-2 justify-content-between">
           <p className="title">Salary (USD)</p>
           {/* <p className="amount">$100,000 - $120,000</p> */}
-          <p className="amount">{data?.salary}</p>
-          <p className="subtitle">Monthly salary</p>
+          <p className="amount">${data?.salary}</p>
+          <p className="subtitle text-capitalize">Yearly salary</p>
         </div>
 
         <div className="col-lg-6 h-100 d-flex flex-column gap-2 justify-content-between align-items-center">
           <img src={MapTrifold} style={{ width: "27px" }} alt="" />
           <p className="location">Job Location</p>
-          <p className="subtitle">
+          <p className="subtitle text-capitalize">
             {" "}
             {data?.job_location}, {data?.country}
           </p>

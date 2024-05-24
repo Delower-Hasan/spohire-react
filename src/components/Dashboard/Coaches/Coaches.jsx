@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,20 +19,25 @@ import Pagination from "../../Pagination/Pagination";
 import MobileButtons from "../players/MobileButtons";
 import MobilePlayers from "../players/MobilePlayers";
 import { ThreeDots } from "react-loader-spinner";
+
 const Coaches = () => {
   const { data: coachs, isLoading } = useGetFilteredUsersQuery("role=Coach");
   const { user, coachFilterParams } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
+  useEffect(() => {
+    if (user?.role === "Player" || user?.role === "Coach") {
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: "You are not allowed to view this Page!",
+      // });
 
-  if (user?.role === "Player" || user?.role === "Coach") {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "You are not allowed to view this Page!",
-    });
-  }
+      navigate("/dashboard");
+    }
+  });
 
   const allowedPlans =
     user?.subscriptionName === "Gold"

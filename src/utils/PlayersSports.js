@@ -1,0 +1,75 @@
+export const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+export const positions = [
+  {
+    type: "Football",
+    mainPositions: ["goalkeeper", "defender", "midfielder", "forward"],
+    alternativePositions: [
+      "goalkeeper",
+      "sweeper",
+      "centre-back",
+      "left-back",
+      "right-back",
+      "central-midfielder",
+      "left-midfielder",
+      "right-midfielder",
+      "left-wing-forward",
+      "right-wing-forward",
+      "centre-forward",
+    ],
+  },
+  {
+    type: "Basketball",
+    mainPositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+    alternativePositions: [
+      "center",
+      "power-forward",
+      "small-forward",
+      " point-guard",
+      "shooting-guard",
+    ],
+  },
+  {
+    type: "Handball",
+    mainPositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+    alternativePositions: [
+      "goalkeeper",
+      "left-wing",
+      "right-wing",
+      " left-back",
+      " right-back",
+      " centre back",
+      "pivot",
+    ],
+  },
+  {
+    type: "Volleyball",
+    mainPositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+    alternativePositions: [
+      "setter",
+      " middle-blocker",
+      " outside-hitter",
+      "opposite-hitter",
+      " libero",
+    ],
+  },
+];

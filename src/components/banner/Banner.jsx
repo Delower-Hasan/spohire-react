@@ -13,7 +13,7 @@ const Banner = () => {
             <div className="bannerContent">
               {/* <span>Sports + Announcements only for you</span> */}
               <span style={{ color: "red", fontSize: "32px" }}>
-                Launching on June 7th, 2024
+                Launching on June 11th, 2024
               </span>
               <img
                 className="mb-5 img-fluid d-none d-md-block"
@@ -28,7 +28,7 @@ const Banner = () => {
                 />
               </div>
               <h1 className="mb-3">
-                Get matched with  new <br className="d-block d-md-none" /> sports
+                Get matched with new <br className="d-block d-md-none" /> sports
                 club
               </h1>
               <p>Add your profile and join a new sports team</p>

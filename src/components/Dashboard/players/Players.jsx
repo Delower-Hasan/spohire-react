@@ -112,8 +112,6 @@ const Players = () => {
     currentPage * itemsPerPage
   );
 
-  console.log("isLoading", isLoading);
-
   return (
     <>
       <div className="players">
@@ -265,7 +263,7 @@ const SinglePlayer = ({ player }) => {
                     height: "35px",
                     width: "35px",
                     objectFit: "cover",
-                    borderRadius: "8px",
+                    borderRadius: "50%",
                   }}
                 />
               </div>
