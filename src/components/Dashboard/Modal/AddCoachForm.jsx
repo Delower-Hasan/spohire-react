@@ -15,10 +15,10 @@ const AddCoachForm = ({
   exp,
 }) => {
   const [countryNames, setCountryNames] = useState([]);
-    const [btnAction, setBtnAction] = useState("");
-    const handleBtnClick = (option) => {
-      setBtnAction(option);
-    };
+  const [btnAction, setBtnAction] = useState("");
+  const handleBtnClick = (option) => {
+    setBtnAction(option);
+  };
   // const [userExperiences, setUserExperience] = useState([
   //   ...experienceFormData,
   // ]);
@@ -61,17 +61,17 @@ const AddCoachForm = ({
     <div>
       <div className="row">
         <div className="col-lg-4">
-        <div className="upload_photo">
+          <div className="upload_photo">
             <div
               className="position-relative text-start"
-              style={{ marginBottom: "32px" }}
-            >
+              style={{ marginBottom: "32px" }}>
               {/* upload */}
               <div
-                className={`${selectedProfileFile ? "d-block" : "d-none"} upload_thumbnail border bg-transparent overflow-hidden`}
+                className={`${
+                  selectedProfileFile ? "d-block" : "d-none"
+                } upload_thumbnail border bg-transparent overflow-hidden`}
                 style={{ width: "230px", height: "230px" }}
-                {...profileRootProps()}
-              >
+                {...profileRootProps()}>
                 {selectedProfileFile ? (
                   <img
                     src={URL.createObjectURL(selectedProfileFile)}
@@ -89,8 +89,7 @@ const AddCoachForm = ({
                   isProfileUploaded ? "d-none" : ""
                 }`}
                 style={{ width: "230px", height: "230px" }}
-                {...profileRootProps()}
-              >
+                {...profileRootProps()}>
                 <input {...profileInputProps()} />
                 Upload Profile Photo
               </button>
@@ -140,8 +139,7 @@ const AddCoachForm = ({
                   required
                   className="select_form"
                   name="gender"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option disabled>Select Here</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -172,16 +170,14 @@ const AddCoachForm = ({
                   required
                   className="select_form"
                   name="nationality"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option>Select Here</option>
 
                   {countryNames?.map((country, index) => (
                     <option
                       defaultValue={country.name}
                       className=""
-                      key={index}
-                    >
+                      key={index}>
                       {country.name}
                     </option>
                   ))}
@@ -197,15 +193,13 @@ const AddCoachForm = ({
                   required
                   className="select_form"
                   name="country"
-                  onChange={handleInputChange}
-                >
+                  onChange={handleInputChange}>
                   <option disabled>Select Here</option>
                   {countryNames?.map((country, index) => (
                     <option
                       defaultValue={country.name}
                       className=""
-                      key={index}
-                    >
+                      key={index}>
                       {country.name}
                     </option>
                   ))}
@@ -301,8 +295,7 @@ const AddCoachForm = ({
               required
               className="select_form"
               name="dominantHand"
-              onChange={handleInputChange}
-            >
+              onChange={handleInputChange}>
               <option>Select Here</option>
               <option>Left</option>
               <option>Right</option>
@@ -356,7 +349,7 @@ const AddCoachForm = ({
           </div>
         </div>
 
-        <div className="col-lg-4">
+        <div className="d-inline-block">
           <div className="input_form pb-4">
             <label htmlFor="name" className="d-block label_name mb-2">
               Do you currently belong to a club? *
@@ -445,8 +438,7 @@ const AddCoachForm = ({
                     <div className="input_form pb-4">
                       <label
                         htmlFor="club_name"
-                        className="d-block label_name mb-2"
-                      >
+                        className="d-block label_name mb-2">
                         Club Name
                       </label>
                       <input
@@ -461,8 +453,7 @@ const AddCoachForm = ({
 
                   <button
                     className="modal_btn py-3 px-4 d-flex gap-2 w-100 justify-content-center"
-                    onClick={handleAddMore}
-                  >
+                    onClick={handleAddMore}>
                     Add more
                     <span>
                       <svg
@@ -470,8 +461,7 @@ const AddCoachForm = ({
                         width="21"
                         height="20"
                         viewBox="0 0 21 20"
-                        fill="none"
-                      >
+                        fill="none">
                         <path
                           d="M10.5 7.5V12.5M13 10H8M18 10C18 10.9849 17.806 11.9602 17.4291 12.8701C17.0522 13.7801 16.4997 14.6069 15.8033 15.3033C15.1069 15.9997 14.2801 16.5522 13.3701 16.9291C12.4602 17.306 11.4849 17.5 10.5 17.5C9.51509 17.5 8.53982 17.306 7.62987 16.9291C6.71993 16.5522 5.89314 15.9997 5.1967 15.3033C4.50026 14.6069 3.94781 13.7801 3.5709 12.8701C3.19399 11.9602 3 10.9849 3 10C3 8.01088 3.79018 6.10322 5.1967 4.6967C6.60322 3.29018 8.51088 2.5 10.5 2.5C12.4891 2.5 14.3968 3.29018 15.8033 4.6967C17.2098 6.10322 18 8.01088 18 10Z"
                           stroke="white"
@@ -575,8 +565,7 @@ const AddCoachForm = ({
                 rows="10"
                 name="strengths_advantage"
                 onChange={handleInputChange}
-                placeholder="Type here"
-              ></textarea>
+                placeholder="Type here"></textarea>
             </div>
 
             <div className="col-lg-4">
@@ -589,8 +578,7 @@ const AddCoachForm = ({
                 id=""
                 cols="30"
                 rows="10"
-                placeholder="Type here"
-              ></textarea>
+                placeholder="Type here"></textarea>
             </div>
             <div className="col-lg-4">
               <div className="oi_title pb-2">
@@ -602,8 +590,7 @@ const AddCoachForm = ({
                 id=""
                 cols="30"
                 rows="10"
-                placeholder="Type here"
-              ></textarea>
+                placeholder="Type here"></textarea>
             </div>
           </div>
         </div>
@@ -628,8 +615,7 @@ const AddCoachForm = ({
             <div>
               <button
                 className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                {...galleryRootProps()}
-              >
+                {...galleryRootProps()}>
                 <div className="add_icon">
                   <img src={addIcon} alt="add-icon" />
                 </div>

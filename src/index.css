@@ -4,6 +4,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* How it works section font family did not add i didn't get cdn */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 
 * {
   margin: 0;
@@ -12,7 +14,7 @@
 }
 
 body {
-  font-family: "SF Pro Display", sans-serif !important;
+  font-family: 'SF Pro Display', sans-serif;
 }
 
 .btn {
@@ -442,11 +444,6 @@ button {
     line-height: 19px !important;
   }
 
-  /* .mobile_icon {
-    height: 30px !important;
-    width: 30px !important;
-  } */
-
   /* faq section */
 
   /* footer */
@@ -862,24 +859,89 @@ a {
 
 .gold_btn {
   border-radius: 100px;
-  border: 1px solid #141736;
+  border: 1px solid #FFD029;
   display: inline-flex;
   padding: 8px 24px;
   align-items: center;
   gap: 6px;
   background-color: transparent;
   height: 32px;
-  color: #141736;
-  font-family: "SF Pro Display"sans-serif;
-  font-size: 12px;
+  color: #FFD029;
+  font-family: "SF Pro Display" sans-serif;
+  font-size: 13px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  margin-bottom: 10px;
 }
 
 .gold_btn img {
-  width: 14px;
+  width: 16px;
   height: 16px;
+}
+
+.bronze_btn img {
+  width: 16px;
+  height: 16px;
+}
+
+.silver_btn img {
+  width: 16px;
+  height: 16px;
+}
+
+.bronze_btn {
+  border-radius: 100px;
+  border: 1px solid #cd7f32;
+  display: inline-flex;
+  padding: 8px 24px;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  height: 32px;
+  color: #cd7f32;
+  font-family: "SF Pro Display" sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.silver_btn {
+  border-radius: 100px;
+  border: 1px solid #a3aed0;
+  display: inline-flex;
+  padding: 8px 24px;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  height: 32px;
+  color: #a3aed0;
+  font-family: "SF Pro Display" sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.no_sub {
+  border-radius: 100px;
+  border: 1px solid #ff7272;
+  display: inline-flex;
+  padding: 8px 24px;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  height: 32px;
+  color: #ff7272;
+  font-family: "SF Pro Display" sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
 }
 
 .country-dropdown {
@@ -921,7 +983,7 @@ a {
   border: 1px solid #0177fb;
   height: 30px;
   color: #0177fb;
-  font-family: "SF Pro Display"sans-serif !important;
+  font-family: "SF Pro Display" sans-serif !important;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -1111,7 +1173,7 @@ a {
 .accordion h2 {
   color: var(--Dark-blue, #2B3674);
   text-align: center;
-  font-family: "SF Pro Display"sans-serif;
+  font-family: "SF Pro Display" sans-serif;
   font-size: 64px;
   font-weight: 500;
   letter-spacing: 1.28px;
@@ -1333,10 +1395,21 @@ a {
   font-weight: 400;
   line-height: 32px;
   /* 177.778% */
-
 }
 
 .input-error {
   border: 1px solid red !important;
   border-radius: 4px;
+}
+
+.roboto_condensed{
+  font-family: "Roboto Condensed", sans-serif !important;
+}
+
+.text-74{
+  color: #2B3674
+}
+
+.text-52{
+  color: #4C4E52
 }

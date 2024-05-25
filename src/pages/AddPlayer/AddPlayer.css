@@ -8,12 +8,12 @@
   flex-direction: column;
   justify-content: start;
   margin-top: 17px;
+  font-family: 'SF Pro'
 }
 
 .club_info h6,
 .social_media_links h6 {
   color: #161d24;
-  font-family: "SF Pro Display", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
