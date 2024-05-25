@@ -154,8 +154,6 @@ const EditAddedPlayerDetails = () => {
   const [updatePlayerDetails, { isLoading }] = useUpdatePlayerDetailsMutation();
   // gallary
 
-  const [selectedImages, setSelectedImages] = useState([]);
-  // profile
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   // onchange value
@@ -175,11 +173,6 @@ const EditAddedPlayerDetails = () => {
       selectedImage: null,
       experiences: [],
       clubName: "",
-      socialMedia: {
-        facebook: "",
-        instagram: "",
-        twitter: "",
-      },
       strengthsAdvantages: "",
       aboutMe: "",
       mainPosition: "",
@@ -192,12 +185,6 @@ const EditAddedPlayerDetails = () => {
 
   const [formData, setFormData] = useState(initialFormData);
   const [gallaryImage, setGallaryImage] = useState(null);
-  const [socialMedia, setSocialMedia] = useState({
-    facebook: "",
-    twitter: "",
-    instagram: "",
-    youtube: "",
-  });
 
   const [userInfo, setUserInfo] = useState({
     date_of_birth: "",
@@ -263,8 +250,7 @@ const EditAddedPlayerDetails = () => {
   // form submit data
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const socialMediaArray = Object.values(socialMedia);
-    const infoData = { ...editedInfo, social_media: socialMediaArray };
+    const infoData = { ...editedInfo };
     const formData = new FormData();
     Object.keys(infoData).forEach((key) => {
       const propertyValue = infoData[key];
@@ -371,30 +357,16 @@ const EditAddedPlayerDetails = () => {
       sports: user?.sports,
       club_name: user?.club_name,
       city: user?.city,
+      facebook: user?.facebook,
+      instagram: user?.instagram,
+      youtube: user?.youtube,
+      twitter: user?.twitter,
     };
     setUserInfo(newData);
     setSportsType(user?.sports);
     setBelongclub(user?.belong_to_the_club);
     // setMainPositionType(user?.mainPosition);
     setUserExperience(user?.experience);
-    let values = {};
-
-    for (let i = 0; i < user?.social_media?.length; i++) {
-      const element = user?.social_media[i];
-      if (element.includes("twitter.com")) {
-        values.twitter = element;
-      } else if (element?.includes("instagram.com")) {
-        values.instagram = element;
-      } else if (element?.includes("facebook.com")) {
-        values.facebook = element;
-      } else if (element?.includes("youtube.com")) {
-        values.youtube = element;
-      } else {
-        values.others = element;
-      }
-    }
-
-    setSocialMedia(values);
   }, [user, id]);
   const [countryNames, setCountryNames] = useState([]);
 
@@ -784,8 +756,7 @@ const EditAddedPlayerDetails = () => {
         </div>
 
         <UpdateexperienceAndMedia
-          socialMedia={socialMedia}
-          setSocialMedia={setSocialMedia}
+          handleInputChange={handleInputChange}
           userInfo={userInfo}
           setUserInfo={setUserInfo}
           editedInfo={editedInfo}

@@ -7,11 +7,10 @@ import location from "../../../../assets/location-contact.png";
 import { useAddContactMutation } from "../../../../features/contact/contactApi";
 
 const Contact = () => {
-
   const [formData, setFormData] = useState({
     fullName: "",
     emailAddress: "",
-    message: ""
+    message: "",
   });
 
   const [addContact, { isLoading }] = useAddContactMutation();
@@ -25,6 +24,12 @@ const Contact = () => {
     try {
       const response = await addContact(formData);
       console.log(response.data);
+      alert(response.data.message);
+      setFormData({
+        fullName: "",
+        emailAddress: "",
+        message: "",
+      });
     } catch (error) {
       console.error(error);
     }
@@ -61,12 +66,13 @@ const Contact = () => {
           </div>
         </div>
         <div className="col-md-6 form">
-        <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="mb-5">
               <label>Full Name</label>
               <input
                 type="text"
                 name="fullName"
+                required
                 value={formData.fullName}
                 placeholder="Input your full name in here"
                 onChange={handleChange}
@@ -76,6 +82,7 @@ const Contact = () => {
               <label>Email Address</label>
               <input
                 type="email"
+                required
                 name="emailAddress"
                 value={formData.emailAddress}
                 placeholder="Input your email address in here"
@@ -88,13 +95,18 @@ const Contact = () => {
                 name="message"
                 cols="30"
                 rows="10"
+                required
                 value={formData.message}
                 placeholder="Write your messages in here"
                 onChange={handleChange}
               ></textarea>
             </div>
             <div className="text-end">
-              <button type="submit" className="btn btn-primary" disabled={isLoading}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={isLoading}
+              >
                 {isLoading ? "Sending..." : "Send Messages"}
               </button>
             </div>
