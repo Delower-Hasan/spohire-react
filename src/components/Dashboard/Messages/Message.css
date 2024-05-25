@@ -314,14 +314,14 @@ box-shadow: 6px -2px 39.9px 4px rgba(86, 95, 104, 0.08);
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 15px;
+  right: 40px;
 }
 
 .upload_img {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 50px;
+  right: 10px;
 }
 
 .bg-none {
