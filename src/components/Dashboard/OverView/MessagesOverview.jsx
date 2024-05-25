@@ -42,6 +42,7 @@ const chatData = [
     profile: profile,
   },
 ];
+
 const MessagesOverview = () => {
   const { user } = useSelector((state) => state.auth);
   const { data, isLoading } = useGetUserAllConversationsQuery(user?._id);
@@ -75,7 +76,7 @@ const MessagesOverview = () => {
               width="100%"
               color="#2B3674"
               ariaLabel="line-wave-loading"
-            />  
+            />
           ) : data && data?.length > 0 ? (
             data.slice(1, 4).map((item, index) => (
               <React.Fragment key={index}>

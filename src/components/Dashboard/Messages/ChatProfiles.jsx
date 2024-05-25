@@ -32,8 +32,12 @@ const ChatProfiles = ({ user, searchText }) => {
   return (
     <>
       <div className="profiles_list">
-        <h6>Messages</h6>
-
+        {/* <h6>Messages</h6> */}
+        <p
+          className="text-base fw-normal"
+          style={{ color: "#8593BC", marginTop: "50px" }}>
+          Pinned
+        </p>
         {data &&
           data?.length > 0 &&
           data.filter(handleFilter).map((item, idx) => {
@@ -44,11 +48,10 @@ const ChatProfiles = ({ user, searchText }) => {
                 style={{ cursor: "pointer" }}
                 className={`${
                   selectedMsgUser?._id === item?._id && "bg-light rounded"
-                } px-2 py-2 my-2`}
-              >
+                } px-2 py-2 my-2`}>
                 <div className="d-flex align-items-start chat_wrapper justify-content-between w-100 ">
                   <div className="d-flex align-items-center gap-3 w-100 h-100">
-                    <div>
+                    <div className="d-flex gap-2">
                       <img
                         src={
                           item?.image
@@ -67,86 +70,22 @@ const ChatProfiles = ({ user, searchText }) => {
                           borderRadius: "50%",
                         }}
                       />
-                    </div>
 
-                    <h5>
-                      {item?.first_name} {item?.last_name}
-                    </h5>
-                    {/* <span>Yeah, I’m done with it...</span> */}
+                      <h5>
+                        {item?.first_name} {item?.last_name}
+                        <br/>
+                        <span>Yeah, I’m done with it...</span>
+                      </h5>
+                    </div>
                   </div>
 
-                  <div>{/* <p>12:34</p> */}</div>
+                  <div><p>12:34</p> </div>
                 </div>
-                <hr className="chat_line mt-2" />
               </div>
             ) : (
               <></>
             );
           })}
-        {/* <div className="d-flex align-items-start chat_wrapper justify-content-between w-100 ">
-          <div className="d-flex align-items-start gap-3">
-            <div>
-              <img src={profile} alt="profile" />
-            </div>
-            <div>
-              <h5>Abram Korsgaard</h5>
-              <span>Yeah, I’m done with it...</span>
-            </div>
-          </div>
-
-          <div>
-            <p>12:34</p>
-          </div>
-        </div>
-        <hr className="chat_line" />
-        <div className="d-flex align-items-start chat_wrapper justify-content-between w-100 ">
-          <div className="d-flex align-items-start gap-3">
-            <div>
-              <img src={profile} alt="profile" />
-            </div>
-            <div>
-              <h5>Abram Korsgaard</h5>
-              <span>Yeah, I’m done with it...</span>
-            </div>
-          </div>
-
-          <div>
-            <p>12:34</p>
-          </div>
-        </div>
-        <hr className="chat_line" />
-        <div className="d-flex align-items-start chat_wrapper justify-content-between w-100 ">
-          <div className="d-flex align-items-start gap-3">
-            <div>
-              <img src={profile} alt="profile" />
-            </div>
-            <div>
-              <h5>Abram Korsgaard</h5>
-              <span>Yeah, I’m done with it...</span>
-            </div>
-          </div>
-
-          <div>
-            <p>12:34</p>
-          </div>
-        </div>
-        <hr className="chat_line" />
-        <div className="d-flex align-items-start chat_wrapper justify-content-between w-100 ">
-          <div className="d-flex align-items-start gap-3">
-            <div>
-              <img src={profile} alt="profile" />
-            </div>
-            <div>
-              <h5>Abram Korsgaard</h5>
-              <span>Yeah, I’m done with it...</span>
-            </div>
-          </div>
-
-          <div>
-            <p>12:34</p>
-          </div>
-        </div> */}
-        {/* <hr className='chat_line' /> */}
       </div>
     </>
   );

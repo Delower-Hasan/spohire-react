@@ -1,31 +1,26 @@
 /* eslint-disable no-unused-vars */
-import "./Message.css";
-import ChatProfiles from "./ChatProfiles";
-import Messaging from "./Messaging";
-import chaticon from "../../../assets/chaticon.png";
-import chatclose from "../../../assets/chatclose.png";
-import profile from "../../../assets/chat_info-profile.png";
-import senticon from "../../../assets/sentIcon.png";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import chatAvatar from "../../../assets/avatar.png";
 import messageProfile from "../../../assets/coach_img.png";
 import mDetails from "../../../assets/m_details.svg";
 import send from "../../../assets/send.png";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useGetUserByIdQuery } from "../../../features/auth/authApi";
 import {
   chatApi,
   useAddMessagesMutation,
   useCreateConversationMutation,
 } from "../../../features/chat/chatApi";
-import { useDispatch, useSelector } from "react-redux";
 import {
   setConversationId,
   setMessages,
   setSelectedMessageUser,
 } from "../../../features/chat/chatSlice";
-import { formatMessageTime } from "../../../utils/formateChatTIme";
-import { useGetUserByIdQuery } from "../../../features/auth/authApi";
 import { useCreateNotificationMutation } from "../../../features/notification/notificationApi";
-import chatAvatar from "../../../assets/avatar.png";
+import { formatMessageTime } from "../../../utils/formateChatTIme";
+import ChatProfiles from "./ChatProfiles";
+import "./Message.css";
 
 const Messages = () => {
   const { user } = useSelector((state) => state.auth);
@@ -158,7 +153,7 @@ const Messages = () => {
               <div className="chat_profile">
                 <div className="chat_list_wrapper ">
                   <h3>Message details</h3>
-                  <div className="form-group has-search1">
+                  {/* <div className="form-group has-search1">
                     <span className="fa fa-search form-control-feedback"></span>
                     <input
                       type="text"
@@ -166,7 +161,8 @@ const Messages = () => {
                       placeholder="Search"
                       onChange={(e) => setSearchText(e.target.value)}
                     />
-                  </div>
+                  </div> */}
+                 
                   <ChatProfiles user={user} searchText={searchText} />
                 </div>
               </div>
@@ -283,8 +279,7 @@ const Messages = () => {
                     <button
                       onClick={handleSendClick}
                       className="bg-none"
-                      disabled={!messageText}
-                    >
+                      disabled={!messageText}>
                       <img src={send} alt="" />
                     </button>
                   </div>
@@ -296,8 +291,7 @@ const Messages = () => {
                         width="24"
                         height="24"
                         viewBox="0 0 24 24"
-                        fill="none"
-                      >
+                        fill="none">
                         <path
                           d="M16.5 6V17.5C16.5 19.71 14.71 21.5 12.5 21.5C10.29 21.5 8.5 19.71 8.5 17.5V5C8.5 3.62 9.62 2.5 11 2.5C12.38 2.5 13.5 3.62 13.5 5V15.5C13.5 16.05 13.05 16.5 12.5 16.5C11.95 16.5 11.5 16.05 11.5 15.5V6H10V15.5C10 16.88 11.12 18 12.5 18C13.88 18 15 16.88 15 15.5V5C15 2.79 13.21 1 11 1C8.79 1 7 2.79 7 5V17.5C7 20.54 9.46 23 12.5 23C15.54 23 18 20.54 18 17.5V6H16.5Z"
                           fill="#2B3674"
