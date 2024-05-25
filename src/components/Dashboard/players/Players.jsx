@@ -11,6 +11,7 @@ import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
+import { positions } from "../../../utils/PlayersSports";
 import { getCountryFlag } from "../../../utils/getFlag";
 import Pagination from "../../Pagination/Pagination";
 import MobileButtons from "./MobileButtons";
@@ -25,6 +26,8 @@ const Players = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 5;
+
+  console.log("playerFilterParams", playerFilterParams);
 
   const allowedPlans =
     user?.subscriptionName === "Gold"
@@ -57,10 +60,16 @@ const Players = () => {
     }
     return age;
   };
+
+  const alterPositions = positions.filter(
+    (item) => item.type === user.sports
+  )[0].alternativePositions;
+  console.log("alterPositions", alterPositions);
+
   const handleFilter = (value) => {
     if (
-      playerFilterParams?.position ||
-      playerFilterParams?.status ||
+      playerFilterParams?.positions.length > 0 ||
+      playerFilterParams?.status.length > 0 ||
       playerFilterParams?.location ||
       playerFilterParams?.gender ||
       playerFilterParams?.minAge ||
@@ -70,10 +79,15 @@ const Players = () => {
       playerFilterParams?.dominantHand
     ) {
       return (
-        (playerFilterParams?.position &&
-          playerFilterParams?.position === value?.mainPosition) ||
-        (playerFilterParams?.status &&
-          playerFilterParams?.status === value?.subscriptionName) ||
+        (playerFilterParams?.positions.length > 0 &&
+          playerFilterParams?.positions.filter(
+            (item) =>
+              item === value?.mainPosition || item === value?.alterPosition
+          )[0]) ||
+        (playerFilterParams?.status.length > 0 &&
+          playerFilterParams?.status.filter(
+            (item) => item === value?.subscriptionName
+          )[0]) ||
         (playerFilterParams?.location &&
           playerFilterParams?.location === value?.country) ||
         (playerFilterParams?.gender &&
@@ -101,7 +115,7 @@ const Players = () => {
           player?.subscriptionName &&
           allowedPlans.includes(player?.subscriptionName) &&
           user?.sports === player?.sports &&
-          player?.isActive
+          player?.isActive === true
       )
       .filter(handleFilter) || [];
 
@@ -268,7 +282,7 @@ const SinglePlayer = ({ player }) => {
                 />
               </div>
               <div className="player_name">
-                <p className="text_color_36 fw-medium fs_14">
+                <p className="text_color_36 fw-medium fs_14 text-capitalize">
                   {player?.firstName} {player?.lastName}
                 </p>
               </div>
@@ -295,20 +309,20 @@ const SinglePlayer = ({ player }) => {
         </td>
 
         <td>
-          <p className="text_color_55 fw-normal fs_14">
+          <p className="text_color_55 fw-normal fs_14 text-capitalize">
             {player.mainPosition ?? "N/A"}
           </p>
         </td>
 
         <td>
-          <p className="text_color_55 fw-normal fs_14">
+          <p className="text_color_55 fw-normal fs_14 text-capitalize">
             {player.club_name ?? "N/A"}
           </p>
         </td>
 
         <td>
           <p
-            className="text_color_55 fw-normal"
+            className="text_color_55 fw-normal text-capitalize"
             style={{
               color:
                 player?.subscriptionName === "Silver"

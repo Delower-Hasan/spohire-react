@@ -4,8 +4,8 @@ const initialState = {
   accessToken: undefined,
   user: undefined,
   playerFilterParams: {
-    position: "",
-    status: "",
+    positions: [],
+    status: [],
     location: "",
     gender: "",
     minAge: "",
@@ -28,7 +28,6 @@ const initialState = {
     price: 10,
   },
   subscriptionTimeline: "MONTHLY",
-  
 };
 
 const authSlice = createSlice({

@@ -12,7 +12,7 @@ function PlayerFilter() {
   const [countryNames, setCountryNames] = useState([]);
   const [formData, setFormData] = useState({
     positions: [],
-    status: "",
+    status: [],
     location: "",
     gender: "",
     minAge: "",
@@ -52,14 +52,32 @@ function PlayerFilter() {
     });
   };
 
+  const [selectedStatus, setSelectedStatus] = useState([]);
+
+  const selectedStatusHander = (item) => {
+    setSelectedStatus((prev) => {
+      if (prev?.includes(item)) {
+        return prev?.filter((stats) => stats !== item);
+      } else {
+        return [...prev, item];
+      }
+    });
+  };
+
   const handleApplyFilter = () => {
-    const datas = { data: { ...formData, positions: selectedPositions } };
+    const datas = {
+      data: {
+        ...formData,
+        positions: selectedPositions,
+        status: selectedStatus,
+      },
+    };
     dispatch(setPlayerFilterParams(datas));
   };
   const handleResetFilter = () => {
     const formDatas = {
       positions: [],
-      status: "",
+      status: [],
       location: "",
       gender: "",
       minAge: "",
@@ -70,6 +88,8 @@ function PlayerFilter() {
     };
     dispatch(setPlayerFilterParams({ data: formDatas }));
     setFormData(formDatas);
+    setSelectedPositions([]);
+    setSelectedStatus([]);
   };
 
   const playerPositions = positions.filter(
@@ -108,11 +128,11 @@ function PlayerFilter() {
             <button
               key={stat}
               className={
-                formData.status === stat
+                selectedStatus.includes(stat)
                   ? "bg-warning text-white"
                   : "not-selected"
               }
-              onClick={() => setFormData({ ...formData, status: stat })}
+              onClick={() => selectedStatusHander(stat)}
             >
               {stat}
             </button>
@@ -199,7 +219,7 @@ function PlayerFilter() {
 
       {/* Dominant hand */}
       <div className="position_wrapper pb-4">
-        <h2>Dominant hand</h2>
+        <h2>Dominant {user?.sports === "Football" ? "Foot" : "Hand"}</h2>
         <div className="position_btn_wrapper location">
           <select
             className="form-select"
