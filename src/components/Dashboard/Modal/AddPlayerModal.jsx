@@ -44,7 +44,7 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     instagram: "",
     facebook: "",
     twitter: "",
-    tiktok: "",
+    youtube: "",
   });
 
   const handleSocialLinkChange = (e) => {
@@ -140,16 +140,20 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     };
 
     const formData = new FormData();
-    Object.entries(playerInfo).forEach(([key, value]) => {
-      key === "experience" &&
-        console.log("experience tab triggered successfully, ");
-      key === "experience"
-        ? formData.append("experience", JSON.stringify(value))
-        : formData.append(key, value);
-    });
+
+    // Object.entries(playerInfo).forEach(([key, value]) => {
+    //   key === "experience" &&
+    //     console.log("experience tab triggered successfully, ");
+    //   key === "experience"
+    //     ? formData.append("experience", JSON.stringify(value))
+    //     : formData.append(key, value);
+    // });
+
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);
     });
+
+    formData.append("experiencenew", JSON.stringify(userExperience));
 
     try {
       const response = await addPlayer(formData);
@@ -161,12 +165,11 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
         });
         setLoading(false);
         return true;
-      }
-      if (!response?.success) {
+      } else if (!response?.success) {
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: `${response?.message}`,
+          title: "Oops..",
+          text: `${response?.error.data.message}`,
         });
         setLoading(false);
         return false;
@@ -174,8 +177,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Oops...",
-        text: `${error?.message}`,
+        title: "Oops 500",
+        text: `${error?.error.data.message}`,
       });
       setLoading(false);
       return false;
@@ -220,7 +223,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
             <h2>Add Player</h2>
             <p
               className="fs-6 pointer"
-              onClick={() => setAddPlayerModal(false)}>
+              onClick={() => setAddPlayerModal(false)}
+            >
               X
             </p>
           </div>
@@ -268,7 +272,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}>
+            } `}
+          >
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddPlayerModal(false)}>Cancel</button>
               <button
@@ -279,7 +284,8 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
                   } else {
                     alert("Please fill up the required fields.");
                   }
-                }}>
+                }}
+              >
                 {step === 2 ? "Next" : "Add Player"}
               </button>
             </div>
