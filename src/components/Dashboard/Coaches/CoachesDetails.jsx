@@ -138,12 +138,14 @@ const CoachesDetails = () => {
               <p>{user?.nationality}</p>
             </div>
             <div className="contact_method d-flex gap-3 align-items-center pb-3">
-              <Link to={`/dashboard/messages/${user?._id}`}>
-                <button className="cm_message">
-                  <AiOutlineMessage />
-                  <p>Message</p>
-                </button>
-              </Link>
+              {user?.referral._id !== authUser?.user._id && (
+                <Link to={`/dashboard/messages/${user?.referral?._id}`}>
+                  <button className="cm_message">
+                    <AiOutlineMessage />
+                    <p>Message</p>
+                  </button>
+                </Link>
+              )}
 
               <button
                 className="cm_link d-flex gap-2 align-items-center justify-content-center"
