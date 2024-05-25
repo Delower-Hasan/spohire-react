@@ -12,7 +12,7 @@ import { userLoggedIn } from "../../../features/auth/authSlice";
 import ReferallProfiles from "./ReferallProfiles";
 
 const AddedItems = () => {
-  const [jobOffersType, setJobOffersType] = useState("Manager");
+  const [jobOffersType, setJobOffersType] = useState("all");
   const [active, setActive] = useState("active");
   const { user } = useSelector((state) => state.auth);
   const [filterData, setFilterData] = useState([]);
@@ -20,6 +20,16 @@ const AddedItems = () => {
   const [cancleSubscription] = useCancleSubscriptionMutation();
 
   const { data } = useGetUserReferallsQuery();
+
+  const typeHandler = (text) => {
+    setJobOffersType((prev) => {
+      if (prev === text) {
+        return "all";
+      } else {
+        return text;
+      }
+    });
+  };
 
   useEffect(() => {
     const filtered =
@@ -64,12 +74,12 @@ const AddedItems = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "player" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("player")}
+            onClick={() => typeHandler("player")}
           >
             Players
           </button>
 
-          {user?.role === "Manager" && (
+          {/* {user?.role === "Manager" && (
             <button
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "coach" && "activeBtn"
@@ -78,14 +88,14 @@ const AddedItems = () => {
             >
               Coaches
             </button>
-          )}
+          )} */}
 
-          {user?.role === "Coach" && (
+          {user?.role !== "Player" && (
             <button
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "coach" && "activeBtn"
               }`}
-              onClick={() => setJobOffersType("coach")}
+              onClick={() => typeHandler("coach")}
             >
               {/* {user?.role === "Coach" ? "Players" : "Player"} */}
               Coaches
@@ -96,7 +106,7 @@ const AddedItems = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "job" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("job")}
+            onClick={() => typeHandler("job")}
           >
             Job Offers
           </button>
@@ -104,7 +114,7 @@ const AddedItems = () => {
             className={`fs-6 fw-medium text_color_80 ${
               jobOffersType === "announcement" && "activeBtn"
             }`}
-            onClick={() => setJobOffersType("announcement")}
+            onClick={() => typeHandler("announcement")}
           >
             Announcements
           </button>
@@ -130,6 +140,47 @@ const AddedItems = () => {
           cancleSubscription={cancleSubscription}
           user={user}
         />
+      )}
+
+      {/* all coachs */}
+      {jobOffersType === "all" && (
+        <>
+          <div>
+            <div className="description">
+              <h5 className="mb-3">Players</h5>
+            </div>
+            <ReferallProfiles
+              data={filterData?.filter((i) => i.role === "Player")}
+              jobOffersType={jobOffersType}
+              cancleSubscription={cancleSubscription}
+              user={user}
+            />
+          </div>
+          {/* item */}
+          <div>
+            <div className="description mt-5">
+              <h5 className="mb-3">Coaches</h5>
+            </div>
+            <ReferallProfiles
+              data={filterData?.filter((i) => i.role === "Coach")}
+              jobOffersType={jobOffersType}
+              cancleSubscription={cancleSubscription}
+              user={user}
+            />
+          </div>
+          <div>
+            <div className="description mt-5">
+              <h5 className="mb-3">Jobs</h5>
+            </div>
+            <JobOffers isActive={active} />
+          </div>
+          <div>
+            <div className="description mt-5">
+              <h5 className="mb-3">Announcement</h5>
+            </div>
+            <MyAnnouncement isActive={active} />
+          </div>
+        </>
       )}
     </div>
   );

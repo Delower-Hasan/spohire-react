@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import bronze from "../../../assets/bronze.png";
 import facebook from "../../../assets/facebook.png";
+import twitterImg from "../../../assets/twiter1.png";
+import youtubeImg from "../../../assets/youtube.png";
 import gold from "../../../assets/gold.png";
 import instagram from "../../../assets/instagram.png";
 import silver from "../../../assets/silver1.png";
@@ -23,27 +25,6 @@ const ViewProfile = () => {
     const age = Math.floor(timeDiff / (365.25 * 24 * 60 * 60 * 1000));
     return age;
   };
-
-  const [socialMedia, setSocialMedia] = useState([]);
-
-  useEffect(() => {
-    let values = {};
-    for (let i = 0; i < user?.social_media?.length; i++) {
-      const element = user?.social_media[i];
-      if (element.includes("twitter.com")) {
-        values.twitter = element;
-      } else if (element?.includes("instagram.com")) {
-        values.instagram = element;
-      } else if (element?.includes("facebook.com")) {
-        values.facebook = element;
-      } else if (element?.includes("youtube.com")) {
-        values.youtube = element;
-      } else {
-        values.others = element;
-      }
-    }
-    setSocialMedia(values);
-  }, [user]);
 
   return (
     <>
@@ -102,7 +83,7 @@ const ViewProfile = () => {
             </div>
           </div>
 
-          <div className="user_otherInformation text-center ">
+          <div className="user_otherInformation text-end ">
             <div>
               {user?.subscriptionName ? (
                 <button
@@ -146,19 +127,45 @@ const ViewProfile = () => {
             {/* buy subscription coatch */}
 
             <div className="social_media_icon d-flex items-center gap-3 mt-2">
-              <Link className="link_btn" to="#">
+              {/* <Link className="link_btn" to="#">
                 <FaLink /> Copy Profile Link
-              </Link>
+              </Link> */}
 
-              {socialMedia.instagram && (
-                <Link className="icon" to={socialMedia.instagram}>
+              {user.instagram && (
+                <Link
+                  className="icon"
+                  target="_blank"
+                  to={`https://instagram.com/${user.instagram}`}
+                >
                   <img src={instagram} alt="" />
                 </Link>
               )}
 
-              {socialMedia.facebook && (
-                <Link className="icon" to={socialMedia.facebook}>
+              {user.facebook && (
+                <Link
+                  className="icon"
+                  target="_blank"
+                  to={`https://facebook.com/${user.facebook}`}
+                >
                   <img src={facebook} alt="" />
+                </Link>
+              )}
+              {user.twitter && (
+                <Link
+                  className="icon"
+                  target="_blank"
+                  to={`https://x.com/${user.twitter}`}
+                >
+                  <img src={twitterImg} alt="" />
+                </Link>
+              )}
+              {user.youtube && (
+                <Link
+                  className="icon"
+                  target="_blank"
+                  to={`https://youtube.com/${user.youtube}`}
+                >
+                  <img src={youtubeImg} alt="" />
                 </Link>
               )}
             </div>

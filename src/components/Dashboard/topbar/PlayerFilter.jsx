@@ -5,16 +5,14 @@ import { setPlayerFilterParams } from "../../../features/auth/authSlice";
 import "./Topbar.css";
 import { positions } from "../../../utils/PlayersSports";
 
-
-
 function PlayerFilter() {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
 
   const [countryNames, setCountryNames] = useState([]);
   const [formData, setFormData] = useState({
-    position: "",
-    status: "",
+    positions: [],
+    status: [],
     location: "",
     gender: "",
     minAge: "",
@@ -42,13 +40,44 @@ function PlayerFilter() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [selectedPositions, setSelectedPositions] = useState([]);
+
+  const selectedPositionsHander = (item) => {
+    setSelectedPositions((prev) => {
+      if (prev?.includes(item)) {
+        return prev?.filter((position) => position !== item);
+      } else {
+        return [...prev, item];
+      }
+    });
+  };
+
+  const [selectedStatus, setSelectedStatus] = useState([]);
+
+  const selectedStatusHander = (item) => {
+    setSelectedStatus((prev) => {
+      if (prev?.includes(item)) {
+        return prev?.filter((stats) => stats !== item);
+      } else {
+        return [...prev, item];
+      }
+    });
+  };
+
   const handleApplyFilter = () => {
-    dispatch(setPlayerFilterParams({ data: formData }));
+    const datas = {
+      data: {
+        ...formData,
+        positions: selectedPositions,
+        status: selectedStatus,
+      },
+    };
+    dispatch(setPlayerFilterParams(datas));
   };
   const handleResetFilter = () => {
     const formDatas = {
-      position: "",
-      status: "",
+      positions: [],
+      status: [],
       location: "",
       gender: "",
       minAge: "",
@@ -59,6 +88,8 @@ function PlayerFilter() {
     };
     dispatch(setPlayerFilterParams({ data: formDatas }));
     setFormData(formDatas);
+    setSelectedPositions([]);
+    setSelectedStatus([]);
   };
 
   const playerPositions = positions.filter(
@@ -75,11 +106,13 @@ function PlayerFilter() {
             <button
               key={pos}
               className={
-                formData.position === pos
-                  ? "bg-success text-white"
-                  : "not-selected"
+                selectedPositions.includes(pos)
+                  ? // formData.position === pos
+                    "bg-success text-white text-capitalize"
+                  : "not-selected text-capitalize"
               }
-              onClick={() => setFormData({ ...formData, position: pos })}
+              // onClick={() => setFormData({ ...formData, position: pos })}
+              onClick={() => selectedPositionsHander(pos)}
             >
               {pos}
             </button>
@@ -95,11 +128,11 @@ function PlayerFilter() {
             <button
               key={stat}
               className={
-                formData.status === stat
+                selectedStatus.includes(stat)
                   ? "bg-warning text-white"
                   : "not-selected"
               }
-              onClick={() => setFormData({ ...formData, status: stat })}
+              onClick={() => selectedStatusHander(stat)}
             >
               {stat}
             </button>
@@ -186,7 +219,7 @@ function PlayerFilter() {
 
       {/* Dominant hand */}
       <div className="position_wrapper pb-4">
-        <h2>Dominant hand</h2>
+        <h2>Dominant {user?.sports === "Football" ? "Foot" : "Hand"}</h2>
         <div className="position_btn_wrapper location">
           <select
             className="form-select"
