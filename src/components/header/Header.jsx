@@ -5,7 +5,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import profile from "../../assets/PROFILE.png";
 import dropdown from "../../assets/dropdownicon.png";
 import Logo from "../../assets/logo.png";
-import TransfarMarket from "../../assets/modal-market-img.png";
 import Logosm from "../../assets/responsive-logo.png";
 import { userLoggedOut } from "../../features/auth/authSlice";
 import "./Header.css";
@@ -69,8 +68,7 @@ const Header = () => {
         location.pathname === "/"
           ? "header_position position-absolute w-100"
           : ""
-      }`}
-    >
+      }`}>
       <Navbar expand="lg" className="navbar navbar-expand-lg">
         <Container>
           <Navbar.Brand href="#home" className="d-flex align-items-center">
@@ -82,15 +80,13 @@ const Header = () => {
           <div className="nav_toggle d-flex align-items-center">
             <Navbar.Toggle
               onClick={handleToggleMenu}
-              aria-controls="basic-navbar-nav"
-            >
+              aria-controls="basic-navbar-nav">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="28"
                 height="16"
                 viewBox="0 0 28 16"
-                fill="none"
-              >
+                fill="none">
                 <path
                   d="M0.666016 0H27.3327V2.66667H0.666016V0ZM7.33268 6.66667H27.3327V9.33333H7.33268V6.66667ZM15.666 13.3333H27.3327V16H15.666V13.3333Z"
                   fill="white"
@@ -135,8 +131,7 @@ const Header = () => {
                   to="/news"
                   className={`nav-link ${
                     location.pathname === "/news" && "active"
-                  }`}
-                >
+                  }`}>
                   News
                 </Link>
               </Nav.Link>
@@ -147,8 +142,7 @@ const Header = () => {
                   <Link to="/login" onClick={handleCloseMenu}>
                     <button
                       className="logIn visibility-lg-hidden visually-visible"
-                      style={{ color: "#9d99a3" }}
-                    >
+                      style={{ color: "#9d99a3" }}>
                       Log in
                     </button>
                   </Link>
@@ -156,8 +150,7 @@ const Header = () => {
                     to="/signup"
                     type="submit"
                     className="text-decoration-none"
-                    onClick={handleCloseMenu}
-                  >
+                    onClick={handleCloseMenu}>
                     <button className="authBtn btnNone text-white visibility-lg-hidden visually-visible">
                       Sign Up
                     </button>
@@ -174,8 +167,7 @@ const Header = () => {
                 <div
                   type="button"
                   onClick={(event) => handleButtonClick(event)}
-                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative"
-                >
+                  className="d-flex  flex-lg-row flex-column align-items-center  p-2 profile_drop_mobilepadding position-relative">
                   <Link to="/dashboard/viewProfile">
                     <img
                       className="profile_picture d-lg-block d-none"
@@ -227,8 +219,7 @@ const Header = () => {
                 <Link
                   to="/signup"
                   type="submit"
-                  className="text-decoration-none"
-                >
+                  className="text-decoration-none">
                   <button className="authBtn btnNone">
                     <span> Sign Up</span>
                   </button>

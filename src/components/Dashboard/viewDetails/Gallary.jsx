@@ -62,10 +62,13 @@ const Gallary = ({ gallary, user }) => {
             {user?.gallary &&
               user?.gallary.length > 0 &&
               user?.gallary.map((item, idx) => (
-                <div key={idx}>
+                <div
+                  className="overflow-hidden"
+                  style={{ width: "435px", height: "435px" }}
+                  key={idx}>
                   <img
-                    style={{ height: "100px" }}
-                    className="w-50"
+                    // style={{ height: "100px" }} 
+                    className="img-fluid"
                     src={`${
                       process.env.NODE_ENV !== "production"
                         ? import.meta.env.VITE_LOCAL_API_URL
@@ -86,8 +89,7 @@ const Gallary = ({ gallary, user }) => {
               color: "#4C4E52",
               fontWeight: "500",
               letterSpacing: "-0.48px",
-            }}
-          >
+            }}>
             About Me
           </h2>
           <p style={{ color: "#8593BC", fontSize: "18px" }}>{user?.about_me}</p>
