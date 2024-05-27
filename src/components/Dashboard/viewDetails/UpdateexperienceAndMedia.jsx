@@ -21,7 +21,7 @@ const UpdateexperienceAndMedia = ({
             <div className="col-lg-6 mb-lg-0 mb-4">
               <div className="editpersonal_info experience_update_wrapper">
                 <p>Experience</p>
-                <ul
+                {/* <ul
                   className="mb-4"
                   style={{
                     listStyle: "none",
@@ -45,7 +45,62 @@ const UpdateexperienceAndMedia = ({
                         </button>
                       </li>
                     ))}
-                </ul>
+                </ul> */}
+                <div className="mb-5">
+                  {exp &&
+                    exp.length > 0 &&
+                    exp?.map((item, index) => (
+                      <div className="row position-relative mb-3" key={index}>
+                        <div className="col-lg-4">
+                          <div className="w-100">
+                            <label className="form-label">From</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={item?.start_year}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-4">
+                          <div className="w-100">
+                            <label className="form-label">To</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={item?.end_year}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-lg-4">
+                          <div className="w-100">
+                            <label className="form-label">Club Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={item?.club_name}
+                            />
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          className=" btn btn-danger position-absolute d-flex align-items-center justify-content-center p-1"
+                          style={{
+                            right: 0,
+                            top: 20,
+                            width: "30px",
+                            borderRadius: "50%",
+                            fontSize: "15px",
+                          }}
+                          onClick={() => handleRemove(item)}
+                        >
+                          {" "}
+                          <span class="badge badge-pill badge-danger ">X</span>
+                        </button>
+                      </div>
+                    ))}
+                </div>
+
                 <>
                   <div className="row">
                     <div className="col-lg-4">

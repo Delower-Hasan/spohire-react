@@ -125,153 +125,161 @@ const CoachesDetails = () => {
           </h2>
         </div>
 
-        <div className="personal_info d-flex align-items-center justify-content-between">
-          <div className="bio_graphy">
-            <p className="surname">{user?.firstName}</p>
-            <p className="nickname pb-3">{user?.lastName}</p>
-            <div className="country d-flex gap-2 align-items-center pb-3">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: getCountryFlag(user?.nationality),
-                }}
-              />{" "}
-              <p>{user?.nationality}</p>
-            </div>
-            <div className="contact_method d-flex gap-3 align-items-center pb-3">
-              <Link to={`/dashboard/messages/${user?._id}`}>
-                <button className="cm_message">
-                  <AiOutlineMessage />
-                  <p>Message</p>
-                </button>
-              </Link>
-
-              <button
-                className="cm_link d-flex gap-2 align-items-center justify-content-center"
-                onClick={copyToClipboard}
-              >
-                <FaLink />
-
-                {copied ? (
-                  <span style={{ color: "red" }}>Copied!</span>
-                ) : (
-                  <p>Share</p>
+        <div
+          className="personal_info row align-items-center position-relative"
+          style={{ zIndex: 2 }}
+        >
+          <div className="col-lg-4">
+            <div className="bio_graphy">
+              <p className="surname">{user?.firstName}</p>
+              <p className="nickname pb-3">{user?.lastName}</p>
+              <div className="country d-flex gap-2 align-items-center pb-3">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: getCountryFlag(user?.nationality),
+                  }}
+                />{" "}
+                <p>{user?.nationality}</p>
+              </div>
+              <div className="contact_method d-flex gap-3 align-items-center pb-3">
+                {user?.referral._id !== authUser?.user._id && (
+                  <Link to={`/dashboard/messages/${user?.referral?._id}`}>
+                    <button className="cm_message">
+                      <AiOutlineMessage />
+                      <p>Message</p>
+                    </button>
+                  </Link>
                 )}
-              </button>
 
-              <button
-                className="bg-none me-3"
-                onClick={(e) => handleBookmark(e, user?._id)}
-                style={{ width: "20px" }}
-                disabled={observeLoading}
-              >
-                {isBookmarked !== undefined &&
-                  (isBookmarked ? (
-                    <FaRegBookmark
-                      style={{
-                        color: "#FFF",
-                        fontSize: "35px",
-                        strokeWidth: "1",
-                      }}
-                    />
+                <button
+                  className="cm_link d-flex gap-2 align-items-center justify-content-center"
+                  onClick={copyToClipboard}
+                >
+                  <FaLink />
+
+                  {copied ? (
+                    <span style={{ color: "red" }}>Copied!</span>
                   ) : (
-                    <FaRegBookmark
-                      style={{
-                        color: "#FFF",
-                        fontSize: "35px",
-                        strokeWidth: "1",
-                      }}
-                    />
-                  ))}
-              </button>
+                    <p>Share</p>
+                  )}
+                </button>
+
+                <button
+                  className="bg-none me-3"
+                  onClick={(e) => handleBookmark(e, user?._id)}
+                  style={{ width: "20px" }}
+                  disabled={observeLoading}
+                >
+                  {isBookmarked !== undefined &&
+                    (isBookmarked ? (
+                      <FaRegBookmark
+                        style={{
+                          color: "#FFF",
+                          fontSize: "35px",
+                          strokeWidth: "1",
+                        }}
+                      />
+                    ) : (
+                      <FaRegBookmark
+                        style={{
+                          color: "#FFF",
+                          fontSize: "35px",
+                          strokeWidth: "1",
+                        }}
+                      />
+                    ))}
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="photograph z-1">
-            <div className="photograph_border">
-              <div className="photograph_img position-relative">
-                <img
-                  src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${user?.image}`}
-                  alt="photograph"
-                />
+          <div className="col-lg-4">
+            <div className="photograph z-1">
+              <div className="photograph_border">
+                <div className="photograph_img position-relative">
+                  <img
+                    src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${
+                      user?.image
+                    }`}
+                    alt="photograph"
+                  />
 
-                <div className="subscription_title  position-absolute">
-                  {user?.isSubsCribed &&
-                    user?.subscriptionName === "Silver" && (
-                      <div className="d-flex align-items-center gap-2 text-uppercase">
-                        <p
-                          className="font-bold d-inline-flex gap-2"
-                          style={{
-                            fontSize: "16px",
-                            color: "#2B3674",
-                            border: "1px solid #F2F2F2",
-                            padding: "8px 40px",
-                            borderRadius: "13px",
-                            backgroundColor: "#F2F2F2",
-                          }}
-                        >
-                          <img src={silverIcon} alt="silver-icon" />
-                          {user?.subscriptionName}
-                        </p>
-                      </div>
-                    )}
+                  <div className="subscription_title  position-absolute">
+                    {user?.isSubsCribed &&
+                      user?.subscriptionName === "Silver" && (
+                        <div className="d-flex align-items-center gap-2 text-uppercase">
+                          <p
+                            className="font-bold d-inline-flex gap-2"
+                            style={{
+                              fontSize: "16px",
+                              color: "#2B3674",
+                              border: "1px solid #F2F2F2",
+                              padding: "8px 40px",
+                              borderRadius: "13px",
+                              backgroundColor: "#F2F2F2",
+                            }}
+                          >
+                            <img src={silverIcon} alt="silver-icon" />
+                            {user?.subscriptionName}
+                          </p>
+                        </div>
+                      )}
 
-                  {user?.isSubsCribed && user?.subscriptionName === "Gold" && (
-                    <div className="d-flex align-items-center gap-2 text-uppercase">
-                      <p
-                        className="font-bold d-inline-flex gap-2"
-                        style={{
-                          fontSize: "16px",
-                          color: "#fff",
-                          border: "1px solid #FFD029",
-                          padding: "8px 40px",
-                          borderRadius: "13px",
-                          backgroundColor: "#FFD029",
-                        }}
-                      >
-                        <img src={goldIcon} alt="silver-icon" />
-                        {user?.subscriptionName}
-                      </p>
-                    </div>
-                  )}
+                    {user?.isSubsCribed &&
+                      user?.subscriptionName === "Gold" && (
+                        <div className="d-flex align-items-center gap-2 text-uppercase">
+                          <p
+                            className="font-bold d-inline-flex gap-2"
+                            style={{
+                              fontSize: "16px",
+                              color: "#fff",
+                              border: "1px solid #FFD029",
+                              padding: "8px 40px",
+                              borderRadius: "13px",
+                              backgroundColor: "#FFD029",
+                            }}
+                          >
+                            <img src={goldIcon} alt="silver-icon" />
+                            {user?.subscriptionName}
+                          </p>
+                        </div>
+                      )}
 
-                  {user?.isSubsCribed &&
-                    user?.subscriptionName === "Bronze" && (
-                      <div className="d-flex align-items-center gap-2 text-uppercase">
-                        <p
-                          className="font-bold d-inline-flex gap-2"
-                          style={{
-                            fontSize: "16px",
-                            color: "#fff",
-                            border: "1px solid #FB5A00",
-                            padding: "8px 40px",
-                            borderRadius: "13px",
-                            backgroundColor: "#FB5A00",
-                          }}
-                        >
-                          <img src={silverIcon} alt="silver-icon" />
-                          {user?.subscriptionName}
-                        </p>
-                      </div>
-                    )}
+                    {user?.isSubsCribed &&
+                      user?.subscriptionName === "Bronze" && (
+                        <div className="d-flex align-items-center gap-2 text-uppercase">
+                          <p
+                            className="font-bold d-inline-flex gap-2"
+                            style={{
+                              fontSize: "16px",
+                              color: "#fff",
+                              border: "1px solid #FB5A00",
+                              padding: "8px 40px",
+                              borderRadius: "13px",
+                              backgroundColor: "#FB5A00",
+                            }}
+                          >
+                            <img src={silverIcon} alt="silver-icon" />
+                            {user?.subscriptionName}
+                          </p>
+                        </div>
+                      )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bio_graphy2 d-flex justify-content-center gap-4">
-            <div className=" text-center">
-              <p className="bio_title">Age</p>
-              <p className="bio_info">
-                {calculateAge(user?.date_of_birth) ?? "N/A"}
-              </p>
-              <p className="bio_footer_title text-white">years</p>
+          <div className="col-lg-4">
+            <div className="bio_graphy2 d-flex justify-content-center gap-4">
+              <div className=" text-center">
+                <p className="bio_title">Age</p>
+                <p className="bio_info">
+                  {calculateAge(user?.date_of_birth) ?? "N/A"}
+                </p>
+                <p className="bio_footer_title text-white">years</p>
+              </div>
             </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div className=" text-center"></div>
-            <div className=" text-center"></div>
           </div>
         </div>
 
