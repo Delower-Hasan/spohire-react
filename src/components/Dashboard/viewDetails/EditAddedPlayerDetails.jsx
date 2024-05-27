@@ -1,25 +1,26 @@
-import "./ViewDetails.css";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import plus4 from "../../../assets/plus4.png";
 import profileImage from "../../../assets/profile_upload.png";
 import upload from "../../../assets/upload.png";
-import plus4 from "../../../assets/plus4.png";
-import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
-import EditGallary from "./EditGallary";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   useGetPlayerDetailsQuery,
   useUpdatePlayerDetailsMutation,
 } from "../../../features/auth/authApi";
-import { userLoggedIn } from "../../../features/auth/authSlice";
-import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDropzone } from "react-dropzone";
-import axios from "axios";
+
 import { RotatingLines } from "react-loader-spinner";
+import EditGallary from "./EditGallary";
+import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
+import "./ViewDetails.css";
 
 // const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+
 const postions = [
   {
     type: "Football",
@@ -226,6 +227,12 @@ const EditAddedPlayerDetails = () => {
     }
   };
 
+  const removeGallaryImage = (index) => {
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
+
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
@@ -367,9 +374,11 @@ const EditAddedPlayerDetails = () => {
     setUserInfo(newData);
     setSportsType(user?.sports);
     setBelongclub(user?.belong_to_the_club);
+    setSelectedGalleryFiles(user?.gallary);
     setUserExperience(user?.experience);
   }, [user, id]);
   const [countryNames, setCountryNames] = useState([]);
+  console.log("selectedGallary", selectedGalleryFiles);
 
   useEffect(() => {
     axios
@@ -444,7 +453,6 @@ const EditAddedPlayerDetails = () => {
           />
         </div>
       )}
-
       <form className="" onSubmit={handleUpdate}>
         <div className="View_details container p-0 overflow-hidden">
           <div className="job_offer desktop_vd edit_player_details_wrapper ps-lg-0 pe-lg-0 mb-4 personalInfo editpersonal_info">
@@ -493,9 +501,29 @@ const EditAddedPlayerDetails = () => {
                       style={{ display: "none" }}
                       onChange={handleImageChange}
                     />
+                    <div>
+                      {!selectedImage && (
+                        <button
+                          type="button"
+                          className="profile_upload_btn"
+                          // onClick={handleButtonClick}
+                        >
+                          <img src={upload} alt="" />
+                          <span>Upload</span>
+                        </button>
+                      )}
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        accept=".jpeg, .jpg, .png"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
+
               <div className="col-12 col-lg-8">
                 <div className=" ">
                   <div className="row mb_40">
@@ -538,6 +566,7 @@ const EditAddedPlayerDetails = () => {
                   </div>
                 </div>
               </div>
+
               {/* next item */}
               <div className="col-md-4">
                 <div className="pb-4">
@@ -565,6 +594,7 @@ const EditAddedPlayerDetails = () => {
                   </select>
                 </div>
               </div>
+
               {user?.role !== "Coach" && (
                 <>
                   <div className="col-lg-4">
@@ -584,9 +614,9 @@ const EditAddedPlayerDetails = () => {
                         }}
                       >
                         {/* <option value={"Goalkeeper"}>Goalkeeper</option>
-                      <option value={"Defender"}>Defender</option>
-                      <option value={"Midfielder"}>Midfielder</option>
-                      <option value={"Forward"}>Forward</option> */}
+                        <option value={"Defender"}>Defender</option>
+                        <option value={"Midfielder"}>Midfielder</option>
+                        <option value={"Forward"}>Forward</option> */}
                         {mainAndAditionPostions[0]?.mainPositions?.map(
                           (item, index) => (
                             <option
@@ -635,6 +665,117 @@ const EditAddedPlayerDetails = () => {
                   </div>
                 </>
               )}
+
+              <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="dominantHand"
+                    value={userInfo["dominantHand"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("dominantHand", e.target.value)
+                    }
+                  >
+                    <option value={"Left"}>Left</option>
+                    <option value={"Right"}>Right</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Nationality *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="nationality"
+                    value={userInfo["nationality"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("nationality", e.target.value)
+                    }
+                  >
+                    {countryNames?.map((country, index) => (
+                      <option value={country.name} className="" key={index}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Additional Passport *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="additional_passport"
+                    value={userInfo["additional_passport"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("additional_passport", e.target.value)
+                    }
+                  >
+                    {countryNames?.map((country, index) => (
+                      <option value={country.name} className="" key={index}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-lg-4">
+                <div className="input_form pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Do you currently belong to a club? *
+                  </label>
+
+                  <select
+                    required
+                    className={`select_form text-capitalize`}
+                    name="alterPosition"
+                    onChange={(e) =>
+                      handleInputChange("alterPosition", e.target.value)
+                    }
+                  >
+                    <option value={"N/A"} selected>
+                      Select
+                    </option>
+                    {altPositions[0]?.alternativePositions?.map(
+                      (item, index) => (
+                        <option
+                          key={index}
+                          value={item}
+                          className="text-capitalize"
+                        >
+                          {item}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+              </div>
+
               <div className="col-lg-4">
                 <div className="pb-4">
                   <label
@@ -714,7 +855,7 @@ const EditAddedPlayerDetails = () => {
                     htmlFor="name"
                     className="d-block label_name mb-2 text-capitalize"
                   >
-                    Do you currently belong to a club? *
+                    Club name
                   </label>
 
                   <div className="btn_group d-flex gap-3 mt-2">
@@ -828,6 +969,43 @@ const EditAddedPlayerDetails = () => {
                   ></textarea>
                 </div>
               </div>
+
+              {/* next item */}
+            </div>
+          </div>
+
+          <UpdateexperienceAndMedia
+            handleInputChange={handleInputChange}
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+            editedInfo={editedInfo}
+            setEditedInfo={setEditedInfo}
+            exp={userInfo["experience"] ? userInfo["experience"] : []}
+            handleAddMore={handleAddMore}
+            handleExperienceChange={handleExperienceChange}
+            userExperience={userExperience}
+            handleRemove={handleRemove}
+          />
+
+          <div className=" mb_60 experience_wrapper">
+            <div className="row justify-content-start about_part">
+              <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
+                <p className="f_sfPro text_color_36 fs_18 mb-2">
+                  Strengths Advantages
+                </p>
+                <div className="">
+                  {/*  */}
+                  <textarea
+                    onChange={(e) =>
+                      handleInputChange("strengths_advantage", e.target.value)
+                    }
+                    className="form-control about_me_editField"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    value={userInfo?.strengths_advantage}
+                  ></textarea>
+                </div>
+              </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
                 <p className="f_sfPro text_color_36 fs_18 mb-2">About Me</p>
                 <div className="">
@@ -868,75 +1046,102 @@ const EditAddedPlayerDetails = () => {
           </div>
           {/* <!-- Slider Start --> */}
           {/* <div className="d-flex align-items-center gap-3 mb_28">
-        <p
-          className="f_sfPro text_color_36 fs_18"
-          style={{ paddingLeft: "75px" }}
-        >
-          Gallery
-        </p>
+          <p
+            className="f_sfPro text_color_36 fs_18"
+            style={{ paddingLeft: "75px" }}
+          >
+            Gallery
+          </p>
 
-        <label
-          style={{ cursor: "pointer" }}
-          className="add_image_btn bg-none"
-        >
-          <span>Add Image</span>
-          <img src={plus4} alt="" />
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleGallaryImageChange}
-            style={{ display: "none" }}
-          />
-        </label>
-      </div> */}
+          <label
+            style={{ cursor: "pointer" }}
+            className="add_image_btn bg-none"
+          >
+            <span>Add Image</span>
+            <img src={plus4} alt="" />
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleGallaryImageChange}
+              style={{ display: "none" }}
+            />
+          </label>
+        </div> */}
           <div className="col-lg-6 p-0">
             <div className="cover_img">
               {/* <img className="img-fluid" src={coverImg} alt="" /> */}
             </div>
             {/* <div className="d-flex justify-content-center align-items-center">
-          <button
-            type="button"
-            className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-            {...galleryRootProps()}
-          >
-            <div className="add_icon">
-              <img src={plus4} alt="add-icon" />
-            </div>
-            <input {...galleryInputProps()} />
-            Add Photo
-          </button>
-        </div> */}
+            <button
+              type="button"
+              className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+              {...galleryRootProps()}
+            >
+              <div className="add_icon">
+                <img src={plus4} alt="add-icon" />
+              </div>
+              <input {...galleryInputProps()} />
+              Add Photo
+            </button>
+          </div> */}
+
             <div className="upload-images d-flex gap-4 flex-wrap mb-4">
-              {user?.gallary?.length > 0 &&
-                user?.gallary?.map((file, index) => (
-                  <div key={index}>
-                    <img
-                      style={{ width: "130px", height: "130px" }}
-                      key={index}
-                      src={`${
-                        process.env.NODE_ENV !== "production"
-                          ? import.meta.env.VITE_LOCAL_API_URL
-                          : import.meta.env.VITE_LIVE_API_URL
-                      }/api/v1/uploads/${file}`}
-                      // alt={`Uploaded file ${file}`}
-                    />
-                  </div>
-                ))}
-              <button
-                type="button"
-                className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                {...galleryRootProps()}
-              >
-                <div className="add_icon">
-                  <img src={plus4} alt="add-icon" />
+              {/* {user?.gallary?.length > 0 &&
+              user?.gallary?.map((file, index) => (
+                <div key={index}>
+                  <button
+                    type="button"
+                    className=" p-1 px-2  bg-black text-white"
+                    style={{
+                      right: "5px",
+                      top: "5px",
+                      fontSize: "10px",
+                      borderRadius: "100%",
+                    }}
+                    onClick={() => removeGallaryImage(index)}>
+                    X
+                  </button>
+                  <img
+                    style={{ width: "130px", height: "130px" }}
+                    key={index}
+                    src={`${
+                      process.env.NODE_ENV !== "production"
+                        ? import.meta.env.VITE_LOCAL_API_URL
+                        : import.meta.env.VITE_LIVE_API_URL
+                    }/api/v1/uploads/${file}`}
+                    // alt={`Uploaded file ${file}`}
+                  />
                 </div>
-                <input {...galleryInputProps()} />
-                Add Photo
-              </button>
+              ))} */}
+              <div
+                className="d-flex justify-content-center align-items-center"
+                style={{
+                  border: "1px dotted black",
+                  borderRadius: "20px",
+                  width: "200px",
+                  height: "100px",
+                }}
+              >
+                <button
+                  type="button"
+                  className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+                  {...galleryRootProps()}
+                >
+                  <div className="add_icon">
+                    <img src={plus4} alt="add-icon" />
+                  </div>
+                  <input {...galleryInputProps()} />
+                  Add Photo
+                </button>
+              </div>
             </div>
           </div>
-          <EditGallary images={selectedGalleryFiles} />
+
+          <EditGallary
+            removeGallaryImage={removeGallaryImage}
+            images={selectedGalleryFiles}
+          />
 
           <button
             type="submit"

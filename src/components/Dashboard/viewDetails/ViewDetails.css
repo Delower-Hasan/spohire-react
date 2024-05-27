@@ -1129,3 +1129,7 @@
     border-radius: 100%;
     border: 1px solid;
 }
+
+.swiper-wrapper{
+    padding-left: 0px !important;
+}
