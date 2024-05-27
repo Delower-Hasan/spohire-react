@@ -1,23 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import "./ViewDetails.css";
-import profileImage from "../../../assets/profile_avatar.png";
-import upload from "../../../assets/upload.png";
-import plus4 from "../../../assets/plus4.png";
-import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
-import EditGallary from "./EditGallary";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { PiPencilSimpleLineDuotone } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import addIcon from "../../../assets/addIcon.svg";
+import profileImage from "../../../assets/profile_avatar.png";
 import { useUpdateUserMutation } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
-import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
-import { PiPencilSimpleLineDuotone } from "react-icons/pi";
-import coverImg from "../../../assets/cover_img.png";
-import addNewPhoto from "../../../assets/addNewPhoto.svg";
-import { useDropzone } from "react-dropzone";
-import addIcon from "../../../assets/addIcon.svg";
-import axios from "axios";
+import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
+import "./ViewDetails.css";
 
 // data
 const inputFieldData = [
@@ -223,8 +218,17 @@ const EditPlayerDetails = () => {
     setSelectedGalleryFiles([...selectedGalleryFiles, ...acceptedFiles]);
   };
 
+  const removeGallaryImage = (index) => {
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
+
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
-    useDropzone({ onDrop: onGalleryDrop });
+    useDropzone({
+      onDrop: onGalleryDrop,
+      accept: "image/*,video/*", // Accept both images and videos
+    });
 
   // form submit data
   const handleUpdate = async (e) => {
@@ -349,8 +353,7 @@ const EditPlayerDetails = () => {
     <form
       className="p-5 bg-white"
       onSubmit={handleUpdate}
-      style={{ borderRadius: "20px" }}
-    >
+      style={{ borderRadius: "20px" }}>
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
@@ -370,8 +373,7 @@ const EditPlayerDetails = () => {
 
               <div
                 className="upload_profile_image d-flex align-items-center justify-content-center"
-                onClick={handleButtonClick}
-              >
+                onClick={handleButtonClick}>
                 <img
                   className="img-fluid profiles"
                   src={
@@ -426,13 +428,11 @@ const EditPlayerDetails = () => {
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "40px" : "0",
-                          }}
-                        >
+                          }}>
                           <div className="w-100">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label"
-                            >
+                              className="form-label">
                               {" "}
                               {field.label}{" "}
                             </label>
@@ -516,15 +516,13 @@ const EditPlayerDetails = () => {
                         name="nationality"
                         onChange={(e) => {
                           handleInputChange("nationality", e.target.value);
-                        }}
-                      >
+                        }}>
                         {countryNames?.map((country, index) => (
                           <option
                             selected={userInfo["nationality"] === country}
                             value={country.name}
                             className=""
-                            key={index}
-                          >
+                            key={index}>
                             {country.name}
                           </option>
                         ))}
@@ -538,7 +536,6 @@ const EditPlayerDetails = () => {
         </div>
 
         <UpdateexperienceAndMedia
-       
           handleInputChange={handleInputChange}
           userInfo={userInfo}
           setUserInfo={setUserInfo}
@@ -561,8 +558,7 @@ const EditPlayerDetails = () => {
                 <button
                   type="button"
                   className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                  {...galleryRootProps()}
-                >
+                  {...galleryRootProps()}>
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
@@ -570,14 +566,48 @@ const EditPlayerDetails = () => {
                   Add Photo or Video
                 </button>
               </div>
+
               <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+                <button
+                  type="button"
+                  className="p-1 px-2  bg-black text-white position-absolute"
+                  style={{
+                    right: "5px",
+                    top: "5px",
+                    fontSize: "10px",
+                    borderRadius: "100%",
+                  }}
+                  onClick={() => removeGallaryImage(index)}>
+                  X
+                </button>
                 {selectedGalleryFiles.map((file, index) => (
-                  <img
-                    style={{ width: "130px", height: "130px" }}
-                    key={index}
-                    src={URL.createObjectURL(file)}
-                    alt={`Uploaded file ${index}`}
-                  />
+                  <div className="position-relative">
+                    <button
+                      type="button"
+                      className="p-1 px-2  bg-black text-white position-absolute z-3"
+                      style={{
+                        right: "5px",
+                        top: "5px",
+                        fontSize: "10px",
+                        borderRadius: "100%",
+                      }}
+                      onClick={() => removeGallaryImage(index)}>
+                      X
+                    </button>
+                    <div>
+                      {file.type.startsWith("image/") ? (
+                        <div style={{ width: "200px", height: "200px" }}>
+                          <img
+                            className="img-fluid"
+                            src={URL.createObjectURL(file)}
+                            alt={`gallery-${index}`}
+                          />
+                        </div>
+                      ) : (
+                        <video style={{width: "360px"}} src={URL.createObjectURL(file)} controls />
+                      )}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

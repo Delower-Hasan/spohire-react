@@ -890,6 +890,7 @@ const AddPlayerForm = ({
             </div>
             <div className="upload-images d-flex gap-4 flex-wrap mb-4 ">
               {selectedGalleryFiles.map((file, index) => (
+                
                 <div key={index} className="position-relative">
                   <img
                     style={{ width: "130px", height: "130px" }}

@@ -1,24 +1,24 @@
-import "./ViewDetails.css";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import plus4 from "../../../assets/plus4.png";
 import profileImage from "../../../assets/profile_upload.png";
 import upload from "../../../assets/upload.png";
-import plus4 from "../../../assets/plus4.png";
-import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
-import EditGallary from "./EditGallary";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   useGetPlayerDetailsQuery,
   useUpdatePlayerDetailsMutation,
 } from "../../../features/auth/authApi";
-import { userLoggedIn } from "../../../features/auth/authSlice";
-import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDropzone } from "react-dropzone";
-import axios from "axios";
+import EditGallary from "./EditGallary";
+import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
+import "./ViewDetails.css";
 
 // const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 
 const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+
 const postions = [
   {
     type: "Football",
@@ -224,6 +224,12 @@ const EditAddedPlayerDetails = () => {
     }
   };
 
+  const removeGallaryImage = (index) => {
+    const updatedImages = [...selectedGalleryFiles];
+    updatedImages.splice(index, 1);
+    setSelectedGalleryFiles(updatedImages);
+  };
+
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
@@ -365,10 +371,11 @@ const EditAddedPlayerDetails = () => {
     setUserInfo(newData);
     setSportsType(user?.sports);
     setBelongclub(user?.belong_to_the_club);
-    // setMainPositionType(user?.mainPosition);
+    setSelectedGalleryFiles(user?.gallary);
     setUserExperience(user?.experience);
   }, [user, id]);
   const [countryNames, setCountryNames] = useState([]);
+  console.log("selectedGallary", selectedGalleryFiles);
 
   useEffect(() => {
     axios
@@ -422,8 +429,7 @@ const EditAddedPlayerDetails = () => {
             <div className="col-12 col-lg-4">
               <div
                 className="upload_profile_image "
-                onClick={handleButtonClick}
-              >
+                onClick={handleButtonClick}>
                 <img
                   className="img-fluid profiles"
                   src={
@@ -466,6 +472,7 @@ const EditAddedPlayerDetails = () => {
                 </div>
               </div>
             </div>
+
             <div className="col-12 col-lg-8">
               <div className=" ">
                 <div className="row mb_40">
@@ -477,13 +484,11 @@ const EditAddedPlayerDetails = () => {
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "20px" : "0",
-                          }}
-                        >
+                          }}>
                           <div className="w-100 input_form">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label label_name "
-                            >
+                              className="form-label label_name ">
                               {field.label}
                             </label>
                             <input
@@ -506,6 +511,7 @@ const EditAddedPlayerDetails = () => {
                 </div>
               </div>
             </div>
+
             {/* next item */}
             <div className="col-md-4">
               <div className="pb-4">
@@ -519,20 +525,19 @@ const EditAddedPlayerDetails = () => {
                   onChange={(e) => {
                     handleInputChange("sports", e.target.value);
                     setSportsType(e.target.value);
-                  }}
-                >
+                  }}>
                   {sportsDatas.map((item, index) => (
                     <option
                       selected={userInfo["sports"] === item}
                       key={index}
-                      value={item}
-                    >
+                      value={item}>
                       {item}
                     </option>
                   ))}
                 </select>
               </div>
             </div>
+
             {user?.role !== "Coach" && (
               <>
                 <div className="col-lg-4">
@@ -549,8 +554,7 @@ const EditAddedPlayerDetails = () => {
                       onChange={(e) => {
                         handleInputChange("mainPosition", e.target.value);
                         setMainPositionType(e.target.value);
-                      }}
-                    >
+                      }}>
                       {/* <option value={"Goalkeeper"}>Goalkeeper</option>
                         <option value={"Defender"}>Defender</option>
                         <option value={"Midfielder"}>Midfielder</option>
@@ -560,8 +564,7 @@ const EditAddedPlayerDetails = () => {
                           <option
                             key={index}
                             value={item}
-                            className="text-capitalize"
-                          >
+                            className="text-capitalize">
                             {item}
                           </option>
                         )
@@ -582,8 +585,7 @@ const EditAddedPlayerDetails = () => {
                       name="alterPosition"
                       onChange={(e) =>
                         handleInputChange("alterPosition", e.target.value)
-                      }
-                    >
+                      }>
                       <option value={"N/A"} selected>
                         Select
                       </option>
@@ -592,8 +594,7 @@ const EditAddedPlayerDetails = () => {
                           <option
                             key={index}
                             value={item}
-                            className="text-capitalize"
-                          >
+                            className="text-capitalize">
                             {item}
                           </option>
                         )
@@ -603,12 +604,12 @@ const EditAddedPlayerDetails = () => {
                 </div>
               </>
             )}
+
             <div className="col-lg-4">
               <div className="pb-4">
                 <label
                   htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
+                  className="d-block label_name mb-2 text-capitalize">
                   Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
                 </label>
                 <select
@@ -618,19 +619,18 @@ const EditAddedPlayerDetails = () => {
                   value={userInfo["dominantHand"] || ""}
                   onChange={(e) =>
                     handleInputChange("dominantHand", e.target.value)
-                  }
-                >
+                  }>
                   <option value={"Left"}>Left</option>
                   <option value={"Right"}>Right</option>
                 </select>
               </div>
             </div>
+
             <div className="col-lg-4">
               <div className="pb-4">
                 <label
                   htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
+                  className="d-block label_name mb-2 text-capitalize">
                   Nationality *
                 </label>
                 <select
@@ -640,8 +640,7 @@ const EditAddedPlayerDetails = () => {
                   value={userInfo["nationality"] || ""}
                   onChange={(e) =>
                     handleInputChange("nationality", e.target.value)
-                  }
-                >
+                  }>
                   {countryNames?.map((country, index) => (
                     <option value={country.name} className="" key={index}>
                       {country.name}
@@ -650,12 +649,12 @@ const EditAddedPlayerDetails = () => {
                 </select>
               </div>
             </div>
+
             <div className="col-lg-4">
               <div className="pb-4">
                 <label
                   htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
+                  className="d-block label_name mb-2 text-capitalize">
                   Additional Passport *
                 </label>
                 <select
@@ -665,8 +664,7 @@ const EditAddedPlayerDetails = () => {
                   value={userInfo["additional_passport"] || ""}
                   onChange={(e) =>
                     handleInputChange("additional_passport", e.target.value)
-                  }
-                >
+                  }>
                   {countryNames?.map((country, index) => (
                     <option value={country.name} className="" key={index}>
                       {country.name}
@@ -680,8 +678,7 @@ const EditAddedPlayerDetails = () => {
               <div className="input_form pb-4">
                 <label
                   htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
+                  className="d-block label_name mb-2 text-capitalize">
                   Do you currently belong to a club? *
                 </label>
 
@@ -706,8 +703,7 @@ const EditAddedPlayerDetails = () => {
                       backgroundColor: `${isBelongClub ? "#05CD99" : ""}`,
                     }}
                     className="btn btn-outline-success"
-                    htmlFor="yes"
-                  >
+                    htmlFor="yes">
                     YES
                   </label>
                   <input
@@ -730,8 +726,7 @@ const EditAddedPlayerDetails = () => {
                       background: `${!isBelongClub ? "#05CD99" : ""}`,
                     }}
                     htmlFor="no"
-                    className="btn btn-outline-success"
-                  >
+                    className="btn btn-outline-success">
                     NO
                   </label>
                 </div>
@@ -743,8 +738,7 @@ const EditAddedPlayerDetails = () => {
                 <div className="input_form pb-4">
                   <label
                     htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
+                    className="d-block label_name mb-2 text-capitalize">
                     Club name
                   </label>
                   <input
@@ -792,8 +786,7 @@ const EditAddedPlayerDetails = () => {
                   className="form-control about_me_editField"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  value={userInfo?.strengths_advantage}
-                ></textarea>
+                  value={userInfo?.strengths_advantage}></textarea>
               </div>
             </div>
             <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
@@ -807,8 +800,7 @@ const EditAddedPlayerDetails = () => {
                   className="form-control about_me_editField"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  value={userInfo?.about_me}
-                ></textarea>
+                  value={userInfo?.about_me}></textarea>
               </div>
             </div>
 
@@ -828,8 +820,7 @@ const EditAddedPlayerDetails = () => {
                   className="form-control about_me_editField"
                   id="exampleFormControlTextarea1"
                   rows="3"
-                  value={userInfo?.expectations_from_new_club}
-                ></textarea>
+                  value={userInfo?.expectations_from_new_club}></textarea>
               </div>
             </div>
           </div>
@@ -875,10 +866,23 @@ const EditAddedPlayerDetails = () => {
               Add Photo
             </button>
           </div> */}
+
           <div className="upload-images d-flex gap-4 flex-wrap mb-4">
-            {user?.gallary?.length > 0 &&
+            {/* {user?.gallary?.length > 0 &&
               user?.gallary?.map((file, index) => (
                 <div key={index}>
+                  <button
+                    type="button"
+                    className=" p-1 px-2  bg-black text-white"
+                    style={{
+                      right: "5px",
+                      top: "5px",
+                      fontSize: "10px",
+                      borderRadius: "100%",
+                    }}
+                    onClick={() => removeGallaryImage(index)}>
+                    X
+                  </button>
                   <img
                     style={{ width: "130px", height: "130px" }}
                     key={index}
@@ -890,27 +894,38 @@ const EditAddedPlayerDetails = () => {
                     // alt={`Uploaded file ${file}`}
                   />
                 </div>
-              ))}
-            <button
-              type="button"
-              className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-              {...galleryRootProps()}
-            >
-              <div className="add_icon">
-                <img src={plus4} alt="add-icon" />
-              </div>
-              <input {...galleryInputProps()} />
-              Add Photo
-            </button>
+              ))} */}
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{
+                border: "1px dotted black",
+                borderRadius: "20px",
+                width: "200px",
+                height: "100px",
+              }}>
+              <button
+                type="button"
+                className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+                {...galleryRootProps()}>
+                <div className="add_icon">
+                  <img src={plus4} alt="add-icon" />
+                </div>
+                <input {...galleryInputProps()} />
+                Add Photo
+              </button>
+            </div>
           </div>
         </div>
-        <EditGallary images={selectedGalleryFiles} />
+
+        <EditGallary
+          removeGallaryImage={removeGallaryImage}
+          images={selectedGalleryFiles}
+        />
 
         <button
           type="submit"
           disabled={isLoading}
-          className="experience_wrapper playerDetailsUpdate_btn"
-        >
+          className="experience_wrapper playerDetailsUpdate_btn">
           {isLoading ? "Updating..." : "Update"}
         </button>
       </div>
