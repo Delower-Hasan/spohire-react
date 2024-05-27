@@ -141,13 +141,9 @@ const AddPlayerModal = ({ setAddPlayerModal }) => {
 
     const formData = new FormData();
 
-    // Object.entries(playerInfo).forEach(([key, value]) => {
-    //   key === "experience" &&
-    //     console.log("experience tab triggered successfully, ");
-    //   key === "experience"
-    //     ? formData.append("experience", JSON.stringify(value))
-    //     : formData.append(key, value);
-    // });
+    Object.entries(playerInfo).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
     selectedGalleryFiles?.forEach((img, index) => {
       formData.append(`gallary`, img);

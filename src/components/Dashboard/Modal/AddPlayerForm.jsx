@@ -409,6 +409,9 @@ const AddPlayerForm = ({
                 setSportsType(e.target.value);
               }}
             >
+              <option value="#" selected disabled>
+                Select Sports
+              </option>
               {sportsDatas.map((item, index) => (
                 <option key={index} value={item}>
                   {item}

@@ -58,6 +58,10 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     const { name, value } = e.target;
     setExperienceFormData((prev) => ({ ...prev, [name]: value }));
   };
+  const [playerData, setPlayerData] = useState({ experience: "" });
+  const [userExperience, setUserExperience] = useState([
+    ...playerData["experience"],
+  ]);
 
   const handleAddMore = () => {
     if (
@@ -66,7 +70,11 @@ const AddCoachModal = ({ setAddCoachModal }) => {
       experienceFormData.club_name
     ) {
       const newData = [...playerData.experience, experienceFormData];
-      setPlayerData({ ...playerData, experience: newData });
+      setUserExperience(newData);
+      setPlayerData((prevInfo) => ({
+        ...prevInfo,
+        experience: newData,
+      }));
     } else {
       alert("Please fill up the experience data properly");
     }
@@ -76,11 +84,11 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     const newExperienceData = playerData.experience.filter(
       (item) => item !== itemToRemove
     );
-    setPlayerData({ ...playerData, experience: newExperienceData });
+    setUserExperience(newExperienceData);
+    setPlayerData({ ...playerData, ["experience"]: newExperienceData });
   };
 
   const socialMediaArray = Object.values(socialMedia);
-  const [playerData, setPlayerData] = useState({ experience: "" });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -128,16 +136,23 @@ const AddCoachModal = ({ setAddCoachModal }) => {
     };
 
     const formData = new FormData();
+    // Object.entries(playerInfo).forEach(([key, value]) => {
+    //   if (key === "experience") {
+    //     formData.append("experience", JSON.stringify(value));
+    //   } else {
+    //     formData.append(key, value);
+    //   }
+    // });
+
     Object.entries(playerInfo).forEach(([key, value]) => {
-      if (key === "experience") {
-        formData.append("experience", JSON.stringify(value));
-      } else {
-        formData.append(key, value);
-      }
+      formData.append(key, value);
     });
+
     selectedGalleryFiles?.forEach((img) => {
       formData.append("gallary", img);
     });
+
+    formData.append("experiencenew", JSON.stringify(userExperience));
 
     try {
       const response = await addPlayer(formData);
@@ -248,7 +263,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
               step === 2
                 ? "d-flex justify-content-end py-4"
                 : "d-flex justify-content-center py-4"
-            } `}>
+            } `}
+          >
             <div className="action_btn d-flex gap-4">
               <button onClick={() => setAddCoachModal(false)}>Cancel</button>
               <button
@@ -259,7 +275,8 @@ const AddCoachModal = ({ setAddCoachModal }) => {
                   } else {
                     alert("Please fill up the required fields.");
                   }
-                }}>
+                }}
+              >
                 {step === 2 ? "Next" : "Add Coach"}
               </button>
             </div>

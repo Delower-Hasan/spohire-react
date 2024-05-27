@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
+import { RotatingLines } from "react-loader-spinner";
 
 // const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
 
@@ -150,7 +151,8 @@ const inputFieldData = [
 
 const EditAddedPlayerDetails = () => {
   const { id } = useParams();
-  const { data: user } = useGetPlayerDetailsQuery(id);
+  const { data: user, isLoading: FetchUserLoading } =
+    useGetPlayerDetailsQuery(id);
   const [updatePlayerDetails, { isLoading }] = useUpdatePlayerDetailsMutation();
   // gallary
 
@@ -365,7 +367,6 @@ const EditAddedPlayerDetails = () => {
     setUserInfo(newData);
     setSportsType(user?.sports);
     setBelongclub(user?.belong_to_the_club);
-    // setMainPositionType(user?.mainPosition);
     setUserExperience(user?.experience);
   }, [user, id]);
   const [countryNames, setCountryNames] = useState([]);
@@ -415,506 +416,538 @@ const EditAddedPlayerDetails = () => {
   // players
 
   return (
-    <form className="" onSubmit={handleUpdate}>
-      <div className="View_details container p-0 overflow-hidden">
-        <div className="job_offer desktop_vd edit_player_details_wrapper ps-lg-0 pe-lg-0 mb-4 personalInfo editpersonal_info">
-          <div className="row" style={{ margin: "0 40px" }}>
-            <div className="col-12 col-lg-4">
-              <div
-                className="upload_profile_image "
-                onClick={handleButtonClick}
-              >
-                <img
-                  className="img-fluid profiles"
-                  src={
-                    selectedImage
-                      ? URL.createObjectURL(selectedImage)
-                      : userInfo?.image
-                      ? `${
-                          process.env.NODE_ENV !== "production"
-                            ? import.meta.env.VITE_LOCAL_API_URL
-                            : import.meta.env.VITE_LIVE_API_URL
-                        }/api/v1/uploads/${userInfo?.image}`
-                      : profileImage
-                  }
-                  alt="Profile"
-                  style={{
-                    objectFit: "cover",
-                    maxWidth: "300px",
-                    maxHeight: "300px",
-                    width: "100%",
-                  }}
-                />
-                <div>
-                  {!selectedImage && (
-                    <button
-                      type="button"
-                      className="profile_upload_btn"
-                      // onClick={handleButtonClick}
-                    >
-                      <img src={upload} alt="" />
-                      <span>Upload</span>
-                    </button>
-                  )}
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    accept=".jpeg, .jpg, .png"
-                    style={{ display: "none" }}
-                    onChange={handleImageChange}
+    <>
+      {FetchUserLoading && (
+        <div
+          style={{
+            // height: "70vh",
+            // width: "100%",
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            zIndex: 99999,
+            transform: "translate(-50%,-50%)",
+          }}
+          className="d-flex justify-content-center align-items-center"
+        >
+          {" "}
+          <RotatingLines
+            visible={true}
+            height="96"
+            width="96"
+            strokeColor="#2B3674"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      )}
+
+      <form className="" onSubmit={handleUpdate}>
+        <div className="View_details container p-0 overflow-hidden">
+          <div className="job_offer desktop_vd edit_player_details_wrapper ps-lg-0 pe-lg-0 mb-4 personalInfo editpersonal_info">
+            <div className="row" style={{ margin: "0 40px" }}>
+              <div className="col-12 col-lg-4">
+                <div
+                  className="upload_profile_image "
+                  onClick={handleButtonClick}
+                >
+                  <img
+                    className="img-fluid profiles"
+                    src={
+                      selectedImage
+                        ? URL.createObjectURL(selectedImage)
+                        : userInfo?.image
+                        ? `${
+                            process.env.NODE_ENV !== "production"
+                              ? import.meta.env.VITE_LOCAL_API_URL
+                              : import.meta.env.VITE_LIVE_API_URL
+                          }/api/v1/uploads/${userInfo?.image}`
+                        : profileImage
+                    }
+                    alt="Profile"
+                    style={{
+                      objectFit: "cover",
+                      maxWidth: "300px",
+                      maxHeight: "300px",
+                      width: "100%",
+                    }}
                   />
+                  <div>
+                    {!selectedImage && (
+                      <button
+                        type="button"
+                        className="profile_upload_btn"
+                        // onClick={handleButtonClick}
+                      >
+                        <img src={upload} alt="" />
+                        <span>Upload</span>
+                      </button>
+                    )}
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept=".jpeg, .jpg, .png"
+                      style={{ display: "none" }}
+                      onChange={handleImageChange}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-12 col-lg-8">
-              <div className=" ">
-                <div className="row mb_40">
-                  {inputFieldData.map((field, index) => (
-                    <div key={index} className="col-12 col-md-6">
-                      <div className="personal_info_edit_wrapper">
-                        <div
-                          className="d-flex flex-column align-items-start gap-3"
-                          style={{
-                            marginBottom:
-                              index < inputFieldData.length - 3 ? "20px" : "0",
-                          }}
-                        >
-                          <div className="w-100 input_form">
-                            <label
-                              htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label label_name "
-                            >
-                              {field.label}
-                            </label>
-                            <input
-                              type={field.type}
-                              className="form-control"
-                              id={`exampleFormControlInput${index + 1}`}
-                              placeholder={field.placeholderText}
-                              value={userInfo[field.name] || ""}
-                              min="1"
-                              style={{ fontSize: "13px" }}
-                              onChange={(e) =>
-                                handleInputChange(field.name, e.target.value)
-                              }
-                            />
+              <div className="col-12 col-lg-8">
+                <div className=" ">
+                  <div className="row mb_40">
+                    {inputFieldData.map((field, index) => (
+                      <div key={index} className="col-12 col-md-6">
+                        <div className="personal_info_edit_wrapper">
+                          <div
+                            className="d-flex flex-column align-items-start gap-3"
+                            style={{
+                              marginBottom:
+                                index < inputFieldData.length - 3
+                                  ? "20px"
+                                  : "0",
+                            }}
+                          >
+                            <div className="w-100 input_form">
+                              <label
+                                htmlFor={`exampleFormControlInput${index + 1}`}
+                                className="form-label label_name "
+                              >
+                                {field.label}
+                              </label>
+                              <input
+                                type={field.type}
+                                className="form-control"
+                                id={`exampleFormControlInput${index + 1}`}
+                                placeholder={field.placeholderText}
+                                value={userInfo[field.name] || ""}
+                                min="1"
+                                style={{ fontSize: "13px" }}
+                                onChange={(e) =>
+                                  handleInputChange(field.name, e.target.value)
+                                }
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            {/* next item */}
-            <div className="col-md-4">
-              <div className="pb-4">
-                <label htmlFor="name" className="d-block label_name mb-2">
-                  Sports *
-                </label>
-                <select
-                  required
-                  className="select_form"
-                  name="sports"
-                  onChange={(e) => {
-                    handleInputChange("sports", e.target.value);
-                    setSportsType(e.target.value);
-                  }}
-                >
-                  {sportsDatas.map((item, index) => (
-                    <option
-                      selected={userInfo["sports"] === item}
-                      key={index}
-                      value={item}
-                    >
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            {user?.role !== "Coach" && (
-              <>
-                <div className="col-lg-4">
-                  <div className="input_form pb-4">
-                    <label htmlFor="name" className="d-block label_name mb-2">
-                      Main position *
-                    </label>
-
-                    <select
-                      required
-                      className="select_form"
-                      name="mainPosition"
-                      value={userInfo["mainPosition"] || ""}
-                      onChange={(e) => {
-                        handleInputChange("mainPosition", e.target.value);
-                        setMainPositionType(e.target.value);
-                      }}
-                    >
-                      {/* <option value={"Goalkeeper"}>Goalkeeper</option>
-                        <option value={"Defender"}>Defender</option>
-                        <option value={"Midfielder"}>Midfielder</option>
-                        <option value={"Forward"}>Forward</option> */}
-                      {mainAndAditionPostions[0]?.mainPositions?.map(
-                        (item, index) => (
-                          <option
-                            key={index}
-                            value={item}
-                            className="text-capitalize"
-                          >
-                            {item}
-                          </option>
-                        )
-                      )}
-                    </select>
+                    ))}
                   </div>
                 </div>
-
-                <div className="col-lg-4">
-                  <div className="input_form pb-4">
-                    <label htmlFor="name" className="d-block label_name mb-2">
-                      Alternative position
-                    </label>
-
-                    <select
-                      required
-                      className={`select_form text-capitalize`}
-                      name="alterPosition"
-                      onChange={(e) =>
-                        handleInputChange("alterPosition", e.target.value)
-                      }
-                    >
-                      <option value={"N/A"} selected>
-                        Select
+              </div>
+              {/* next item */}
+              <div className="col-md-4">
+                <div className="pb-4">
+                  <label htmlFor="name" className="d-block label_name mb-2">
+                    Sports *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="sports"
+                    onChange={(e) => {
+                      handleInputChange("sports", e.target.value);
+                      setSportsType(e.target.value);
+                    }}
+                  >
+                    {sportsDatas.map((item, index) => (
+                      <option
+                        selected={userInfo["sports"] === item}
+                        key={index}
+                        value={item}
+                      >
+                        {item}
                       </option>
-                      {altPositions[0]?.alternativePositions?.map(
-                        (item, index) => (
-                          <option
-                            key={index}
-                            value={item}
-                            className="text-capitalize"
-                          >
-                            {item}
-                          </option>
-                        )
-                      )}
-                    </select>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              {user?.role !== "Coach" && (
+                <>
+                  <div className="col-lg-4">
+                    <div className="input_form pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Main position *
+                      </label>
+
+                      <select
+                        required
+                        className="select_form"
+                        name="mainPosition"
+                        value={userInfo["mainPosition"] || ""}
+                        onChange={(e) => {
+                          handleInputChange("mainPosition", e.target.value);
+                          setMainPositionType(e.target.value);
+                        }}
+                      >
+                        {/* <option value={"Goalkeeper"}>Goalkeeper</option>
+                      <option value={"Defender"}>Defender</option>
+                      <option value={"Midfielder"}>Midfielder</option>
+                      <option value={"Forward"}>Forward</option> */}
+                        {mainAndAditionPostions[0]?.mainPositions?.map(
+                          (item, index) => (
+                            <option
+                              key={index}
+                              value={item}
+                              className="text-capitalize"
+                            >
+                              {item}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
                   </div>
-                </div>
-              </>
-            )}
-            <div className="col-lg-4">
-              <div className="pb-4">
-                <label
-                  htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
-                  Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
-                </label>
-                <select
-                  required
-                  className="select_form"
-                  name="dominantHand"
-                  value={userInfo["dominantHand"] || ""}
-                  onChange={(e) =>
-                    handleInputChange("dominantHand", e.target.value)
-                  }
-                >
-                  <option value={"Left"}>Left</option>
-                  <option value={"Right"}>Right</option>
-                </select>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="pb-4">
-                <label
-                  htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
-                  Nationality *
-                </label>
-                <select
-                  required
-                  className="select_form"
-                  name="nationality"
-                  value={userInfo["nationality"] || ""}
-                  onChange={(e) =>
-                    handleInputChange("nationality", e.target.value)
-                  }
-                >
-                  {countryNames?.map((country, index) => (
-                    <option value={country.name} className="" key={index}>
-                      {country.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="pb-4">
-                <label
-                  htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
-                  Additional Passport *
-                </label>
-                <select
-                  required
-                  className="select_form"
-                  name="additional_passport"
-                  value={userInfo["additional_passport"] || ""}
-                  onChange={(e) =>
-                    handleInputChange("additional_passport", e.target.value)
-                  }
-                >
-                  {countryNames?.map((country, index) => (
-                    <option value={country.name} className="" key={index}>
-                      {country.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
 
-            <div className="col-lg-4">
-              <div className="input_form pb-4">
-                <label
-                  htmlFor="name"
-                  className="d-block label_name mb-2 text-capitalize"
-                >
-                  Do you currently belong to a club? *
-                </label>
+                  <div className="col-lg-4">
+                    <div className="input_form pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Alternative position
+                      </label>
 
-                <div className="btn_group d-flex gap-3 mt-2">
-                  <input
-                    type="radio"
-                    id="yes"
-                    className="yes"
-                    value={"yes"}
-                    name="belong_to_the_club"
-                    onChange={(e) => {
-                      setBelongclub(true);
-                      handleInputChange("belong_to_the_club", e.target.value);
-                    }}
-                    style={{ display: "none" }}
-                  />{" "}
+                      <select
+                        required
+                        className={`select_form text-capitalize`}
+                        name="alterPosition"
+                        onChange={(e) =>
+                          handleInputChange("alterPosition", e.target.value)
+                        }
+                      >
+                        <option value={"N/A"} selected>
+                          Select
+                        </option>
+                        {altPositions[0]?.alternativePositions?.map(
+                          (item, index) => (
+                            <option
+                              key={index}
+                              value={item}
+                              className="text-capitalize"
+                            >
+                              {item}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  </div>
+                </>
+              )}
+              <div className="col-lg-4">
+                <div className="pb-4">
                   <label
-                    style={{
-                      cursor: "pointer",
-                      color: `${isBelongClub ? "#fff" : ""}`,
-                      fontSize: 14,
-                      backgroundColor: `${isBelongClub ? "#05CD99" : ""}`,
-                    }}
-                    className="btn btn-outline-success"
-                    htmlFor="yes"
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
                   >
-                    YES
+                    Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
                   </label>
-                  <input
-                    type="radio"
-                    className="no"
-                    value={"no"}
-                    id="no"
-                    onChange={(e) => {
-                      setBelongclub(false);
-                      handleInputChange(e);
-                    }}
-                    name="belong_to_the_club"
-                    style={{ display: "none" }} // Hide the radio input visually
-                  />{" "}
-                  <label
-                    style={{
-                      cursor: "pointer",
-                      color: `${!isBelongClub ? "#fff" : ""}`,
-                      fontSize: 14,
-                      background: `${!isBelongClub ? "#05CD99" : ""}`,
-                    }}
-                    htmlFor="no"
-                    className="btn btn-outline-success"
+                  <select
+                    required
+                    className="select_form"
+                    name="dominantHand"
+                    value={userInfo["dominantHand"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("dominantHand", e.target.value)
+                    }
                   >
-                    NO
-                  </label>
+                    <option value={"Left"}>Left</option>
+                    <option value={"Right"}>Right</option>
+                  </select>
                 </div>
               </div>
-            </div>
+              <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Nationality *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="nationality"
+                    value={userInfo["nationality"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("nationality", e.target.value)
+                    }
+                  >
+                    {countryNames?.map((country, index) => (
+                      <option value={country.name} className="" key={index}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Additional Passport *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="additional_passport"
+                    value={userInfo["additional_passport"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("additional_passport", e.target.value)
+                    }
+                  >
+                    {countryNames?.map((country, index) => (
+                      <option value={country.name} className="" key={index}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
 
-            {isBelongClub && (
               <div className="col-lg-4">
                 <div className="input_form pb-4">
                   <label
                     htmlFor="name"
                     className="d-block label_name mb-2 text-capitalize"
                   >
-                    Club name
+                    Do you currently belong to a club? *
                   </label>
-                  <input
-                    id="name"
-                    name="club_name"
-                    value={userInfo["club_name"] || ""}
+
+                  <div className="btn_group d-flex gap-3 mt-2">
+                    <input
+                      type="radio"
+                      id="yes"
+                      className="yes"
+                      value={"yes"}
+                      name="belong_to_the_club"
+                      onChange={(e) => {
+                        setBelongclub(true);
+                        handleInputChange("belong_to_the_club", e.target.value);
+                      }}
+                      style={{ display: "none" }}
+                    />{" "}
+                    <label
+                      style={{
+                        cursor: "pointer",
+                        color: `${isBelongClub ? "#fff" : ""}`,
+                        fontSize: 14,
+                        backgroundColor: `${isBelongClub ? "#05CD99" : ""}`,
+                      }}
+                      className="btn btn-outline-success"
+                      htmlFor="yes"
+                    >
+                      YES
+                    </label>
+                    <input
+                      type="radio"
+                      className="no"
+                      value={"no"}
+                      id="no"
+                      onChange={(e) => {
+                        setBelongclub(false);
+                        handleInputChange(e);
+                      }}
+                      name="belong_to_the_club"
+                      style={{ display: "none" }} // Hide the radio input visually
+                    />{" "}
+                    <label
+                      style={{
+                        cursor: "pointer",
+                        color: `${!isBelongClub ? "#fff" : ""}`,
+                        fontSize: 14,
+                        background: `${!isBelongClub ? "#05CD99" : ""}`,
+                      }}
+                      htmlFor="no"
+                      className="btn btn-outline-success"
+                    >
+                      NO
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {isBelongClub && (
+                <div className="col-lg-4">
+                  <div className="input_form pb-4">
+                    <label
+                      htmlFor="name"
+                      className="d-block label_name mb-2 text-capitalize"
+                    >
+                      Club name
+                    </label>
+                    <input
+                      id="name"
+                      name="club_name"
+                      value={userInfo["club_name"] || ""}
+                      onChange={(e) =>
+                        handleInputChange("club_name", e.target.value)
+                      }
+                      type="text"
+                      placeholder="Club name"
+                    />
+                  </div>
+                </div>
+              )}
+              {/* next item */}
+            </div>
+          </div>
+
+          <UpdateexperienceAndMedia
+            handleInputChange={handleInputChange}
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+            editedInfo={editedInfo}
+            setEditedInfo={setEditedInfo}
+            exp={userInfo["experience"] ? userInfo["experience"] : []}
+            handleAddMore={handleAddMore}
+            handleExperienceChange={handleExperienceChange}
+            userExperience={userExperience}
+            handleRemove={handleRemove}
+          />
+
+          <div className=" mb_60 experience_wrapper">
+            <div className="row justify-content-start about_part">
+              <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
+                <p className="f_sfPro text_color_36 fs_18 mb-2">
+                  Strengths Advantages
+                </p>
+                <div className="">
+                  {/*  */}
+                  <textarea
                     onChange={(e) =>
-                      handleInputChange("club_name", e.target.value)
+                      handleInputChange("strengths_advantage", e.target.value)
                     }
-                    type="text"
-                    placeholder="Club name"
-                  />
+                    className="form-control about_me_editField"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    value={userInfo?.strengths_advantage}
+                  ></textarea>
                 </div>
               </div>
-            )}
-            {/* next item */}
-          </div>
-        </div>
-
-        <UpdateexperienceAndMedia
-          handleInputChange={handleInputChange}
-          userInfo={userInfo}
-          setUserInfo={setUserInfo}
-          editedInfo={editedInfo}
-          setEditedInfo={setEditedInfo}
-          exp={userInfo["experience"] ? userInfo["experience"] : []}
-          handleAddMore={handleAddMore}
-          handleExperienceChange={handleExperienceChange}
-          userExperience={userExperience}
-          handleRemove={handleRemove}
-        />
-
-        <div className=" mb_60 experience_wrapper">
-          <div className="row justify-content-start about_part">
-            <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-              <p className="f_sfPro text_color_36 fs_18 mb-2">
-                Strengths Advantages
-              </p>
-              <div className="">
-                {/*  */}
-                <textarea
-                  onChange={(e) =>
-                    handleInputChange("strengths_advantage", e.target.value)
-                  }
-                  className="form-control about_me_editField"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={userInfo?.strengths_advantage}
-                ></textarea>
-              </div>
-            </div>
-            <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-              <p className="f_sfPro text_color_36 fs_18 mb-2">About Me</p>
-              <div className="">
-                {/*  */}
-                <textarea
-                  onChange={(e) =>
-                    handleInputChange("about_me", e.target.value)
-                  }
-                  className="form-control about_me_editField"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={userInfo?.about_me}
-                ></textarea>
-              </div>
-            </div>
-
-            <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-              <p className="f_sfPro text_color_36 fs_18 mb-2">
-                Expectations From a New Club
-              </p>
-              <div className="">
-                {/*  */}
-                <textarea
-                  onChange={(e) =>
-                    handleInputChange(
-                      "expectations_from_new_club",
-                      e.target.value
-                    )
-                  }
-                  className="form-control about_me_editField"
-                  id="exampleFormControlTextarea1"
-                  rows="3"
-                  value={userInfo?.expectations_from_new_club}
-                ></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- Slider Start --> */}
-        {/* <div className="d-flex align-items-center gap-3 mb_28">
-          <p
-            className="f_sfPro text_color_36 fs_18"
-            style={{ paddingLeft: "75px" }}
-          >
-            Gallery
-          </p>
-
-          <label
-            style={{ cursor: "pointer" }}
-            className="add_image_btn bg-none"
-          >
-            <span>Add Image</span>
-            <img src={plus4} alt="" />
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleGallaryImageChange}
-              style={{ display: "none" }}
-            />
-          </label>
-        </div> */}
-        <div className="col-lg-6 p-0">
-          <div className="cover_img">
-            {/* <img className="img-fluid" src={coverImg} alt="" /> */}
-          </div>
-          {/* <div className="d-flex justify-content-center align-items-center">
-            <button
-              type="button"
-              className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-              {...galleryRootProps()}
-            >
-              <div className="add_icon">
-                <img src={plus4} alt="add-icon" />
-              </div>
-              <input {...galleryInputProps()} />
-              Add Photo
-            </button>
-          </div> */}
-          <div className="upload-images d-flex gap-4 flex-wrap mb-4">
-            {user?.gallary?.length > 0 &&
-              user?.gallary?.map((file, index) => (
-                <div key={index}>
-                  <img
-                    style={{ width: "130px", height: "130px" }}
-                    key={index}
-                    src={`${
-                      process.env.NODE_ENV !== "production"
-                        ? import.meta.env.VITE_LOCAL_API_URL
-                        : import.meta.env.VITE_LIVE_API_URL
-                    }/api/v1/uploads/${file}`}
-                    // alt={`Uploaded file ${file}`}
-                  />
+              <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
+                <p className="f_sfPro text_color_36 fs_18 mb-2">About Me</p>
+                <div className="">
+                  {/*  */}
+                  <textarea
+                    onChange={(e) =>
+                      handleInputChange("about_me", e.target.value)
+                    }
+                    className="form-control about_me_editField"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    value={userInfo?.about_me}
+                  ></textarea>
                 </div>
-              ))}
-            <button
-              type="button"
-              className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-              {...galleryRootProps()}
-            >
-              <div className="add_icon">
-                <img src={plus4} alt="add-icon" />
               </div>
-              <input {...galleryInputProps()} />
-              Add Photo
-            </button>
-          </div>
-        </div>
-        <EditGallary images={selectedGalleryFiles} />
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="experience_wrapper playerDetailsUpdate_btn"
+              <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
+                <p className="f_sfPro text_color_36 fs_18 mb-2">
+                  Expectations From a New Club
+                </p>
+                <div className="">
+                  {/*  */}
+                  <textarea
+                    onChange={(e) =>
+                      handleInputChange(
+                        "expectations_from_new_club",
+                        e.target.value
+                      )
+                    }
+                    className="form-control about_me_editField"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    value={userInfo?.expectations_from_new_club}
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <!-- Slider Start --> */}
+          {/* <div className="d-flex align-items-center gap-3 mb_28">
+        <p
+          className="f_sfPro text_color_36 fs_18"
+          style={{ paddingLeft: "75px" }}
         >
-          {isLoading ? "Updating..." : "Update"}
-        </button>
-      </div>
-    </form>
+          Gallery
+        </p>
+
+        <label
+          style={{ cursor: "pointer" }}
+          className="add_image_btn bg-none"
+        >
+          <span>Add Image</span>
+          <img src={plus4} alt="" />
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleGallaryImageChange}
+            style={{ display: "none" }}
+          />
+        </label>
+      </div> */}
+          <div className="col-lg-6 p-0">
+            <div className="cover_img">
+              {/* <img className="img-fluid" src={coverImg} alt="" /> */}
+            </div>
+            {/* <div className="d-flex justify-content-center align-items-center">
+          <button
+            type="button"
+            className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+            {...galleryRootProps()}
+          >
+            <div className="add_icon">
+              <img src={plus4} alt="add-icon" />
+            </div>
+            <input {...galleryInputProps()} />
+            Add Photo
+          </button>
+        </div> */}
+            <div className="upload-images d-flex gap-4 flex-wrap mb-4">
+              {user?.gallary?.length > 0 &&
+                user?.gallary?.map((file, index) => (
+                  <div key={index}>
+                    <img
+                      style={{ width: "130px", height: "130px" }}
+                      key={index}
+                      src={`${
+                        process.env.NODE_ENV !== "production"
+                          ? import.meta.env.VITE_LOCAL_API_URL
+                          : import.meta.env.VITE_LIVE_API_URL
+                      }/api/v1/uploads/${file}`}
+                      // alt={`Uploaded file ${file}`}
+                    />
+                  </div>
+                ))}
+              <button
+                type="button"
+                className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
+                {...galleryRootProps()}
+              >
+                <div className="add_icon">
+                  <img src={plus4} alt="add-icon" />
+                </div>
+                <input {...galleryInputProps()} />
+                Add Photo
+              </button>
+            </div>
+          </div>
+          <EditGallary images={selectedGalleryFiles} />
+
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="experience_wrapper playerDetailsUpdate_btn"
+          >
+            {isLoading ? "Updating..." : "Update"}
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

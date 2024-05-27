@@ -101,7 +101,7 @@ const CoachesDetails = () => {
           visible={true}
           height="96"
           width="96"
-          color="grey"
+          strokeColor="#2B3674"
           strokeWidth="5"
           animationDuration="0.75"
           ariaLabel="rotating-lines-loading"

@@ -326,23 +326,6 @@ const EditPlayerDetails = () => {
     setAboutMe(user?.about_me);
     setUserInfo(newData);
     setUserExperience(user?.experience);
-
-    // let values = {};
-    // for (let i = 0; i < user?.social_media?.length; i++) {
-    //   const element = user?.social_media[i];
-    //   if (element.includes("twitter.com")) {
-    //     values.twitter = element;
-    //   } else if (element?.includes("instagram.com")) {
-    //     values.instagram = element;
-    //   } else if (element?.includes("facebook.com")) {
-    //     values.facebook = element;
-    //   } else if (element?.includes("youtube.com")) {
-    //     values.youtube = element;
-    //   } else {
-    //     values.others = element;
-    //   }
-    // }
-    // setSocialMedia(values);
   }, [user]);
 
   return (
@@ -538,7 +521,6 @@ const EditPlayerDetails = () => {
         </div>
 
         <UpdateexperienceAndMedia
-       
           handleInputChange={handleInputChange}
           userInfo={userInfo}
           setUserInfo={setUserInfo}
