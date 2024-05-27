@@ -224,8 +224,26 @@ const Messages = () => {
                                   {formatMessageTime(item?.createdAt)}
                                 </p>
                               </div>
-                              <div className="position-absolute avatar_img2">
-                                <img src={chatAvatar} alt="" />
+                              <div className="position-absolute avatar_img2 ">
+                                <img
+                                  style={{
+                                    height: "35px",
+                                    width: "35px",
+                                    borderRadius: "100%",
+                                  }}
+                                  src={
+                                    selectedMsgUser?.image
+                                      ? `${
+                                          process.env.NODE_ENV !== "production"
+                                            ? import.meta.env.VITE_LOCAL_API_URL
+                                            : import.meta.env.VITE_LIVE_API_URL
+                                        }/api/v1/uploads/${
+                                          selectedMsgUser?.image
+                                        }`
+                                      : chatAvatar
+                                  }
+                                  alt=""
+                                />
                               </div>
                             </div>
                           </div>

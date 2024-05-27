@@ -89,11 +89,13 @@ const ChatProfiles = ({ user, searchText, messages }) => {
                   </div>
 
                   <div>
-                    <p>
+                    <p className="pt-2">
                       {moment(
                         messages?.length > 0 &&
                           messages[messages?.length - 1].createdAt
-                      ).format("LT")}
+                      )
+                        .format("LT")
+                        .slice(0, 5)}
                     </p>{" "}
                   </div>
                 </div>

@@ -289,7 +289,7 @@ const ViewDetails = () => {
           </div>
 
           <div className="col-lg-4">
-            <div className="bio_graphy2 d-flex gap-4">
+            <div className="bio_graphy2 d-flex gap-4 justify-content-center">
               <div className="age text-center">
                 <p className="bio_title">Age</p>
                 <p className="bio_info">

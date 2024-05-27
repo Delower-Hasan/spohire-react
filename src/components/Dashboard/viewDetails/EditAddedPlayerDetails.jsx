@@ -462,45 +462,52 @@ const EditAddedPlayerDetails = () => {
                   className="upload_profile_image "
                   onClick={handleButtonClick}
                 >
-                  <img
-                    className="img-fluid profiles"
-                    src={
-                      selectedImage
-                        ? URL.createObjectURL(selectedImage)
-                        : userInfo?.image
-                        ? `${
-                            process.env.NODE_ENV !== "production"
-                              ? import.meta.env.VITE_LOCAL_API_URL
-                              : import.meta.env.VITE_LIVE_API_URL
-                          }/api/v1/uploads/${userInfo?.image}`
-                        : profileImage
-                    }
-                    alt="Profile"
-                    style={{
-                      objectFit: "cover",
-                      maxWidth: "300px",
-                      maxHeight: "300px",
-                      width: "100%",
-                    }}
-                  />
-                  <div>
-                    {!selectedImage && (
-                      <button
-                        type="button"
-                        className="profile_upload_btn"
-                        // onClick={handleButtonClick}
-                      >
-                        <img src={upload} alt="" />
-                        <span>Upload</span>
-                      </button>
-                    )}
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      accept=".jpeg, .jpg, .png"
-                      style={{ display: "none" }}
-                      onChange={handleImageChange}
+                  {FetchUserLoading ? (
+                    <div
+                      className="border d-flex align-items-center justify-content-center"
+                      style={{
+                        height: 200,
+                        width: 200,
+                        borderRadius: "100%",
+                      }}
+                    >
+                      <RotatingLines
+                        visible={true}
+                        height="80"
+                        width="80"
+                        strokeColor="#2B3674"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        ariaLabel="rotating-lines-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                      />
+                    </div>
+                  ) : (
+                    <img
+                      className="img-fluid profiles"
+                      src={
+                        selectedImage
+                          ? URL.createObjectURL(selectedImage)
+                          : userInfo?.image
+                          ? `${
+                              process.env.NODE_ENV !== "production"
+                                ? import.meta.env.VITE_LOCAL_API_URL
+                                : import.meta.env.VITE_LIVE_API_URL
+                            }/api/v1/uploads/${userInfo?.image}`
+                          : profileImage
+                      }
+                      alt="Profile"
+                      style={{
+                        objectFit: "cover",
+                        maxWidth: "300px",
+                        maxHeight: "300px",
+                        width: "100%",
+                      }}
                     />
+                  )}
+
+                  {!FetchUserLoading && (
                     <div>
                       {!selectedImage && (
                         <button
@@ -519,8 +526,27 @@ const EditAddedPlayerDetails = () => {
                         style={{ display: "none" }}
                         onChange={handleImageChange}
                       />
+                      <div>
+                        {!selectedImage && (
+                          <button
+                            type="button"
+                            className="profile_upload_btn"
+                            // onClick={handleButtonClick}
+                          >
+                            <img src={upload} alt="" />
+                            <span>Upload</span>
+                          </button>
+                        )}
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          accept=".jpeg, .jpg, .png"
+                          style={{ display: "none" }}
+                          onChange={handleImageChange}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
@@ -568,7 +594,7 @@ const EditAddedPlayerDetails = () => {
               </div>
 
               {/* next item */}
-              <div className="col-md-4">
+              {/* <div className="col-md-4">
                 <div className="pb-4">
                   <label htmlFor="name" className="d-block label_name mb-2">
                     Sports *
@@ -593,7 +619,7 @@ const EditAddedPlayerDetails = () => {
                     ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
 
               {user?.role !== "Coach" && (
                 <>
@@ -689,6 +715,80 @@ const EditAddedPlayerDetails = () => {
                 </div>
               </div>
 
+              {/* <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Nationality *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="nationality"
+                    value={userInfo["nationality"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("nationality", e.target.value)
+                    }
+                  >
+                    {countryNames?.map((country, index) => (
+                      <option value={country.name} className="" key={index}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div> */}
+
+              {/* <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Additional Passport *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="additional_passport"
+                    value={userInfo["additional_passport"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("additional_passport", e.target.value)
+                    }
+                  >
+                    {countryNames?.map((country, index) => (
+                      <option value={country.name} className="" key={index}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div> */}
+
+              {/* <div className="col-lg-4">
+                <div className="pb-4">
+                  <label
+                    htmlFor="name"
+                    className="d-block label_name mb-2 text-capitalize"
+                  >
+                    Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
+                  </label>
+                  <select
+                    required
+                    className="select_form"
+                    name="dominantHand"
+                    value={userInfo["dominantHand"] || ""}
+                    onChange={(e) =>
+                      handleInputChange("dominantHand", e.target.value)
+                    }
+                  >
+                    <option value={"Left"}>Left</option>
+                    <option value={"Right"}>Right</option>
+                  </select>
+                </div>
+              </div> */}
               <div className="col-lg-4">
                 <div className="pb-4">
                   <label
@@ -714,7 +814,6 @@ const EditAddedPlayerDetails = () => {
                   </select>
                 </div>
               </div>
-
               <div className="col-lg-4">
                 <div className="pb-4">
                   <label
@@ -748,114 +847,6 @@ const EditAddedPlayerDetails = () => {
                     className="d-block label_name mb-2 text-capitalize"
                   >
                     Do you currently belong to a club? *
-                  </label>
-
-                  <select
-                    required
-                    className={`select_form text-capitalize`}
-                    name="alterPosition"
-                    onChange={(e) =>
-                      handleInputChange("alterPosition", e.target.value)
-                    }
-                  >
-                    <option value={"N/A"} selected>
-                      Select
-                    </option>
-                    {altPositions[0]?.alternativePositions?.map(
-                      (item, index) => (
-                        <option
-                          key={index}
-                          value={item}
-                          className="text-capitalize"
-                        >
-                          {item}
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
-              </div>
-
-              <div className="col-lg-4">
-                <div className="pb-4">
-                  <label
-                    htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
-                    Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
-                  </label>
-                  <select
-                    required
-                    className="select_form"
-                    name="dominantHand"
-                    value={userInfo["dominantHand"] || ""}
-                    onChange={(e) =>
-                      handleInputChange("dominantHand", e.target.value)
-                    }
-                  >
-                    <option value={"Left"}>Left</option>
-                    <option value={"Right"}>Right</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="pb-4">
-                  <label
-                    htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
-                    Nationality *
-                  </label>
-                  <select
-                    required
-                    className="select_form"
-                    name="nationality"
-                    value={userInfo["nationality"] || ""}
-                    onChange={(e) =>
-                      handleInputChange("nationality", e.target.value)
-                    }
-                  >
-                    {countryNames?.map((country, index) => (
-                      <option value={country.name} className="" key={index}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="pb-4">
-                  <label
-                    htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
-                    Additional Passport *
-                  </label>
-                  <select
-                    required
-                    className="select_form"
-                    name="additional_passport"
-                    value={userInfo["additional_passport"] || ""}
-                    onChange={(e) =>
-                      handleInputChange("additional_passport", e.target.value)
-                    }
-                  >
-                    {countryNames?.map((country, index) => (
-                      <option value={country.name} className="" key={index}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="col-lg-4">
-                <div className="input_form pb-4">
-                  <label
-                    htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
-                    Club name
                   </label>
 
                   <div className="btn_group d-flex gap-3 mt-2">
@@ -933,43 +924,6 @@ const EditAddedPlayerDetails = () => {
                   </div>
                 </div>
               )}
-              {/* next item */}
-            </div>
-          </div>
-
-          <UpdateexperienceAndMedia
-            handleInputChange={handleInputChange}
-            userInfo={userInfo}
-            setUserInfo={setUserInfo}
-            editedInfo={editedInfo}
-            setEditedInfo={setEditedInfo}
-            exp={userInfo["experience"] ? userInfo["experience"] : []}
-            handleAddMore={handleAddMore}
-            handleExperienceChange={handleExperienceChange}
-            userExperience={userExperience}
-            handleRemove={handleRemove}
-          />
-
-          <div className=" mb_60 experience_wrapper">
-            <div className="row justify-content-start about_part">
-              <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
-                <p className="f_sfPro text_color_36 fs_18 mb-2">
-                  Strengths Advantages
-                </p>
-                <div className="">
-                  {/*  */}
-                  <textarea
-                    onChange={(e) =>
-                      handleInputChange("strengths_advantage", e.target.value)
-                    }
-                    className="form-control about_me_editField"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                    value={userInfo?.strengths_advantage}
-                  ></textarea>
-                </div>
-              </div>
-
               {/* next item */}
             </div>
           </div>
