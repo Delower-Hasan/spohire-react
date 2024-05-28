@@ -27,8 +27,6 @@ const Players = () => {
 
   const itemsPerPage = 5;
 
-  console.log("playerFilterParams", playerFilterParams);
-
   const allowedPlans =
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
@@ -64,7 +62,6 @@ const Players = () => {
   const alterPositions = positions.filter(
     (item) => item.type === user.sports
   )[0].alternativePositions;
-  console.log("alterPositions", alterPositions);
 
   const handleFilter = (value) => {
     if (

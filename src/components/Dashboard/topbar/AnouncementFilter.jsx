@@ -3,7 +3,13 @@ import { setFilterParams } from "../../../features/announcement/announcementSlic
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-const sportsDatas = ["Football", "Basketball", "Handball", "Volleyball"];
+const sportsDatas = [
+  "Football",
+  "Basketball",
+  "Handball",
+  "Volleyball",
+  "Others",
+];
 function AnouncementFilter() {
   const dispatch = useDispatch();
   const [countryNames, setCountryNames] = useState([]);

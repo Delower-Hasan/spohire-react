@@ -6,6 +6,7 @@ import { FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
 import photographImg from "../../../assets/coach_img.png";
 import goldIcon from "../../../assets/gold_icon.png";
+import bronzeIcon from "../../../assets/bronze.svg";
 import silverIcon from "../../../assets/silver_icon.svg";
 import { FaInstagram, FaFacebookF } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
@@ -26,6 +27,8 @@ import {
 import Swal from "sweetalert2";
 import { getCountryFlag } from "../../../utils/getFlag";
 import { RotatingLines } from "react-loader-spinner";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const ViewDetails = () => {
   const { id } = useParams();
@@ -227,7 +230,7 @@ const ViewDetails = () => {
                       user?.subscriptionName === "Silver" && (
                         <div className="d-flex align-items-center gap-2 text-uppercase">
                           <p
-                            className="font-bold d-inline-flex gap-2"
+                            className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
                               color: "#2B3674",
@@ -247,7 +250,7 @@ const ViewDetails = () => {
                       user?.subscriptionName === "Gold" && (
                         <div className="d-flex align-items-center gap-2 text-uppercase">
                           <p
-                            className="font-bold d-inline-flex gap-2"
+                            className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
                               color: "#fff",
@@ -267,7 +270,7 @@ const ViewDetails = () => {
                       user?.subscriptionName === "Bronze" && (
                         <div className="d-flex align-items-center gap-2 text-uppercase">
                           <p
-                            className="font-bold d-inline-flex gap-2"
+                            className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
                               color: "#fff",
@@ -277,7 +280,11 @@ const ViewDetails = () => {
                               backgroundColor: "#FB5A00",
                             }}
                           >
-                            <img src={silverIcon} alt="silver-icon" />
+                            <img
+                              style={{ height: 20, width: 20 }}
+                              src={bronzeIcon}
+                              alt="silver-icon"
+                            />
                             {user?.subscriptionName}
                           </p>
                         </div>
@@ -537,13 +544,7 @@ const ViewDetails = () => {
             {user?.gallary?.length > 0 ? (
               user?.gallary?.map((item, index) => (
                 <>
-                  <img
-                    key={index}
-                    className="rounded"
-                    src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${item}`}
-                    alt=""
-                    style={{ maxWidth: "150px" }}
-                  />
+                  <Grid key={index} data={item} />
                 </>
               ))
             ) : (
@@ -552,6 +553,7 @@ const ViewDetails = () => {
               </>
             )}
           </div>
+
           {/* <div className="miniImg">
             <div className="d-flex gap-2 mb-2">
               <img src={ImageTwoMini} alt="" />
@@ -582,3 +584,25 @@ const ViewDetails = () => {
 };
 
 export default ViewDetails;
+
+const Grid = ({ data }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      <img
+        className="rounded"
+        src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${data}`}
+        alt=""
+        onClick={() => setOpen((prev) => !prev)}
+        style={{ maxWidth: "150px" }}
+      />
+      <Lightbox
+        controller={false}
+        open={open}
+        close={() => setOpen(false)}
+        slides={[{ src: `${import.meta.env.VITE_FILE_ROOT_PATH}/${data}` }]}
+      />
+    </div>
+  );
+};

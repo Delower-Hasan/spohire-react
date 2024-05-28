@@ -141,7 +141,10 @@ const SignUp = () => {
   return (
     <>
       <div className="d-flex  flex-lg-row flex-column  overflow-hidden">
-        <div className="d-lg-block d-none" style={{ margin: "60px 0px 80px 100px" }}>
+        <div
+          className="d-lg-block d-none"
+          style={{ margin: "60px 0px 80px 100px" }}
+        >
           <img className="" src={signupImg} alt="image" />
         </div>
 
@@ -313,9 +316,10 @@ const SignUp = () => {
               </div>
               <label className="label_text">Function</label> <br />
               <>
-                {["Player", "Coach", "Manager", "Other"].map((data) => (
+                {["Player", "Coach", "Manager"].map((data, index) => (
                   <>
                     <button
+                      key={index}
                       style={{ marginBottom: "30px" }}
                       className={`${
                         functionType === data
@@ -333,12 +337,13 @@ const SignUp = () => {
               <br />
               <label className="label_text">Sports</label> <br />
               {["Football", "Basketball", "Volleyball", "Handball"].map(
-                (data) => (
+                (data, index) => (
                   <>
                     <button
+                      key={index}
                       className={`${
                         sports === data ? "function_btn_active" : "function_btn"
-                        } mb-lg-0 mb-4  `}
+                      } mb-lg-0 mb-4  `}
                       type="button"
                       onClick={() => setSports(data)}
                     >

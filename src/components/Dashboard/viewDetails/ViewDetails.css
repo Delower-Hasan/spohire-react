@@ -1133,3 +1133,10 @@
 .swiper-wrapper {
     padding-left: 0px !important;
 }
+
+.photograph_img>img {
+    max-height: 400px;
+    max-width: 400px;
+    border-radius: 100%;
+    object-fit: cover;
+}

@@ -13,6 +13,7 @@ import { useUpdateUserMutation } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
 import "./ViewDetails.css";
+import { sportsDatas } from "../../../utils/PlayersSports";
 
 // data
 const inputFieldData = [
@@ -440,58 +441,6 @@ const EditPlayerDetails = () => {
                     </div>
                   ))}
 
-                  {/* <div className="col-12 col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Function *
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="role"
-                        onChange={(e) => {
-                          handleInputChange("role", e.target.value);
-                        }}>
-                        {["Player", "Manager", "Coach", "Other"].map(
-                          (item, index) => (
-                            <option
-                              selected={userInfo["role"] === item}
-                              key={index}
-                              value={item}>
-                              {item}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="col-12 col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Sports *
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="sports"
-                        onChange={(e) => {
-                          handleInputChange("sports", e.target.value);
-                        }}
-                      >
-                        {sportsDatas.map((item, index) => (
-                          <option
-                            selected={userInfo["sports"] === item}
-                            key={index}
-                            value={item}
-                          >
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div> */}
-
                   <div className="col-12 col-md-6">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
@@ -507,12 +456,70 @@ const EditPlayerDetails = () => {
                       >
                         {countryNames?.map((country, index) => (
                           <option
-                            selected={userInfo["nationality"] === country}
+                            selected={
+                              userInfo["nationality"].toLowerCase() ===
+                              country.name.toLowerCase()
+                            }
                             value={country.name}
                             className=""
                             key={index}
                           >
                             {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Function
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="role"
+                        disabled
+                        // onChange={(e) => {
+                        //   handleInputChange("role", e.target.value);
+                        // }}
+                      >
+                        {["Player", "Manager", "Coach", "Other"].map(
+                          (item, index) => (
+                            <option
+                              selected={userInfo["role"] === item}
+                              key={index}
+                              value={item}
+                            >
+                              {item}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-12 col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Sports
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="sports"
+                        disabled
+                        // onChange={(e) => {
+                        //   handleInputChange("sports", e.target.value);
+                        // }}
+                      >
+                        {sportsDatas.map((item, index) => (
+                          <option
+                            selected={userInfo["sports"] === item}
+                            key={index}
+                            value={item}
+                          >
+                            {item}
                           </option>
                         ))}
                       </select>

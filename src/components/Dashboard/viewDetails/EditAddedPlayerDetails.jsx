@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import plus4 from "../../../assets/plus4.png";
 import profileImage from "../../../assets/profile_upload.png";
@@ -102,49 +102,57 @@ const inputFieldData = [
     label: "First Name",
     placeholderText: "Your name",
     type: "text",
+    isDisabled: true,
     name: "firstName",
   },
   {
     label: "Last Name",
     placeholderText: "LastName",
     type: "text",
+    isDisabled: true,
     name: "lastName",
   },
   {
     label: "Email",
     placeholderText: "email",
     type: "email",
+    isDisabled: false,
     name: "email",
   },
   {
     label: "Phone Number",
     placeholderText: "Phone Number",
     type: "text",
+    isDisabled: false,
     name: "phone_number",
   },
   {
     label: "Country of Residence",
     placeholderText: "Residence",
     type: "text",
+    isDisabled: false,
     name: "city",
   },
   {
     label: "Date of Birth",
     placeholderText: "DD-MM-YYYY",
     type: "date",
+    isDisabled: false,
     name: "date_of_birth",
   },
 
   {
-    label: "Height",
+    label: "Height (cm)",
     placeholderText: "You Height",
     type: "number",
+    isDisabled: false,
     name: "height",
   },
   {
-    label: "Weight",
+    label: "Weight (kg)",
     placeholderText: "Your Weight",
     type: "number",
+    isDisabled: false,
     name: "weight",
   },
   // { label: "Race", placeholderText: "Your Race", type: "text" },
@@ -343,6 +351,53 @@ const EditAddedPlayerDetails = () => {
     }
   };
 
+  const [mainPositionType, setMainPositionType] = useState("");
+
+  const [altPositions, setAltPostions] = useState([]);
+  const [sportsType, setSportsType] = useState("");
+
+  const [countryNames, setCountryNames] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
+      )
+      .then(function (response) {
+        setCountryNames(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  // players
+
+  let mainAndAditionPostions = postions.filter(
+    (item) => item.type === sportsType
+  );
+
+  function filterAlternativePositions(mainPositionType) {
+    return mainAndAditionPostions.map((position) => {
+      if (position.mainPositions.includes(mainPositionType)) {
+        return {
+          ...position,
+          alternativePositions: position.alternativePositions.filter(
+            (altPosition) => altPosition !== mainPositionType
+          ),
+        };
+      } else {
+        return position;
+      }
+    });
+  }
+
+  useEffect(() => {
+    const altPostions = filterAlternativePositions(mainPositionType);
+    setAltPostions(altPostions);
+  }, [mainPositionType]);
+  // players
+
   useEffect(() => {
     const newData = {
       firstName: user?.firstName,
@@ -376,53 +431,11 @@ const EditAddedPlayerDetails = () => {
     setBelongclub(user?.belong_to_the_club);
     setSelectedGalleryFiles(user?.gallary);
     setUserExperience(user?.experience);
-  }, [user, id]);
-  const [countryNames, setCountryNames] = useState([]);
-  console.log("selectedGallary", selectedGalleryFiles);
+    setMainPositionType(user?.mainPosition);
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json"
-      )
-      .then(function (response) {
-        setCountryNames(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
-  // players
-  const [sportsType, setSportsType] = useState("");
-
-  let mainAndAditionPostions = postions.filter(
-    (item) => item.type === sportsType
-  );
-
-  const [mainPositionType, setMainPositionType] = useState("");
-  const [altPositions, setAltPostions] = useState([]);
-
-  function filterAlternativePositions(mainPositionType) {
-    return mainAndAditionPostions.map((position) => {
-      if (position.mainPositions.includes(mainPositionType)) {
-        return {
-          ...position,
-          alternativePositions: position.alternativePositions.filter(
-            (altPosition) => altPosition !== mainPositionType
-          ),
-        };
-      } else {
-        return position;
-      }
-    });
-  }
-
-  useEffect(() => {
-    const altPostions = filterAlternativePositions(mainPositionType);
+    const altPostions = filterAlternativePositions(user?.mainPosition);
     setAltPostions(altPostions);
-  }, [mainPositionType]);
-  // players
+  }, [user, id]);
 
   return (
     <>
@@ -453,11 +466,15 @@ const EditAddedPlayerDetails = () => {
           />
         </div>
       )}
+
       <form className="" onSubmit={handleUpdate}>
         <div className="View_details container p-0 overflow-hidden">
           <div className="job_offer desktop_vd edit_player_details_wrapper ps-lg-0 pe-lg-0 mb-4 personalInfo editpersonal_info">
             <div className="row" style={{ margin: "0 40px" }}>
               <div className="col-12 col-lg-4">
+                <h2 className="edit_profile mb-3">
+                  Edit {user?.role ?? "Profile"}
+                </h2>
                 <div
                   className="upload_profile_image "
                   onClick={handleButtonClick}
@@ -574,6 +591,7 @@ const EditAddedPlayerDetails = () => {
                               </label>
                               <input
                                 type={field.type}
+                                disabled={field.isDisabled}
                                 className="form-control"
                                 id={`exampleFormControlInput${index + 1}`}
                                 placeholder={field.placeholderText}
@@ -594,13 +612,21 @@ const EditAddedPlayerDetails = () => {
               </div>
 
               {/* next item */}
-              {/* <div className="col-md-4">
+              <div className="col-md-4">
                 <div className="pb-4">
                   <label htmlFor="name" className="d-block label_name mb-2">
                     Sports *
                   </label>
-                  <select
+                  <input
+                    disabled
+                    className="form-control"
+                    value={userInfo["sports"] || ""}
+                    min="1"
+                    style={{ fontSize: "13px" }}
+                  />
+                  {/* <select
                     required
+                    disabled
                     className="select_form"
                     name="sports"
                     onChange={(e) => {
@@ -617,9 +643,9 @@ const EditAddedPlayerDetails = () => {
                         {item}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                 </div>
-              </div> */}
+              </div>
 
               {user?.role !== "Coach" && (
                 <>
@@ -639,10 +665,6 @@ const EditAddedPlayerDetails = () => {
                           setMainPositionType(e.target.value);
                         }}
                       >
-                        {/* <option value={"Goalkeeper"}>Goalkeeper</option>
-                        <option value={"Defender"}>Defender</option>
-                        <option value={"Midfielder"}>Midfielder</option>
-                        <option value={"Forward"}>Forward</option> */}
                         {mainAndAditionPostions[0]?.mainPositions?.map(
                           (item, index) => (
                             <option
@@ -672,12 +694,11 @@ const EditAddedPlayerDetails = () => {
                           handleInputChange("alterPosition", e.target.value)
                         }
                       >
-                        <option value={"N/A"} selected>
-                          Select
-                        </option>
+                        <option value={"N/A"}>Select</option>
                         {altPositions[0]?.alternativePositions?.map(
                           (item, index) => (
                             <option
+                              selected={userInfo["alterPosition"] === item}
                               key={index}
                               value={item}
                               className="text-capitalize"
