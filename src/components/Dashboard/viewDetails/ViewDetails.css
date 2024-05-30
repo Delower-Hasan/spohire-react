@@ -1138,5 +1138,5 @@
     max-height: 400px;
     max-width: 400px;
     border-radius: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }

@@ -657,7 +657,7 @@ const EditAddedPlayerDetails = () => {
 
                       <select
                         required
-                        className="select_form"
+                        className="select_form text-capitalize"
                         name="mainPosition"
                         value={userInfo["mainPosition"] || ""}
                         onChange={(e) => {

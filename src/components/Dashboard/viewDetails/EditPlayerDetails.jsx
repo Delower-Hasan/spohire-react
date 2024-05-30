@@ -499,32 +499,34 @@ const EditPlayerDetails = () => {
                     </div>
                   </div>
 
-                  <div className="col-12 col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Sports
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="sports"
-                        disabled
-                        // onChange={(e) => {
-                        //   handleInputChange("sports", e.target.value);
-                        // }}
-                      >
-                        {sportsDatas.map((item, index) => (
-                          <option
-                            selected={userInfo["sports"] === item}
-                            key={index}
-                            value={item}
-                          >
-                            {item}
-                          </option>
-                        ))}
-                      </select>
+                  {user?.role !== "Other" && (
+                    <div className="col-12 col-md-6">
+                      <div className="pb-4">
+                        <label
+                          htmlFor="name"
+                          className="d-block label_name mb-2"
+                        >
+                          Sports
+                        </label>
+                        <select
+                          required
+                          className="select_form"
+                          name="sports"
+                          disabled
+                        >
+                          {sportsDatas.map((item, index) => (
+                            <option
+                              selected={userInfo["sports"] === item}
+                              key={index}
+                              value={item}
+                            >
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -560,7 +562,7 @@ const EditPlayerDetails = () => {
                     <img src={addIcon} alt="add-icon" />
                   </div>
                   <input {...galleryInputProps()} />
-                  Add Photo or Video
+                  Add Photo
                 </button>
               </div>
 

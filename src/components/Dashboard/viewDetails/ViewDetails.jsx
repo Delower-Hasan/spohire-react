@@ -595,7 +595,7 @@ const Grid = ({ data }) => {
         src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${data}`}
         alt=""
         onClick={() => setOpen((prev) => !prev)}
-        style={{ maxWidth: "150px" }}
+        style={{ maxWidth: "150px", cursor: "pointer" }}
       />
       <Lightbox
         controller={false}

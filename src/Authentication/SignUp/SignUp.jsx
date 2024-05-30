@@ -35,7 +35,7 @@ const SignUp = () => {
     !phoneNumber ||
     !functionType ||
     !countryCode ||
-    !sports ||
+    // !sports ||
     isLoading;
 
   const navigate = useNavigate();
@@ -97,12 +97,12 @@ const SignUp = () => {
         text: `${error?.message}`,
       });
     }
-    // localStorage.setItem("register", JSON.stringify(formData));
-    // navigate('/addPlayer')
   };
   const [countryNames, setCountryNames] = useState([]);
   const [buttonErrorMessages, setButtonErrorMessages] = useState(false);
   const [errorss, setErrors] = useState([]);
+
+  console.log("errorss", errorss);
 
   const handleButtonError = () => {
     let errors = [];
@@ -119,7 +119,7 @@ const SignUp = () => {
       if (!phoneNumber) errors.push("phoneNumber");
       if (!functionType) errors.push("functionType");
       if (!countryCode) errors.push("countryCode");
-      if (!sports) errors.push("sports");
+      // if (!sports) errors.push("sports");
       setButtonErrorMessages(true);
       setErrors(errors);
     }
@@ -147,7 +147,6 @@ const SignUp = () => {
         >
           <img className="" src={signupImg} alt="image" />
         </div>
-
         <div
           className="login_wrapper"
           style={{ margin: "60px 100px 80px 0px", width: "100%" }}
@@ -316,41 +315,45 @@ const SignUp = () => {
               </div>
               <label className="label_text">Function</label> <br />
               <>
-                {["Player", "Coach", "Manager"].map((data, index) => (
-                  <>
-                    <button
-                      key={index}
-                      style={{ marginBottom: "30px" }}
-                      className={`${
-                        functionType === data
-                          ? "function_btn_active"
-                          : "function_btn"
-                      } `}
-                      type="button"
-                      onClick={() => setFunctionType(data)}
-                    >
-                      {data}
-                    </button>
-                  </>
+                {["Player", "Coach", "Manager", "Other"].map((data, index) => (
+                  <button
+                    key={index}
+                    style={{ marginBottom: "30px" }}
+                    className={`${
+                      functionType === data
+                        ? "function_btn_active"
+                        : "function_btn"
+                    } `}
+                    type="button"
+                    onClick={() => setFunctionType(data)}
+                  >
+                    {data}
+                  </button>
                 ))}
               </>
               <br />
-              <label className="label_text">Sports</label> <br />
-              {["Football", "Basketball", "Volleyball", "Handball"].map(
-                (data, index) => (
-                  <>
-                    <button
-                      key={index}
-                      className={`${
-                        sports === data ? "function_btn_active" : "function_btn"
-                      } mb-lg-0 mb-4  `}
-                      type="button"
-                      onClick={() => setSports(data)}
-                    >
-                      {data}
-                    </button>
-                  </>
-                )
+              {functionType !== "Other" && (
+                <>
+                  <label className="label_text">Sports</label> <br />
+                  {["Football", "Basketball", "Volleyball", "Handball"].map(
+                    (data, index) => (
+                      <>
+                        <button
+                          key={index}
+                          className={`${
+                            sports === data
+                              ? "function_btn_active"
+                              : "function_btn"
+                          } mb-lg-0 mb-4  `}
+                          type="button"
+                          onClick={() => setSports(data)}
+                        >
+                          {data}
+                        </button>
+                      </>
+                    )
+                  )}
+                </>
               )}
               {/* terms and condition */}
               <div className="d-flex justify-content-start terms_condition">

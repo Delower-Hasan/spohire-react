@@ -25,13 +25,19 @@ function BuySubscriptionModal({ user }) {
       {isViewProfile ? (
         <>
           <div
-            className={`modal fade ${!isSubscriptionCheck ? "show" : ""}`} // Add the "show" class to make the modal visible
+            className={`modal fade ${
+              !isSubscriptionCheck && user.role !== "Other" ? "show" : ""
+            }`} // Add the "show" class to make the modal visible
             id="staticBackdrop"
             data-bs-keyboard="false"
             tabIndex="-1"
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
-            style={{ display: `${!isSubscriptionCheck ? "block" : "none"}` }} // Set display:block to show the modal
+            style={{
+              display: `${
+                !isSubscriptionCheck && user.role !== "Other" ? "block" : "none"
+              }`,
+            }} // Set display:block to show the modal
           >
             <div className="modal-dialog">
               <div className="modal-content">
