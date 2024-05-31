@@ -8,6 +8,7 @@ import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGetFilteredUsersQuery } from "../../../features/auth/authApi";
 import { ThreeDots } from "react-loader-spinner";
+import { getCountryFlag } from "../../../utils/getFlag";
 
 const PlayerOverview = ({ user }) => {
   const { data, isLoading } = useGetFilteredUsersQuery(
@@ -102,12 +103,12 @@ const PlayerOverview = ({ user }) => {
                               <div className="player_img">
                                 <img
                                   src={
-                                    data?.image
+                                    item?.image
                                       ? `${
                                           process.env.NODE_ENV !== "production"
                                             ? import.meta.env.VITE_LOCAL_API_URL
                                             : import.meta.env.VITE_LIVE_API_URL
-                                        }/api/v1/uploads/${data?.image}`
+                                        }/api/v1/uploads/${item?.image}`
                                       : playerImgOne
                                   }
                                   alt="player-img"
@@ -115,46 +116,51 @@ const PlayerOverview = ({ user }) => {
                                     width: "35px",
                                     height: "35px",
                                     objectFit: "cover",
-                                    borderRadius: "8px",
+                                    borderRadius: "100%",
                                   }}
                                 />
                               </div>
                               <div class="player_name">
-                                <p className="text_color_36 fw-medium mb-0">
-                                  {item?.firstName} {item?.lastName}
+                                <p className="text_color_36 fw-medium mb-0 text-start">
+                                  {item?.firstName} {item?.lastName}{" "}
                                 </p>
                               </div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <p className="text_color_55 fw-normal ">
-                            <img className="me-2" src={nation} alt="nation" />{" "}
+                          <p className="text_color_55 fw-normal text-start">
+                            {/* <img className="me-2" src={nation} alt="nation" />{" "} */}
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: getCountryFlag(item?.nationality),
+                              }}
+                            />{" "}
                             {item?.nationality}
                           </p>
                         </td>
 
                         <td>
-                          <p className="text_color_55 fw-normal ">
+                          <p className="text_color_55 fw-normal  text-start">
                             {item?.date_of_birth}
                           </p>
                         </td>
 
                         <td>
-                          <p className="text_color_55 fw-normal ">
+                          <p className="text_color_55 fw-normal text-start text-capitalize">
                             {item?.mainPosition ? item?.mainPosition : "N/A"}
                           </p>
                         </td>
 
                         <td>
-                          <p className="text_color_55 fw-normal ">
+                          <p className="text_color_55 fw-normal text-start">
                             {item?.club_name ? item?.club_name : "N/A"}
                           </p>
                         </td>
 
                         <td>
                           <p
-                            className="text_color_55 fw-normal"
+                            className="text_color_55 fw-normal text-start"
                             style={{
                               color:
                                 item?.subscriptionName === "Silver"
@@ -171,7 +177,7 @@ const PlayerOverview = ({ user }) => {
                         </td>
 
                         <td>
-                          <div className="d-flex align-items-center">
+                          <div className="d-flex align-items-center ">
                             <p className="text_color_55 fw-normal ">
                               <Link
                                 to={`/dashboard/messages/${item?.referral}`}

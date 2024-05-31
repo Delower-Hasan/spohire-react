@@ -390,7 +390,11 @@ const Topbar = ({ onClose }) => {
                           )}
                         </>
                       ) : (
-                        <p className="text_clr_70 fw-medium">No subscription</p>
+                        <p className="text_clr_70 fw-medium">
+                          {user?.role === "Other"
+                            ? "No subscription"
+                            : "Welcome to the platform"}
+                        </p>
                       )}
                     </>
                   ) : null}

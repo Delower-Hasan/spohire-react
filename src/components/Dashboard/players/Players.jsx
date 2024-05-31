@@ -27,8 +27,6 @@ const Players = () => {
 
   const itemsPerPage = 5;
 
-  console.log("playerFilterParams", playerFilterParams);
-
   const allowedPlans =
     user?.subscriptionName === "Gold"
       ? ["Gold", "Silver", "Bronze"]
@@ -64,7 +62,6 @@ const Players = () => {
   const alterPositions = positions.filter(
     (item) => item.type === user.sports
   )[0].alternativePositions;
-  console.log("alterPositions", alterPositions);
 
   const handleFilter = (value) => {
     if (
@@ -79,29 +76,29 @@ const Players = () => {
       playerFilterParams?.dominantHand
     ) {
       return (
-        (playerFilterParams?.positions.length > 0 &&
-          playerFilterParams?.positions.filter(
-            (item) =>
-              item === value?.mainPosition || item === value?.alterPosition
-          )[0]) ||
-        (playerFilterParams?.status.length > 0 &&
-          playerFilterParams?.status.filter(
-            (item) => item === value?.subscriptionName
-          )[0]) ||
-        (playerFilterParams?.location &&
-          playerFilterParams?.location === value?.country) ||
-        (playerFilterParams?.gender &&
-          playerFilterParams?.gender === value?.gender) ||
-        (playerFilterParams?.minHeight &&
-          playerFilterParams?.minHeight <= value?.height) ||
-        (playerFilterParams?.maxHeight &&
-          playerFilterParams?.maxHeight >= value?.height) ||
-        (playerFilterParams?.dominantHand &&
-          playerFilterParams?.dominantHand === value?.dominantHand) ||
-        (playerFilterParams?.minAge &&
-          playerFilterParams?.minAge <= calculateAge(value?.date_of_birth)) ||
-        (playerFilterParams?.maxAge &&
-          playerFilterParams?.maxAge >= calculateAge(value?.date_of_birth))
+        playerFilterParams?.positions.length > 0 &&
+        playerFilterParams?.positions.filter(
+          (item) =>
+            item === value?.mainPosition || item === value?.alterPosition
+        )[0] &&
+        playerFilterParams?.status.length > 0 &&
+        playerFilterParams?.status.filter(
+          (item) => item === value?.subscriptionName
+        )[0] &&
+        playerFilterParams?.location &&
+        playerFilterParams?.location === value?.nationality &&
+        playerFilterParams?.gender &&
+        playerFilterParams?.gender === value?.gender &&
+        playerFilterParams?.minHeight &&
+        playerFilterParams?.minHeight <= value?.height &&
+        playerFilterParams?.maxHeight &&
+        playerFilterParams?.maxHeight >= value?.height &&
+        playerFilterParams?.dominantHand &&
+        playerFilterParams?.dominantHand === value?.dominantHand &&
+        playerFilterParams?.minAge &&
+        playerFilterParams?.minAge <= calculateAge(value?.date_of_birth) &&
+        playerFilterParams?.maxAge &&
+        playerFilterParams?.maxAge >= calculateAge(value?.date_of_birth)
       );
     } else {
       return true;

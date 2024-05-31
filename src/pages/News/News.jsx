@@ -18,7 +18,7 @@ const News = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_LIVE_API_URL}/api/v1/blogs/all`
+          `${import.meta.env.VITE_LOCAL_API_URL}/api/v1/blogs/all`
         );
         const allBlogs = response.data.data.blogs;
         const articles = allBlogs.filter((blog) => blog.type === "news");

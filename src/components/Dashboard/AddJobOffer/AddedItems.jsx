@@ -70,14 +70,16 @@ const AddedItems = () => {
         </div>
 
         <div className="job_offers_topBtn_left d-flex gap-4">
-          <button
-            className={`fs-6 fw-medium text_color_80 ${
-              jobOffersType === "player" && "activeBtn"
-            }`}
-            onClick={() => typeHandler("player")}
-          >
-            Players
-          </button>
+          {user?.role !== "Other" && (
+            <button
+              className={`fs-6 fw-medium text_color_80 ${
+                jobOffersType === "player" && "activeBtn"
+              }`}
+              onClick={() => typeHandler("player")}
+            >
+              Players
+            </button>
+          )}
 
           {/* {user?.role === "Manager" && (
             <button
@@ -90,7 +92,7 @@ const AddedItems = () => {
             </button>
           )} */}
 
-          {user?.role !== "Player" && (
+          {user?.role !== "Player" && user?.role !== "Other" && (
             <button
               className={`fs-6 fw-medium text_color_80 ${
                 jobOffersType === "coach" && "activeBtn"

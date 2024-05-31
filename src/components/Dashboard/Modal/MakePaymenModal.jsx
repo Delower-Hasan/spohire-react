@@ -2,6 +2,8 @@ import React from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import bronze from "../../../assets/bronze.svg";
+import silver from "../../../assets/silver.svg";
+import gold from "../../../assets/gold.svg";
 import checkActive from "../../../assets/white-check.svg";
 import PlayerCoachAddPayment from "../../../pages/pricing/PlayerCoachAddPayment";
 import { loadStripe } from "@stripe/stripe-js";
@@ -23,6 +25,11 @@ const MakePaymenModal = ({
     "Normal support",
     "Up to 3 team members",
   ];
+  const subscirptionsIcons = {
+    silver: silver,
+    bronze: bronze,
+    gold: gold,
+  };
 
   const stripePromise = loadStripe(STRIPE_PK);
   const { subscriptions } = useSelector((state) => state.auth);
@@ -45,7 +52,15 @@ const MakePaymenModal = ({
                   <div className={`price_card active`}>
                     <div className="d-flex align-items-center gap-4 mb-5">
                       <div className="model">
-                        <img className="mt-0" src={bronze} alt="" />
+                        <img
+                          className="mt-0"
+                          src={
+                            subscirptionsIcons[
+                              subscriptions.subscriptionName.toLowerCase()
+                            ]
+                          }
+                          alt=""
+                        />
                       </div>
                       <p style={{ color: "#CD7F32" }} className="title">
                         {subscriptions.subscriptionName}

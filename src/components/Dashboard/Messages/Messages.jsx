@@ -72,6 +72,12 @@ const Messages = () => {
     }
   };
 
+  //person who send message
+  // console.log("messageUser", messageUser);
+
+  // person who receved the message
+  // console.log("selectedMsgUser", selectedMsgUser);
+
   // send messages
   const handleSendClick = async () => {
     const data = { chat: conversationId, sender: user?._id, text: messageText };
@@ -108,8 +114,6 @@ const Messages = () => {
   useEffect(() => {
     dispatch(setSelectedMessageUser(messageUser));
   }, [messageUser]);
-
-  // console.log("|myParam|", myParam)
 
   const [showChatDetails, setShowChatDetails] = useState(true);
 
@@ -152,8 +156,8 @@ const Messages = () => {
             <div className={`col-lg-3 d-lg-block d-none`}>
               <div className="chat_profile">
                 <div className="chat_list_wrapper ">
-                  <h3>Message details</h3>
-                  {/* <div className="form-group has-search1">
+                  <h3>All Messages</h3>
+                  <div className="form-group has-search1">
                     <span className="fa fa-search form-control-feedback"></span>
                     <input
                       type="text"
@@ -161,9 +165,13 @@ const Messages = () => {
                       placeholder="Search"
                       onChange={(e) => setSearchText(e.target.value)}
                     />
-                  </div> */}
+                  </div>
 
-                  <ChatProfiles user={user} searchText={searchText} />
+                  <ChatProfiles
+                    messages={messages}
+                    user={user}
+                    searchText={searchText}
+                  />
                 </div>
               </div>
             </div>
@@ -173,7 +181,13 @@ const Messages = () => {
                 <div className="mplayer_info d-flex justify-content-between align-content-center mb-4">
                   <div className=" d-flex align-items-center gap-4">
                     <div className="person_img">
-                      <img src={messageProfile} alt="message-profile" />
+                      <img
+                        style={{ borderRadius: "100%" }}
+                        src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${
+                          selectedMsgUser?.image
+                        }`}
+                        alt="message-profile"
+                      />
                     </div>
                     <div className="person_name">
                       <h2 onClick={close} className="pointer">
@@ -210,8 +224,26 @@ const Messages = () => {
                                   {formatMessageTime(item?.createdAt)}
                                 </p>
                               </div>
-                              <div className="position-absolute avatar_img2">
-                                <img src={chatAvatar} alt="" />
+                              <div className="position-absolute avatar_img2 ">
+                                <img
+                                  style={{
+                                    height: "35px",
+                                    width: "35px",
+                                    borderRadius: "100%",
+                                  }}
+                                  src={
+                                    selectedMsgUser?.image
+                                      ? `${
+                                          process.env.NODE_ENV !== "production"
+                                            ? import.meta.env.VITE_LOCAL_API_URL
+                                            : import.meta.env.VITE_LIVE_API_URL
+                                        }/api/v1/uploads/${
+                                          selectedMsgUser?.image
+                                        }`
+                                      : chatAvatar
+                                  }
+                                  alt=""
+                                />
                               </div>
                             </div>
                           </div>
@@ -275,15 +307,16 @@ const Messages = () => {
                     onKeyPress={handleKeyPress}
                   />
 
-                  <div className="send_img pr-5">
+                  <div className="send_img">
                     <button
                       onClick={handleSendClick}
                       className="bg-none"
-                      disabled={!messageText}>
+                      disabled={!messageText}
+                    >
                       <img src={send} alt="" />
                     </button>
                   </div>
-
+                  {/* 
                   <div className="upload_img">
                     <div>
                       <label htmlFor="upload">
@@ -308,7 +341,7 @@ const Messages = () => {
                         className="bg-none d-none"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

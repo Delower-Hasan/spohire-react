@@ -4,6 +4,7 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { FaFacebookF, FaInstagram, FaLink } from "react-icons/fa6";
 import { FaRegBookmark } from "react-icons/fa";
 import silverIcon from "../../../assets/silver_icon.svg";
+import bronzeIcon from "../../../assets/bronze.svg";
 import goldIcon from "../../../assets/gold_icon.png";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -16,6 +17,8 @@ import Swal from "sweetalert2";
 import { getCountryFlag } from "../../../utils/getFlag";
 import { RotatingLines } from "react-loader-spinner";
 import { BsTiktok, BsTwitterX } from "react-icons/bs";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 const CoachesDetails = () => {
   const { id } = useParams();
@@ -101,7 +104,7 @@ const CoachesDetails = () => {
           visible={true}
           height="96"
           width="96"
-          color="grey"
+          strokeColor="#2B3674"
           strokeWidth="5"
           animationDuration="0.75"
           ariaLabel="rotating-lines-loading"
@@ -209,7 +212,7 @@ const CoachesDetails = () => {
                       user?.subscriptionName === "Silver" && (
                         <div className="d-flex align-items-center gap-2 text-uppercase">
                           <p
-                            className="font-bold d-inline-flex gap-2"
+                            className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
                               color: "#2B3674",
@@ -229,7 +232,7 @@ const CoachesDetails = () => {
                       user?.subscriptionName === "Gold" && (
                         <div className="d-flex align-items-center gap-2 text-uppercase">
                           <p
-                            className="font-bold d-inline-flex gap-2"
+                            className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
                               color: "#fff",
@@ -249,7 +252,7 @@ const CoachesDetails = () => {
                       user?.subscriptionName === "Bronze" && (
                         <div className="d-flex align-items-center gap-2 text-uppercase">
                           <p
-                            className="font-bold d-inline-flex gap-2"
+                            className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
                               color: "#fff",
@@ -259,8 +262,12 @@ const CoachesDetails = () => {
                               backgroundColor: "#FB5A00",
                             }}
                           >
-                            <img src={silverIcon} alt="silver-icon" />
-                            {user?.subscriptionName}
+                            <img
+                              style={{ height: 10, width: 10 }}
+                              src={bronzeIcon}
+                              alt="silver-icon"
+                            />
+                            {user?.subscriptionName}d
                           </p>
                         </div>
                       )}
@@ -463,13 +470,7 @@ const CoachesDetails = () => {
             {user?.gallary?.length > 0 ? (
               user?.gallary?.map((item, index) => (
                 <>
-                  <img
-                    key={index}
-                    src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${item}`}
-                    alt=""
-                    className="rounded"
-                    style={{ maxWidth: "150px" }}
-                  />
+                  <Grid key={index} data={item} />
                 </>
               ))
             ) : (
@@ -508,3 +509,25 @@ const CoachesDetails = () => {
 };
 
 export default CoachesDetails;
+
+const Grid = ({ data }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      <img
+        className="rounded"
+        src={`${import.meta.env.VITE_FILE_ROOT_PATH}/${data}`}
+        alt=""
+        onClick={() => setOpen((prev) => !prev)}
+        style={{ maxWidth: "150px", cursor: "pointer" }}
+      />
+      <Lightbox
+        controller={false}
+        open={open}
+        close={() => setOpen(false)}
+        slides={[{ src: `${import.meta.env.VITE_FILE_ROOT_PATH}/${data}` }]}
+      />
+    </div>
+  );
+};

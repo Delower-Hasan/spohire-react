@@ -23,7 +23,7 @@ const Subscription = () => {
       <h4>Subscription info.</h4>
       <div className="mb-4">
         <p className="label">Current subscritpion status : </p>
-        <p style={{ color: color[0].color }} className="answer">
+        <p style={{ color: color[0]?.color }} className="answer">
           {user?.subscriptionName} {user?.role}
         </p>
       </div>
@@ -37,7 +37,7 @@ const Subscription = () => {
         <p className="label">Auto - renewal</p>
       </div> */}
 
-      {user?.subscriptionName !== "Gold" && (
+      {user?.subscriptionName !== "Gold" && user?.role !== "Other" && (
         <button
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
