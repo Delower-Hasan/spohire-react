@@ -72,7 +72,17 @@ function PlayerFilter() {
         status: selectedStatus,
       },
     };
-    dispatch(setPlayerFilterParams(datas));
+
+    // console.log("datas", datas);
+    dispatch(
+      setPlayerFilterParams({
+        data: {
+          ...formData,
+          positions: selectedPositions,
+          status: selectedStatus,
+        },
+      })
+    );
   };
   const handleResetFilter = () => {
     const formDatas = {

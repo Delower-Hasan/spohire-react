@@ -13,6 +13,7 @@ import { useUpdateUserMutation } from "../../../features/auth/authApi";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import UpdateexperienceAndMedia from "./UpdateexperienceAndMedia";
 import "./ViewDetails.css";
+import { sportsDatas } from "../../../utils/PlayersSports";
 
 // data
 const inputFieldData = [
@@ -330,30 +331,14 @@ const EditPlayerDetails = () => {
     setAboutMe(user?.about_me);
     setUserInfo(newData);
     setUserExperience(user?.experience);
-
-    // let values = {};
-    // for (let i = 0; i < user?.social_media?.length; i++) {
-    //   const element = user?.social_media[i];
-    //   if (element.includes("twitter.com")) {
-    //     values.twitter = element;
-    //   } else if (element?.includes("instagram.com")) {
-    //     values.instagram = element;
-    //   } else if (element?.includes("facebook.com")) {
-    //     values.facebook = element;
-    //   } else if (element?.includes("youtube.com")) {
-    //     values.youtube = element;
-    //   } else {
-    //     values.others = element;
-    //   }
-    // }
-    // setSocialMedia(values);
   }, [user]);
 
   return (
     <form
       className="p-5 bg-white"
       onSubmit={handleUpdate}
-      style={{ borderRadius: "20px" }}>
+      style={{ borderRadius: "20px" }}
+    >
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
@@ -372,8 +357,9 @@ const EditPlayerDetails = () => {
               <p className="text-center py-4 upload_photo">Upload Main Photo</p>
 
               <div
-                className="upload_profile_image d-flex align-items-center justify-content-center"
-                onClick={handleButtonClick}>
+                className="upload_profile_image d-flex align-items-center justify-content-center position-relative"
+                onClick={handleButtonClick}
+              >
                 <img
                   className="img-fluid profiles"
                   src={
@@ -390,7 +376,7 @@ const EditPlayerDetails = () => {
                   alt="Profile"
                   style={{ objectFit: "cover" }}
                 />
-                <div className="profile_img position-relative">
+                <div className="profile_img ">
                   <div>
                     {!selectedImage && (
                       <button
@@ -428,11 +414,13 @@ const EditPlayerDetails = () => {
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "40px" : "0",
-                          }}>
+                          }}
+                        >
                           <div className="w-100">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label">
+                              className="form-label"
+                            >
                               {" "}
                               {field.label}{" "}
                             </label>
@@ -453,58 +441,6 @@ const EditPlayerDetails = () => {
                     </div>
                   ))}
 
-                  {/* <div className="col-12 col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Function *
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="role"
-                        onChange={(e) => {
-                          handleInputChange("role", e.target.value);
-                        }}>
-                        {["Player", "Manager", "Coach", "Other"].map(
-                          (item, index) => (
-                            <option
-                              selected={userInfo["role"] === item}
-                              key={index}
-                              value={item}>
-                              {item}
-                            </option>
-                          )
-                        )}
-                      </select>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="col-12 col-md-6">
-                    <div className="pb-4">
-                      <label htmlFor="name" className="d-block label_name mb-2">
-                        Sports *
-                      </label>
-                      <select
-                        required
-                        className="select_form"
-                        name="sports"
-                        onChange={(e) => {
-                          handleInputChange("sports", e.target.value);
-                        }}
-                      >
-                        {sportsDatas.map((item, index) => (
-                          <option
-                            selected={userInfo["sports"] === item}
-                            key={index}
-                            value={item}
-                          >
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div> */}
-
                   <div className="col-12 col-md-6">
                     <div className="pb-4">
                       <label htmlFor="name" className="d-block label_name mb-2">
@@ -516,19 +452,81 @@ const EditPlayerDetails = () => {
                         name="nationality"
                         onChange={(e) => {
                           handleInputChange("nationality", e.target.value);
-                        }}>
+                        }}
+                      >
                         {countryNames?.map((country, index) => (
                           <option
-                            selected={userInfo["nationality"] === country}
+                            selected={
+                              userInfo["nationality"].toLowerCase() ===
+                              country.name.toLowerCase()
+                            }
                             value={country.name}
                             className=""
-                            key={index}>
+                            key={index}
+                          >
                             {country.name}
                           </option>
                         ))}
                       </select>
                     </div>
                   </div>
+                  <div className="col-12 col-md-6">
+                    <div className="pb-4">
+                      <label htmlFor="name" className="d-block label_name mb-2">
+                        Function
+                      </label>
+                      <select
+                        required
+                        className="select_form"
+                        name="role"
+                        disabled
+                        // onChange={(e) => {
+                        //   handleInputChange("role", e.target.value);
+                        // }}
+                      >
+                        {["Player", "Manager", "Coach", "Other"].map(
+                          (item, index) => (
+                            <option
+                              selected={userInfo["role"] === item}
+                              key={index}
+                              value={item}
+                            >
+                              {item}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </div>
+                  </div>
+
+                  {user?.role !== "Other" && (
+                    <div className="col-12 col-md-6">
+                      <div className="pb-4">
+                        <label
+                          htmlFor="name"
+                          className="d-block label_name mb-2"
+                        >
+                          Sports
+                        </label>
+                        <select
+                          required
+                          className="select_form"
+                          name="sports"
+                          disabled
+                        >
+                          {sportsDatas.map((item, index) => (
+                            <option
+                              selected={userInfo["sports"] === item}
+                              key={index}
+                              value={item}
+                            >
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -558,12 +556,13 @@ const EditPlayerDetails = () => {
                 <button
                   type="button"
                   className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                  {...galleryRootProps()}>
+                  {...galleryRootProps()}
+                >
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
                   <input {...galleryInputProps()} />
-                  Add Photo or Video
+                  Add Photo
                 </button>
               </div>
 
@@ -577,7 +576,8 @@ const EditPlayerDetails = () => {
                     fontSize: "10px",
                     borderRadius: "100%",
                   }}
-                  onClick={() => removeGallaryImage(index)}>
+                  onClick={() => removeGallaryImage(index)}
+                >
                   X
                 </button>
                 {selectedGalleryFiles.map((file, index) => (
@@ -591,7 +591,8 @@ const EditPlayerDetails = () => {
                         fontSize: "10px",
                         borderRadius: "100%",
                       }}
-                      onClick={() => removeGallaryImage(index)}>
+                      onClick={() => removeGallaryImage(index)}
+                    >
                       X
                     </button>
                     <div>

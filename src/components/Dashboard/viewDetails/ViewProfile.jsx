@@ -40,10 +40,12 @@ const ViewProfile = () => {
         <div className="personal_information d-flex justify-content-between mb-4">
           <div
             className="user_information d-flex align-items-center"
-            style={{ gap: "30px" }}>
+            style={{ gap: "30px" }}
+          >
             <div
               className="user_img overflow-hidden"
-              style={{ width: "100px", height: "100px " }}>
+              style={{ width: "100px", height: "100px " }}
+            >
               <img
                 className="w-100 h-100"
                 style={{ borderRadius: "50%" }}
@@ -84,7 +86,7 @@ const ViewProfile = () => {
           </div>
 
           <div className="user_otherInformation text-end ">
-            <div>
+            <div className="mb-4">
               {user?.subscriptionName ? (
                 <button
                   className={
@@ -95,7 +97,8 @@ const ViewProfile = () => {
                       : user?.subscriptionName === "Bronze"
                       ? "bronze_btn"
                       : "no_sub"
-                  }>
+                  }
+                >
                   <img
                     src={
                       user?.subscriptionName === "Gold"
@@ -117,7 +120,8 @@ const ViewProfile = () => {
               <button
                 data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop"
-                className="update_plan">
+                className="update_plan"
+              >
                 Upgrade
               </button>
             )}
@@ -174,36 +178,43 @@ const ViewProfile = () => {
 
         <div className="experience_information d-flex justify-content-between mb-5">
           <div className="ei_left w-50">
-            <p className="f_sfPro text_color_36 fs-4 mb-4">
+            <p className="f_sfPro text_color_36 fs-4 mb-5">
               Personal Information
             </p>
 
             <div className="d-flex flex-column align-items-start gap-3">
               <div className="d-flex" style={{ width: "550px", gap: "100px" }}>
                 <div style={{ width: "250px" }}>
-                  <span className="user_name">Name</span>
-                  <p className="user_data_info fs-6">
+                  <span className="user_name ">Name</span>
+                  <p className="user_data_info mt-2 fs-6">
                     {user?.first_name} {user?.last_name}
                   </p>
                 </div>
 
                 <div style={{ width: "250px" }}>
                   <span className="fuser_name user_name">Age</span>
-                  <p className="user_data_info fs-6">
+                  <p className="user_data_info fs-6 mt-2">
                     {convertAge(user?.date_of_birth)}
                   </p>
                 </div>
               </div>
 
-              <div className="d-flex" style={{ width: "550px", gap: "100px" }}>
+              <div
+                className="d-flex mt-3"
+                style={{ width: "550px", gap: "100px" }}
+              >
                 <div style={{ width: "250px" }}>
                   <span className="user_name">Nationality-Passport</span>
-                  <p className="user_data_info fs-6">{user?.nationality}</p>
+                  <p className="user_data_info fs-6 mt-2">
+                    {user?.nationality}
+                  </p>
                 </div>
 
                 <div style={{ width: "250px" }}>
                   <span className="user_name">Function</span>
-                  <p className="user_data_info fs-6">{user?.role ?? "N/A"}</p>
+                  <p className="user_data_info fs-6 mt-2">
+                    {user?.role ?? "N/A"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -211,14 +222,15 @@ const ViewProfile = () => {
 
           <div className="ei_right w-50">
             <div>
-              <p className="f_sfPro mb-2 experience">Experience</p>
+              <p className="f_sfPro mb-2 experience mb-4">Experience</p>
               <div className="d-flex flex-column flex-lg-row align-items-start gap-5">
                 <div>
                   {user?.experience?.length > 0 &&
                     user?.experience.map((item, idx) => (
                       <p
-                        className="roboto_condensed text_color_36 fs_18 text-74"
-                        key={idx}>
+                        className="roboto_condensed text_color_36 fs_18 text-74 mb-2"
+                        key={idx}
+                      >
                         {item?.start_year}-{item?.end_year} :{" "}
                         <span className="text-capitalize text-52 fw-normal">
                           {item?.club_name}
