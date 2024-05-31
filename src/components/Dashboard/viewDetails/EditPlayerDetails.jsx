@@ -604,7 +604,11 @@ const EditPlayerDetails = () => {
                           />
                         </div>
                       ) : (
-                        <video style={{width: "360px"}} src={URL.createObjectURL(file)} controls />
+                        <video
+                          style={{ width: "360px" }}
+                          src={URL.createObjectURL(file)}
+                          controls
+                        />
                       )}
                     </div>
                   </div>
@@ -628,6 +632,7 @@ const EditPlayerDetails = () => {
           </div>
         </div>
       </div>
+
       <button className="btn btn-info" type="submit" disabled={isLoading}>
         {isLoading ? "Updating..." : "Update"}
       </button>
