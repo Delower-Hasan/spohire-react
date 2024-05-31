@@ -225,6 +225,7 @@ const EditPlayerDetails = () => {
     setSelectedGalleryFiles(updatedImages);
   };
 
+  // console.log("selectedGalleryFiles", typeof selectedGalleryFiles[1]);
   const { getRootProps: galleryRootProps, getInputProps: galleryInputProps } =
     useDropzone({
       onDrop: onGalleryDrop,
@@ -263,7 +264,9 @@ const EditPlayerDetails = () => {
     });
 
     selectedGalleryFiles?.forEach((img, index) => {
-      formData.append(`gallary`, img);
+      if (typeof img !== "string") {
+        formData.append(`gallary`, img);
+      }
     });
 
     formData.append("experiencenew", JSON.stringify(userExperience));
@@ -280,7 +283,6 @@ const EditPlayerDetails = () => {
           title: "Profile Update successfully!",
           text: `${response?.data?.message}`,
         });
-
         const infoUser = JSON.parse(localStorage.getItem("spohireAuth"));
         localStorage.setItem(
           "spohireAuth",
@@ -303,6 +305,7 @@ const EditPlayerDetails = () => {
         });
       }
     } catch (error) {
+      console.log("error", error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -331,7 +334,7 @@ const EditPlayerDetails = () => {
     setAboutMe(user?.about_me);
     setUserInfo(newData);
     setUserExperience(user?.experience);
-     setSelectedGalleryFiles(user?.gallary);
+    setSelectedGalleryFiles(user?.gallary);
 
     // let values = {};
     // for (let i = 0; i < user?.social_media?.length; i++) {
@@ -351,13 +354,12 @@ const EditPlayerDetails = () => {
     // setSocialMedia(values);
   }, [user]);
 
-  console.log("selectedGalleryFiles", selectedGalleryFiles);
-
   return (
     <form
       className="p-5 bg-white"
       onSubmit={handleUpdate}
-      style={{ borderRadius: "20px" }}>
+      style={{ borderRadius: "20px" }}
+    >
       <div className="profile_heading d-flex align-items-center justify-content-between py-5">
         <h2>My Profile</h2>
         <div className="btn_group d-flex align-items-center gap-4">
@@ -377,7 +379,8 @@ const EditPlayerDetails = () => {
 
               <div
                 className="upload_profile_image d-flex align-items-center justify-content-center"
-                onClick={handleButtonClick}>
+                onClick={handleButtonClick}
+              >
                 <img
                   className="img-fluid profiles"
                   src={
@@ -432,11 +435,13 @@ const EditPlayerDetails = () => {
                           style={{
                             marginBottom:
                               index < inputFieldData.length - 3 ? "40px" : "0",
-                          }}>
+                          }}
+                        >
                           <div className="w-100">
                             <label
                               htmlFor={`exampleFormControlInput${index + 1}`}
-                              className="form-label">
+                              className="form-label"
+                            >
                               {" "}
                               {field.label}{" "}
                             </label>
@@ -520,13 +525,15 @@ const EditPlayerDetails = () => {
                         name="nationality"
                         onChange={(e) => {
                           handleInputChange("nationality", e.target.value);
-                        }}>
+                        }}
+                      >
                         {countryNames?.map((country, index) => (
                           <option
                             selected={userInfo["nationality"] === country}
                             value={country.name}
                             className=""
-                            key={index}>
+                            key={index}
+                          >
                             {country.name}
                           </option>
                         ))}
@@ -562,12 +569,13 @@ const EditPlayerDetails = () => {
                 <button
                   type="button"
                   className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                  {...galleryRootProps()}>
+                  {...galleryRootProps()}
+                >
                   <div className="add_icon">
                     <img src={addIcon} alt="add-icon" />
                   </div>
                   <input {...galleryInputProps()} />
-                  Add Photo or Video
+                  Add Photo
                 </button>
               </div>
 
@@ -581,10 +589,11 @@ const EditPlayerDetails = () => {
                     fontSize: "10px",
                     borderRadius: "100%",
                   }}
-                  onClick={() => removeGallaryImage(index)}>
+                  onClick={() => removeGallaryImage(index)}
+                >
                   X
                 </button>
-                
+
                 <EditGallary
                   removeGallaryImage={removeGallaryImage}
                   images={selectedGalleryFiles}
