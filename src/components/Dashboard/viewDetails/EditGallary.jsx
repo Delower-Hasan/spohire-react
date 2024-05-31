@@ -29,6 +29,9 @@ const EditGallary = ({ images, removeGallaryImage }) => {
         className="mySwiper ">
         {images?.map((image, index) => (
           <>
+            {
+              location.pathname === ""
+            }
             <SwiperSlide key={index}>
               {image ? (
                 <div className="position-relative">

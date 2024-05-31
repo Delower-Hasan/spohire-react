@@ -450,8 +450,7 @@ const EditAddedPlayerDetails = () => {
             zIndex: 99999,
             transform: "translate(-50%,-50%)",
           }}
-          className="d-flex justify-content-center align-items-center"
-        >
+          className="d-flex justify-content-center align-items-center">
           {" "}
           <RotatingLines
             visible={true}
@@ -477,8 +476,7 @@ const EditAddedPlayerDetails = () => {
                 </h2>
                 <div
                   className="upload_profile_image "
-                  onClick={handleButtonClick}
-                >
+                  onClick={handleButtonClick}>
                   {FetchUserLoading ? (
                     <div
                       className="border d-flex align-items-center justify-content-center"
@@ -486,8 +484,7 @@ const EditAddedPlayerDetails = () => {
                         height: 200,
                         width: 200,
                         borderRadius: "100%",
-                      }}
-                    >
+                      }}>
                       <RotatingLines
                         visible={true}
                         height="80"
@@ -580,13 +577,11 @@ const EditAddedPlayerDetails = () => {
                                 index < inputFieldData.length - 3
                                   ? "20px"
                                   : "0",
-                            }}
-                          >
+                            }}>
                             <div className="w-100 input_form">
                               <label
                                 htmlFor={`exampleFormControlInput${index + 1}`}
-                                className="form-label label_name "
-                              >
+                                className="form-label label_name ">
                                 {field.label}
                               </label>
                               <input
@@ -663,15 +658,13 @@ const EditAddedPlayerDetails = () => {
                         onChange={(e) => {
                           handleInputChange("mainPosition", e.target.value);
                           setMainPositionType(e.target.value);
-                        }}
-                      >
+                        }}>
                         {mainAndAditionPostions[0]?.mainPositions?.map(
                           (item, index) => (
                             <option
                               key={index}
                               value={item}
-                              className="text-capitalize"
-                            >
+                              className="text-capitalize">
                               {item}
                             </option>
                           )
@@ -692,8 +685,7 @@ const EditAddedPlayerDetails = () => {
                         name="alterPosition"
                         onChange={(e) =>
                           handleInputChange("alterPosition", e.target.value)
-                        }
-                      >
+                        }>
                         <option value={"N/A"}>Select</option>
                         {altPositions[0]?.alternativePositions?.map(
                           (item, index) => (
@@ -701,8 +693,7 @@ const EditAddedPlayerDetails = () => {
                               selected={userInfo["alterPosition"] === item}
                               key={index}
                               value={item}
-                              className="text-capitalize"
-                            >
+                              className="text-capitalize">
                               {item}
                             </option>
                           )
@@ -717,8 +708,7 @@ const EditAddedPlayerDetails = () => {
                 <div className="pb-4">
                   <label
                     htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
+                    className="d-block label_name mb-2 text-capitalize">
                     Dominant {sportsType === "Football" ? "Foot" : "Hand"} *
                   </label>
                   <select
@@ -728,8 +718,7 @@ const EditAddedPlayerDetails = () => {
                     value={userInfo["dominantHand"] || ""}
                     onChange={(e) =>
                       handleInputChange("dominantHand", e.target.value)
-                    }
-                  >
+                    }>
                     <option value={"Left"}>Left</option>
                     <option value={"Right"}>Right</option>
                   </select>
@@ -814,8 +803,7 @@ const EditAddedPlayerDetails = () => {
                 <div className="pb-4">
                   <label
                     htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
+                    className="d-block label_name mb-2 text-capitalize">
                     Nationality *
                   </label>
                   <select
@@ -825,8 +813,7 @@ const EditAddedPlayerDetails = () => {
                     value={userInfo["nationality"] || ""}
                     onChange={(e) =>
                       handleInputChange("nationality", e.target.value)
-                    }
-                  >
+                    }>
                     {countryNames?.map((country, index) => (
                       <option value={country.name} className="" key={index}>
                         {country.name}
@@ -839,8 +826,7 @@ const EditAddedPlayerDetails = () => {
                 <div className="pb-4">
                   <label
                     htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
+                    className="d-block label_name mb-2 text-capitalize">
                     Additional Passport *
                   </label>
                   <select
@@ -850,8 +836,7 @@ const EditAddedPlayerDetails = () => {
                     value={userInfo["additional_passport"] || ""}
                     onChange={(e) =>
                       handleInputChange("additional_passport", e.target.value)
-                    }
-                  >
+                    }>
                     {countryNames?.map((country, index) => (
                       <option value={country.name} className="" key={index}>
                         {country.name}
@@ -865,8 +850,7 @@ const EditAddedPlayerDetails = () => {
                 <div className="input_form pb-4">
                   <label
                     htmlFor="name"
-                    className="d-block label_name mb-2 text-capitalize"
-                  >
+                    className="d-block label_name mb-2 text-capitalize">
                     Do you currently belong to a club? *
                   </label>
 
@@ -891,8 +875,7 @@ const EditAddedPlayerDetails = () => {
                         backgroundColor: `${isBelongClub ? "#05CD99" : ""}`,
                       }}
                       className="btn btn-outline-success"
-                      htmlFor="yes"
-                    >
+                      htmlFor="yes">
                       YES
                     </label>
                     <input
@@ -915,8 +898,7 @@ const EditAddedPlayerDetails = () => {
                         background: `${!isBelongClub ? "#05CD99" : ""}`,
                       }}
                       htmlFor="no"
-                      className="btn btn-outline-success"
-                    >
+                      className="btn btn-outline-success">
                       NO
                     </label>
                   </div>
@@ -928,8 +910,7 @@ const EditAddedPlayerDetails = () => {
                   <div className="input_form pb-4">
                     <label
                       htmlFor="name"
-                      className="d-block label_name mb-2 text-capitalize"
-                    >
+                      className="d-block label_name mb-2 text-capitalize">
                       Club name
                     </label>
                     <input
@@ -977,8 +958,7 @@ const EditAddedPlayerDetails = () => {
                     className="form-control about_me_editField"
                     id="exampleFormControlTextarea1"
                     rows="3"
-                    value={userInfo?.strengths_advantage}
-                  ></textarea>
+                    value={userInfo?.strengths_advantage}></textarea>
                 </div>
               </div>
               <div className="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0 ">
@@ -992,8 +972,7 @@ const EditAddedPlayerDetails = () => {
                     className="form-control about_me_editField"
                     id="exampleFormControlTextarea1"
                     rows="3"
-                    value={userInfo?.about_me}
-                  ></textarea>
+                    value={userInfo?.about_me}></textarea>
                 </div>
               </div>
 
@@ -1013,8 +992,7 @@ const EditAddedPlayerDetails = () => {
                     className="form-control about_me_editField"
                     id="exampleFormControlTextarea1"
                     rows="3"
-                    value={userInfo?.expectations_from_new_club}
-                  ></textarea>
+                    value={userInfo?.expectations_from_new_club}></textarea>
                 </div>
               </div>
             </div>
@@ -1096,13 +1074,11 @@ const EditAddedPlayerDetails = () => {
                   borderRadius: "20px",
                   width: "200px",
                   height: "100px",
-                }}
-              >
+                }}>
                 <button
                   type="button"
                   className="add-btn p-4 bg-none d-inline-flex align-items-center gap-2"
-                  {...galleryRootProps()}
-                >
+                  {...galleryRootProps()}>
                   <div className="add_icon">
                     <img src={plus4} alt="add-icon" />
                   </div>
@@ -1121,8 +1097,7 @@ const EditAddedPlayerDetails = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="experience_wrapper playerDetailsUpdate_btn"
-          >
+            className="experience_wrapper playerDetailsUpdate_btn">
             {isLoading ? "Updating..." : "Update"}
           </button>
         </div>

@@ -1,34 +1,24 @@
 import React, { useState } from "react";
 import Marquee from "react-fast-marquee";
-import Germany from "../../../assets/germany.png";
 import { AiOutlineMessage } from "react-icons/ai";
+import { BsTiktok, BsTwitterX } from "react-icons/bs";
+import { FaFacebookF, FaInstagram, FaRegBookmark } from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
-import { FaRegBookmark } from "react-icons/fa";
-import photographImg from "../../../assets/coach_img.png";
-import goldIcon from "../../../assets/gold_icon.png";
-import bronzeIcon from "../../../assets/bronze.svg";
-import silverIcon from "../../../assets/silver_icon.svg";
-import { FaInstagram, FaFacebookF } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
-import { BsTiktok } from "react-icons/bs";
-import { GoDotFill } from "react-icons/go";
-import ImageOne from "../../../assets/imagesOne.png";
-import ImageTwoMini from "../../../assets/imagesTwoMini.png";
-import ImageThreeMini from "../../../assets/imagesThreeMini.png";
-import ImageFourMini from "../../../assets/imagesFourMini.png";
-import ImageFiveMini from "../../../assets/imagesFiveMini.png";
+import { RotatingLines } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import bronzeIcon from "../../../assets/bronze.svg";
+import goldIcon from "../../../assets/gold_icon.png";
+import silverIcon from "../../../assets/silver_icon.svg";
 import { useGetPlayerDetailsQuery } from "../../../features/auth/authApi";
 import {
   useGetMyObservationsQuery,
   useToggleObservationMutation,
 } from "../../../features/observation/observationApi";
-import Swal from "sweetalert2";
 import { getCountryFlag } from "../../../utils/getFlag";
-import { RotatingLines } from "react-loader-spinner";
-import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
 
 const ViewDetails = () => {
   const { id } = useParams();
@@ -114,8 +104,7 @@ const ViewDetails = () => {
     return (
       <div
         style={{ height: "70vh", width: "100%" }}
-        className="d-flex justify-content-center align-items-center"
-      >
+        className="d-flex justify-content-center align-items-center">
         {" "}
         <RotatingLines
           visible={true}
@@ -147,8 +136,7 @@ const ViewDetails = () => {
 
         <div
           className="personal_info row align-items-center position-relative"
-          style={{ zIndex: 2 }}
-        >
+          style={{ zIndex: 2 }}>
           <div className="col-lg-4">
             <div className="bio_graphy">
               <p className="surname">{user?.firstName}</p>
@@ -174,8 +162,7 @@ const ViewDetails = () => {
 
                 <button
                   className="cm_link d-flex gap-2 align-items-center justify-content-center"
-                  onClick={copyToClipboard}
-                >
+                  onClick={copyToClipboard}>
                   <FaLink />
 
                   {copied ? (
@@ -189,8 +176,7 @@ const ViewDetails = () => {
                   className="bg-none me-3"
                   onClick={(e) => handleBookmark(e, user?._id)}
                   style={{ width: "20px" }}
-                  disabled={observeLoading}
-                >
+                  disabled={observeLoading}>
                   {isBookmarked !== undefined &&
                     (isBookmarked ? (
                       <FaRegBookmark
@@ -233,14 +219,18 @@ const ViewDetails = () => {
                             className="font-bold d-flex align-items-center gap-2"
                             style={{
                               fontSize: "16px",
+                              fontWeight: "700",
                               color: "#2B3674",
                               border: "1px solid #F2F2F2",
                               padding: "8px 40px",
                               borderRadius: "13px",
                               backgroundColor: "#F2F2F2",
-                            }}
-                          >
-                            <img src={silverIcon} alt="silver-icon" />
+                            }}>
+                            <img
+                              style={{ width: "20px", height: "20px" }}
+                              src={silverIcon}
+                              alt="silver-icon"
+                            />
                             {user?.subscriptionName}
                           </p>
                         </div>
@@ -258,9 +248,12 @@ const ViewDetails = () => {
                               padding: "8px 40px",
                               borderRadius: "13px",
                               backgroundColor: "#FFD029",
-                            }}
-                          >
-                            <img src={goldIcon} alt="silver-icon" />
+                            }}>
+                            <img
+                              style={{ width: "20px", height: "20px" }}
+                              src={goldIcon}
+                              alt="silver-icon"
+                            />
                             {user?.subscriptionName}
                           </p>
                         </div>
@@ -278,10 +271,9 @@ const ViewDetails = () => {
                               padding: "8px 40px",
                               borderRadius: "13px",
                               backgroundColor: "#FB5A00",
-                            }}
-                          >
+                            }}>
                             <img
-                              style={{ height: 20, width: 20 }}
+                              style={{ width: "20px", height: "20px" }}
                               src={bronzeIcon}
                               alt="silver-icon"
                             />
@@ -322,8 +314,7 @@ const ViewDetails = () => {
 
         <div
           className="other_information d-flex justify-content-between position-relative"
-          style={{ zIndex: 1 }}
-        >
+          style={{ zIndex: 1 }}>
           <div className="other_info_left">
             <div className="info d-flex align-items-center justify-content-between mb-4 gap-5">
               <p className="info_title">Main position</p>
@@ -365,34 +356,42 @@ const ViewDetails = () => {
 
       <div className="social_media d-flex justify-content-between mb-4">
         <div className="media text-center">
-          <FaInstagram
-            style={{ color: "#2B3674", width: "36px", height: "36px" }}
-          />
-          <p className="follower_count">126K</p>
+          <div style={{ marginBottom: "14px" }}>
+            <FaInstagram
+              style={{ color: "#2B3674", width: "36px", height: "36px" }}
+            />
+          </div>
+          <p className="follower_count mb-1">126K</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
 
         <div className="media text-center">
-          <FaFacebookF
-            style={{ color: "#2B3674", width: "36px", height: "36px" }}
-          />
-          <p className="follower_count">26M</p>
+          <div style={{ marginBottom: "14px" }}>
+            <FaFacebookF
+              style={{ color: "#2B3674", width: "36px", height: "36px" }}
+            />
+          </div>
+          <p className="follower_count mb-1">26M</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
 
         <div className="media text-center">
-          <BsTwitterX
-            style={{ color: "#2B3674", width: "36px", height: "36px" }}
-          />
-          <p className="follower_count">26M</p>
+          <div style={{ marginBottom: "14px" }}>
+            <BsTwitterX
+              style={{ color: "#2B3674", width: "36px", height: "36px" }}
+            />
+          </div>
+          <p className="follower_count mb-1">26M</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
 
         <div className="media text-center">
-          <BsTiktok
-            style={{ color: "#2B3674", width: "36px", height: "36px" }}
-          />
-          <p className="follower_count">26M</p>
+          <div style={{ marginBottom: "14px" }}>
+            <BsTiktok
+              style={{ color: "#2B3674", width: "36px", height: "36px" }}
+            />
+          </div>
+          <p className="follower_count mb-1">26M</p>
           <p className="follower_title">FOLLOWers</p>
         </div>
       </div>

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Table } from "react-bootstrap";
+import { ThreeDots } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -17,13 +19,14 @@ import Pagination from "../../Pagination/Pagination";
 import MobileButtons from "./MobileButtons";
 import MobilePlayers from "./MobilePlayers";
 import "./Players.css";
-import { useState } from "react";
-import { ThreeDots } from "react-loader-spinner";
 
 const Players = () => {
   const { data: players, isLoading } = useGetFilteredUsersQuery("role=Player");
   const { user, playerFilterParams } = useSelector((state) => state.auth);
   const [currentPage, setCurrentPage] = useState(1);
+
+
+
 
   const itemsPerPage = 5;
 
@@ -63,6 +66,49 @@ const Players = () => {
     (item) => item.type === user.sports
   )[0].alternativePositions;
 
+  // const handleFilter = (value) => {
+  //   if (
+  //     playerFilterParams?.positions.length > 0 ||
+  //     playerFilterParams?.status.length > 0 ||
+  //     playerFilterParams?.location ||
+  //     playerFilterParams?.gender ||
+  //     playerFilterParams?.minAge ||
+  //     playerFilterParams?.maxAge ||
+  //     playerFilterParams?.minHeight ||
+  //     playerFilterParams?.maxHeight ||
+  //     playerFilterParams?.dominantHand
+  //   ) {
+  //     return (
+  //       playerFilterParams?.positions.length > 0 &&
+  //       playerFilterParams?.positions.filter(
+  //         (item) =>
+  //           item === value?.mainPosition || item === value?.alterPosition
+  //       )[0] &&
+  //       playerFilterParams?.status.length > 0 &&
+  //       playerFilterParams?.status.filter(
+  //         (item) => item === value?.subscriptionName
+  //       )[0] &&
+  //       playerFilterParams?.location &&
+  //       playerFilterParams?.location === value?.nationality &&
+  //       playerFilterParams?.gender &&
+  //       playerFilterParams?.gender === value?.gender &&
+  //       playerFilterParams?.minHeight &&
+  //       playerFilterParams?.minHeight <= value?.height &&
+  //       playerFilterParams?.maxHeight &&
+  //       playerFilterParams?.maxHeight >= value?.height &&
+  //       playerFilterParams?.dominantHand &&
+  //       playerFilterParams?.dominantHand === value?.dominantHand &&
+  //       playerFilterParams?.minAge &&
+  //       playerFilterParams?.minAge <= calculateAge(value?.date_of_birth) &&
+  //       playerFilterParams?.maxAge &&
+  //       playerFilterParams?.maxAge >= calculateAge(value?.date_of_birth)
+  //     );
+  //   } else {
+  //     return true;
+  //   }
+  // };
+
+
   const handleFilter = (value) => {
     if (
       playerFilterParams?.positions.length > 0 ||
@@ -76,29 +122,30 @@ const Players = () => {
       playerFilterParams?.dominantHand
     ) {
       return (
-        playerFilterParams?.positions.length > 0 &&
-        playerFilterParams?.positions.filter(
-          (item) =>
-            item === value?.mainPosition || item === value?.alterPosition
-        )[0] &&
-        playerFilterParams?.status.length > 0 &&
-        playerFilterParams?.status.filter(
-          (item) => item === value?.subscriptionName
-        )[0] &&
-        playerFilterParams?.location &&
-        playerFilterParams?.location === value?.nationality &&
-        playerFilterParams?.gender &&
-        playerFilterParams?.gender === value?.gender &&
-        playerFilterParams?.minHeight &&
-        playerFilterParams?.minHeight <= value?.height &&
-        playerFilterParams?.maxHeight &&
-        playerFilterParams?.maxHeight >= value?.height &&
-        playerFilterParams?.dominantHand &&
-        playerFilterParams?.dominantHand === value?.dominantHand &&
-        playerFilterParams?.minAge &&
-        playerFilterParams?.minAge <= calculateAge(value?.date_of_birth) &&
-        playerFilterParams?.maxAge &&
-        playerFilterParams?.maxAge >= calculateAge(value?.date_of_birth)
+        (playerFilterParams?.positions.length === 0 ||
+          playerFilterParams?.positions.some(
+            (item) =>
+              item === value?.mainPosition || item === value?.alterPosition
+          )) &&
+        (playerFilterParams?.status.length === 0 ||
+          playerFilterParams?.status.some(
+            (item) => item === value?.subscriptionName
+          )) &&
+        (!playerFilterParams?.location ||
+          playerFilterParams?.location === value?.nationality) &&
+        (!playerFilterParams?.gender ||
+          playerFilterParams?.gender === value?.gender) &&
+        (!playerFilterParams?.minHeight ||
+          playerFilterParams?.minHeight <= value?.height) &&
+        (!playerFilterParams?.maxHeight ||
+          playerFilterParams?.maxHeight >= value?.height) &&
+        (!playerFilterParams.dominantHand ||
+          (playerFilterParams?.dominantHand &&
+            playerFilterParams?.dominantHand === value.dominantHand)) &&
+        (!playerFilterParams?.minAge ||
+          playerFilterParams?.minAge <= calculateAge(value?.date_of_birth)) &&
+        (!playerFilterParams?.maxAge ||
+          playerFilterParams?.maxAge >= calculateAge(value?.date_of_birth))
       );
     } else {
       return true;
@@ -122,6 +169,9 @@ const Players = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+
+
 
   return (
     <>
