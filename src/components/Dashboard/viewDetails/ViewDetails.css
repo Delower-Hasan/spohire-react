@@ -837,7 +837,7 @@
 }
 
 .details_information .personal_info .contact_method .cm_link {
-    padding: 6px;
+    padding: 6px 12px;
     border-radius: 10px;
     border: 1px solid #FFF;
     backdrop-filter: blur(27px);
@@ -893,10 +893,10 @@
 
 .details_information .personal_info .bio_graphy2 .bio_title {
     color: var(--White, #FFF);
-    font-family: Roboto;
+    /* font-family: Roboto; */
     font-size: 12px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     opacity: 0.5;
     letter-spacing: 2.52px;
     text-transform: uppercase;
@@ -933,10 +933,10 @@
 
 .other_information .info_title {
     color: var(--White, #FFF);
-    font-family: Roboto;
+    /* font-family: Roboto; */
     font-size: 18px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
     letter-spacing: -0.36px;
     text-transform: uppercase;
@@ -985,7 +985,7 @@
 
 .details_information .social_media .follower_title {
     color: #2B3674;
-    font-family: Roboto;
+    /* font-family: Roboto; */
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
